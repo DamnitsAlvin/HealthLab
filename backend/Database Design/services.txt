@@ -1,0 +1,62 @@
+services db 
+
+id
+name 
+location
+	address table 
+available_service
+	open_time 
+	closing_time
+	open_day
+	close-day 
+is_verified 
+services_offered
+ 	name 
+	cost 
+	time 
+payment_options
+	mode
+	name
+	reference number 
+ 
+to_change 
+	available_service
+	
+
+
+ALTER TABLE patient 
+ADD user_id VARCHAR(50) NOT NULL,
+ADD FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+DROP COLUMN Address_line1,
+DROP COLUMN Address_line2,
+DROP COLUMN Municipality,
+DROP COLUMN Province,
+DROP COLUMN Civil_status,
+DROP COLUMN Phone_number,
+DROP COLUMN Email;
+
+ALTER TABLE appointment_request
+ADD FOREIGN KEY(patient_id) REFERENCES patient(patient_id); 
+
+ALTER TABLE dentistappointmentrequest
+ADD FOREIGN KEY (appointment_request) REFERENCES appointment_request(appointment_id) ON DELETE CASCADE;
+
+ALTER TABLE obappointmentrequest
+ADD FOREIGN KEY (appointment_request) REFERENCES appointment_request(appointment_id) ON DELETE CASCADE;
+
+ALTER TABLE optalappointmentrequest
+ADD FOREIGN KEY (appointment_request) REFERENCES appointment_request(appointment_id) ON DELETE CASCADE;
+
+ALTER TABLE ghappointmentrequest
+ADD FOREIGN KEY (appointment_request) REFERENCES appointment_request(appointment_id) ON DELETE CASCADE;
+
+ALTER TABLE medicine
+ADD FOREIGN KEY(patient_id) REFERENCES patient(Patient_id),
+ADD FOREIGN KEY(doctor_id) REFERENCES doctor(doctor_id);
+
+ALTER TABLE medical_diagnosis
+ADD FOREIGN KEY(patient_id) REFERENCES patient(Patient_id),
+ADD FOREIGN KEY(doctor_id) REFERENCES doctor(doctor_id);
+
+ALTER TABLE medical_history
+ADD FOREIGN KEY(patient_id) REFERENCES patient(Patient_id),

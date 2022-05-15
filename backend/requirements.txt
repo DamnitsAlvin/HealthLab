@@ -1,0 +1,13 @@
+flask
+sqlalchemy
+flask-sqlalchemy
+flask-migrate
+flask-swagger
+psycopg2-binary
+python-dotenv
+flask-cors
+gunicorn
+cloudinary
+flask-admin
+flask-mysqldb
+flask-jwt-extended

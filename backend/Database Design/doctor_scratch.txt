@@ -1,0 +1,91 @@
+specialty 
+
+primary care/general medicine 
+ob 
+pediatrics
+Endocrine 
+Opthal
+Cardio 
+Derma 
+Pulmono
+Gastro 
+ENT 
+Brain and nerves 
+kidney & urine 
+dental 
+pysh
+Hematology 
+
+
+
+
+doctor information 
+-id
+-name 
+	first name 
+	middle name 
+	last name 
+-birthday 
+-Address (?) 
+-EMAIL
+doctor.ContactInformation (multi-values -4nf)
+	id (k)
+	type (Phone, work, telephone,facebook, insta) (k)
+	link or number (varchar - +639.... or alvinsy/facebook.com) 
+
+
+doctor.title (multi-valued)
+	doctor.id 
+	title (md, dpba, mbah)
+	full_name 
+
+
+doctor.specialty 
+	id 
+	specialty_name (hema, dental, pedia) 
+
+
+doctor.education (multi-valued)
+	id 	(k)
+	school name (k)
+	year graduated 
+	mode (bachelor, master, doctorate)
+	course 
+
+doctor.experience 
+	id (k)
+	where (k)
+	years of exp 
+	start 
+	end 
+
+doctor.certification 
+	id (k)
+	title (k)
+	giver 
+	when 
+-mode (virtual, physical) (0-virtual, 1-physical, 2-both) 
+
+doctor.clinic.address 
+	doctor_id
+	address_id
+	block / building number/ street_address : #17 Phase 6 Duhat St Greenwoods
+	barangay: San Andres
+	municipality: Cainta
+	province: Rizal 
+	zip code: 4107 
+	image
+doctor.clinic.info
+	doctor_id
+	address_id
+	name 
+	room no 
+	floor no 
+doctor.availabledate
+	doctor_id 
+	day 
+	time 
+-is_verified 
+-doctor_image 
+ 
+	
