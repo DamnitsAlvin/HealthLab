@@ -23,19 +23,20 @@ import {
 
 } from "../constants/userConstants";
 import Axios from "axios";
+
 export const usersignin = (ID,password, userType) => async(dispatch) =>{
     dispatch({type:USER_SIGNIN_REQUEST})
     try{
         const {data} = await Axios.post("http://localhost:5000/api/usersauth", {ID, password,userType} );
-        console.log("response:", data) 
         dispatch({type: USER_SIGNIN_SUCCESS, payload: data})      
         localStorage.setItem("userInfo", JSON.stringify(data))  
         
     }catch(error){
-        dispatch({type:USER_SIGNIN_FAIL, payload: 
-            error.response && error.response.data.message
+        dispatch({type:USER_SIGNIN_FAIL, 
+            payload: error.response && error.response.data.message
             ? error.response.data.message
-            : error.message,  })
+            : error.message,  
+        });
     }
 }
 

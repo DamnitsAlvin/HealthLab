@@ -43,12 +43,15 @@ def authenticateUser():
             return ({"message": "NO user with that ID"}), 401
         else: 
             data = cur.fetchone()
-        
-        access_token = create_access_token(identity=username)
-        cur.connection.commit()
-        cur.close()
-        print("response is: " ,data[0])
-        return jsonify({"access_token": access_token, "data": data}), 200
+
+        if data[14] == password:
+            access_token = create_access_token(identity=username)
+            cur.connection.commit()
+            cur.close()
+            return jsonify({"access_token": access_token, "data": data}), 200
+
+        else:
+            return jsonify({"message": "Invalid password"}), 401
 
 @api.route("/userreg", methods=["POST"])
 def registerUser():
