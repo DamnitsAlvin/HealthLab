@@ -7,7 +7,6 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from app import create_app
 
-
 app,mysql = create_app()
 api=Blueprint('api', __name__)
 
@@ -48,7 +47,7 @@ def authenticateUser():
             access_token = create_access_token(identity=username)
             cur.connection.commit()
             cur.close()
-            return jsonify({"access_token": access_token, "data": data}), 200
+            return jsonify({"access_token": access_token, "data": data[:14]}), 200
 
         else:
             return jsonify({"message": "Invalid password"}), 401
@@ -72,14 +71,35 @@ def registerUser():
         contactnum = request.json.get("contact_num")
         email = request.json.get("email")
         password = request.json.get("password")
+
+        data = [
+                username,
+                firstname,
+                lastname,
+                middlename, 
+                suffix, 
+                birthday,
+                gender, 
+                addressline1, 
+                addressline2, 
+                municipality, 
+                province, 
+                civilstats,
+                contactnum, 
+                email
+                ]
         try:
-            cur.execute("Insert into user(`User_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.connection.commit()
             cur.close()
-            print(inserted_data)
-            return "Successful", 200
-        except: 
-            return "Error"
+            print("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            access_token = create_access_token(identity=username)
+            return jsonify({"access_token": access_token, "data": data}), 200
+        
+        except Exception as ex: 
+            print("Something went wrong: {} ".format(type(ex)))
+            return jsonify({"message": "Email was already in use" }), 404
+
 
 @api.route("/getalldoctor", methods=["GET", "POST"])
 def getalldoctor():

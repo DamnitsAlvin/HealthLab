@@ -23,6 +23,7 @@ import {
 
 } from "../constants/userConstants";
 import Axios from "axios";
+import axios from "axios";
 
 export const usersignin = (ID,password, userType) => async(dispatch) =>{
     dispatch({type:USER_SIGNIN_REQUEST})
@@ -71,16 +72,40 @@ export const register = (User_id,First_name,Last_name,Middle_name, Suffix, Birth
     }
     dispatch({type:USER_REGISTER_REQUEST });
     try{
-        const resp = await fetch("http://localhost:5000/api/userreg", params);
-        const data = await resp.json();
-        if (resp.status !== 200){
-            dispatch({type:USER_REGISTER_FAIL, payload:data })
-        }
-        dispatch({type:USER_REGISTER_SUCCESS, payload:data })
-        localStorage.setItem("currentUser", User_id);
+        const {data} = await axios.post("http://localhost:5000/api/userreg", {
+            "username": User_id,
+            "firstname": First_name,
+            "lastname": Last_name,
+            "middlename": Middle_name,
+            "suffix":Suffix,
+            "birthday":Birthday,
+            "gender":Gender,
+            "address1":Address_line1,
+            "address2":Address_line2,
+            "municipality":Municipality,
+            "province":Province,
+            "civil_status":Civil_status,
+            "contact_num":Phone_number,
+            "email": Email,
+            "password": password
+        })
+        dispatch({type: USER_REGISTER_SUCCESS, payload: data })
+        dispatch({type: USER_SIGNIN_SUCCESS, payload: data })
+
+        // const resp = await fetch("http://localhost:5000/api/userreg", params);
+        // const data = await resp.json();
+        // if (resp.status !== 200){
+        //     dispatch({type:USER_REGISTER_FAIL, payload:data })
+        // }
+        // dispatch({type:USER_REGISTER_SUCCESS, payload:data })
+        // localStorage.setItem("currentUser", User_id);
     }
     catch(error){
-        console.log(error)
+        dispatch({
+            type: USER_REGISTER_FAIL, 
+            payload: error.response && error.response.data.message 
+                ? error.response.data.message
+                : error.message })
     }
 }
 

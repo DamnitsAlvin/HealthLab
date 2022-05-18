@@ -112,6 +112,29 @@ body{
 .new{
   text-align: center;
 }
+.invalid{ 
+  text-align: center;
+  background-color: #FF7377;
+  height: 30px;
+  color: black;
+}
+
+.success{
+  text-align: center;
+  border: 2px solid black;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imagehandler{
+  height:150px; 
+  width: 150px;
+}
+.imagehandler img{
+  height: 100%; 
+  width: 100%; 
+}
 
 /* user type signin */ 
 .userType{

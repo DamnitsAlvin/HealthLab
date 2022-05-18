@@ -25,14 +25,7 @@ export default function SignIn(props){
     const userSignin = useSelector((state)=>state.userSignIn);
     const { userInfo, loading, error } = userSignin;
 
-    //to remove
-    if(userInfo){
-      console.log("userInfo :", userInfo, " loading: ", loading) 
-    }
-    if(error){
-      console.log(error)
-    }
-    
+
     const dispatch = useDispatch();
     const submitHandler = (e) =>{
         e.preventDefault();
@@ -55,6 +48,8 @@ export default function SignIn(props){
             <div>
               <h1>ACCOUNT LOGIN</h1>
               <p class="parag">Login here using Email and Password</p>
+              {error && <div className="invalid">Invalid password</div>}
+              
             </div>
             <div>
               <label htmlFor="ID">{userLabel}</label>

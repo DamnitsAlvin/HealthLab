@@ -1,5 +1,6 @@
 import React , {useState} from "react";
 import {useDispatch, useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../components/checkout";
 import { register } from "../actions/userActions";
 
@@ -20,6 +21,7 @@ export default function Register(props){
     const [status, setStatus] = useState("Status");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmpassword] = useState("");
+    const navigate = useNavigate()
 
     var date = new Date(); 
     var time = date.getMinutes() +""+ date.getMilliseconds();
@@ -28,11 +30,15 @@ export default function Register(props){
     const userreg = useSelector((x)=>x.userReg)
     const {loading , error, userReg} = userreg;
     console.log("Loading: ", loading, "Error: ", error, "userReg: ", userReg)
+
     const dispatch = useDispatch();
     const submitHandler = (e) =>{
         e.preventDefault();
         dispatch(register(username, firstname, lastname, middlename, suffix,Birthday, gender, addressLine1, addressLine2, Municipality, provice, status, contact, email, password))
-        props.history.push("/");
+        if(error === undefined || error === ""){
+            navigate("/success");
+        }
+        
     }
 
     return (
@@ -69,7 +75,7 @@ export default function Register(props){
                 </div>
 
                 <div className="form-group">
-                    <input type="text" className="form-control" name="phone" placeholder="Contact number" placeholder="xxxx-xxx-xxxx" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required onChange={(e)=>{setContact(e.target.value)}}/>      
+                    <input type="text" className="form-control" name="phone"  placeholder="xxxx-xxx-xxxx" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required onChange={(e)=>{setContact(e.target.value)}}/>      
                 </div>
                 <div className="form-group">
         	        <input type="email" className="form-control" name="email" placeholder="Email"  required="required" onChange={(e)=>{setEmail(e.target.value)}}/>
@@ -85,13 +91,13 @@ export default function Register(props){
                         <label className="col-form-label col-4">GENDER</label>
                         <div class="radio ">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="Male" onChange={(e)=>{setGender(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios"  value="Male" onChange={(e)=>{setGender(e.target.value)}}/>
                                 Male
                             </label>
                         </div> 
                         <div class="radio ">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="Female" onChange={(e)=>{setGender(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios"  value="Female" onChange={(e)=>{setGender(e.target.value)}}/>
                                 Female
                             </label>
                         </div>
@@ -101,19 +107,19 @@ export default function Register(props){
                         <label className="col-form-label col-4">Civil Status</label>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="Single" onChange={(e)=>{setStatus(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios"  value="Single" onChange={(e)=>{setStatus(e.target.value)}}/>
                                 Single
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="Married" onChange={(e)=>{setStatus(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios"  value="Married" onChange={(e)=>{setStatus(e.target.value)}}/>
                                 Married
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="Widow" onChange={(e)=>{setStatus(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios"  value="Widow" onChange={(e)=>{setStatus(e.target.value)}}/>
                                 Widow
                             </label>
                         </div>

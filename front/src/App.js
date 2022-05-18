@@ -20,6 +20,7 @@ import GeneralHealthScreen from "./screens/generalhealth";
 import './App.css';
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
+import AccountRegister from './screens/accountRegistered';
 
 function App() {
   
@@ -104,6 +105,7 @@ function App() {
 				<Route path="/register" element={<Register/>}/>
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
+				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Service(){
+export default function  Service(){
     return(
         <section id="service" className="home-section nopadding paddingtop-60">
 		<div className="container">
