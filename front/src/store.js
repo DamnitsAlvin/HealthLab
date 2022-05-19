@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from "redux-thunk";
 import { loadDoctorsReducer, userRegisterReducer, userSignInReducer, appointmentRequestSlipReducer, getUserAppointmentReducer} from "./reducers/userReducer"
-
+import { BasicDoctorReducer, SpecialtyDoctorReducer, EducDoctorReducer } from './reducers/doctorReducer';
 
 const initialState={
     userSignIn:{
@@ -16,20 +16,29 @@ const initialState={
     //     error: "", 
     //     doctor:""
     // }
+
     // userAppointment:{
     //     loading:,
     //     appointments:,
     //     message:, 
     // }
 
+
+
 }
 
 const reducer = combineReducers({
+
     userSignIn:userSignInReducer,
     userReg: userRegisterReducer,
     loadDoctor: loadDoctorsReducer, 
     appointmentRequest: appointmentRequestSlipReducer, 
     userAppointment: getUserAppointmentReducer,
+
+    doctorBasicRegistr: BasicDoctorReducer, 
+    doctorSpecialtyRegist: SpecialtyDoctorReducer, 
+    doctorEducRegist: EducDoctorReducer
+
 })
 
 const composeEnchance = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 

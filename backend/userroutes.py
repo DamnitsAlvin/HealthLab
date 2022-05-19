@@ -92,7 +92,6 @@ def registerUser():
             cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.connection.commit()
             cur.close()
-            print("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             access_token = create_access_token(identity=username)
             return jsonify({"access_token": access_token, "data": data}), 200
         
