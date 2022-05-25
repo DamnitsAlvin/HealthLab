@@ -8,6 +8,8 @@ doc_api=Blueprint('doc_api', __name__)
 @doc_api.route("/doctorbasicreg", methods=["POST"])
 def registerBasicInformationDoctor():
     if request.method == "POST":
+        if "file" not in request.files:
+            print("no file")
         cur = mysql.connection.cursor()
         doctor_id = request.json.get("doctor_id")
         firstname = request.json.get("first_name")

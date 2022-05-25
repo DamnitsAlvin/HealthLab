@@ -47,7 +47,7 @@ export default function RegisterDoctor(){
 
 
     return(
-        <form method="post" onSubmit={submitHandler}>
+        <form method="post" onSubmit={submitHandler} enctype="multipart/form-data" >
             <div className="centerContainer">
                  <h2>Register here</h2>
 		        <p>Please fill in this form to create an account</p>
