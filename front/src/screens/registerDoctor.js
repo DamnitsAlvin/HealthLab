@@ -55,25 +55,25 @@ export default function RegisterDoctor(){
                 <Accordion title="Basic Information" active={true}>
                 <div className="form-group">
                     <div className="row">
-                        <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="First Name" onChange={BasicInformationInputHandler}/></div>
-                        <div className="col-xs-6"><input type="text" className="form-control" name="middle_name" placeholder="Middle Name" onChange={BasicInformationInputHandler}/></div>  
+                        <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="&#xf47f; First Name" onChange={BasicInformationInputHandler}/></div>
+                        <div className="col-xs-6"><input type="text" className="form-control" name="middle_name" placeholder="&#xf47f; Middle Name" onChange={BasicInformationInputHandler}/></div>  
                     </div>        	
                 </div>
                 <div className="form-group">
                     <div className="row">
-                        <div className="col-xs-6"><input type="text" className="form-control" name="last_name" placeholder="Last Name"  required="required" onChange={BasicInformationInputHandler}/></div>
-                        <div className="col-xs-6"><input type="text" className="form-control" name="suffix" placeholder="Suffix" onChange={BasicInformationInputHandler}/></div>  
+                        <div className="col-xs-6"><input type="text" className="form-control" name="last_name" placeholder="&#xf47f; Last Name"  required="required" onChange={BasicInformationInputHandler}/></div>
+                        <div className="col-xs-6"><input type="text" className="form-control" name="suffix" placeholder="&#xf47f; Suffix" onChange={BasicInformationInputHandler}/></div>  
                     </div>        	
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control" name="phone" placeholder="xxxx-xxx-xxxx" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required onChange={BasicInformationInputHandler}/>      
+                    <input type="text" className="form-control" name="phone" placeholder="&#xf47f; xxxx-xxx-xxxx" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required onChange={BasicInformationInputHandler}/>      
                 </div>
                 <div className="form-group">
-        	        <input type="email" className="form-control" name="email" placeholder="Email"  required="required" onChange={BasicInformationInputHandler}/>
+        	        <input type="email" className="form-control" name="email" placeholder="&#xf47f; Email"  required="required" onChange={BasicInformationInputHandler}/>
                 </div>
 
                 <div className="form-group">
-                    <input type="date" className="form-control" name="birthday" placeholder="Birthday" onChange={BasicInformationInputHandler}/>
+                    <input type="date" className="form-control" name="birthday" placeholder="&#xf47f; Birthday" onChange={BasicInformationInputHandler}/>
                 </div>
                 <hr/>
 
@@ -81,9 +81,9 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                         <label className="col-form-label col-4">Mode of Consultation</label>
                         <select className="form-control" name="mode_of_consultation" onChange={BasicInformationInputHandler}>
-                            <option value="Virtual">Virtual</option>
-                            <option value="Face to Face">Face to Face</option>
-                            <option value="Both">Both</option>
+                            <option value="Virtual">&#xf47f; Virtual</option>
+                            <option value="Face to Face">&#xf47f; Face to Face</option>
+                            <option value="Both">&#xf47f; Both</option>
                         </select>
                 </div>
 
@@ -91,14 +91,14 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                 <label className="col-form-label col-4">Password</label>    
                     <div className="row">
-                        <div className="col-xs-12"><input type="password" className="form-control" name="password" placeholder="Password" onChange={BasicInformationInputHandler} /></div>
+                        <div className="col-xs-12"><input type="password" className="form-control" name="password" placeholder="&#xf47f; Password" onChange={BasicInformationInputHandler} /></div>
                     </div> 
                 </div>
 
                 <div className="form-group">
                 <label className="col-form-label col-4">Confirm Password</label>    
                     <div className="row">
-                        <div className="col-xs-12"><input type="password" className="form-control" name="confirm_password" placeholder="Password" onChange={(e)=>setConfirmpassword(e.target.value)} /></div>
+                        <div className="col-xs-12"><input type="password" className="form-control" name="confirm_password" placeholder="&#xf47f; Password" onChange={(e)=>setConfirmpassword(e.target.value)} /></div>
                     </div> 
                 </div>
 
