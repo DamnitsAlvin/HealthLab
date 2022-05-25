@@ -7,43 +7,44 @@ export default function RegisterService(){
             <div className="centerContainer">
                 <h2>Register here</h2>
 		        <p>Please fill in this form to create an account</p>
+                
 		        <hr/>
                 <Accordion title="Basic Service Information" active={true}>
-                        <div className="form-group">
-                            <div className="row">
-                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Establishment Name" /></div>
+                        <div class="fa-thin fa-building" className="form-group">
+                            <div  className="row" >
+                            <div  className="col-xs-12" ><input   type="text" className="form-control" name="first_name"  placeholder="&#xf015; Establishment Name" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Residential no/Building no/ Floor Street Subdivision"/></div>
+                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf276; Residential no/Building no/ Floor Street Subdivision"/></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Barangay" /></div>
+                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf64f; Barangay" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Municipality" /></div>
+                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf3c5; Municipality" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Zipcode" /></div>
+                                <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf2b9; Zipcode" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-12"><input type="file" className="form-control" name="first_name" placeholder="Zipcode" /></div>
+                                <div className="col-xs-12"><input type="file" className="form-control" name="first_name" placeholder="&#xf015; Zipcode" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-5"><input type="text" className="form-control" name="first_name" placeholder="Open Day" /></div>
+                                <div className="col-xs-5"><input type="text" className="form-control" name="first_name" placeholder="&#xf017; Open Day" /></div>
                                 <div className="col-xs-1">TO</div>
-                                <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="Close Day" /></div>
+                                <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="&#xf273; Close Day" /></div>
                             </div>        	
                         </div>
                         <div className="form-group">
@@ -53,9 +54,9 @@ export default function RegisterService(){
                         </div>
                         <div className="form-group">
                             <div className="row">
-                                <div className="col-xs-5"><input type="text" className="form-control" name="first_name" placeholder="Open Time" /></div>
+                                <div className="col-xs-5"><input type="text" className="form-control" name="first_name" placeholder="&#xf017; Open Day" /></div>
                                 <div className="col-xs-1">TO</div>
-                                <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="Close Time" /></div>
+                                <div className="col-xs-6"><input type="text" className="form-control" name="first_name" placeholder="&#xf273; Close Day" /></div>
                             </div>        	
                         </div>
                         
@@ -107,12 +108,12 @@ export default function RegisterService(){
                     </div>  
                     <div className="form-group">
                         <div className="row">
-                            <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Reference Number" /></div>
+                            <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf2c2; Reference Number" /></div>
                         </div>        	
                     </div>
                     <div className="form-group">
                         <div className="row">
-                            <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="Reference Name" /></div>
+                            <div className="col-xs-12"><input type="text" className="form-control" name="first_name" placeholder="&#xf47f; Reference Name" /></div>
                         </div>        	
                     </div>
                 </Accordion>
@@ -126,4 +127,5 @@ export default function RegisterService(){
         </form>
         </>
     )
+    
 }

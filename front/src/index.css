@@ -286,9 +286,10 @@ textarea{
 .bodyform {
   color: #fff;
   background: #3598dc;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Verdana', sans-serif;
 }
   .form-control{
+    font-family: 'Open Sans', sans-serif ,FontAwesome ;
   height: 41px;
   letter-spacing: 1.2px;
   background: #ffffff;
