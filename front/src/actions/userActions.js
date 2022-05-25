@@ -47,29 +47,29 @@ export const signout=()=> (dispatch)=> {
 }
 
 export const register = (User_id,First_name,Last_name,Middle_name, Suffix, Birthday, Gender, Address_line1, Address_line2, Municipality, Province, Civil_status, Phone_number, Email,password) => async(dispatch) =>{
-    const params = {
-        method: "POST", 
-        headers:{
-            "Content-type": "application/json", 
-        },
-        body: JSON.stringify({
-            "username": User_id,
-            "firstname": First_name,
-            "lastname": Last_name,
-            "middlename": Middle_name,
-            "suffix":Suffix,
-            "birthday":Birthday,
-            "gender":Gender,
-            "address1":Address_line1,
-            "address2":Address_line2,
-            "municipality":Municipality,
-            "province":Province,
-            "civil_status":Civil_status,
-            "contact_num":Phone_number,
-            "email": Email,
-            "password": password
-        })
-    }
+    // const params = {
+    //     method: "POST", 
+    //     headers:{
+    //         "Content-type": "application/json", 
+    //     },
+    //     body: JSON.stringify({
+    //         "username": User_id,
+    //         "firstname": First_name,
+    //         "lastname": Last_name,
+    //         "middlename": Middle_name,
+    //         "suffix":Suffix,
+    //         "birthday":Birthday,
+    //         "gender":Gender,
+    //         "address1":Address_line1,
+    //         "address2":Address_line2,
+    //         "municipality":Municipality,
+    //         "province":Province,
+    //         "civil_status":Civil_status,
+    //         "contact_num":Phone_number,
+    //         "email": Email,
+    //         "password": password
+    //     })
+    // }
     dispatch({type:USER_REGISTER_REQUEST });
     try{
         const {data} = await axios.post("http://localhost:5000/api/userreg", {

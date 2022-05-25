@@ -11,12 +11,13 @@ import {
     REGISTER_SPECIALTY_DOCTOR_SUCCESS,
     REGISTER_SPECIALTY_DOCTOR_FAIL
 } from "../constants/doctorConstants"
-import  Axios  from "axios"
+import Axios from "axios"
+import axios from 'axios'
 
 export const registerBasicInformationDoctor = (doctorInfo) =>async(dispatch) =>{
     dispatch({type: REGISTER_BASIC_DOCTOR_REQUEST})
     try{
-        const {data} = await Axios.post("http:localhost:5000/api/doctorbasicreg", doctorInfo)
+        const {data} = await axios.post("http://localhost:5000/api/doctorbasicreg", doctorInfo)
         dispatch({type: REGISTER_BASIC_DOCTOR_SUCCESS, payload: data})
     }
     catch(error){
@@ -31,7 +32,7 @@ export const registerBasicInformationDoctor = (doctorInfo) =>async(dispatch) =>{
 export const registerEducInformationDoctor = (doctorInfo) => async(dispatch)=>{
     dispatch({type: REGISTER_EDUC_DOCTOR_REQUEST})
     try{
-        const {data} = await Axios.post("http:localhost:5000/api/doctoreducreg", doctorInfo)
+        const {data} = await axios.post("http://localhost:5000/api/doctoreducreg", doctorInfo)
         dispatch({type: REGISTER_EDUC_DOCTOR_SUCCESS, payload: data})
     }
     catch(error){
@@ -46,7 +47,7 @@ export const registerEducInformationDoctor = (doctorInfo) => async(dispatch)=>{
 export const registerSpecialtyInformationDoctor = (doctorInfo) => async(dispatch) =>{
     dispatch({type: REGISTER_SPECIALTY_DOCTOR_REQUEST})
     try{
-        const {data} = await Axios.post("http:localhost:5000/api/doctorspecialtyreg", doctorInfo)
+        const {data} = await axios.post("http://localhost:5000/api/doctorspecialtyreg", doctorInfo)
         dispatch({type: REGISTER_SPECIALTY_DOCTOR_SUCCESS, payload: data})
     }
     catch(error){

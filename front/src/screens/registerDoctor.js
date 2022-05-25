@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerBasicInformationDoctor, registerEducInformationDoctor, registerSpecialtyInformationDoctor } from "../actions/doctorActions";
+import { registerBasicInformationDoctor } from "../actions/doctorActions";
 import Accordion from "../components/accordion"
 
 export default function RegisterDoctor(){
@@ -35,11 +35,12 @@ export default function RegisterDoctor(){
         return doctor_id
     }
 
-    const submitHandler = () =>{
+    const submitHandler = (e) =>{
+        e.preventDefault();
         const doctor_id = generateDoctorId()
         setformState({
             ...formState, 
-            doctor_id: doctor_id
+            [doctor_id]: doctor_id
         })
         dispatch(registerBasicInformationDoctor(formState))
     }   
@@ -112,7 +113,7 @@ export default function RegisterDoctor(){
 
                 </Accordion>
                 
-                <input type="submit" className=""></input>
+                <input type="submit" className="" onSubmit={submitHandler}></input>
             </div>
           
         </form>
