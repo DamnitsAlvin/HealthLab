@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerBasicInformationDoctor } from "../actions/doctorActions";
-import Accordion from "../components/accordion"
+import Accordion from "../components/accordion"; 
+import { useNavigate } from "react-router-dom";
+
 
 export default function RegisterDoctor(){
     const dispatch = useDispatch()
-    const[tabPills, settabPills] = useState([])
     const [confirm_password, setConfirmpassword] = useState("")
     const [formState, setformState] = useState({
         doctor_id: "",
@@ -20,6 +21,10 @@ export default function RegisterDoctor(){
         doctor_image: "", 
         password: "", 
     })
+    const navigate = useNavigate()
+    const selector = useSelector((x)=>x.doctorBasicRegister)
+    const {docBasicReg, error} = selector
+
 
     const BasicInformationInputHandler = (event) =>{
         setformState({
@@ -36,20 +41,23 @@ export default function RegisterDoctor(){
     }
 
     const submitHandler = (e) =>{
-        e.preventDefault();
+        e.preventDefault(); 
         const doctor_id = generateDoctorId()
+        console.log("Doctor ID: ", doctor_id)
         setformState({
             ...formState, 
-            [doctor_id]: doctor_id
+            ["doctor_id"] : doctor_id
         })
-        dispatch(registerBasicInformationDoctor(formState))
+        dispatchAction()
     }   
-
+    const dispatchAction = () =>{
+        dispatch(registerBasicInformationDoctor(formState))
+    }
 
     return(
         <form method="post" onSubmit={submitHandler} encType="multipart/form-data" >
             <div className="centerContainer">
-                 <h2>Register here</h2>
+                <h2>Register here</h2>
 		        <p>Please fill in this form to create an account</p>
 		        <hr/>
                 <Accordion title="Basic Information" active={true}>

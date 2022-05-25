@@ -11,6 +11,12 @@ const initialState={
         saveBasicAppointment: localStorage.getItem("Patient_Information") ? JSON.parse(localStorage.getItem("Patient_Information")) : null,
         Dentist_slip: localStorage.getItem("Patient_description") ? localStorage.getItem("Patient_description"): null,
     }
+    
+    // doctorBasicRegister:{
+    //     loading:"", 
+    //     docBasicReg: [], 
+    //     error, 
+    // }
     // loadDoctor:{
     //     loading:"", 
     //     error: "", 
@@ -35,7 +41,7 @@ const reducer = combineReducers({
     appointmentRequest: appointmentRequestSlipReducer, 
     userAppointment: getUserAppointmentReducer,
 
-    doctorBasicRegistr: BasicDoctorReducer, 
+    doctorBasicRegister: BasicDoctorReducer, 
     doctorSpecialtyRegist: SpecialtyDoctorReducer, 
     doctorEducRegist: EducDoctorReducer
 
