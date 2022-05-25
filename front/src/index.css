@@ -228,9 +228,9 @@ padding-top:50px;
 }
 /* Service register screen */
 .accordion{
-  background-color: #6bd8dbd0;
-  margin-bottom: 4px;
-  color: #444;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  color: rgb(53, 53, 53);
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -239,11 +239,19 @@ padding-top:50px;
   outline: none;
   transition: 0.4s;
   border-radius: 5px;
-  font-weight: 600;
-  border:
+  font-weight: 550;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  letter-spacing: 1.6px;
+  color: rgb(82, 80, 80);
+  
+  
+}
+
+.wew{
+  padding:10px;
 }
 .active, .accordion:hover {
-  background-color: #ccc;
+  background-color: rgb(243, 241, 241);
 }
 .accordion-item {
   margin-top:10px;
@@ -282,12 +290,15 @@ textarea{
 }
   .form-control{
   height: 41px;
-  background: #f2f2f2;
+  letter-spacing: 1.2px;
+  background: #ffffff;
   box-shadow: none !important;
-  border: none;
+  border-style: rgb(0, 0, 0);
+  border-width: 1px;
+  font-weight: 500;
 }
 .form-control:focus{
-  background: #e2e2e2;
+  background: #ffffff;
 }
   .form-control, .btn{        
       border-radius: 3px;
@@ -705,4 +716,8 @@ table.table .avatar {
 
 .cancelButton{
   margin-right:10px;
+}
+hr{
+  
+  margin-bottom: 30px;
 }

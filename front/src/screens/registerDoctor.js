@@ -49,6 +49,9 @@ export default function RegisterDoctor(){
     return(
         <form method="post" onSubmit={submitHandler}>
             <div className="centerContainer">
+                 <h2>Register here</h2>
+		        <p>Please fill in this form to create an account</p>
+		        <hr/>
                 <Accordion title="Basic Information" active={true}>
                 <div className="form-group">
                     <div className="row">
@@ -72,7 +75,9 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                     <input type="date" className="form-control" name="birthday" placeholder="Birthday" onChange={BasicInformationInputHandler}/>
                 </div>
+                <hr/>
 
+                
                 <div className="form-group">
                         <label className="col-form-label col-4">Mode of Consultation</label>
                         <select className="form-control" name="mode_of_consultation" onChange={BasicInformationInputHandler}>
@@ -82,12 +87,6 @@ export default function RegisterDoctor(){
                         </select>
                 </div>
 
-                <div className="form-group">
-                    <label className="col-form-label col-4">Select an image</label>    
-                    <div className="row">
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" placeholder="Zipcode" onChange={BasicInformationInputHandler}/></div>
-                    </div>        	
-                </div>
 
                 <div className="form-group">
                 <label className="col-form-label col-4">Password</label>    
@@ -113,7 +112,13 @@ export default function RegisterDoctor(){
 
                 </Accordion>
                 
-                <input type="submit" className="" onSubmit={submitHandler}></input>
+              
+                <div className="form-group">
+                    <div className="hint-text">Already have an account? <a href="/signin">Login here</a></div>
+                    <div className="leftSubmit">
+                        <button type="submit" className="btn btn-info btn-lg" >Submit</button>
+                    </div>
+                </div>
             </div>
           
         </form>
