@@ -97,6 +97,9 @@ export default function RegisterDoctor(){
     return(
         <form method="post" onSubmit={submitHandler}>
             <div className="centerContainer">
+                 <h2>Register here</h2>
+		        <p>Please fill in this form to create an account</p>
+		        <hr/>
                 <Accordion title="Basic Information" active={true}>
                 <div className="form-group">
                     <div className="row">
@@ -120,7 +123,9 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                     <input type="date" className="form-control" name="birthday" placeholder="Birthday" onChange={BasicInformationInputHandler}/>
                 </div>
+                <hr/>
 
+                
                 <div className="form-group">
                         <label className="col-form-label col-4">Mode of Consultation</label>
                         <select className="form-control" name="mode_of_consultation" onChange={BasicInformationInputHandler}>
@@ -130,12 +135,6 @@ export default function RegisterDoctor(){
                         </select>
                 </div>
 
-                <div className="form-group">
-                    <label className="col-form-label col-4">Select an image</label>    
-                    <div className="row">
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" placeholder="Zipcode" onChange={BasicInformationInputHandler}/></div>
-                    </div>        	
-                </div>
 
                 <div className="form-group">
                 <label className="col-form-label col-4">Password</label>    
@@ -160,51 +159,14 @@ export default function RegisterDoctor(){
                 
 
                 </Accordion>
-                <Accordion title="Educational Attainment">
-
-                    <div className="form-group">
-                         <div className="col-xs-6">
-                            <label className="col-form-label col-4">Degree</label>
-                            <select className="form-control" name="Degree" onChange={EducInformationInputHandler}>
-                                <option value="Undergraduate">Undergraduate</option>
-                                <option value="Bachelor">Bachelor</option>
-                                <option value="Masteral">Masteral</option>
-                                <option value="Doctorate">Doctorate</option>
-                            </select>
-                        </div>
-                        
-                        <div className="col-xs-6">
-                            <label className="col-form-label col-4">Course  </label>
-                            <input type="text" className="form-control " name="Course" placeholder="Course"  required="required" onChange={EducInformationInputHandler}/>
-                        </div>
+                
+              
+                <div className="form-group">
+                    <div className="hint-text">Already have an account? <a href="/signin">Login here</a></div>
+                    <div className="leftSubmit">
+                        <button type="submit" className="btn btn-info btn-lg" >Submit</button>
                     </div>
-
-                    <div className="form-group">
-                        <div className="col-xs-6">
-                            <label className="col-form-label col-4">School </label>
-                            <input type="text" className="form-control  col-xs-12" name="School_name" placeholder="School name"  required="required" onChange={EducInformationInputHandler}/>
-                        </div>
-                        <div className="col-xs-6">
-                            <label className="col-form-label col-4">Graduation Date</label>
-                            <input type="date" className="form-control" name="Grad_date" placeholder="Graduation" onChange={EducInformationInputHandler}/>
-                        </div>
-                    </div>
-                </Accordion>
-
-                <Accordion title="Specialization">
-                    <div className="form-group">
-                        <div className="col-xs-6">
-                            <label className="col-form-label col-4">Specialty</label>
-                            <input type="text" className="form-control " onChange={specializationHandler} name="specialization" placeholder="Specialty"  required="required" />
-                         </div>
-                        
-                        <div className="col-xs-6">
-                            <label className="col-form-label col-4">Sub-specialization </label>
-                            <input type="text" className="form-control " onChange={specializationHandler} name="sub_specialization" placeholder="Sub-specialization"  required="required" />
-                        </div>
-                    </div>
-                </Accordion>
-                <input type="submit" className=""></input>
+                </div>
             </div>
           
         </form>
