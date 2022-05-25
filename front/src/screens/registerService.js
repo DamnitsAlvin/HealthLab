@@ -5,7 +5,7 @@ export default function RegisterService(){
         <>
         <form  method="post">
             <div className="centerContainer">
-                <h2>SIGN UP</h2>
+                <h2>Register here</h2>
 		        <p>Please fill in this form to create an account</p>
 		        <hr/>
                 <Accordion title="Basic Service Information" active={true}>
