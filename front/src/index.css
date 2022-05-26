@@ -14,7 +14,7 @@ body{
 
 /* container */ 
 .mycontainer{
-  border-radius: 50px;
+  border-radius: 15px;
   background-color: white;
   margin-top:30px;
   margin-bottom: 25px; 
@@ -23,8 +23,8 @@ body{
   width: 80%; 
   height: 80%; 
   border: 2px solid darkgrey;
-  box-shadow: 5px 10px 18px #888888;
-  padding: 15px;
+  box-shadow: 5px 10px 18px #636262;
+  padding: 20px;
   /*  used by signin */
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@ body{
   left: 10%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin-bottom: 30px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .col-xs-1{
   text-align: center;
