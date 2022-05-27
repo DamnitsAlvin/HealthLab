@@ -22,6 +22,28 @@ def displayUser():
         cur.close()
         
         return jsonify({"data": data}), 200
+@api.route("/email", methods=["POST"])
+def checkEmail():
+    if request.method == "POST":
+        cur = mysql.connection.cursor()
+        email = request.json.get("email")
+        response = cur.execute("SELECT * FROM user WHERE Email=%s",(email,))
+        if response is None:
+            response = cur.execute("SELECT * FROM doctor WHERE email=%s", (email,))
+            if response is None:
+                pass
+        
+        if response == 0:
+            print("Called if, Response: ", response)
+            return jsonify({"message": "all goods"}), 200
+
+        else:
+            print("called else")
+            print("Response: ", response)
+            return jsonify({"message": "email is in use"}), 404
+       
+
+
 
 @api.route("/usersauth", methods=["POST"])
 def authenticateUser():
@@ -42,15 +64,27 @@ def authenticateUser():
             return ({"message": "NO user with that ID"}), 401
         else: 
             data = cur.fetchone()
+ 
+        if userType == "user": 
+            if data[14] == password:
+                access_token = create_access_token(identity=username)
+                cur.connection.commit()
+                cur.close()
+                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+            else:
+                return jsonify({"message": "Invalid password"}), 401
 
-        if data[14] == password:
-            access_token = create_access_token(identity=username)
-            cur.connection.commit()
-            cur.close()
-            return jsonify({"access_token": access_token, "data": data[:14]}), 200
-
+        elif userType == "doctor": 
+            if data[11] == password:
+                access_token = create_access_token(identity=username)
+                cur.connection.commit()
+                cur.close()
+                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+            else:
+                return jsonify({"message": "Invalid password"}), 401
         else:
-            return jsonify({"message": "Invalid password"}), 401
+            pass
+        
 
 @api.route("/userreg", methods=["POST"])
 def registerUser():

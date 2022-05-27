@@ -52,6 +52,9 @@ export default function RegisterDoctor(){
     }   
     const dispatchAction = () =>{
         dispatch(registerBasicInformationDoctor(formState))
+        if(!error){
+            navigate("/success")
+        }
     }
 
     return(

@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from "redux-thunk";
-import { loadDoctorsReducer, userRegisterReducer, userSignInReducer, appointmentRequestSlipReducer, getUserAppointmentReducer} from "./reducers/userReducer"
+import { EmailCheckerReducer, loadDoctorsReducer, userRegisterReducer, userSignInReducer, appointmentRequestSlipReducer, getUserAppointmentReducer} from "./reducers/userReducer"
 import { BasicDoctorReducer, SpecialtyDoctorReducer, EducDoctorReducer } from './reducers/doctorReducer';
 
 const initialState={
@@ -11,7 +11,7 @@ const initialState={
         saveBasicAppointment: localStorage.getItem("Patient_Information") ? JSON.parse(localStorage.getItem("Patient_Information")) : null,
         Dentist_slip: localStorage.getItem("Patient_description") ? localStorage.getItem("Patient_description"): null,
     }
-    
+
     // doctorBasicRegister:{
     //     loading:"", 
     //     docBasicReg: [], 
@@ -28,6 +28,11 @@ const initialState={
     //     appointments:,
     //     message:, 
     // }
+    // emailCheck:{
+    //     loading:, 
+    //     message:, 
+    //     error:,
+    // }
 
 
 
@@ -41,9 +46,12 @@ const reducer = combineReducers({
     appointmentRequest: appointmentRequestSlipReducer, 
     userAppointment: getUserAppointmentReducer,
 
+    emailCheck: EmailCheckerReducer, 
+
     doctorBasicRegister: BasicDoctorReducer, 
     doctorSpecialtyRegist: SpecialtyDoctorReducer, 
     doctorEducRegist: EducDoctorReducer
+    
 
 })
 

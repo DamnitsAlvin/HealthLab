@@ -15,7 +15,10 @@ import {
     ADD_DENTIST_INFO,
     GET_APPOINTMENT_REQUEST,
     GET_APPOINTMENT_SUCCESS,
-    GET_APPOINTMENT_FAIL
+    GET_APPOINTMENT_FAIL,
+    CHECK_EMAIL_REQUEST,
+    CHECK_EMAIL_SUCCESS,
+    CHECK_EMAIL_FAIL
 } from "../constants/userConstants";
 
 
@@ -34,6 +37,19 @@ export const userSignInReducer = (state = {}, action)=>{
               return state;
     }
 };
+
+export const EmailCheckerReducer=(state={}, action) =>{
+    switch(action.type){
+        case CHECK_EMAIL_REQUEST:
+            return {loading:true}
+        case CHECK_EMAIL_SUCCESS:
+            return {loading: false, message: action.payload}
+        case CHECK_EMAIL_FAIL:
+            return {loading:false, emailError: action.payload}
+        default:
+            return state; 
+    }
+}
 
 export const userRegisterReducer=(state={}, action)=>{
     switch(action.type){

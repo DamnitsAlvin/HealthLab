@@ -2,7 +2,7 @@ import React , {useState} from "react";
 import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../components/checkout";
-import { register } from "../actions/userActions";
+import { register, checkEmail} from "../actions/userActions";
 
 
 export default function Register(props){
@@ -29,16 +29,25 @@ export default function Register(props){
 
     const userreg = useSelector((x)=>x.userReg)
     const {loading , error, userReg} = userreg;
-    console.log("Loading: ", loading, "Error: ", error, "userReg: ", userReg)
+    console.log("Email from reg: ", email)
+
+    const checker = useSelector((x)=>x.emailCheck)
+    const {emailError, message} = checker
 
     const dispatch = useDispatch();
     const submitHandler = (e) =>{
         e.preventDefault();
         dispatch(register(username, firstname, lastname, middlename, suffix,Birthday, gender, addressLine1, addressLine2, Municipality, provice, status, contact, email, password))
-        if(error === undefined || error === ""){
-            navigate("/success");
+        if(!error){
+            navigate("/success");    
         }
-        
+        // if(error === undefined || error !== ""){
+        //     navigate("/success");
+        // } 
+    }
+    const emailChecker = (event) =>{
+        setEmail(event.target.value); 
+        dispatch(checkEmail(email))
     }
 
     return (
@@ -78,8 +87,11 @@ export default function Register(props){
                     <input type="text" className="form-control" name="phone"  placeholder="&#xf095; xxxx-xxx-xxxx" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" required onChange={(e)=>{setContact(e.target.value)}}/>      
                 </div>
                 <div className="form-group">
-        	        <input type="email" className="form-control" name="email" placeholder="&#xf0e0; Email"  required="required" onChange={(e)=>{setEmail(e.target.value)}}/>
+        	        <input type="email" className="form-control" name="email" placeholder="&#xf0e0; Email"  required="required" onChange={emailChecker}/>
                 </div>
+                {   emailError && 
+                    <span>Email is already in use</span>
+                }
 
                 <div className="form-group">
                     <label className="col-form-label col-4">BIRTHDATE</label>
@@ -91,13 +103,13 @@ export default function Register(props){
                         <label className="col-form-label col-4">GENDER</label>
                         <div class="radio ">
                             <label>
-                                <input type="radio" name="optionsRadios"  value="Male" onChange={(e)=>{setGender(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios2"  value="Male" onChange={(e)=>{setGender(e.target.value)}}/>
                                 Male
                             </label>
                         </div> 
                         <div class="radio ">
                             <label>
-                                <input type="radio" name="optionsRadios"  value="Female" onChange={(e)=>{setGender(e.target.value)}}/>
+                                <input type="radio" name="optionsRadios2"  value="Female" onChange={(e)=>{setGender(e.target.value)}}/>
                                 Female
                             </label>
                         </div>

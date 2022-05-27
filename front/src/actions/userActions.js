@@ -19,7 +19,11 @@ import {
     SAVE_APPOINTMENT_ERROR,
     GET_APPOINTMENT_REQUEST,
     GET_APPOINTMENT_FAIL,
-    GET_APPOINTMENT_SUCCESS
+    GET_APPOINTMENT_SUCCESS, 
+
+    CHECK_EMAIL_REQUEST,
+    CHECK_EMAIL_FAIL,
+    CHECK_EMAIL_SUCCESS, 
 
 } from "../constants/userConstants";
 import Axios from "axios";
@@ -40,7 +44,25 @@ export const usersignin = (ID,password, userType) => async(dispatch) =>{
         });
     }
 }
+export const checkEmail = (email) => async(dispatch)=>{
+    console.log("Email from action:", email)
+    const datum ={
+        "email": email
+    }
+    dispatch({type: CHECK_EMAIL_REQUEST})
+    try{
+        const {data} = await Axios.post("http://localhost:5000/api/email",  datum)
+        dispatch({type: CHECK_EMAIL_SUCCESS, payload: data})
+    }
+    catch(error){
+        dispatch({type:CHECK_EMAIL_FAIL, 
+            payload: error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,  
+        });
+    }
 
+}
 export const signout=()=> (dispatch)=> {
     localStorage.removeItem("userInfo"); 
     dispatch({type: USER_SIGNOUT})
