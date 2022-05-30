@@ -33,11 +33,11 @@ body{
 .centerContainer{
   margin-top: 18rem;
   height: auto; 
-  width: 80%;
+  width: 50%;
   padding: 30px; 
   background-color: white;
   position:relative; 
-  left: 10%;
+  left: 25%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin-bottom: 30px;
   border-radius: 20px;
@@ -120,8 +120,9 @@ body{
 }
 
 .success{
+  padding: 50px;
   text-align: center;
-  border: 2px solid black;
+  margin: 50px;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -176,7 +177,6 @@ padding-top:50px;
 /* Category design */ 
 .category{
   background-color: white;
- 
   margin: 0 auto;
   padding: 5rem 4.375rem 2.5rem;
 }
