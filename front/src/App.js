@@ -21,6 +21,9 @@ import './App.css';
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
+import Doctorprofile from './screens/doctorprofile'; 
+import Bookdoctor from './screens/bookdoctor'; 
+
 
 function App() {
   
@@ -115,6 +118,8 @@ function App() {
 				<Route path="/optalquestions" element={<OptalQuestionsScreen/>}/>
 				<Route path="/generalHealthquestions" element={<GeneralHealthScreen/>}/>
 				<Route exact path = "/" element={<Intro/>}/>
+				<Route path="/doctorprofile" element={<Doctorprofile/>}/>
+				<Route path="/bookdoctor" element={<Bookdoctor/>}/>
 			</Routes>
 		
 		</main>
