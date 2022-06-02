@@ -2,7 +2,7 @@
 import AppointmentSteps from "../components/appointmentSteps";
 import {removeBasicAppointment,saveGHQuestions} from "../actions/userActions";
 import {useDispatch, useSelector} from "react-redux";   
-import {useState} from "react"; 
+import React,{useState} from "react"; 
 
 export default function GeneralHealthScreen(props){
     const getPatientInfo = useSelector(x=>x.appointmentRequest)

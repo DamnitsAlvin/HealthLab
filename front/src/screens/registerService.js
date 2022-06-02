@@ -1,4 +1,5 @@
 import Accordion from "../components/accordion"
+import React from 'react'
 export default function RegisterService(){
     
     return(

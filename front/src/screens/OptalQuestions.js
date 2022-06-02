@@ -2,7 +2,7 @@
 import AppointmentSteps from "../components/appointmentSteps";
 import {removeBasicAppointment,saveOptalQuestions} from "../actions/userActions";
 import {useDispatch, useSelector} from "react-redux";   
-import {useState} from "react"; 
+import React, {useState} from "react"; 
 
 export default function OptalQuestionsScreen(props){
     const getPatientInformation = useSelector(x=>x.appointmentRequest); 

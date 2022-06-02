@@ -1,6 +1,7 @@
 import  Axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 
 export default function Testing(){
     const [position, setPosition] = useState({})
@@ -42,6 +43,8 @@ export default function Testing(){
         console.log(data.message)
 
     }
+
+
     return(
         <>
             <div className='centerContainer'>{position.error ? position.error : position.latitude + " " + position.longitude}
@@ -51,6 +54,8 @@ export default function Testing(){
             </form>
             
             </div>
+            
+        
   
         </>
         ); 

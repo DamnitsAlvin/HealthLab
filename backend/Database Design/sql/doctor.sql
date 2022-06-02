@@ -43,24 +43,27 @@ CREATE TABLE doctor_specialty(
 
 CREATE TABLE doctor_education(
 	doctor_id VARCHAR(50) NOT NULL,  
-    school_name VARCHAR(100) NOT NULL, 
-    graduation_date date NOT NULL, 
-    degree VARCHAR(10) NOT NULL, 
-    course VARCHAR(50) NOT NULL, 
+  school_type VARCHAR(50) NOT NULL, 
+  school_name VARCHAR(100) NOT NULL, 
+  graduation_date date NOT NULL, 
+  degree VARCHAR(50) NOT NULL, 
+  course VARCHAR(100) NOT NULL, 
       FOREIGN KEY(doctor_id) 
     	REFERENCES doctor(doctor_id)
     	ON DELETE CASCADE, 
-    PRIMARY KEY(doctor_id, school_name)
+    PRIMARY KEY(doctor_id, graduation_date)
 );
 
 CREATE TABLE doctor_experience(
    	doctor_id VARCHAR(50) NOT NULL,
     place_of_work VARCHAR(50) NOT NULL, 
+    job_title VARCHAR(50) NOT NULL, 
     years_of_experience INT(4) NOT NULL, 
+    date_ended VARCHAR(50) NOT NULL, 
       FOREIGN KEY(doctor_id) 
     	REFERENCES doctor(doctor_id)
     	ON DELETE CASCADE, 
-    PRIMARY KEY(doctor_id, place_of_work)
+    PRIMARY KEY(doctor_id, date_ended)
   );
   
 CREATE TABLE doctor_certification(

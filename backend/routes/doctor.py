@@ -83,3 +83,85 @@ def registerSpecialtyInformationDoctor():
             return jsonify({message: "Success"}), 200
         except:
             return jsonify({message: "invalid operation on database "}), 404
+
+
+@doc_api.route("/doctorInformation", methods=["GET"])
+def getDoctorInformation():
+    cur = mysql.connection.cursor()
+    cur1 = mysql.connection.cursor()
+    args  = request.args.to_dict()
+    doctor_id = args.get("doctor_id")
+    print("request:", doctor_id)
+    
+    try:
+        BasicInfo = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (doctor_id, ))
+        Title = cur1.execute("SELECT * FROM doctor_title WHERE doctor_id=%s", (doctor_id,))
+        
+        if BasicInfo > 0:
+            BasicInfo = cur.fetchone()
+            cur.connection.commit()
+            
+        if Title > 0 :
+            Title = cur1.fetchall()
+            cur1.connection.commit()
+            DocTitle = " , ".join([str(lis[1]) for lis in Title])
+
+        Specialty = cur.execute("SELECT * FROM doctor_specialty WHERE doctor_id=%s", (doctor_id, ))
+        Education = cur1.execute("SELECT * FROM doctor_education WHERE doctor_id=%s", (doctor_id, ))
+        
+        if Specialty > 0 :
+            Specialty = cur.fetchall()
+            cur.connection.commit()
+        if Education > 0:
+            Education = cur1.fetchall()
+            cur1.connection.commit()
+
+        Certification = cur.execute("SELECT * FROM doctor_certification WHERE doctor_id=%s", (doctor_id, ))
+        Experience = cur1.execute("SELECT * FROM doctor_experience WHERE doctor_id=%s", (doctor_id, ))
+
+        if Certification > 0:
+            Certification = cur.fetchall()
+            cur.connection.commit()
+
+        if Experience > 0 :
+            Experience = cur1.fetchall()
+            cur1.connection.commit()
+
+        Available_Online = cur.execute("SELECT * FROM `doctor_available_online` WHERE doctor_id=%s", (doctor_id, ))
+        Available_Offline = cur1.execute("SELECT * FROM `doctor_availabledateclinic` WHERE doctor_id=%s", (doctor_id, ))
+
+        if Available_Offline > 0:
+            Available_Offline = cur1.fetchall()
+            cur1.connection.commit()
+
+        if Available_Online > 0:
+            Available_Online = cur.fetchall()
+            cur.connection.commit()
+
+        Payment = cur.execute("SELECT * FROM `doctor_paymentinfo` WHERE doctor_id=%s", (doctor_id, ))
+        if Payment > 0 :
+            Payment = cur.fetchall()
+            cur.connection.commit()
+
+        cur.close()
+        cur1.close()
+
+        return jsonify({"BasicInfo": BasicInfo[:10],
+                        "Titles": DocTitle,
+                        "Specialty": Specialty,
+                        "Education": Education, 
+                        "Certification": Certification, 
+                        "Experience": Experience,
+                        "Available_Online" : Available_Online, 
+                        "Available_Offline": Available_Offline, 
+                        "Payment": Payment
+                         }), 200
+
+    except Exception as e: 
+        return jsonify({"message": e}), 404
+
+@doc_api.route("/testd", methods=["GET"])
+def testonle():
+    args = request.args
+    print("Request: ", type(args))
+    return args

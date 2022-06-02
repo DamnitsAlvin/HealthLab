@@ -1,8 +1,7 @@
-
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import { signout} from "./actions/userActions";
-import {Route, Routes, Link, useNavigate, BrowserRouter} from 'react-router-dom'
+import {Route, Routes, Link, useNavigate} from 'react-router-dom'
 import Intro from "./components/intro";
 import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
@@ -37,10 +36,7 @@ function App() {
       	dispatch(signout());
 		navigate("/", {replace: true});
    }; 
-   
-   if(userInfo){
-		console.log("user info:", userInfo.data[0])
-	}
+
 
   return (
   <>
@@ -119,8 +115,12 @@ function App() {
 				<Route path="/optalquestions" element={<OptalQuestionsScreen/>}/>
 				<Route path="/generalHealthquestions" element={<GeneralHealthScreen/>}/>
 				<Route exact path = "/" element={<Intro/>}/>
-				<Route path="/doctorprofile" element={<Doctorprofile/>}/>
-				<Route path="/bookdoctor" element={<Bookdoctor/>}/>
+
+
+				<Route path="/doctor/:id" element={<Doctorprofile/>}>
+					<Route path=":edit" element={<></>}/>
+				</Route>
+				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
 		
 		</main>

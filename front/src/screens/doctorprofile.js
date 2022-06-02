@@ -1,5 +1,18 @@
-export default function Doctorprofile() {
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { DoctorInformation } from "../actions/doctorActions";
 
+export default function Doctorprofile() {
+    const dispatch = useDispatch()
+    const {id} = useParams()
+    const getBasicDocInfo = useSelector((x)=>x.doctorBasicInformation)
+
+    const {DocBasicInfo, loading, error} = getBasicDocInfo
+    console.log("Doc Basic Infor: ", DocBasicInfo)
+    useEffect(()=>{
+        dispatch(DoctorInformation(id))
+    },[dispatch, id])
 
 
     return(
@@ -7,20 +20,27 @@ export default function Doctorprofile() {
     <div class="container">
         <div class="row gutters">
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 ">
-        <div class="card h-100">
+
+        <div class="pard h-100">
             <div class="card-body">
                 <div class="account-settings">
+
                     <div class="user-profile">
                         <div class="user-avatar">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
                         </div>
-                        <h5 class="user-name">Jerome Panagsagan</h5>
-                        <h6 class="user-email">jeromepanagsagan@gmail.com</h6>
+                        <h3 class="user-name">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
+                        <h4 class="user-name">{DocBasicInfo && DocBasicInfo.Titles}</h4>
+                        <h6 class="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
                     </div>
+
                     <div class="about">
                         <h6>Education</h6>
-                        <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                        <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                        <ul>
+                            <li>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</li>
+                            <li>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</li>
+                        </ul>
+                        
                         <div class="about">
                             <h6>Certifications</h6>
                             <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
@@ -30,9 +50,10 @@ export default function Doctorprofile() {
                 </div>
             </div>
         </div>
+
         </div>
         <div class="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
-        <div class="card h-100">
+        <div class="pard h-100">
             <div class="card-body">
                 <div class="row gutters">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

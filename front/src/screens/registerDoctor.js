@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerBasicInformationDoctor } from "../actions/doctorActions";
 import Accordion from "../components/accordion"; 
@@ -92,9 +92,9 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                         <label className="col-form-label col-4">Mode of Consultation</label>
                         <select className="form-control" name="mode_of_consultation" onChange={BasicInformationInputHandler}>
-                            <option value="Virtual">&#xf03d; Virtual</option>
-                            <option value="Face to Face">&#xf500; Face to Face</option>
-                            <option value="Both">&#xf0c0; Both</option>
+                            <option value="0">&#xf03d; Virtual</option>
+                            <option value="1">&#xf500; Face to Face</option>
+                            <option value="2">&#xf0c0; Both</option>
                         </select>
                 </div>
 
