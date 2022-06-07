@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerBasicInformationDoctor } from "../actions/doctorActions";
 import Accordion from "../components/accordion"; 
 import { useNavigate } from "react-router-dom";
-
+import { checkEmail } from "../actions/userActions";
 
 export default function RegisterDoctor(){
     const dispatch = useDispatch()
@@ -17,20 +17,30 @@ export default function RegisterDoctor(){
         birthday: "", 
         phone: "", 
         email: '', 
-        mode_of_consultation: "Virtual", 
+        mode_of_consultation: 1, 
         doctor_image: "", 
         password: "", 
     })
     const navigate = useNavigate()
     const selector = useSelector((x)=>x.doctorBasicRegister)
     const {docBasicReg, error} = selector
+    const emailchecker = useSelector((x)=>x.emailCheck)
+    const {emailError} = emailchecker
 
 
     const BasicInformationInputHandler = (event) =>{
+        //try 2
+        if(event.target.name=="doctor_image"){
+            setformState({
+                ...formState, 
+                ['doctor_image'] : event.target.files[0]
+            })
+        }else{
         setformState({
             ...formState, 
             [event.target.name] : event.target.value
         })
+    }   
     }
 
     const generateDoctorId = () =>{
@@ -56,6 +66,9 @@ export default function RegisterDoctor(){
             navigate("/success")
         }
     }
+    useEffect(()=>{
+        dispatch(checkEmail(formState.email))
+    }, [formState.email])
 
     return(
         <form method="post" onSubmit={submitHandler} encType="multipart/form-data" >
@@ -81,6 +94,7 @@ export default function RegisterDoctor(){
                 </div>
                 <div className="form-group">
         	        <input type="email" className="form-control" name="email" placeholder="&#xf0e0; Email"  required="required" onChange={BasicInformationInputHandler}/>
+                    {emailError && <span>Email is already in use</span>}
                 </div>
 
                 <div className="form-group">
@@ -97,7 +111,12 @@ export default function RegisterDoctor(){
                             <option value="2">&#xf0c0; Both</option>
                         </select>
                 </div>
-
+                <div className="form-group">
+                <label className="col-form-label col-4">Doctor Image</label>    
+                    <div className="row">
+                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={BasicInformationInputHandler} /></div>
+                    </div> 
+                </div>
 
                 <div className="form-group">
                 <label className="col-form-label col-4">Password</label>    

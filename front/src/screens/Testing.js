@@ -48,7 +48,7 @@ export default function Testing(){
     return(
         <>
             <div className='centerContainer'>{position.error ? position.error : position.latitude + " " + position.longitude}
-            <form encType="multipart/form-data" onSubmit={submitHandler}>
+            <form encType="multipart/form-data" onSubmit={isFileSelected && submitHandler}>
                 <input type="file" name="file" onChange={changeHandler}/>
                 <input type="submit"/>
             </form>
