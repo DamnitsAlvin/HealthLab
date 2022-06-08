@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DoctorInformation } from "../actions/doctorActions";
+import DoctorCert from "../components/doctorCert";
 import DoctorEduc from "../components/doctorEduc";
+import DoctorSpecialty from "../components/doctorSpecialty";
 
 export default function Doctorprofile() {
     const dispatch = useDispatch()
@@ -15,8 +17,11 @@ export default function Doctorprofile() {
     useEffect(()=>{
         dispatch(DoctorInformation(id))
     },[dispatch, id])
-
-    const [Cert, setCert] = useState([])
+    const [Education, setEducation] = ([])
+    const EducParentFunction = (Edu) =>{
+        setEducation(Edu)
+    }
+    console.log("Education: ", Education)
     const [formState, setformState] = useState({
         doctor_id: "",
         first_name: "", 
@@ -43,22 +48,8 @@ export default function Doctorprofile() {
         "Password"]
     const BasicFormFields2 = Object.keys(formState)
    
-    console.log("Education: ", Educ)
+    
     useEffect(()=>{
-        
-        if(DocBasicInfo && DocBasicInfo.Certification){
-            DocBasicInfo.Certification.map(values =>{
-                setCert(prevState => ([
-                    ...prevState, 
-                    {
-                        doctor_id: values[0], 
-                        cert_title: values[1], 
-                        cert_issuer: values[2], 
-                        cert_acquired: values[3]
-                    }
-                ]))
-            })
-        }
         setformState(DocBasicInfo ? {
             doctor_id: DocBasicInfo.BasicInfo[0],
             first_name: DocBasicInfo.BasicInfo[1], 
@@ -82,11 +73,7 @@ export default function Doctorprofile() {
         })
     }
     
-    const CertChangeHandler = (event, index) =>{
-        const values = [...Cert]
-        values[index][event.target.name] = event.target.value
-        setCert(values)
-    }
+   
     
     
 
@@ -195,39 +182,10 @@ export default function Doctorprofile() {
                 </div>
             </div>
         
-            <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []}/>     
-    
-            <div className="pard">
-                <div className="card-body">
-                    <div className="row gutters">
-                        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Certification</h6>
-                        </div>
-                        {Cert.map((value, index)=>(
-                            <>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div className="form-group">
-                                    <label htmlFor="fullName">Certification Title</label>
-                                    <input type="text" className="form-control" id="fullName" name="cert_title" value={value.cert_title} />
-                                </div>
-                            </div>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div className="form-group">
-                                    <label htmlFor="fullName">Certification Issuer</label>
-                                    <input type="text" className="form-control" id="fullName" name='cert_issuer'value={value.cert_issuer} />
-                                </div>
-                            </div>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div className="form-group">
-                                    <label htmlFor="fullName">Date Acquired</label>
-                                    <input type="date" className="form-control" id="fullName" name='cert_acquired' value={value.cert_acquired} />
-                                </div>
-                            </div>
-                            </>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction}/>     
+            <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []}/>
+            <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []}/>       
+            
         
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="text-right">

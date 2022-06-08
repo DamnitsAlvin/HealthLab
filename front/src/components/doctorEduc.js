@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorEduc(props){
-    const {data} = props
+    const {data, ParentFunction} = props
+    console.log("Data: ", data)
     const [Educ, setEducation] = useState([])
     const EducChangeHandler = (event, index) =>{
         const values = [...Educ]
         values[index][event.target.name] = event.target.value
         setEducation(values)
+        ParentFunction(Educ)
     }
     const addEducFieldHandler = () =>{
         setEducation([...Educ, {
@@ -24,7 +26,7 @@ export default function DoctorEduc(props){
         setEducation(values)
     }
     useEffect(()=>{
-        if(!data.length == 0){
+        if(data){
             data.map(value => {
                 setEducation(prevState => ([
                     ...prevState, 
@@ -39,7 +41,7 @@ export default function DoctorEduc(props){
                 ]))
             })
         }
-    }, {props})
+    }, [data])
 
     return(
         <div className="pard">
