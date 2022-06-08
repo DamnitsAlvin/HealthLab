@@ -1,6 +1,7 @@
-from flask import Flask,jsonify, request, url_for, Blueprint
-from flask_jwt_extended import create_access_token
 from app import create_app
+from flask import Blueprint, Flask, jsonify, request, url_for
+from flask_jwt_extended import create_access_token
+
 
 app,mysql = create_app()
 doc_api=Blueprint('doc_api', __name__)
@@ -65,9 +66,9 @@ def registerEducInformationDoctor():
             response = cur.execute("INSERT INTO `doctor_education` (`doctor_id`, `school_name`, `graduation_date`, `degree`, `course`) VALUES (%s, %s, %s, %s, %s)", (doctor_id, school_name, graduation_date, degree, course))
             cur.connection.commmit()
             cur.close()
-            return jsonify({message: "Success"}), 200
+            return jsonify({"message": "Success"}), 200
         except:
-            return jsonify({message: "invalid operation on database "}), 404
+            return jsonify({"message": "invalid operation on database "}), 404
 
 @doc_api.route("/doctorspecialtyreg", methods = ["POST"])
 def registerSpecialtyInformationDoctor():
@@ -80,9 +81,9 @@ def registerSpecialtyInformationDoctor():
             response = cur.execute("INSERT INTO `doctor_specialty` (`doctor_id`, `specialties`, `sub-specialty`) VALUES (%s, %s, %s)", (doctor_id, specialties, sub-specialty))
             cur.connection.commmit()
             cur.close()
-            return jsonify({message: "Success"}), 200
+            return jsonify({"message": "Success"}), 200
         except:
-            return jsonify({message: "invalid operation on database "}), 404
+            return jsonify({"message": "invalid operation on database "}), 404
 
 
 @doc_api.route("/doctorInformation", methods=["GET"])
@@ -143,6 +144,11 @@ def getDoctorInformation():
             Payment = cur.fetchall()
             cur.connection.commit()
 
+        ClinicAddress = cur.execute("SELECT * FROM `doctor_clinicaddress` WHERE doctor_id=%s", (doctor_id, ))
+        if ClinicAddress > 0:
+            ClinicAddress = cur.fetchall()
+            cur.connection.commit()
+
         cur.close()
         cur1.close()
 
@@ -154,7 +160,8 @@ def getDoctorInformation():
                         "Experience": Experience,
                         "Available_Online" : Available_Online, 
                         "Available_Offline": Available_Offline, 
-                        "Payment": Payment
+                        "Payment": Payment,
+                        "Clinic_Address": ClinicAddress
                          }), 200
 
     except Exception as e: 

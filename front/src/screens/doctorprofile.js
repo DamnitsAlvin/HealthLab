@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DoctorInformation } from "../actions/doctorActions";
+import DoctorAvailableOffline from "../components/doctor/doctorAvailableOffline";
 import DoctorAvailableOnline from "../components/doctor/doctorAvailableOnline";
 import DoctorCert from "../components/doctor/doctorCert";
 import DoctorEduc from "../components/doctor/doctorEduc";
@@ -193,6 +194,7 @@ export default function Doctorprofile() {
             <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} />
             <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []}/>
             <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []}/>
+            <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} />
 
             
         
