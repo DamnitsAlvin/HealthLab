@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 import { DoctorInformation } from "../actions/doctorActions";
 import DoctorCert from "../components/doctorCert";
 import DoctorEduc from "../components/doctorEduc";
+import DoctorExperience from "../components/doctorExperience";
 import DoctorSpecialty from "../components/doctorSpecialty";
+import DoctorTitles from "../components/doctorTitles";
 
 export default function Doctorprofile() {
     const dispatch = useDispatch()
@@ -47,7 +49,7 @@ export default function Doctorprofile() {
         "doctor_image",
         "Password"]
     const BasicFormFields2 = Object.keys(formState)
-   
+  
     
     useEffect(()=>{
         setformState(DocBasicInfo ? {
@@ -185,6 +187,9 @@ export default function Doctorprofile() {
             <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction}/>     
             <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []}/>
             <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []}/>       
+            <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []}/>
+            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(","): []}/>
+
             
         
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

@@ -34,8 +34,10 @@ export default function DoctorExperience(props){
                     ...prevState, 
                     {
                         doctor_id: values[0], 
-                        special: values[1], 
-                        sub_special: values[2]
+                        place_of_work: values[1], 
+                        position: values[2], 
+                        years_of_experience: values[3],
+                        last_date: values[4]
                     }
                 ]))
             })
@@ -46,22 +48,36 @@ export default function DoctorExperience(props){
         <div className="card-body">
             <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 className="mb-2 text-primary">Specialization</h6>
+                    <h6 className="mb-2 text-primary">Experiences</h6>
                 </div>
                 {
                     Experience.map((value, index)=>(
                         <>
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
-                                <label htmlFor="fullName">Experience</label>
-                                <input type="text" className="form-control" id="fullName" name="special" value={value.special} onChange={(event)=>SpecialtyChangeHandler(event, index)}/>
+                                <label htmlFor="fullName">Position</label>
+                                <input type="text" className="form-control" id="fullName" name="position" value={value.position} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
 
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
-                                <label htmlFor="fullName">Sub-Experience</label>
-                                <input type="text" className="form-control" id="fullName" name="sub_special" value={value.sub_special} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <label htmlFor="fullName">Place of work</label>
+                                <input type="text" className="form-control" id="fullName" name="place_of_work" value={value.place_of_work} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                            </div>
+                        </div>
+
+                        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div className="form-group">
+                                <label htmlFor="fullName">Years of Experience</label>
+                                <input type="text" className="form-control" id="fullName" name="years_of_experience" value={value.years_of_experience} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                            </div>
+                        </div>
+
+                        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div className="form-group">
+                                <label htmlFor="fullName">Last Date to the company</label>
+                                <input type="text" className="form-control" id="fullName" name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
