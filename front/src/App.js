@@ -101,13 +101,16 @@ function App() {
 				<Route path='/signin/:user' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
 				<Route path='/signin' element={<UserTypeSignIn/>}/>
+
 				<Route path="/register" element={<Register/>}/>
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
+
 				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
 				<Route path="/dentistryquestions" element={<DentistQuestions/>}/>
 				<Route path="/obgynequestions" element={<OBquestionScreen/>}/>
@@ -117,9 +120,8 @@ function App() {
 				<Route exact path = "/" element={<Intro/>}/>
 
 
-				<Route path="/doctor/:id" element={<Doctorprofile/>}>
-					<Route path=":edit" element={<></>}/>
-				</Route>
+				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
+				
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
 		
