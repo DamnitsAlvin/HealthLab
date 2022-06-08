@@ -36,6 +36,7 @@ export default function DoctorTitles(props){
             })
         }
     }, [data])
+    //comment
     console.log("Titles: ", Titles)
     return(
         <div className="pard">
