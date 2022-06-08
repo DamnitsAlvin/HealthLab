@@ -42,6 +42,9 @@ CREATE TABLE `appointment_request` (
 --
 -- Table structure for table `dentistappointmentrequest`
 --
+drop database if exists healthlab ;
+create database healthlab; 
+use healthlab;
 
 CREATE TABLE `dentistappointmentrequest` (
   `appointment_request` varchar(20) NOT NULL,
