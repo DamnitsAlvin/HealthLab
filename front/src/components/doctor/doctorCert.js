@@ -58,13 +58,13 @@ export default function DoctorCert(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Issuer</label>
-                                    <input type="text" className="form-control" id="fullName" name='cert_issuer'value={value.cert_issuer} />
+                                    <input type="text" className="form-control" id="fullName" name='cert_issuer'value={value.cert_issuer} onChange={(event)=>CertChangeHandler(event, index)} />
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Date Acquired</label>
-                                    <input type="date" className="form-control" id="fullName" name='cert_acquired' value={value.cert_acquired} />
+                                    <input type="date" className="form-control" id="fullName" name='cert_acquired' value={value.cert_acquired} onChange={(event)=>CertChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

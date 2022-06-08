@@ -18,26 +18,27 @@ export default function DoctorTitles(props){
         setTitles([
             ...Titles, 
             {
-                title:"", 
-               
+                title:"",  
             }
         ])
     }
     
     useEffect(()=>{
         if(data){
-            data.map(values =>{
-                setTitles([
-                    ...Titles, 
+            data.map((values,index) =>{
+                console.log("values: ", values, "Titles: ", Titles, " Index: ", index )
+                setTitles(prevState => ([
+                    ...prevState, 
                     {
                         title: values
                     }
-                ])
+                ]))
             })
+            Titles.splice((Titles.length/2)-1)
         }
     }, [data])
+    console.log("length: ", Titles.length)
     //comment
-    console.log("Titles: ", Titles)
     return(
         <div className="pard">
         <div className="card-body">

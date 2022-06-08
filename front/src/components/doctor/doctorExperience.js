@@ -19,7 +19,7 @@ export default function DoctorExperience(props){
         setExperience([
             ...Experience, 
             {
-                doctor_id: data[0][0], 
+                doctor_id: "", 
                 special: "", 
                 sub_special: "", 
                

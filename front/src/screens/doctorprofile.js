@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DoctorInformation } from "../actions/doctorActions";
-import DoctorCert from "../components/doctorCert";
-import DoctorEduc from "../components/doctorEduc";
-import DoctorExperience from "../components/doctorExperience";
-import DoctorSpecialty from "../components/doctorSpecialty";
-import DoctorTitles from "../components/doctorTitles";
+import DoctorAvailableOnline from "../components/doctor/doctorAvailableOnline";
+import DoctorCert from "../components/doctor/doctorCert";
+import DoctorEduc from "../components/doctor/doctorEduc";
+import DoctorExperience from "../components/doctor/doctorExperience";
+import DoctorPayment from "../components/doctor/doctorPayment";
+import DoctorSpecialty from "../components/doctor/doctorSpecialty";
+import DoctorTitles from "../components/doctor/doctorTitles";
 
 export default function Doctorprofile() {
     const dispatch = useDispatch()
@@ -19,11 +21,11 @@ export default function Doctorprofile() {
     useEffect(()=>{
         dispatch(DoctorInformation(id))
     },[dispatch, id])
-    const [Education, setEducation] = ([])
+    const [Educ, setEducation] = useState([])
     const EducParentFunction = (Edu) =>{
         setEducation(Edu)
     }
-    console.log("Education: ", Education)
+    console.log("Education1: ", Educ)
     const [formState, setformState] = useState({
         doctor_id: "",
         first_name: "", 
@@ -188,7 +190,9 @@ export default function Doctorprofile() {
             <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []}/>
             <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []}/>       
             <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []}/>
-            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(","): []}/>
+            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} />
+            <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []}/>
+            <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []}/>
 
             
         
