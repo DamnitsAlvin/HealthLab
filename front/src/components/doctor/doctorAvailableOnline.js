@@ -44,30 +44,21 @@ export default function DoctorAvailableOnline(props){
             })
         }
     }, [data])
+    console.log("Time: ", AvailableOnline)
 
     return(
         <div className="pard">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">AvailableOnline Information</h6>
+                            <h6 className="mb-2 text-primary">Available Online Information</h6>
                         </div>
                         {AvailableOnline.map((value, index)=>(
                             <>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Available Day</label>
-                                    <select value={value.day_from} onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}}>
-                                        <option value="Monday">Monday</option>
-                                        <option value="Tuesday">Tuesday</option>
-                                        <option value="Wednesday">Wednesday</option>
-                                        <option value="Thursday">Thursday</option>
-                                        <option value="Friday">Friday</option>
-                                        <option value="Saturday">Saturday</option>
-                                        <option value="Sunday">Sunday</option>
-                                    </select>
-                                    to
-                                    <select value={value.day_to} onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}}>
+                                    <select className="form-control" value={value.day_from} name="day_from" onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}}>
                                         <option value="Monday">Monday</option>
                                         <option value="Tuesday">Tuesday</option>
                                         <option value="Wednesday">Wednesday</option>
@@ -79,12 +70,34 @@ export default function DoctorAvailableOnline(props){
                                 </div>
                             </div>
                             
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">To</label>
+                                    
+                                    <select className="form-control" value={value.day_to} onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}}>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Available Time</label>
-                                    <input type="time" value={value.time_from} onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}} />
+                                    <input className="form-control" type="time" value={value.time_from} name="time_from" onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}} />
+                                </div>
+                            </div>
 
-                                    <input type="time" value={value.time_to} onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}} /> 
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">To</label>
+                                    <input className="form-control" type="time" value={value.time_to} name="time_to" onChange={(event)=>{AvailableOnlineChangeHandler(event, index)}} />
                                 </div>
                             </div>
                             
