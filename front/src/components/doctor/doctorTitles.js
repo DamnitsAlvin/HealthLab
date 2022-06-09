@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorTitles(props){
-    const {data} = props
+    const {data,ParentFunction} = props
     const [Titles, setTitles] = useState([])
    
     const TitlesChangeHandler = (event, index) =>{
         const values = [...Titles]
         values[index][event.target.name] = event.target.value
         setTitles(values)
+        ParentFunction(Titles)
     }
     const removeTitlesFieldHandler = (index) =>{
         const values = [...Titles]
@@ -36,6 +37,7 @@ export default function DoctorTitles(props){
             })
             Titles.splice((Titles.length/2)-1)
         }
+        ParentFunction(Titles)
     }, [data])
     console.log("length: ", Titles.length)
     //comment
@@ -52,7 +54,7 @@ export default function DoctorTitles(props){
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Title</label>
-                                <input type="text" className="form-control" id="fullName" name="position" value={value.title} onChange={(event)=>TitlesChangeHandler(event, index)}/>
+                                <input type="text" className="form-control"  name="position" value={value.title} onChange={(event)=>TitlesChangeHandler(event, index)}/>
                             </div>
                         </div>
 

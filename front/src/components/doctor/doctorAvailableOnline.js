@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorAvailableOnline(props){
-    const {data} = props
+    const {data, ParentFunction} = props
     const [AvailableOnline, setAvailableOnline] = useState([])
    
     const AvailableOnlineChangeHandler = (event, index) =>{
@@ -13,6 +13,7 @@ export default function DoctorAvailableOnline(props){
         const values = [...AvailableOnline]
         values.splice(index, 1)
         setAvailableOnline(values)
+        ParentFunction(AvailableOnline)
     }
     const addAvailableOnlineFieldHandler = () =>{
         setAvailableOnline([
@@ -43,8 +44,9 @@ export default function DoctorAvailableOnline(props){
                 ]))
             })
         }
+        ParentFunction(AvailableOnline)
     }, [data])
-    console.log("Time: ", AvailableOnline)
+   
 
     return(
         <div className="pard">

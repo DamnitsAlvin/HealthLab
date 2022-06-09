@@ -8,6 +8,7 @@ import DoctorCert from "../components/doctor/doctorCert";
 import DoctorEduc from "../components/doctor/doctorEduc";
 import DoctorExperience from "../components/doctor/doctorExperience";
 import DoctorPayment from "../components/doctor/doctorPayment";
+import DoctorPersonal from "../components/doctor/doctorPersonal";
 import DoctorSpecialty from "../components/doctor/doctorSpecialty";
 import DoctorTitles from "../components/doctor/doctorTitles";
 
@@ -22,65 +23,50 @@ export default function Doctorprofile() {
     useEffect(()=>{
         dispatch(DoctorInformation(id))
     },[dispatch, id])
+
+    const [Personal, setPersonal] = useState({})
     const [Educ, setEducation] = useState([])
+    const [Cert, setCert] = useState([])
+    const [Specialization, setSpecialization] = useState([])
+    const [Experience, setExperience] = useState([])
+    const [Title, setTitle] = useState([])
+    const [Payment, setPayment] = useState([])
+    const [TimeAvailableOnline, setTimeAvailableOnline] = useState([])
+    const [clinicAddress, setClinicAddress] = useState([])
+    const [clinicTime, setClinicTime] = useState([])
+
     const EducParentFunction = (Edu) =>{
         setEducation(Edu)
     }
-    console.log("Education1: ", Educ)
-    const [formState, setformState] = useState({
-        doctor_id: "",
-        first_name: "", 
-        middle_name: "", 
-        last_name: "", 
-        suffix : "", 
-        birthday: "", 
-        phone: "", 
-        email: '', 
-        mode_of_consultation: "Virtual", 
-        doctor_image: "", 
-        password: "", 
-    })
-    const BasicFormFields = [
-        "First Name", 
-        "Middle Name",
-        "Last Name", 
-        "Suffix" , 
-        "Birthday", 
-        "Phone", 
-        "Email", 
-        "Mode of Consulation", 
-        "doctor_image",
-        "Password"]
-    const BasicFormFields2 = Object.keys(formState)
-  
-    
-    useEffect(()=>{
-        setformState(DocBasicInfo ? {
-            doctor_id: DocBasicInfo.BasicInfo[0],
-            first_name: DocBasicInfo.BasicInfo[1], 
-            middle_name: DocBasicInfo.BasicInfo[2], 
-            last_name: DocBasicInfo.BasicInfo[3], 
-            suffix : DocBasicInfo.BasicInfo[4], 
-            birthday:DocBasicInfo.BasicInfo[5], 
-            phone: DocBasicInfo.BasicInfo[6], 
-            email: DocBasicInfo.BasicInfo[7], 
-            mode_of_consultation: DocBasicInfo.BasicInfo[8], 
-            doctor_image: DocBasicInfo.BasicInfo[9], 
-            password: "",   
-        }: {} )
-    }, [DocBasicInfo])
-  
 
-    const BasicInfoChangeHandler = (event, index) =>{
-        setformState({
-            ...formState, 
-            [BasicFormFields2[index+1]]: event.target.value
-        })
+    const PersonalParentFunction = (personal)=>{
+        setPersonal(personal)
     }
-    
-   
-    
-    
+    const CertParentFunction = (cert) =>{
+        setCert(cert)
+    }
+    const SpecializationParentFunction = (spec) =>{
+        setSpecialization(spec)
+    }
+    const ExperienceParentFunction = (data) =>{
+        setExperience(data)
+    }
+    const TitleParentFunction = (data) =>{
+        setTitle(data)
+    }
+    const PaymentParentFunction = (data) =>{
+        setPayment(data)
+    }
+    const availableOnlineParentFunction = (data)=>{
+        setTimeAvailableOnline(data)
+    }
+    const clinicaddressParentFunction = (data) =>{
+        setClinicAddress(data)
+    }
+    const clinicTimeParentFunction = (data) =>{
+        setClinicTime(data)
+    }
+  
 
     return(
     
@@ -90,7 +76,6 @@ export default function Doctorprofile() {
         <div className="pard">
             <div className="card-body">
                 <div className="account-settings">
-
                     <div className="user-profile">
                         <div className="user-avatar">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
@@ -119,82 +104,16 @@ export default function Doctorprofile() {
         </div>
 
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
-            <div className="pard">
-                <div className="card-body">
-                    <div className="row gutters">
-                        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Personal Details</h6>
-                        </div>
-                        
-                        {BasicFormFields.map((value, index)=>(
-                            index == 4 ? (
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="form-group">
-                                    <label htmlFor="fullName">{value}</label>
-                                    <input type="date" className="form-control" id="fullName"  onChange={(event)=>BasicInfoChangeHandler(event, index)} value={DocBasicInfo && DocBasicInfo.BasicInfo[index+1]} />
-                                </div>
-                            </div>
-                            ) :
-                            index==5 ? (
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="form-group">
-                                    <label htmlFor="fullName">{value}</label>
-                                    <input type="text" className="form-control" placeholder="&#xf095; xxxx-xxx-xxxx" onChange={(event)=>BasicInfoChangeHandler(event, index)} pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" value={DocBasicInfo && DocBasicInfo.BasicInfo[index+1]} />      
-                                </div>
-                            </div>
-                            ): 
-                            index==7 ? (
-                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="form-group">
-                                    <label htmlFor="fullName">{value}</label>
-                                    <select className="form-control"  onChange={(event)=>BasicInfoChangeHandler(event, index)} value={DocBasicInfo && DocBasicInfo.BasicInfo[index+1]}>
-                                        <option value="0">&#xf03d; Virtual</option>
-                                        <option value="1">&#xf500; Face to Face</option>
-                                        <option value="2">&#xf0c0; Both</option>
-                                    </select>
-                                </div>
-                                </div>
-                            ):
-                            index==8 ? (<>
-                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                    <div className="form-group">
-                                        <label htmlFor="fullName">{value}</label>
-                                        <input type="file" className="form-control" id="fullName"   onChange={(event)=>BasicInfoChangeHandler(event, index)} />
-                                    </div>
-                                </div>
-                            </>) : 
-                            index==9 ? (
-                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="form-group">
-                                    <label htmlFor="fullName">{value}</label>
-                                    <input type="password" className="form-control" id="fullName"  onChange={(event)=>BasicInfoChangeHandler(event, index)} value={DocBasicInfo && DocBasicInfo.BasicInfo[index+1]} />
-                                </div>
-                            </div>
-                            ) : 
-                            ( 
-                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
-                                <div className="form-group">
-                                    <label htmlFor="fullName">{value}</label>
-                                    <input type="text" className="form-control" id="fullName"  onChange={(event)=>BasicInfoChangeHandler(event, index)} value={DocBasicInfo && DocBasicInfo.BasicInfo[index+1]} />
-                                </div>
-                            </div>)
-                        
-
-                        ))} 
-
-
-                    </div>
-                </div>
-            </div>
-        
+            
+            <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction}/>
             <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction}/>     
-            <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []}/>
-            <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []}/>       
-            <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []}/>
-            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} />
-            <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []}/>
-            <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []}/>
-            <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} />
+            <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction}/>
+            <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []} ParentFunction={SpecializationParentFunction}/>       
+            <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []} ParentFunction={ExperienceParentFunction}/>
+            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} ParentFunction={TitleParentFunction}/>
+            <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []} ParentFunction={PaymentParentFunction}/>
+            <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction}/>
+            <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction}/>
 
             
         
