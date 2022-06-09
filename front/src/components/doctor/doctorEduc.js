@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 export default function DoctorEduc(props){
     const {data, ParentFunction} = props
-    console.log("Data: ", data)
+
     const [Educ, setEducation] = useState([])
     const EducChangeHandler = (event, index) =>{
         const values = [...Educ]
@@ -41,6 +41,7 @@ export default function DoctorEduc(props){
                 ]))
             })
         }
+        ParentFunction(Educ)
     }, [data])
 
     return(
@@ -75,19 +76,19 @@ export default function DoctorEduc(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Graduation Date</label>
-                                    <input type="date" className="form-control" id="fullName" value={value.graduation_date} name='graduation_date' onChange={(event)=>EducChangeHandler(event, index)}/>
+                                    <input type="date" className="form-control"  value={value.graduation_date} name='graduation_date' onChange={(event)=>EducChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">School Name</label>
-                                    <input type="text" className="form-control" id="fullName" value={value.school_name} name='school_name' onChange={(event)=>EducChangeHandler(event, index)}/>
+                                    <input type="text" className="form-control"  value={value.school_name} name='school_name' onChange={(event)=>EducChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Course</label>
-                                    <input type="text" className="form-control" id="fullName" value={value.course} name='course' onChange={(event)=>EducChangeHandler(event, index)} />
+                                    <input type="text" className="form-control"  value={value.course} name='course' onChange={(event)=>EducChangeHandler(event, index)} />
                                 </div>
                             </div>
                             

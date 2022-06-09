@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorSpecialty(props){
-    const {data} = props
+    const {data, ParentFunction} = props
     const [Specialty, setSpecialty] = useState([])
    
     const SpecialtyChangeHandler = (event, index) =>{
         const values = [...Specialty]
         values[index][event.target.name] = event.target.value
         setSpecialty(values)
+        ParentFunction(Specialty)
     }
     const removeSpecialtyFieldHandler = (index) =>{
         const values = [...Specialty]
@@ -38,6 +39,7 @@ export default function DoctorSpecialty(props){
                 ]))
             })
         }
+        ParentFunction(Specialty)
     }, [data])
     return(
         <div className="pard">

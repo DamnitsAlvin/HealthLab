@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react'
 
 export default function DoctorExperience(props){
     
-    const {data} = props
+    const {data, ParentFunction} = props
     const [Experience, setExperience] = useState([])
    
     const ExperienceChangeHandler = (event, index) =>{
         const values = [...Experience]
         values[index][event.target.name] = event.target.value
         setExperience(values)
+        ParentFunction(Experience)
     }
     const removeExperienceFieldHandler = (index) =>{
         const values = [...Experience]
@@ -42,6 +43,7 @@ export default function DoctorExperience(props){
                 ]))
             })
         }
+        ParentFunction(Experience)
     }, [data])
     return(
         <div className="pard">
@@ -56,28 +58,28 @@ export default function DoctorExperience(props){
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Position</label>
-                                <input type="text" className="form-control" id="fullName" name="position" value={value.position} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="text" className="form-control"  name="position" value={value.position} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
 
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Place of work</label>
-                                <input type="text" className="form-control" id="fullName" name="place_of_work" value={value.place_of_work} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="text" className="form-control"  name="place_of_work" value={value.place_of_work} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
 
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Years of Experience</label>
-                                <input type="text" className="form-control" id="fullName" name="years_of_experience" value={value.years_of_experience} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="text" className="form-control"  name="years_of_experience" value={value.years_of_experience} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
 
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Last Date to the company</label>
-                                <input type="text" className="form-control" id="fullName" name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="text" className="form-control"  name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

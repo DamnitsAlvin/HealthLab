@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorCert(props){
-    const {data} = props
+    const {data, ParentFunction} = props
     const [Cert, setCert] = useState([])
     const CertChangeHandler = (event, index) =>{
         const values = [...Cert]
         values[index][event.target.name] = event.target.value
         setCert(values)
+        ParentFunction(Cert)
     }
     const removeCertFieldHandler = (index) =>{
         const values = [...Cert]
@@ -39,7 +40,10 @@ export default function DoctorCert(props){
                 ]))
             })
         }
+        ParentFunction(Cert)
     }, [data])
+
+    
     return(
         <div className="pard">
                 <div className="card-body">
@@ -52,19 +56,19 @@ export default function DoctorCert(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Title</label>
-                                    <input type="text" className="form-control" id="fullName" name="cert_title" value={value.cert_title} onChange={(event)=>CertChangeHandler(event, index)}/>
+                                    <input type="text" className="form-control"  name="cert_title" value={value.cert_title} onChange={(event)=>CertChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Issuer</label>
-                                    <input type="text" className="form-control" id="fullName" name='cert_issuer'value={value.cert_issuer} onChange={(event)=>CertChangeHandler(event, index)} />
+                                    <input type="text" className="form-control"  name='cert_issuer'value={value.cert_issuer} onChange={(event)=>CertChangeHandler(event, index)} />
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Date Acquired</label>
-                                    <input type="date" className="form-control" id="fullName" name='cert_acquired' value={value.cert_acquired} onChange={(event)=>CertChangeHandler(event, index)}/>
+                                    <input type="date" className="form-control"  name='cert_acquired' value={value.cert_acquired} onChange={(event)=>CertChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
