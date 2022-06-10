@@ -39,7 +39,7 @@ export default function DoctorSpecialty(props){
                 ]))
             })
         }
-        ParentFunction(Specialty)
+       
     }, [data])
     return(
         <div className="pard">

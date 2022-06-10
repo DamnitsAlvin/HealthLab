@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorPersonal(props){
-    const {data, ParentFunction} = props
+    const {data, ParentFunction, ParentFunction1} = props
+    console.log("Basic Info: ", data )
 
     const [formState, setformState] = useState({
         doctor_id: "",
@@ -26,7 +27,7 @@ export default function DoctorPersonal(props){
         "Phone", 
         "Email", 
         "Mode of Consulation", 
-        "doctor_image",
+        "Doctor Image",
         "Password"
     ]
     const BasicFormFields2 = Object.keys(formState)
@@ -43,17 +44,34 @@ export default function DoctorPersonal(props){
             email: data[7], 
             mode_of_consultation: data[8], 
             doctor_image: data[9], 
-            password: "",   
+            password: data[11],   
         }: {} )
-        ParentFunction(formState)
+        
     }, [data])
-
-    const BasicInfoChangeHandler = (event, index) =>{
+   
+    const BasicInfoChangeHandler = async(event, index) =>{
         setformState({
             ...formState, 
             [BasicFormFields2[index+1]]: event.target.value
         })
-        ParentFunction(formState)
+        setformState((formState)=>{
+            ParentFunction(formState)
+            return formState; 
+        })
+        
+    }
+    const fileChange = (event, index) =>{
+        const extension = event.target.files[0].name.split(".")[1]
+        const filename = formState.doctor_id + "Image." +extension
+        setformState({
+            ...formState, 
+            [BasicFormFields2[index+1]]: filename
+        })
+        setformState((formState)=>{
+            ParentFunction(formState)
+            return formState; 
+        })
+        ParentFunction1(event.target.files[0])
     }
     
     return(
@@ -63,7 +81,7 @@ export default function DoctorPersonal(props){
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <h6 className="mb-2 text-primary">Personal Details</h6>
                         </div>
-                        
+                        <form>
                         {BasicFormFields.map((value, index)=>(
                             index == 4 ? (
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
@@ -97,7 +115,7 @@ export default function DoctorPersonal(props){
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                     <div className="form-group">
                                         <label htmlFor="fullName">{value}</label>
-                                        <input type="file" className="form-control"  onChange={(event)=>BasicInfoChangeHandler(event, index)} />
+                                        <input type="file" className="form-control"  onChange={event => fileChange(event, index)} />
                                     </div>
                                 </div>
                             </>) : 
@@ -120,7 +138,7 @@ export default function DoctorPersonal(props){
 
                         ))} 
 
-
+                        </form>
                     </div>
                 </div>
             </div>

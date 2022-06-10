@@ -44,7 +44,7 @@ export default function DoctorAvailableOnline(props){
                 ]))
             })
         }
-        ParentFunction(AvailableOnline)
+       
     }, [data])
    
 

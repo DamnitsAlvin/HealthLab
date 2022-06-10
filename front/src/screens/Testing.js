@@ -39,6 +39,7 @@ export default function Testing(){
         event.preventDefault()
         const formData = new FormData();
 		formData.append('file', selectedFile);
+        console.log("SelectedFile: ", selectedFile.name)
         const {data} = await Axios.post("http://localhost:5000/api/test", formData)
         console.log(data.message)
 
@@ -48,7 +49,7 @@ export default function Testing(){
     return(
         <>
             <div className='centerContainer'>{position.error ? position.error : position.latitude + " " + position.longitude}
-            <form encType="multipart/form-data" onSubmit={isFileSelected && submitHandler}>
+            <form  onSubmit={isFileSelected && submitHandler}>
                 <input type="file" name="file" onChange={changeHandler}/>
                 <input type="submit"/>
             </form>

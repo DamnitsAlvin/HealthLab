@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DoctorInformation } from "../actions/doctorActions";
+import { DoctorInformation, updateDoctorInfo, UpdateImage } from "../actions/doctorActions";
 import DoctorAvailableOffline from "../components/doctor/doctorAvailableOffline";
 import DoctorAvailableOnline from "../components/doctor/doctorAvailableOnline";
 import DoctorCert from "../components/doctor/doctorCert";
@@ -11,18 +11,19 @@ import DoctorPayment from "../components/doctor/doctorPayment";
 import DoctorPersonal from "../components/doctor/doctorPersonal";
 import DoctorSpecialty from "../components/doctor/doctorSpecialty";
 import DoctorTitles from "../components/doctor/doctorTitles";
-
+import axios from 'axios'
 export default function Doctorprofile() {
     const dispatch = useDispatch()
     const {id} = useParams()
     const getBasicDocInfo = useSelector((x)=>x.doctorBasicInformation)
     const {DocBasicInfo, loading, error} = getBasicDocInfo
 
-    console.log("Doc Basic Infor: ", DocBasicInfo)
+   
     // get the details of a specific doctor
     useEffect(()=>{
         dispatch(DoctorInformation(id))
     },[dispatch, id])
+    
 
     const [Personal, setPersonal] = useState({})
     const [Educ, setEducation] = useState([])
@@ -34,13 +35,32 @@ export default function Doctorprofile() {
     const [TimeAvailableOnline, setTimeAvailableOnline] = useState([])
     const [clinicAddress, setClinicAddress] = useState([])
     const [clinicTime, setClinicTime] = useState([])
+    const [docImage, setDocImage] = useState()
 
+    useEffect(()=>{
+        setEducation(DocBasicInfo ? DocBasicInfo.Education : [])
+        setPersonal(DocBasicInfo ? DocBasicInfo.BasicInfo: [])
+        setCert(DocBasicInfo ? DocBasicInfo.Certification: [])
+        setSpecialization(DocBasicInfo ? DocBasicInfo.Specialty: [])
+        setExperience(DocBasicInfo ? DocBasicInfo.Experience: [])
+        setTitle(DocBasicInfo ? DocBasicInfo.Titles.split(" , "): [])
+        setPayment(DocBasicInfo ? DocBasicInfo.Payment: [])
+        setTimeAvailableOnline(DocBasicInfo ? DocBasicInfo.Available_Online: [])
+        setClinicAddress(DocBasicInfo ? DocBasicInfo.Clinic_Address: [])
+        setClinicTime(DocBasicInfo ? DocBasicInfo.Available_Offline: [])
+    }, [DocBasicInfo])
+    console.log("Personal: ", Personal)
+    
+   
     const EducParentFunction = (Edu) =>{
         setEducation(Edu)
     }
 
     const PersonalParentFunction = (personal)=>{
         setPersonal(personal)
+    }
+    const PersonalParentFunction1 = (data) =>{
+        setDocImage(data)
     }
     const CertParentFunction = (cert) =>{
         setCert(cert)
@@ -66,8 +86,17 @@ export default function Doctorprofile() {
     const clinicTimeParentFunction = (data) =>{
         setClinicTime(data)
     }
-    const submitHandler = (event) =>{
+    const submitHandler = async(event) =>{
         event.preventDefault()
+        //upload doctor's image
+        if(docImage){
+            const formData = new FormData()
+            formData.append('id', id)
+            formData.append('file', docImage)
+            dispatch(UpdateImage(formData))
+            console.log("succcess!!!!!")
+        }
+        dispatch(updateDoctorInfo(Personal))
         //action update personal info of doctor
     }
   
@@ -108,8 +137,9 @@ export default function Doctorprofile() {
         </div>
 
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
+         
             
-            <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction}/>
+            <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction} ParentFunction1={PersonalParentFunction1}/>
             <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction}/>     
             <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction}/>
             <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []} ParentFunction={SpecializationParentFunction}/>       
@@ -121,9 +151,10 @@ export default function Doctorprofile() {
 
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="text-right">
-                    <button type="button" id="submit" name="submit" className="btn btn-primary">Save</button>
+                    <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={submitHandler}>Save</button>
                 </div>
             </div>
+            
              
         </div>
     </div>

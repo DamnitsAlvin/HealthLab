@@ -40,7 +40,7 @@ export default function DoctorCert(props){
                 ]))
             })
         }
-        ParentFunction(Cert)
+       
     }, [data])
 
     

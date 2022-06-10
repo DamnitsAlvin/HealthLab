@@ -42,7 +42,7 @@ export default function DoctorPayment(props){
                 ]))
             })
         }
-        ParentFunction(Payment)
+        
     }, [data])
 
     return(

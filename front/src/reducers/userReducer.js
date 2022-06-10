@@ -1,3 +1,4 @@
+import { UPDATE_DOC_IMAGE_FAIL, UPDATE_DOC_IMAGE_REQ, UPDATE_DOC_IMAGE_SUC } from "../constants/doctorConstants";
 import { 
     GETALLDOCTOR_FAIL,
     GETALLDOCTOR_REQUEST,
@@ -101,6 +102,19 @@ export const getUserAppointmentReducer = (state={}, action)=>{
             return {loading:false, appointments: action.payload}
         case GET_APPOINTMENT_FAIL:
             return {loading: false, message: action.payload}
+        default:
+            return state
+    }
+}
+
+export const fileImageHandlerReducer = (state={}, action)=>{
+    switch(action.type){
+        case UPDATE_DOC_IMAGE_REQ:
+            return {loading: true}
+        case UPDATE_DOC_IMAGE_SUC:
+            return {loading: false, FileImage: action.payload}
+        case UPDATE_DOC_IMAGE_FAIL:
+            return {loading:false, FileImageError: action.payload}
         default:
             return state
     }

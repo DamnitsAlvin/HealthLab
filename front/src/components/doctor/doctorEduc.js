@@ -41,7 +41,7 @@ export default function DoctorEduc(props){
                 ]))
             })
         }
-        ParentFunction(Educ)
+       
     }, [data])
 
     return(

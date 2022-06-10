@@ -43,7 +43,7 @@ export default function DoctorExperience(props){
                 ]))
             })
         }
-        ParentFunction(Experience)
+     
     }, [data])
     return(
         <div className="pard">

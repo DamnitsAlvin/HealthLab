@@ -12,7 +12,13 @@ import {
     REGISTER_SPECIALTY_DOCTOR_FAIL,
     GET_DOCTOR_TITLE_BASIC_REQUEST,
     GET_DOCTOR_TITLE_BASIC_SUCCESS,
-    GET_DOCTOR_TITLE_BASIC_FAIL
+    GET_DOCTOR_TITLE_BASIC_FAIL,
+    UPDATE_DOC_IMAGE_SUC,
+    UPDATE_DOC_IMAGE_REQ,
+    UPDATE_DOC_IMAGE_FAIL,
+    UPDATE_DOC_INFO_REQ,
+    UPDATE_DOC_INFO_SUC,
+    UPDATE_DOC_INFO_FAIL
 } from "../constants/doctorConstants"
 import Axios from "axios"
 import axios from 'axios'
@@ -76,4 +82,35 @@ export const DoctorInformation = (doctor_Id) => async(dispatch) =>{
             : error.message,
             })
     }
+}
+
+export const UpdateImage = (datum) => async(dispatch) =>{
+    dispatch({type: UPDATE_DOC_IMAGE_REQ})
+    try{
+        const {data} = await axios.post("http://localhost:5000/api/updateImage", datum)
+        console.log("Data: ", datum)
+        dispatch({type: UPDATE_DOC_IMAGE_SUC, payload: data})
+    }
+    catch(error){
+        
+        dispatch({type: UPDATE_DOC_IMAGE_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
+}
+
+export const updateDoctorInfo = (personal) => async(dispatch) =>{
+    dispatch({type: UPDATE_DOC_INFO_REQ})
+    try{
+        const {personalData} = await axios.post("http://localhost:5000/api/doctor/update/personal", personal)
+        dispatch({type: UPDATE_DOC_INFO_SUC, payload: true})
+    }
+    catch(error){
+        dispatch({type: UPDATE_DOC_INFO_FAIL, 
+            payload: false
+            })
+    }
+
 }

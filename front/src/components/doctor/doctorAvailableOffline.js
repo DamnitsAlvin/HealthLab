@@ -90,9 +90,8 @@ export default function DoctorAvailableOffline(props){
                 ))
             })
         }
-        ParentFunction1(address)
-        ParentFunction1(time)
-    }, [address, time])
+        
+    }, [address, time,])
    
 
     return(

@@ -152,7 +152,7 @@ def getDoctorInformation():
         cur.close()
         cur1.close()
 
-        return jsonify({"BasicInfo": BasicInfo[:10],
+        return jsonify({"BasicInfo": BasicInfo,
                         "Titles": DocTitle,
                         "Specialty": Specialty,
                         "Education": Education, 
@@ -167,8 +167,31 @@ def getDoctorInformation():
     except Exception as e: 
         return jsonify({"message": e}), 404
 
-@doc_api.route("/testd", methods=["GET"])
-def testonle():
-    args = request.args
-    print("Request: ", type(args))
-    return args
+@doc_api.route("/doctor/update/personal", methods=["POST"])
+def updatePersonalInfo():
+    if request.method == 'POST':
+        args = request.args.to_dict()
+        doctor_id = request.json.get('doctor_id')
+        cur = mysql.connection.cursor()
+        firstname = request.json.get("first_name")
+        middlename = request.json.get("middle_name")
+        lastname = request.json.get("last_name") 
+        suffix = request.json.get("suffix") 
+        birthday = request.json.get("birthday")
+        phone = request.json.get("phone")
+        email = request.json.get("email") 
+        consultation = request.json.get("mode_of_consultation")
+        doc_image = request.json.get('doctor_image')
+        password = request.json.get('password')
+        try:
+            cur.execute("UPDATE `doctor` SET `firstname`=%s,`middlename`=%s,`lastname`=%s,`suffix`=%s,`birthday`=%s,`contact_number`=%s,`email`=%s,`mode_of_consultation`=%s,`doctor_image`=%s,`password`=%s WHERE doctor_id=%s", (firstname,middlename,lastname,suffix,birthday,phone,email,consultation,doc_image,password, doctor_id))
+            print("UPDATE `doctor` SET `firstname`=%s,`middlename`=%s,`lastname`=%s,`suffix`=%s,`birthday`=%s,`contact_number`=%s,`email`=%s,`mode_of_consultation`=%s,`doctor_image`=%s,`password`=%s WHERE doctor_id=%s" % (firstname,middlename,lastname,suffix,birthday,phone,email,consultation,doc_image,password, doctor_id))
+            
+            cur.connection.commit()
+            cur.close()
+            return jsonify({
+                'success': True
+            }), 200
+        except Exception as e: 
+            print("Error has occured", e)
+            return jsonify({"success": False}), 404
