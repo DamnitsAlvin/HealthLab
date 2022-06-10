@@ -66,6 +66,10 @@ export default function Doctorprofile() {
     const clinicTimeParentFunction = (data) =>{
         setClinicTime(data)
     }
+    const submitHandler = (event) =>{
+        event.preventDefault()
+        //action update personal info of doctor
+    }
   
 
     return(
@@ -97,7 +101,7 @@ export default function Doctorprofile() {
                             <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
                              <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
                         </div>
-                    
+                       
                 </div>
             </div>
         </div>
@@ -115,8 +119,6 @@ export default function Doctorprofile() {
             <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction}/>
             <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction}/>
 
-            
-        
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="text-right">
                     <button type="button" id="submit" name="submit" className="btn btn-primary">Save</button>
