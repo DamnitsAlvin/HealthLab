@@ -96,7 +96,7 @@ export default function DoctorAvailableOffline(props){
    
 
     return(
-        <div className="pard">
+        <div className="pard_4">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -187,23 +187,22 @@ export default function DoctorAvailableOffline(props){
                                             <div className="text-right">
                                                 <button type="button" className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
                                             </div>
+                                            <hr></hr>
                                     </div>
-                                    <hr></hr>
+                                   
                                     </>
                                 ) : (<></>)
                             ))}
                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="text-right">
                                     <button type="button" className="btn btn-success" onClick={()=>{addTime(index)}}>Add Time</button>
+                                    <button type="button" id="kags" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-warning">Remove Address</button>
+                                    
                                 </div>
+                                <hr></hr>
                             </div> 
-                            <hr></hr>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div className="text-right">
-                                        <button type="button" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-danger">Remove Address</button>
-                                    </div>
-                            </div>
-                            <hr></hr>
+                           
+                          
                             </>
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

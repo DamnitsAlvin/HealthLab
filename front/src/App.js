@@ -135,9 +135,9 @@ function App() {
 					<div className="col-sm-6 col-md-4">
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
-								<h5>About Medicio</h5>
+								<h5>About Medicall</h5>
 								<p>
-									Lorem ipsum dolor sit amet, ne nam purto nihil impetus, an facilisi accommodare sea
+									
 								</p>
 							</div>
 						</div>
@@ -156,7 +156,7 @@ function App() {
 					<div className="col-sm-6 col-md-4">
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
-								<h5>Medicio center</h5>
+								<h5>Medicall Center</h5>
 								<p>
 									Nam leo lorem, tincidunt id risus ut, ornare tincidunt naqunc sit amet.
 								</p>
@@ -188,7 +188,7 @@ function App() {
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
 								<h5>Our location</h5>
-								<p>Barangay 6969 Kawit, Cavite Philippines</p>
+								<p>Las Pinas Metro Manila</p>
 
 							</div>
 						</div>
