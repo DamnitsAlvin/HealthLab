@@ -148,10 +148,12 @@ export default function Doctorprofile() {
             <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []} ParentFunction={PaymentParentFunction}/>
             <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction}/>
             <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction}/>
-
+            
+            
+        
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className="text-right">
-                    <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={submitHandler}>Save</button>
+                <div className="text-right-jonathan">
+                    <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" onClick={submitHandler}>Save Information</button>
                 </div>
             </div>
             
