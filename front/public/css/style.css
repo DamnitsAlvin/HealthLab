@@ -189,7 +189,7 @@ blockquote {
   padding: 10px 20px;
   margin: 0 0 20px;
   font-size: 24px;
-	line-height: 1.5em;
+  line-height: 1.5em;
   font-weight: 300;
   color: #999;
 }
@@ -1328,34 +1328,9 @@ footer .sub-footer  p {
 
 
 /* scroll to top */
-.scrollup{
-    position:fixed;
-	width:32px;
-	height:32px;
-    bottom:0px;
-    right:20px;
-	background: #222;
--webkit-border-radius: 2px 2px 0 0;	
-	-moz-border-radius: 2px 2px 0 0;	
-	border-radius:  2px 2px 0 0;	
-}
 
-a.scrollup {
-	outline:0;
-	text-align: center;
-}
 
-a.scrollup:hover,a.scrollup:active,a.scrollup:focus {
-	opacity:1;
-	text-decoration:none;
-}
-a.scrollup i {
-	margin-top: 10px;
-	color: #fff;
-}
-a.scrollup i:hover {
-	text-decoration:none;
-}
+
 
 
 

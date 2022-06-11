@@ -49,7 +49,7 @@ export default function DoctorAvailableOnline(props){
    
 
     return(
-        <div className="pard">
+        <div className="pard_3">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -107,8 +107,10 @@ export default function DoctorAvailableOnline(props){
                                     <div className="text-right">
                                         <button type="button" onClick={()=>removeAvailableOnlineFieldHandler(index)} className="btn btn-danger">Remove</button>
                                     </div>
+                                    <hr></hr>
+
                             </div>
-                            <hr></hr>
+                            
                             </>
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
