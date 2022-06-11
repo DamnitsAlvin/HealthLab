@@ -101,8 +101,9 @@ export const UpdateImage = (datum) => async(dispatch) =>{
     }
 }
 
-export const updateDoctorInfo = (personal) => async(dispatch) =>{
+export const updateDoctorInfo = (personal, Educ) => async(dispatch) =>{
     dispatch({type: UPDATE_DOC_INFO_REQ})
+    console.log("action passed data personal:" , personal)
     try{
         const {personalData} = await axios.post("http://localhost:5000/api/doctor/update/personal", personal)
         dispatch({type: UPDATE_DOC_INFO_SUC, payload: true})

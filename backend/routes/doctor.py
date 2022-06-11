@@ -195,3 +195,10 @@ def updatePersonalInfo():
         except Exception as e: 
             print("Error has occured", e)
             return jsonify({"success": False}), 404
+
+@doc_api.route("/doctor/update/education", methods=["POST"])
+def updateEducInfo():
+    if request.method == "POST": 
+        cur = mysql.connection.cursor()
+        req = request.json.get("Ed")
+        print(req)

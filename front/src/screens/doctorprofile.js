@@ -39,7 +39,19 @@ export default function Doctorprofile() {
 
     useEffect(()=>{
         setEducation(DocBasicInfo ? DocBasicInfo.Education : [])
-        setPersonal(DocBasicInfo ? DocBasicInfo.BasicInfo: [])
+        setPersonal(DocBasicInfo ? {
+            doctor_id: DocBasicInfo.BasicInfo[0],
+            first_name: DocBasicInfo.BasicInfo[1], 
+            middle_name: DocBasicInfo.BasicInfo[2], 
+            last_name: DocBasicInfo.BasicInfo[3], 
+            suffix : DocBasicInfo.BasicInfo[4], 
+            birthday:DocBasicInfo.BasicInfo[5], 
+            phone: DocBasicInfo.BasicInfo[6], 
+            email: DocBasicInfo.BasicInfo[7], 
+            mode_of_consultation: DocBasicInfo.BasicInfo[8], 
+            doctor_image: DocBasicInfo.BasicInfo[9], 
+            password: DocBasicInfo.BasicInfo[11],   
+        }: {} )
         setCert(DocBasicInfo ? DocBasicInfo.Certification: [])
         setSpecialization(DocBasicInfo ? DocBasicInfo.Specialty: [])
         setExperience(DocBasicInfo ? DocBasicInfo.Experience: [])
@@ -49,7 +61,7 @@ export default function Doctorprofile() {
         setClinicAddress(DocBasicInfo ? DocBasicInfo.Clinic_Address: [])
         setClinicTime(DocBasicInfo ? DocBasicInfo.Available_Offline: [])
     }, [DocBasicInfo])
-    console.log("Personal: ", Personal)
+    console.log("Educ: ", Educ)
     
    
     const EducParentFunction = (Edu) =>{
@@ -96,7 +108,7 @@ export default function Doctorprofile() {
             dispatch(UpdateImage(formData))
             console.log("succcess!!!!!")
         }
-        dispatch(updateDoctorInfo(Personal))
+        dispatch(updateDoctorInfo(Personal, Educ))
         //action update personal info of doctor
     }
   

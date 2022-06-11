@@ -71,7 +71,8 @@ def authenticateUser():
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
-                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[13], data[14]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 
@@ -80,7 +81,8 @@ def authenticateUser():
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
-                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[7], data[12]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
         else:

@@ -8,16 +8,16 @@ export default function DoctorEduc(props){
         const values = [...Educ]
         values[index][event.target.name] = event.target.value
         setEducation(values)
-        ParentFunction(Educ)
+        ParentFunction(values)
     }
     const addEducFieldHandler = () =>{
         setEducation([...Educ, {
-            doctor_id: "",
             school_type: "", 
             school_name: "", 
             graduation_date: "", 
             degree: "", 
-            course: ""
+            course: "",
+            doctor_id: ""
         }])
     }
     const removeEducFieldHandler = (index) =>{
@@ -31,12 +31,12 @@ export default function DoctorEduc(props){
                 setEducation(prevState => ([
                     ...prevState, 
                    {
-                    doctor_id: value[0],
                     school_type: value[1], 
                     school_name: value[2], 
                     graduation_date: value[3], 
                     degree: value[4], 
-                    course: value[5]
+                    course: value[5],
+                    doctor_id: value[0],
                    }
                 ]))
             })
