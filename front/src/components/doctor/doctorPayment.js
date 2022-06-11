@@ -46,7 +46,7 @@ export default function DoctorPayment(props){
     }, [data])
 
     return(
-        <div className="pard">
+        <div className="pard_3">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -75,9 +75,9 @@ export default function DoctorPayment(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div className="text-right">
                                         <button type="button" onClick={()=>removePaymentFieldHandler(index)} className="btn btn-danger">Remove</button>
-                                    </div>
+                                    </div> <hr></hr>
                             </div>
-                            <hr></hr>
+                          
                             </>
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
