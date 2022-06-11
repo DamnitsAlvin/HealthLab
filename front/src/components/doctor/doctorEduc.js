@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorEduc(props){
-    const {data, ParentFunction} = props
+    const {data, ParentFunction, doc_id} = props
 
     const [Educ, setEducation] = useState([])
     const EducChangeHandler = (event, index) =>{
@@ -17,7 +17,8 @@ export default function DoctorEduc(props){
             graduation_date: "", 
             degree: "", 
             course: "",
-            doctor_id: ""
+            doctor_id: doc_id, 
+            id: ""
         }])
     }
     const removeEducFieldHandler = (index) =>{
@@ -31,12 +32,13 @@ export default function DoctorEduc(props){
                 setEducation(prevState => ([
                     ...prevState, 
                    {
-                    school_type: value[1], 
-                    school_name: value[2], 
-                    graduation_date: value[3], 
-                    degree: value[4], 
-                    course: value[5],
+                    school_type: value[2], 
+                    school_name: value[3], 
+                    graduation_date: value[4], 
+                    degree: value[5], 
+                    course: value[6],
                     doctor_id: value[0],
+                    id: value[1]
                    }
                 ]))
             })

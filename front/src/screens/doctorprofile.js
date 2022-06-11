@@ -61,7 +61,8 @@ export default function Doctorprofile() {
         setClinicAddress(DocBasicInfo ? DocBasicInfo.Clinic_Address: [])
         setClinicTime(DocBasicInfo ? DocBasicInfo.Available_Offline: [])
     }, [DocBasicInfo])
-    console.log("Educ: ", Educ)
+    console.log("Exp: ", clinicAddress)
+    console.log("Time: ", clinicTime)
     
    
     const EducParentFunction = (Edu) =>{
@@ -108,7 +109,7 @@ export default function Doctorprofile() {
             dispatch(UpdateImage(formData))
             console.log("succcess!!!!!")
         }
-        dispatch(updateDoctorInfo(Personal, Educ))
+        dispatch(updateDoctorInfo(Personal, Educ, Cert, Specialization, Experience, Payment, TimeAvailableOnline, clinicTime, clinicAddress))
         //action update personal info of doctor
     }
   
@@ -151,15 +152,15 @@ export default function Doctorprofile() {
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
          
             
-            <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction} ParentFunction1={PersonalParentFunction1}/>
-            <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction}/>     
-            <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction}/>
-            <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []} ParentFunction={SpecializationParentFunction}/>       
-            <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []} ParentFunction={ExperienceParentFunction}/>
-            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} ParentFunction={TitleParentFunction}/>
-            <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []} ParentFunction={PaymentParentFunction}/>
-            <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction}/>
-            <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction}/>
+            <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction} ParentFunction1={PersonalParentFunction1} doc_id={id}/>
+            <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction} doc_id={id}/>     
+            <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction} doc_id={id}/>
+            <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []} ParentFunction={SpecializationParentFunction} doc_id={id}/>       
+            <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []} ParentFunction={ExperienceParentFunction} doc_id={id}/>
+            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} ParentFunction={TitleParentFunction} doc_id={id}/>
+            <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []} ParentFunction={PaymentParentFunction} doc_id={id}/>
+            <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction} doc_id={id}/>
+            <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction} doc_id={id}/>
             
             
         
