@@ -22,6 +22,7 @@ import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
+import DoctorPage from './screens/doctorpage';
 
 
 function App() {
@@ -106,6 +107,7 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path="/doctor" element={<DoctorPage></DoctorPage>}/>
 
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>

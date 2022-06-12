@@ -18,7 +18,10 @@ import {
     UPDATE_DOC_IMAGE_FAIL,
     UPDATE_DOC_INFO_REQ,
     UPDATE_DOC_INFO_SUC,
-    UPDATE_DOC_INFO_FAIL
+    UPDATE_DOC_INFO_FAIL,
+    GET_DOCTOR_REQ,
+    GET_DOCTOR_SUC,
+    GET_DOCTOR_FAIL
 } from "../constants/doctorConstants"
 import Axios from "axios"
 import axios from 'axios'
@@ -123,4 +126,20 @@ export const updateDoctorInfo = (personal, Educ, Cert, Spec, Exp, Pay, Online, O
             })
     }
 
+}
+
+export const getDoctor = (category) => async(dispatch) =>{
+    dispatch({type: GET_DOCTOR_REQ})
+    try{
+        const {data} = await axios.get(`http://localhost:5000/api/doctor/getdoctor?category=${category}`)
+        dispatch({type: GET_DOCTOR_SUC, payload: data})
+    }
+    catch(error){
+        
+        dispatch({type: GET_DOCTOR_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
 }

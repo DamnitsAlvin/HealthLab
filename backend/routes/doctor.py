@@ -453,3 +453,11 @@ def updateclinicInfo():
             return jsonify({'success': True}), 200
         except Exception as e: 
             return jsonify({'sucess': False, 'problem': e})  , 404
+
+
+@doc_api.route("/doctor/getdoctor", methods=["GET"])
+def getDoctor():
+    print('Get doctor function was called')
+    args = request.args.to_dict()
+    category = args.get("category")
+    print("args:", category)
