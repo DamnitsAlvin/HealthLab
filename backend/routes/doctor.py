@@ -41,7 +41,6 @@ def registerBasicInformationDoctor():
             email, 
             consultation
         ]
-        print("INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `password`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" % (doctor_id, firstname, middlename, lastname, suffix, birthday, phone, email, consultation, "false", password))
         try:
             response = cur.execute("INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `password`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (doctor_id, firstname, middlename, lastname, suffix, birthday, phone, email, consultation, "false", password))
             cur.connection.commit()
@@ -91,9 +90,7 @@ def getDoctorInformation():
     cur = mysql.connection.cursor()
     cur1 = mysql.connection.cursor()
     args  = request.args.to_dict()
-    doctor_id = args.get("doctor_id")
-    print("request:", doctor_id)
-    
+    doctor_id = args.get("doctor_id") 
     try:
         BasicInfo = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (doctor_id, ))
         Title = cur1.execute("SELECT * FROM doctor_title WHERE doctor_id=%s", (doctor_id,))
@@ -206,7 +203,7 @@ def updateEducInfo():
                 newlist.append(req[i][0])
                 newlist.append(req[i][1])
                 newreq.append(newlist)
-                print(newreq)
+         
         elif type(req[0]) == dict:
             for i in range(0, len(req)):
                 newreq.append(list(req[i].values()))
@@ -274,7 +271,7 @@ def updateSpecializationInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
+
         try:
 
             for i in range(0, len(newreq)):
@@ -307,7 +304,7 @@ def updateExperienceInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
+
         try:
 
             for i in range(0, len(newreq)):
@@ -341,7 +338,7 @@ def updatePaymentInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
+
         try:
 
             for i in range(0, len(newreq)):
@@ -374,7 +371,7 @@ def updatetimeonlineInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
+
         try:
 
             for i in range(0, len(newreq)):
@@ -408,7 +405,7 @@ def updatetimeofflineInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
+  
         try:
 
             for i in range(0, len(newreq)):
@@ -442,7 +439,6 @@ def updateclinicInfo():
                 newreq.append(list(req[i].values()))
         else:
            print("None of the above")
-        print(newreq)
         try:
 
             for i in range(0, len(newreq)):
@@ -453,6 +449,7 @@ def updateclinicInfo():
                     cur.execute("INSERT INTO `doctor_clinicaddress`(`doctor_id`, `address_id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (newreq[i][6],newreq[i][7], newreq[i][0:6]))
             cur.connection.commit()
             cur.close()
+            print("success")
             return jsonify({'success': True}), 200
         except Exception as e: 
             return jsonify({'sucess': False, 'problem': e})  , 404

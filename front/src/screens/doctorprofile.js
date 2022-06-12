@@ -18,6 +18,9 @@ export default function Doctorprofile() {
     const getBasicDocInfo = useSelector((x)=>x.doctorBasicInformation)
     const {DocBasicInfo, loading, error} = getBasicDocInfo
 
+    const updateBasicDocInfo = useSelector(x=>x.doctorUpdate)
+    const {Updateloading, success} = updateBasicDocInfo
+
    
     // get the details of a specific doctor
     useEffect(()=>{
@@ -49,7 +52,7 @@ export default function Doctorprofile() {
             phone: DocBasicInfo.BasicInfo[6], 
             email: DocBasicInfo.BasicInfo[7], 
             mode_of_consultation: DocBasicInfo.BasicInfo[8], 
-            doctor_image: DocBasicInfo.BasicInfo[9], 
+            doctor_image: DocBasicInfo.BasicInfo[10], 
             password: DocBasicInfo.BasicInfo[11],   
         }: {} )
         setCert(DocBasicInfo ? DocBasicInfo.Certification: [])
@@ -61,9 +64,6 @@ export default function Doctorprofile() {
         setClinicAddress(DocBasicInfo ? DocBasicInfo.Clinic_Address: [])
         setClinicTime(DocBasicInfo ? DocBasicInfo.Available_Offline: [])
     }, [DocBasicInfo])
-    console.log("Exp: ", clinicAddress)
-    console.log("Time: ", clinicTime)
-    
    
     const EducParentFunction = (Edu) =>{
         setEducation(Edu)
@@ -124,7 +124,7 @@ export default function Doctorprofile() {
                 <div className="account-settings">
                     <div className="user-profile">
                         <div className="user-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
+                            <img src={DocBasicInfo ? DocBasicInfo.BasicInfo[10] : "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
                         </div>
                         <h3 className="user-name">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
                         <h4 className="user-name">{DocBasicInfo && DocBasicInfo.Titles}</h4>
@@ -149,8 +149,9 @@ export default function Doctorprofile() {
         </div>
         </div>
 
+      
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
-         
+        
             
             <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction} ParentFunction1={PersonalParentFunction1} doc_id={id}/>
             <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction} doc_id={id}/>     
@@ -162,12 +163,28 @@ export default function Doctorprofile() {
             <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction} doc_id={id}/>
             <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction} doc_id={id}/>
             
+            {success ?
+            <div className="alert alert-success">
+                Update Success!
+             </div> : 
+             success=="false" ? 
+             <div className="alert alert-danger">
+                Update Failed!
+             </div> : <></>
+             }
             
         
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div className="text-right-jonathan">
-                    <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" onClick={submitHandler}>Save Information</button>
-                </div>
+                {Updateloading ? (
+                    <div className="text-right-jonathan">
+                        <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" onClick={submitHandler} disabled>Save Information</button>
+                    </div>
+                ) : (
+                    <div className="text-right-jonathan">
+                        <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" onClick={submitHandler}>Save Information</button>
+                    </div>
+                ) }
+               
             </div>
             
              

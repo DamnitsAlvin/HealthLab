@@ -103,7 +103,7 @@ export const UpdateImage = (datum) => async(dispatch) =>{
 
 export const updateDoctorInfo = (personal, Educ, Cert, Spec, Exp, Pay, Online, Offline, Clinic) => async(dispatch) =>{
     dispatch({type: UPDATE_DOC_INFO_REQ})
-    console.log("action passed data personal:" , personal)
+    
     try{
         const {personalData} = await axios.post("http://localhost:5000/api/doctor/update/personal", personal)
         const {educData} = await axios.post("http://localhost:5000/api/doctor/update/education", {"Ed": Educ})
@@ -112,8 +112,9 @@ export const updateDoctorInfo = (personal, Educ, Cert, Spec, Exp, Pay, Online, O
         const {ExpData} = await axios.post("http://localhost:5000/api/doctor/update/experience", {"Exp": Exp})
         const {PayData} = await axios.post("http://localhost:5000/api/doctor/update/payment", {"Pay": Pay})
         const {onlineData} = await axios.post("http://localhost:5000/api/doctor/update/timeonline", {"On": Online})
-        const {onlineData} = await axios.post("http://localhost:5000/api/doctor/update/timeoffline", {"Off": Offline})
-        const {onlineData} = await axios.post("http://localhost:5000/api/doctor/update/clinicaddress", {"Clinic": Clinic})
+        const {clinicData} = await axios.post("http://localhost:5000/api/doctor/update/clinicaddress", {"Clinic": Clinic})
+        const {offlineData} = await axios.post("http://localhost:5000/api/doctor/update/timeoffline", {"Off": Offline})
+
         dispatch({type: UPDATE_DOC_INFO_SUC, payload: true})
     }
     catch(error){

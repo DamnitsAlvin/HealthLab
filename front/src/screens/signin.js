@@ -48,7 +48,7 @@ export default function SignIn(props){
             <div>
               <h1>ACCOUNT LOGIN</h1>
               <p class="parag">Login here using Email and Password</p>
-              {error && <div className="invalid">Invalid password</div>}
+              {error && <div className="alert alert-danger">Invalid password</div>}
               
             </div>
             <div>

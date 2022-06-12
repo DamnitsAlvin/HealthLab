@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from "redux-thunk";
 import { EmailCheckerReducer, loadDoctorsReducer, userRegisterReducer, userSignInReducer, appointmentRequestSlipReducer, getUserAppointmentReducer, fileImageHandlerReducer} from "./reducers/userReducer"
-import { BasicDoctorReducer, SpecialtyDoctorReducer, EducDoctorReducer, DoctorInformationReducer } from './reducers/doctorReducer';
+import { BasicDoctorReducer, SpecialtyDoctorReducer, EducDoctorReducer, DoctorInformationReducer, DoctorUpdateReducer } from './reducers/doctorReducer';
 
 const initialState={
     userSignIn:{
@@ -53,7 +53,8 @@ const reducer = combineReducers({
     doctorEducRegist: EducDoctorReducer, 
 
     doctorBasicInformation: DoctorInformationReducer,
-
+    doctorUpdate: DoctorUpdateReducer, 
+    
     fileImage: fileImageHandlerReducer
 
 })

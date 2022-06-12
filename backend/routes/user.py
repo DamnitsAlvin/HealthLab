@@ -313,6 +313,6 @@ def fileImageHandler():
         id = request.form['id']  
         filename = filed.filename
         extension = filename.split(".")[1]
-        filed.save(os.path.join("C:\\Users\\User\\Desktop\\New folder (2)\\uploads", id+"Image."+extension))
+        filed.save(os.path.join("C:\\Users\\User\\Desktop\\Projects\\HealthLab\\front\\public\\uploads", id+"Image."+extension))
         return jsonify({"success": True}), 200
 
