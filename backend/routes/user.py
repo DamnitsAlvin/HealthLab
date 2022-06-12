@@ -6,6 +6,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from app import create_app
+import os
 
 app,mysql = create_app()
 api=Blueprint('api', __name__)
@@ -70,7 +71,8 @@ def authenticateUser():
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
-                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[13], data[14]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 
@@ -79,7 +81,8 @@ def authenticateUser():
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
-                return jsonify({"access_token": access_token, "data": data[:14]}), 200
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[7], data[12]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
         else:
@@ -299,4 +302,17 @@ def getUserAppointment():
             return jsonify({"message": "currently no appointments to show!"})
         except:
             return "Error"
+
+@api.route("/updateImage", methods=["POST"])
+def fileImageHandler():
+    if request.method == "POST":
+        if "file" not in request.files:
+            print("NO files")
+            return jsonify({"success": False}), 404
+        filed = request.files['file']
+        id = request.form['id']  
+        filename = filed.filename
+        extension = filename.split(".")[1]
+        filed.save(os.path.join("C:\\Users\\User\\Desktop\\Projects\\HealthLab\\front\\public\\uploads", id+"Image."+extension))
+        return jsonify({"success": True}), 200
 

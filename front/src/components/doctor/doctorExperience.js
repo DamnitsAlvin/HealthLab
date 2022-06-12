@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react'
 
 export default function DoctorExperience(props){
     
-    const {data, ParentFunction} = props
+    const {data, ParentFunction, doc_id} = props
     const [Experience, setExperience] = useState([])
    
     const ExperienceChangeHandler = (event, index) =>{
         const values = [...Experience]
         values[index][event.target.name] = event.target.value
         setExperience(values)
-        ParentFunction(Experience)
+        ParentFunction(values)
     }
     const removeExperienceFieldHandler = (index) =>{
         const values = [...Experience]
@@ -20,10 +20,12 @@ export default function DoctorExperience(props){
         setExperience([
             ...Experience, 
             {
-                doctor_id: "", 
-                special: "", 
-                sub_special: "", 
-               
+                place_of_work: "", 
+                position: "", 
+                years_of_experience: "",
+                last_date: "", 
+                doctor_id: doc_id, 
+                id: ""
             }
         ])
     }
@@ -34,16 +36,17 @@ export default function DoctorExperience(props){
                 setExperience(prevState => ([
                     ...prevState, 
                     {
+                        place_of_work: values[2], 
+                        position: values[3], 
+                        years_of_experience: values[4],
+                        last_date: values[5], 
                         doctor_id: values[0], 
-                        place_of_work: values[1], 
-                        position: values[2], 
-                        years_of_experience: values[3],
-                        last_date: values[4]
+                        id: values[1]
                     }
                 ]))
             })
         }
-        ParentFunction(Experience)
+     
     }, [data])
     return(
         <div className="pard_3">

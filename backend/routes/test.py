@@ -50,3 +50,10 @@ def insertManyValues():
     print(cur.rowcount, " rows was inserted")
     return jsonify({'last_row_id': cur.lastrowid})
 
+@test_api.route("/testd", methods=["GET"])
+def testonle():
+    args = request.args
+    print("Request: ", type(args))
+    return args
+
+

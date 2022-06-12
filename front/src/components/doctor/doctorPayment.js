@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorPayment(props){
-    const {data, ParentFunction} = props
+    const {data, ParentFunction,doc_id} = props
     const [Payment, setPayment] = useState([])
    
     const PaymentChangeHandler = (event, index) =>{
         const values = [...Payment]
         values[index][event.target.name] = event.target.value
         setPayment(values)
-        ParentFunction(Payment)
+        ParentFunction(values)
     }
     const removePaymentFieldHandler = (index) =>{
         const values = [...Payment]
@@ -19,10 +19,11 @@ export default function DoctorPayment(props){
         setPayment([
             ...Payment, 
             {
-                doctor_id: "", 
                 platform: "",
                 account_name: "", 
-                account_number: ""
+                account_number: "", 
+                doctor_id: doc_id, 
+                id: ""
                
             }
         ])
@@ -34,15 +35,18 @@ export default function DoctorPayment(props){
                 setPayment(prevState => ([
                     ...prevState, 
                     {
+                        
+                        platform: values[2],
+                        account_name: values[3], 
+                        account_number: values[4],
                         doctor_id: values[0], 
-                        platform: values[1],
-                        account_name: values[2], 
-                        account_number: values[3]
+                        id: values[1]
+
                     }
                 ]))
             })
         }
-        ParentFunction(Payment)
+        
     }, [data])
 
     return(
