@@ -24,7 +24,6 @@ body {
   left: 10%;
   width: 80%;
   height: 80%;
-  border: 2px solid darkgrey;
   box-shadow: 5px 10px 18px #636262;
   padding: 20px;
   /*  used by signin */
@@ -81,7 +80,7 @@ body {
   display: grid;
   grid-template-columns: 55% 45%;
   background-color: rgb(255, 255, 255);
-  height: 80vh;
+  height: 90vh;
 }
 
 .halfImage img {
@@ -196,7 +195,7 @@ body {
 
 .whologin {
   border-radius: 35px;
-  border: 2px solid rgb(204, 204, 204);
+ 
   height: 100%;
   width: 100%;
   display: grid;
@@ -226,6 +225,7 @@ body {
 .icon {
   width: 80%;
   height: 80%;
+  background-position: 50%;
 }
 
 /* Category design */
@@ -528,7 +528,7 @@ textarea {
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 30px;
-  height: 120vh;
+  height: 170vh;
 }
 
 .signup-form h2 {
