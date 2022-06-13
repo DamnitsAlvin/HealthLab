@@ -72,6 +72,7 @@ export default function RegisterDoctor(){
 
     return(
         <form method="post" onSubmit={submitHandler} encType="multipart/form-data" >
+             <div className="wow fadeInDown" data-wow-delay="0.1s">
             <div className="centerContainer">
                 <h2>Register here</h2>
 		        <p>Please fill in this form to create an account</p>
@@ -150,7 +151,7 @@ export default function RegisterDoctor(){
                     </div>
                 </div>
             </div>
-          
+          </div>
         </form>
     );
 }

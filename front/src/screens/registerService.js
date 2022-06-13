@@ -4,6 +4,7 @@ export default function RegisterService(){
     
     return(
         <>
+         <div className="wow fadeInDown" data-wow-delay="0.1s">
         <form  method="post">
             <div className="centerContainer">
                 <h2>Register here</h2>
@@ -126,6 +127,7 @@ export default function RegisterService(){
                 </div>
             </div>
         </form>
+        </div>
         </>
     )
     
