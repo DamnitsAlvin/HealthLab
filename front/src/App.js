@@ -22,6 +22,7 @@ import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
+import DoctorPage from './screens/doctorpage';
 
 
 function App() {
@@ -74,7 +75,7 @@ function App() {
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
                             <ul className="dropdown-menu">
-							  <li><Link to="/profile">Profile</Link></li>
+							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` : "/profile"}>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
                               <li><Link to="/createAppointment">Request Appointment</Link></li>
                               <li><Link to="/">Transactions</Link></li>
@@ -106,6 +107,7 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path="/doctor" element={<DoctorPage></DoctorPage>}/>
 
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>

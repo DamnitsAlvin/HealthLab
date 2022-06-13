@@ -1,29 +1,31 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorAvailableOnline(props){
-    const {data, ParentFunction} = props
+    const {data, ParentFunction, doc_id} = props
     const [AvailableOnline, setAvailableOnline] = useState([])
    
     const AvailableOnlineChangeHandler = (event, index) =>{
         const values = [...AvailableOnline]
         values[index][event.target.name] = event.target.value
         setAvailableOnline(values)
+        ParentFunction(values)
     }
     const removeAvailableOnlineFieldHandler = (index) =>{
         const values = [...AvailableOnline]
         values.splice(index, 1)
         setAvailableOnline(values)
-        ParentFunction(AvailableOnline)
+        ParentFunction(values)
     }
     const addAvailableOnlineFieldHandler = () =>{
         setAvailableOnline([
             ...AvailableOnline, 
             {
-                doctor_id: "", 
                 day_from: "",
                 day_to: "", 
                 time_from: "",
-                time_to: ""
+                time_to: "", 
+                doctor_id: "", 
+                id: ""
                
             }
         ])
@@ -35,11 +37,12 @@ export default function DoctorAvailableOnline(props){
                 setAvailableOnline(prevState => ([
                     ...prevState, 
                     {
+                        day_from: values[2],
+                        day_to: values[3], 
+                        time_from: values[4],
+                        time_to: values[5], 
                         doctor_id: values[0], 
-                        day_from: values[1],
-                        day_to: values[2], 
-                        time_from: values[3],
-                        time_to: values[4]
+                        id: values[1]
                     }
                 ]))
             })

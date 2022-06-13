@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
 export default function DoctorAvailableOffline(props){
-    const {address, time, ParentFunction1, ParentFunction2} = props
+    const {address, time, ParentFunction1, ParentFunction2, doc_id} = props
     const [Address, setAddress] = useState([])
     const [Time, setTime] = useState([])
 
@@ -9,24 +9,26 @@ export default function DoctorAvailableOffline(props){
         const values = [...Address]
         values[index][event.target.name] = event.target.value
         setAddress(values)
-        ParentFunction1(Address)
+        ParentFunction1(values)
     }
     const removeAvailableOfflineFieldHandler = (index) =>{
         const values = [...Address]
         values.splice(index, 1)
         setAddress(values)
+        ParentFunction1(values)
     }
     const addAvailableOfflineFieldHandler = () =>{
+        const date = new Date()
         setAddress([
             ...Address, 
             {
-                doctor_id: "",
-                address_id: "", 
                 address_line_1: "", 
                 barangay: "", 
                 city: "", 
                 province: "", 
-                zip_code: "" 
+                zip_code: "",
+                doctor_id: doc_id,
+                address_id: doc_id+date.getMilliseconds + date.getSeconds, 
                
             }
         ])
@@ -35,12 +37,13 @@ export default function DoctorAvailableOffline(props){
         setTime([
             ...Time, 
             {
-                doctor_id: "",
-                address_id: Address[index].address_id ,
                 day_from: "",
                 day_to: "", 
                 time_from: "",
-                time_to: ""
+                time_to: "",
+                doctor_id: doc_id,
+                address_id: Address[index].address_id,
+                id: ""
             }
         ])
     }
@@ -48,12 +51,13 @@ export default function DoctorAvailableOffline(props){
         const values = [...Time]
         values.splice(index, 1)
         setTime(values)
+        ParentFunction2(values)
     }
     const handleTimeChange = (event, index) =>{
         const values = [...Time]
         values[index][event.target.name] = event.target.value
         setTime(values)
-        ParentFunction2(Time)
+        ParentFunction2(values)
     }
     
     useEffect(()=>{
@@ -62,13 +66,13 @@ export default function DoctorAvailableOffline(props){
                 setAddress(prevState => ([
                     ...prevState, 
                     {
-                        doctor_id: values[0],
-                        address_id: values[1], 
                         address_line_1: values[2], 
                         barangay: values[3], 
                         city: values[4], 
                         province: values[5], 
-                        zip_code: values[6] 
+                        zip_code: values[6],
+                        doctor_id: values[0],
+                        address_id: values[1], 
                     }
                 ]))
             })
@@ -79,12 +83,13 @@ export default function DoctorAvailableOffline(props){
                     [
                         ...prevState, 
                         {
+                            day_from: values[3],
+                            day_to: values[4], 
+                            time_from: values[5],
+                            time_to: values[6], 
                             doctor_id: values[0],
                             address_id: values[1],
-                            day_from: values[2],
-                            day_to: values[3], 
-                            time_from: values[4],
-                            time_to: values[5]
+                            id: values[2]
                         }
                     ]
                 ))

@@ -18,7 +18,10 @@ import {
     UPDATE_DOC_IMAGE_FAIL,
     UPDATE_DOC_INFO_REQ,
     UPDATE_DOC_INFO_SUC,
-    UPDATE_DOC_INFO_FAIL
+    UPDATE_DOC_INFO_FAIL,
+    GET_DOCTOR_REQ,
+    GET_DOCTOR_SUC,
+    GET_DOCTOR_FAIL
 } from "../constants/doctorConstants"
 import Axios from "axios"
 import axios from 'axios'
@@ -101,10 +104,20 @@ export const UpdateImage = (datum) => async(dispatch) =>{
     }
 }
 
-export const updateDoctorInfo = (personal) => async(dispatch) =>{
+export const updateDoctorInfo = (personal, Educ, Cert, Spec, Exp, Pay, Online, Offline, Clinic) => async(dispatch) =>{
     dispatch({type: UPDATE_DOC_INFO_REQ})
+    
     try{
         const {personalData} = await axios.post("http://localhost:5000/api/doctor/update/personal", personal)
+        const {educData} = await axios.post("http://localhost:5000/api/doctor/update/education", {"Ed": Educ})
+        const {certData} = await axios.post("http://localhost:5000/api/doctor/update/certificate", {"Cert": Cert})
+        const {SpecData} = await axios.post("http://localhost:5000/api/doctor/update/specialization", {"Spec": Spec})
+        const {ExpData} = await axios.post("http://localhost:5000/api/doctor/update/experience", {"Exp": Exp})
+        const {PayData} = await axios.post("http://localhost:5000/api/doctor/update/payment", {"Pay": Pay})
+        const {onlineData} = await axios.post("http://localhost:5000/api/doctor/update/timeonline", {"On": Online})
+        const {clinicData} = await axios.post("http://localhost:5000/api/doctor/update/clinicaddress", {"Clinic": Clinic})
+        const {offlineData} = await axios.post("http://localhost:5000/api/doctor/update/timeoffline", {"Off": Offline})
+
         dispatch({type: UPDATE_DOC_INFO_SUC, payload: true})
     }
     catch(error){
@@ -113,4 +126,20 @@ export const updateDoctorInfo = (personal) => async(dispatch) =>{
             })
     }
 
+}
+
+export const getDoctor = (category) => async(dispatch) =>{
+    dispatch({type: GET_DOCTOR_REQ})
+    try{
+        const {data} = await axios.get(`http://localhost:5000/api/doctor/getdoctor?category=${category}`)
+        dispatch({type: GET_DOCTOR_SUC, payload: data})
+    }
+    catch(error){
+        
+        dispatch({type: GET_DOCTOR_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
 }

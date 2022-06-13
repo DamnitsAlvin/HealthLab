@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 export default function DoctorPersonal(props){
     const {data, ParentFunction, ParentFunction1} = props
-    console.log("Basic Info: ", data )
+
 
     const [formState, setformState] = useState({
         doctor_id: "",
@@ -43,12 +43,13 @@ export default function DoctorPersonal(props){
             phone: data[6], 
             email: data[7], 
             mode_of_consultation: data[8], 
-            doctor_image: data[9], 
+            doctor_image: data[10], 
             password: data[11],   
         }: {} )
         
     }, [data])
-   
+    
+ 
     const BasicInfoChangeHandler = async(event, index) =>{
         setformState({
             ...formState, 
@@ -65,7 +66,7 @@ export default function DoctorPersonal(props){
         const filename = formState.doctor_id + "Image." +extension
         setformState({
             ...formState, 
-            [BasicFormFields2[index+1]]: filename
+            [BasicFormFields2[index+1]]: "/uploads/"+filename
         })
         setformState((formState)=>{
             ParentFunction(formState)
@@ -81,7 +82,7 @@ export default function DoctorPersonal(props){
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <h6 className="mb-2 text-primary">Personal Details</h6>
                         </div>
-                        <form>
+                        <form method="post">
                         {BasicFormFields.map((value, index)=>(
                             index == 4 ? (
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
@@ -115,7 +116,7 @@ export default function DoctorPersonal(props){
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                     <div className="form-group">
                                         <label htmlFor="fullName">{value}</label>
-                                        <input type="file" className="form-control"  onChange={event => fileChange(event, index)} />
+                                        <input type="file" className="form-control"  onChange={event => fileChange(event, index)}  />
                                     </div>
                                 </div>
                             </>) : 

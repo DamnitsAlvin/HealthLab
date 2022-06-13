@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorCert(props){
-    const {data, ParentFunction} = props
+    const {data, ParentFunction, doc_id} = props
     const [Cert, setCert] = useState([])
     const CertChangeHandler = (event, index) =>{
         const values = [...Cert]
         values[index][event.target.name] = event.target.value
         setCert(values)
-        ParentFunction(Cert)
+        ParentFunction(values)
     }
     const removeCertFieldHandler = (index) =>{
         const values = [...Cert]
@@ -18,10 +18,11 @@ export default function DoctorCert(props){
         setCert([
             ...Cert, 
             {
-                doctor_id: data[0][0], 
                 cert_title: "", 
                 cert_issuer: "", 
-                cert_acquired: "" 
+                cert_acquired: "", 
+                doctor_id: doc_id, 
+                id: ""
             }
         ])
     }
@@ -32,10 +33,11 @@ export default function DoctorCert(props){
                 setCert(prevState => ([
                     ...prevState, 
                     {
+                        cert_title: values[2], 
+                        cert_issuer: values[3], 
+                        cert_acquired: values[4],
                         doctor_id: values[0], 
-                        cert_title: values[1], 
-                        cert_issuer: values[2], 
-                        cert_acquired: values[3]
+                        id: values[1]
                     }
                 ]))
             })
