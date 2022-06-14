@@ -23,7 +23,11 @@ import {
 
     CHECK_EMAIL_REQUEST,
     CHECK_EMAIL_FAIL,
-    CHECK_EMAIL_SUCCESS, 
+    CHECK_EMAIL_SUCCESS,
+    ADD_PATIENT_REQ,
+    ADD_PATIENT_SUC,
+    ADD_PATIENT_FAIL,
+    SAVE_PATIENT_DET, 
 
 } from "../constants/userConstants";
 import Axios from "axios";
@@ -165,17 +169,17 @@ export const displayalldoctor = (par) => async(dispatch)=>{
 
 export const userBasicAppointment = (data) => (dispatch) =>{
     dispatch({type: SAVE_APPOINTMENT_REQUEST_1, payload:data})
-    localStorage.setItem("Patient_Information",JSON.stringify(data));
+    localStorage.setItem("Patient_Information", JSON.stringify(data));
 }
 export const removeBasicAppointment = () => (dispatch) =>{
     dispatch({type:REMOVE_APPOINTMENT_REQUEST, payload: []})
     dispatch({type:REMOVE_MEDICAL_CARD, payload: []})
     localStorage.removeItem("Patient_Information"); 
-    localStorage.removeItem("Patient_Medical_Card");
+    localStorage.removeItem("Patient_details");
 }
-export const addMedicalCard = (data) => (dispatch) =>{
-    dispatch({type: ADD_MEDICAL_CARD, payload: data})
-    localStorage.setItem("Patient_Medical_Card", JSON.stringify(data));
+export const addPatient = (data) => (dispatch) =>{
+    dispatch({type: SAVE_PATIENT_DET, payload: data})
+    localStorage.setItem("Patient_details", JSON.stringify(data));
 }
 export const saveDentistryCheckupRequest = (data) => async(dispatch) =>{
     const params = {
@@ -385,5 +389,20 @@ export const getAppointments = (id) => async(dispatch) => {
 
     }catch(error){
         return false 
+    }
+}
+
+export const AddPatient = (details) => async(dispatch) =>{
+    dispatch({type: ADD_PATIENT_REQ})
+    try{
+        const {data} = await axios.post("http://localhost:5000", {'det': details})
+        dispatch({type: ADD_PATIENT_SUC, payload: data})
+    }
+    catch(error){
+        dispatch({type: ADD_PATIENT_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
     }
 }

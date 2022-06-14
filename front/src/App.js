@@ -10,9 +10,9 @@ import Register from "./screens/register"
 import MedicalHistory from "./screens/medhistory";
 import AppointmentPage from "./screens/appointment";
 import Results from "./screens/results";
-import DentistQuestions from "./screens/dentistquestions";
+import Overview from "./screens/dentistquestions";
 import Testing from "./screens/Testing";
-import MedicalCardScreen from "./screens/medicalCard";
+
 import OBquestionScreen from "./screens/OBgynequestions";
 import OptalQuestionsScreen from "./screens/OptalQuestions";
 import GeneralHealthScreen from "./screens/generalhealth";
@@ -85,7 +85,7 @@ function App() {
                             </ul>
                           </li>
                           ):(
-                            <li className="top"><Link to="/signin">Sign In</Link></li>
+                            <li className="top"><Link to="/signintype">Sign In</Link></li>
                           )}
 						  <li className="top"><Link to="/test/85">Test</Link></li>
                         </ul>
@@ -99,26 +99,23 @@ function App() {
 		<main>
 			<Routes>
 				
-				<Route path='/signin/:user' element={<SignIn/>}/>
+				<Route path='/signin/' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
-				<Route path='/signin' element={<UserTypeSignIn/>}/>
+				<Route path='/signintype' element={<UserTypeSignIn/>}/>
 
 				<Route path="/register" element={<Register/>}/>
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
-				<Route path="/doctor" element={<DoctorPage></DoctorPage>}/>
+				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
 
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
 
 				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
-				<Route path="/dentistryquestions" element={<DentistQuestions/>}/>
-				<Route path="/obgynequestions" element={<OBquestionScreen/>}/>
-				<Route path="/medicalcard" element={<MedicalCardScreen/>}/>
-				<Route path="/optalquestions" element={<OptalQuestionsScreen/>}/>
-				<Route path="/generalHealthquestions" element={<GeneralHealthScreen/>}/>
+				<Route path="/overview" element={<Overview/>}/>
+			
 				<Route exact path = "/" element={<Intro/>}/>
 
 

@@ -1,19 +1,31 @@
 import React,{ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { DoctorInformation } from "../actions/doctorActions";
 import DoctorAvailable from "../components/doctorAvailable";
 
 export default function Bookdoctor() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {id} = useParams()
     const getBasicDocInfo = useSelector((x)=>x.doctorBasicInformation)
+    const user = useSelector(x=>x.userSignIn)
+    const {userInfo} = user
 
     const {DocBasicInfo, loading, error} = getBasicDocInfo
     console.log("Doc Basic Infor: ", DocBasicInfo)
     useEffect(()=>{
         dispatch(DoctorInformation(id))
     },[dispatch, id])
+
+    const bookDoctorHandler = () =>{
+        if(userInfo){
+            navigate(`/createAppointment?doctor=${id}`)
+        }
+        else{
+            navigate(`/signin?userType=user&redirect=/bookdoctor/${id}`)
+        }
+    }
 
     return(
         
@@ -27,11 +39,11 @@ export default function Bookdoctor() {
                 <div className="account-settings">
                     <div className="user-profile">
                         <div className="user-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
+                            <img src={DocBasicInfo ? (DocBasicInfo.BasicInfo[10]): "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
                         </div>
                         <h3 className="user-name">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
                         <h4 className="user-name">{DocBasicInfo && DocBasicInfo.Titles}</h4>
-                        <h6 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
+                        <h5 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h5>
                     </div>
                     <div className="about">
                         <h5>Education</h5>
@@ -39,10 +51,10 @@ export default function Bookdoctor() {
                             <>
                                 {DocBasicInfo.Education.map(educ => (
                                         <p>
-                                            {educ[1]} <br/>
                                             {educ[2]} <br/>
                                             {educ[3]} <br/>
-                                            {educ[5]}
+                                            {educ[4]} <br/>
+                                            {educ[6]}
                                         </p> 
                                 ))}
                             </>
@@ -54,8 +66,8 @@ export default function Bookdoctor() {
                                 <h5>Certifications</h5>
                                 {DocBasicInfo.Certification.map(cert =>(
                                     <p>
-                                        {cert[1]}<br/>
-                                        {cert[2]}
+                                        {cert[2]}<br/>
+                                        {cert[3]}
                                     </p>
                                 ))}
                           </div>
@@ -68,9 +80,9 @@ export default function Bookdoctor() {
                                 <h5>Experience</h5>
                                 {DocBasicInfo.Experience.map(exp =>(
                                     <p>
-                                        {exp[1]}<br/>
                                         {exp[2]}<br/>
-                                        {exp[4]}
+                                        {exp[3]}<br/>
+                                        {exp[5]}
                                     </p>
                                 ))}
                           </div>
@@ -99,7 +111,7 @@ export default function Bookdoctor() {
                         <div><strong>{
                                 DocBasicInfo ? (DocBasicInfo.Experience ? 
                                     DocBasicInfo.Experience.reduce((total, num)=>{
-                                        return total + Math.round(num[3])
+                                        return total + Math.round(num[4])
                                     },0) : <></>
                                     
                                     ) : <></>
@@ -115,7 +127,7 @@ export default function Bookdoctor() {
                             <ul>
                                 {
                                     DocBasicInfo && DocBasicInfo.Specialty.map((spec, index)=>(
-                                        <li key={index}>{spec[1]}</li>
+                                        <li key={index}>{spec[2]}</li>
                                     ))
                                 }
                             </ul>
@@ -129,7 +141,7 @@ export default function Bookdoctor() {
                             <ul>
                                 {
                                     DocBasicInfo && DocBasicInfo.Specialty.map((spec)=>(
-                                        <li>{spec[2]}</li>
+                                        <li>{spec[3]}</li>
                                     ))
                                 }
                             </ul>
@@ -172,7 +184,7 @@ export default function Bookdoctor() {
                         <ul>
                         {DocBasicInfo ? (DocBasicInfo.Payment ? (
                             DocBasicInfo.Payment.map(payment=>(
-                                <li>{payment[1]}</li>
+                                <li>{payment[2]}</li>
                             ))
                         ): <></>) : <> </>}
                         </ul> 
@@ -182,9 +194,8 @@ export default function Bookdoctor() {
 
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div className="text-right">
-                           
-                            <button type="button" id="submit" name="submit" className="btn btn-primary">Book Now</button>
+                        <div className="text-right">  
+                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={bookDoctorHandler}>Book Now</button>
                         </div>
                     </div>
                 </div>

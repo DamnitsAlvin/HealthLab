@@ -135,7 +135,6 @@ export const getDoctor = (category) => async(dispatch) =>{
         dispatch({type: GET_DOCTOR_SUC, payload: data})
     }
     catch(error){
-        
         dispatch({type: GET_DOCTOR_FAIL, 
             payload: error.response && error.response.data.message 
             ? error.response.data.message

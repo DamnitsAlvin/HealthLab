@@ -72,7 +72,7 @@ def authenticateUser():
                 cur.connection.commit()
                 cur.close()
                 return jsonify({"access_token": access_token, 
-                                "data": [data[0], data[13], data[14]] }), 200
+                                "data": [data[0], data[13], data[15], data[1], data[2]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 

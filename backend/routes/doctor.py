@@ -457,7 +457,20 @@ def updateclinicInfo():
 
 @doc_api.route("/doctor/getdoctor", methods=["GET"])
 def getDoctor():
-    print('Get doctor function was called')
     args = request.args.to_dict()
     category = args.get("category")
-    print("args:", category)
+    try:
+        cur = mysql.connection.cursor()
+        response = cur.execute("SELECT doctor_id FROM `doctor_specialty` WHERE `specialties`=%s", (category,))
+        if response > 0: 
+            doc_id = cur.fetchall()
+        response1 = cur.executemany("SELECT * FROM doctor WHERE `doctor_id`=%s", doc_id)
+        data = cur.fetchall()
+
+        response2 = cur.executemany("SELECT * FROM doctor_title WHERE doctor_id=%s", doc_id)
+        titles = cur.fetchall()
+        print(data)
+        return jsonify({"data": data, "titles": titles})
+    except Exception as e: 
+        print(e)
+        return jsonify({"error": e}), 404

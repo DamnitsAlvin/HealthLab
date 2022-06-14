@@ -1,79 +1,105 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import {useSelector, useDispatch} from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import {getDoctor} from "../actions/doctorActions"
 
 export default function DoctorPage(){
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {category} = useParams()
+    console.log("Category: ", category)
+
     useEffect(()=>{
-        dispatch(getDoctor("general_health"))
-    }, [dispatch])
+        dispatch(getDoctor(category))
+    }, [dispatch, category])
+
+    const getDoc = useSelector(x => x.getDoc)
+    const {doctorLoading, doctors, error} = getDoc
+    const [docToDisp, setDocToDisp] = useState([])
+    useEffect(()=>{
+        setDocToDisp(doctors ? doctors.data: [])
+    }, [doctors])
+
+    if(docToDisp){
+        console.log("Display:", docToDisp)
+    }
+    const searchHandler = (event) =>{
+        let values = doctors.data
+        if(event.target.value){
+            values = values.filter((val) => {
+                if(val[1].substring(0, event.target.value.length) == event.target.value || val[3].substring(0, event.target.value.length) == event.target.value){
+                    return val
+                }
+            })
+        }else{
+            values = doctors.data
+        }
+        setDocToDisp(values)
+    }
+    const dropdownHandler = (event) =>{
+        const toCategory = event.target.value; 
+        navigate(`/doctor/${toCategory}`)
+    }
+
+    const viewDoctorHander = (id) =>{
+        navigate(`/bookdoctor/${id}`)
+    }
+    const bookDoctorHandler = (id) =>{
+        navigate(`/createAppointment?doctor=${id}`)
+    }
     return(
         <>
         <div className="containerWhole d-flex justify-content-center">
         <div className="cardBook">
             <div className="top-doctor-page">
-                <input type="text" className="form-control"/>
+                <input type="text" className="form-control" onChange={searchHandler}/>
                 <div className="input-group-append" id="form3"><button className="btn btn-primary"id="bobo5">Search</button></div>
                 
                 <div className="form-outline">
-                    <input type="search" id="form2" className="form-control" placeholder="Categories" aria-label="Search" />
+                    <select className="form-control category-dropdown" onChange={dropdownHandler} value={category}>
+                        <option value="General Medicine">General Medicine</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Nephrology">Nephrology</option>
+                        <option value="OB GYNE">OB GYNE</option>
+                        <option value="Optalmology">Optalmology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Dentistry">Dentistry</option>
+
+                    </select>
                 </div>
             </div>
 
-            <div className="textBookHeader">We've found 631 Doctors you can book with!</div>
-
+            <div className="textBookHeader">We've found {docToDisp.length} Doctors you can book with!</div>
+        
+        {
+            docToDisp ? docToDisp.map( (values) =>(
             <div className="flex-doctor-info">
                 <div className="flex-doctor-desc">
-                    <p className="headerBook">Dr. JEROME B. PANAGSAGAN </p> 
-                    <small className="text-muted">MD MACHO DANCER RMT</small>
-                    <button type="button" className="btn btn-primary" id="buttonBook">Book Doctor</button>
+                    <p className="headerBook">Dr. {`${values[1]} ${values[2]} ${values[3]} `} </p> 
+                    <small className="text-muted">{ doctors && doctors.titles.map((x)=>{
+                        if(x[0] == values[0]){
+                            return x[1];
+                        }
+                    }).join(" ")}</small>
+                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={()=>{bookDoctorHandler(values[0])}}>Book Doctor</button>
                 </div>
                 <div className="flex-doctor-desc">
                     <p className="headerBook">Consultation Type</p> 
-                    <small className="text-muted">Online Consultation</small>
-                    <button type="button" className="btn btn-primary" id="buttonView">View Doctor</button>
+                    <small className="text-muted">{values[8] == 0 ? "Online Consulation only" : 
+                                                    values[8] == 1 ? "Face to Face Consulation only": 
+                                                    "Face to Face and Online Consulation"}</small>
+                    <button type="button" className="btn btn-primary" id="buttonView" onClick={()=>{viewDoctorHander(values[0])}} >View Doctor</button>
                 </div>
 
                 <div className="price">
-                    <img className="bookImg" src="/img/doctor/betlog.jpg"/>
+                    <img className="bookImg" src={values[10]}/>
                 </div>
             </div>
 
-            <div className="flex-doctor-info">
-                <div className="flex-doctor-desc">
-                    <p className="headerBook">Dr. Jonathan Kyle Lozano</p> 
-                    <small className="text-muted">MD MACHO DANCER RMT</small>
-                    <button type="button" className="btn btn-primary" id="buttonBook">Book Doctor</button>
-                </div>
-
-                <div className="flex-doctor-desc">
-                    <p className="headerBook">Consultation Type</p> 
-                    <small className="text-muted">Online Consultation</small>
-                    <button type="button" className="btn btn-primary" id="buttonView">View Doctor</button>
-                </div>
-
-                <div className="price">
-                    <img className="bookImg" src="/img/doctor/wew.jpg"/>
-                </div>
-            </div>
-
-            <div className="flex-doctor-info">
-                <div className="flex-doctor-desc">
-                    <p className="headerBook">Dr. Jonathan Kyle Lozano</p> 
-                    <small className="text-muted">MD MACHO DANCER RMT</small>
-                    <button type="button" className="btn btn-primary" id="buttonBook">Book Doctor</button>
-                </div>
-
-                <div className="flex-doctor-desc">
-                    <p className="headerBook">Consultation Type</p> 
-                    <small className="text-muted">Online Consultation</small>
-                    <button type="button" className="btn btn-primary" id="buttonView">View Doctor</button>
-                </div>
-
-                <div className="price">
-                    <img className="bookImg" src="/img/doctor/wew.jpg"/>
-                </div>
-            </div>
+            )): <></> 
+        }
+            
 
            
         </div>
@@ -100,7 +126,7 @@ export default function DoctorPage(){
                         </ul>
                     </nav>
                 </div>
-                <p className="bobo">Cardiologists Near You | Find the Right Doctor for Your Heart</p>
+                <p className="bobo">Cardiologists Near You | Find the Right Doctor </p>
                 <p className="bobo2">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
                 <p className="bobo3">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
             </div>

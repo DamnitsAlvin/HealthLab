@@ -470,6 +470,9 @@ body {
   display: flex; 
   flex-direction: row;
 }
+.category-dropdown{
+  width:200px;
+}
 
 .cardBook{
 	width: 1000px;

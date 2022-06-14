@@ -16,7 +16,10 @@ import {
     UPDATE_DOC_INFO_REQ,
     UPDATE_DOC_IMAGE_SUC,
     UPDATE_DOC_INFO_FAIL,
-    UPDATE_DOC_INFO_SUC
+    UPDATE_DOC_INFO_SUC,
+    GET_DOCTOR_REQ,
+    GET_DOCTOR_SUC,
+    GET_DOCTOR_FAIL
 } from "../constants/doctorConstants"
 
 export const BasicDoctorReducer = (state={}, action) =>{
@@ -81,5 +84,18 @@ export const DoctorUpdateReducer = (state={}, action) =>{
             return {Updateloading: false, success: false}
         default: 
             return state
+    }
+}
+
+export const getDoctorReducer = (state={}, action)=>{
+    switch(action.type){
+        case GET_DOCTOR_REQ:
+            return {doctorLoading: true}
+        case GET_DOCTOR_SUC:
+            return {doctorLoading: false, doctors: action.payload}
+        case GET_DOCTOR_FAIL: 
+            return {doctorLoading: false, error: action.payload}
+        default: 
+             return state
     }
 }

@@ -7,7 +7,7 @@ export default function UserTypeSignIn(props){
         <div className='userType'>
             <div className='mycontainer'>
                 <div className='whologin'>
-                    <Link to="/signin/doctor">
+                    <Link to="/signin?userType=doctor">
                         <div className="type">
                             <div className='icon'>
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
@@ -116,7 +116,7 @@ export default function UserTypeSignIn(props){
                     </Link>
                     <div className="v1"></div>
 
-                    <Link to="/signin/user">
+                    <Link to="/signin?userType=user">
                     <div className="type">
                         <div className='icon'>
                             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -195,7 +195,7 @@ export default function UserTypeSignIn(props){
 
                     <div className="v1"></div>
 
-                    <Link to="/signin/service">
+                    <Link to="/signin?userType=service">
                     <div className="type">
                         <div className='icon'>
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"

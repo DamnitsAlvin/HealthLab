@@ -19,7 +19,8 @@ import {
     GET_APPOINTMENT_FAIL,
     CHECK_EMAIL_REQUEST,
     CHECK_EMAIL_SUCCESS,
-    CHECK_EMAIL_FAIL
+    CHECK_EMAIL_FAIL,
+    SAVE_PATIENT_DET
 } from "../constants/userConstants";
 
 
@@ -88,6 +89,8 @@ export const appointmentRequestSlipReducer=(state={}, action)=>{
             return {...state, PatientMedicalCard: action.payload};
         case ADD_DENTIST_INFO:
             return {...state, Dentist_slip: action.payload}
+        case SAVE_PATIENT_DET: 
+            return {...state, PatientDetail: action.payload}
         default: 
             return state;
 
