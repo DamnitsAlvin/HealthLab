@@ -1,23 +1,24 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorEduc(props){
-    const {data, ParentFunction} = props
-    console.log("Data: ", data)
+    const {data, ParentFunction, doc_id} = props
+
     const [Educ, setEducation] = useState([])
     const EducChangeHandler = (event, index) =>{
         const values = [...Educ]
         values[index][event.target.name] = event.target.value
         setEducation(values)
-        ParentFunction(Educ)
+        ParentFunction(values)
     }
     const addEducFieldHandler = () =>{
         setEducation([...Educ, {
-            doctor_id: "",
             school_type: "", 
             school_name: "", 
             graduation_date: "", 
             degree: "", 
-            course: ""
+            course: "",
+            doctor_id: doc_id, 
+            id: ""
         }])
     }
     const removeEducFieldHandler = (index) =>{
@@ -31,20 +32,22 @@ export default function DoctorEduc(props){
                 setEducation(prevState => ([
                     ...prevState, 
                    {
+                    school_type: value[2], 
+                    school_name: value[3], 
+                    graduation_date: value[4], 
+                    degree: value[5], 
+                    course: value[6],
                     doctor_id: value[0],
-                    school_type: value[1], 
-                    school_name: value[2], 
-                    graduation_date: value[3], 
-                    degree: value[4], 
-                    course: value[5]
+                    id: value[1]
                    }
                 ]))
             })
         }
+       
     }, [data])
 
     return(
-        <div className="pard">
+        <div className="pard_3">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -75,19 +78,19 @@ export default function DoctorEduc(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Graduation Date</label>
-                                    <input type="date" className="form-control" id="fullName" value={value.graduation_date} name='graduation_date' onChange={(event)=>EducChangeHandler(event, index)}/>
+                                    <input type="date" className="form-control"  value={value.graduation_date} name='graduation_date' onChange={(event)=>EducChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">School Name</label>
-                                    <input type="text" className="form-control" id="fullName" value={value.school_name} name='school_name' onChange={(event)=>EducChangeHandler(event, index)}/>
+                                    <input type="text" className="form-control"  value={value.school_name} name='school_name' onChange={(event)=>EducChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Course</label>
-                                    <input type="text" className="form-control" id="fullName" value={value.course} name='course' onChange={(event)=>EducChangeHandler(event, index)} />
+                                    <input type="text" className="form-control"  value={value.course} name='course' onChange={(event)=>EducChangeHandler(event, index)} />
                                 </div>
                             </div>
                             
@@ -95,9 +98,9 @@ export default function DoctorEduc(props){
                                     <div className="text-right">
                                         <button type="button" onClick={()=>removeEducFieldHandler(index)} className="btn btn-danger">Remove</button>
                                     </div>
+                                    <hr></hr>
                                 </div>
-                        
-                            <hr></hr>
+         
 
                             </>
                     

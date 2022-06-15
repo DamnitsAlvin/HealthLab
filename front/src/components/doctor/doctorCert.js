@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 
 export default function DoctorCert(props){
-    const {data} = props
+    const {data, ParentFunction, doc_id} = props
     const [Cert, setCert] = useState([])
     const CertChangeHandler = (event, index) =>{
         const values = [...Cert]
         values[index][event.target.name] = event.target.value
         setCert(values)
+        ParentFunction(values)
     }
     const removeCertFieldHandler = (index) =>{
         const values = [...Cert]
@@ -17,10 +18,11 @@ export default function DoctorCert(props){
         setCert([
             ...Cert, 
             {
-                doctor_id: data[0][0], 
                 cert_title: "", 
                 cert_issuer: "", 
-                cert_acquired: "" 
+                cert_acquired: "", 
+                doctor_id: doc_id, 
+                id: ""
             }
         ])
     }
@@ -31,17 +33,21 @@ export default function DoctorCert(props){
                 setCert(prevState => ([
                     ...prevState, 
                     {
+                        cert_title: values[2], 
+                        cert_issuer: values[3], 
+                        cert_acquired: values[4],
                         doctor_id: values[0], 
-                        cert_title: values[1], 
-                        cert_issuer: values[2], 
-                        cert_acquired: values[3]
+                        id: values[1]
                     }
                 ]))
             })
         }
+       
     }, [data])
+
+    
     return(
-        <div className="pard">
+        <div className="pard_3">
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -52,19 +58,19 @@ export default function DoctorCert(props){
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Title</label>
-                                    <input type="text" className="form-control" id="fullName" name="cert_title" value={value.cert_title} onChange={(event)=>CertChangeHandler(event, index)}/>
+                                    <input type="text" className="form-control"  name="cert_title" value={value.cert_title} onChange={(event)=>CertChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Issuer</label>
-                                    <input type="text" className="form-control" id="fullName" name='cert_issuer'value={value.cert_issuer} onChange={(event)=>CertChangeHandler(event, index)} />
+                                    <input type="text" className="form-control"  name='cert_issuer'value={value.cert_issuer} onChange={(event)=>CertChangeHandler(event, index)} />
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Date Acquired</label>
-                                    <input type="date" className="form-control" id="fullName" name='cert_acquired' value={value.cert_acquired} onChange={(event)=>CertChangeHandler(event, index)}/>
+                                    <input type="date" className="form-control"  name='cert_acquired' value={value.cert_acquired} onChange={(event)=>CertChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

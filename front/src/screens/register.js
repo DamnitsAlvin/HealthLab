@@ -51,6 +51,7 @@ export default function Register(props){
     }
 
     return (
+        <div className="wow fadeInDown" data-wow-delay="0.1s">
     <div classNameName="bodyform">
         <div className="signup-form">
             <form  method="post" onSubmit={submitHandler}>
@@ -164,6 +165,7 @@ export default function Register(props){
             </form>
 	        
         </div>
+    </div>
     </div>
     );
 }

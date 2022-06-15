@@ -10,19 +10,19 @@ import Register from "./screens/register"
 import MedicalHistory from "./screens/medhistory";
 import AppointmentPage from "./screens/appointment";
 import Results from "./screens/results";
-import DentistQuestions from "./screens/dentistquestions";
-import Testing from "./screens/Testing";
-import MedicalCardScreen from "./screens/medicalCard";
-import OBquestionScreen from "./screens/OBgynequestions";
-import OptalQuestionsScreen from "./screens/OptalQuestions";
-import GeneralHealthScreen from "./screens/generalhealth";
-import './App.css';
+import Overview from "./screens/dentistquestions";
+import Testing from "./test/Testing";
+
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
-
+import DoctorPage from './screens/doctorpage';
+import Chatbog from './components/chatbot1';
+import './App.css';
+import TestClass from './test/classful';
+import Chatbot from './components/chatbot';
 
 function App() {
   
@@ -67,14 +67,14 @@ function App() {
 
                       <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul className="nav navbar-nav">
-                          <li className="active top"><Link to="/">Home</Link></li>
+                          <li className="top"><Link to="/">Home</Link></li>
                           <li className="top"><Link to="/#service">Doctors</Link></li>
                           <li className="top"><Link to="/#doctor">Service</Link></li>
                           {userInfo ? (
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
                             <ul className="dropdown-menu">
-							  <li><Link to="/profile">Profile</Link></li>
+							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` : "/profile"}>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
                               <li><Link to="/createAppointment">Request Appointment</Link></li>
                               <li><Link to="/">Transactions</Link></li>
@@ -84,9 +84,9 @@ function App() {
                             </ul>
                           </li>
                           ):(
-                            <li className="top"><Link to="/signin">Sign In</Link></li>
+                            <li className="top"><Link to="/signintype">Sign In</Link></li>
                           )}
-						  <li className="top"><Link to="/test/85">Test</Link></li>
+						  
                         </ul>
                     </div>
                   
@@ -96,27 +96,26 @@ function App() {
         </div>	
     </div>
 		<main>
+		
 			<Routes>
 				
-				<Route path='/signin/:user' element={<SignIn/>}/>
+				<Route path='/signin/' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
-				<Route path='/signin' element={<UserTypeSignIn/>}/>
+				<Route path='/signintype' element={<UserTypeSignIn/>}/>
 
 				<Route path="/register" element={<Register/>}/>
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
 
 				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
 
 				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
-				<Route path="/dentistryquestions" element={<DentistQuestions/>}/>
-				<Route path="/obgynequestions" element={<OBquestionScreen/>}/>
-				<Route path="/medicalcard" element={<MedicalCardScreen/>}/>
-				<Route path="/optalquestions" element={<OptalQuestionsScreen/>}/>
-				<Route path="/generalHealthquestions" element={<GeneralHealthScreen/>}/>
+				<Route path="/overview" element={<Overview/>}/>
+			
 				<Route exact path = "/" element={<Intro/>}/>
 
 
@@ -124,7 +123,7 @@ function App() {
 				
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
-		
+			<Chatbot></Chatbot>
 		</main>
 
 
@@ -135,9 +134,9 @@ function App() {
 					<div className="col-sm-6 col-md-4">
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
-								<h5>About Medicio</h5>
+								<h5>About Medicall</h5>
 								<p>
-									Lorem ipsum dolor sit amet, ne nam purto nihil impetus, an facilisi accommodare sea
+									
 								</p>
 							</div>
 						</div>
@@ -156,9 +155,9 @@ function App() {
 					<div className="col-sm-6 col-md-4">
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
-								<h5>Medicio center</h5>
+								<h5>Medicall Center</h5>
 								<p>
-									Nam leo lorem, tincidunt id risus ut, ornare tincidunt naqunc sit amet.
+									Providing the Best Quality Healthcare for you.
 								</p>
 								<ul>
 									<li>
@@ -188,7 +187,7 @@ function App() {
 						<div className="wow fadeInDown" data-wow-delay="0.1s">
 							<div className="widget">
 								<h5>Our location</h5>
-								<p>Barangay 6969 Kawit, Cavite Philippines</p>
+								<p>Las Pinas Metro Manila</p>
 
 							</div>
 						</div>

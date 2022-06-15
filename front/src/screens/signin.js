@@ -1,6 +1,6 @@
 import React , {useEffect, useState} from "react"; 
 import {useDispatch, useSelector} from "react-redux";
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { usersignin } from "../actions/userActions";
 
 
@@ -10,8 +10,12 @@ export default function SignIn(props){
   const [password, setPassword] = useState("");
   const [userLabel, setUserLabel] = useState("")
   const [placeHolder, setPlaceHolder] = useState("")
-  const {user} = useParams(); 
+  
   const navigate = useNavigate(); 
+  const [searchParams] = useSearchParams()
+  console.log("Parameter: ", )
+  const user = searchParams.get('userType') 
+
 
   const userType = user; 
   useEffect( ()=>{
@@ -20,7 +24,7 @@ export default function SignIn(props){
   }, [userType, userLabel])
 
     //props.location.search ? props.location.search.split('=')[1] :
-    const redirect =  "/";
+    const redirect =  searchParams.get('redirect') ? searchParams.get('redirect') : "/";
 
     const userSignin = useSelector((state)=>state.userSignIn);
     const { userInfo, loading, error } = userSignin;
@@ -39,7 +43,8 @@ export default function SignIn(props){
 
 
     return(
-        <div className= "signinform">
+      <div className="wow fadeInDown" data-wow-delay="0.1s">
+        <div className= "signinform" >
           <div className='halfImage'>
              <img src="/img/backgrounds/signin_BG.jpg" alt ="signinbackground"/>
           </div>
@@ -48,7 +53,7 @@ export default function SignIn(props){
             <div>
               <h1>ACCOUNT LOGIN</h1>
               <p class="parag">Login here using Email and Password</p>
-              {error && <div className="invalid">Invalid password</div>}
+              {error && <div className="alert alert-danger">Invalid password</div>}
               
             </div>
             <div>
@@ -85,6 +90,7 @@ export default function SignIn(props){
               </div>
             </div>
           </form>
+        </div>
         </div>
     )
 }

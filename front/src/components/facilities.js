@@ -3,13 +3,13 @@ import React from "react";
 export default function Facilities(){
     return(
         <section id="facilities" className="home-section paddingbot-60">
-		<div className="container marginbot-50">
+		<div className="container marginbot-15" id="spaceVin">
 			<div className="row">
 				<div className="col-lg-8 col-lg-offset-2">
 					<div className="wow fadeInDown" data-wow-delay="0.1s">
 						<div className="section-heading text-center">
-							<h2 className="h-bold">Top Services</h2>
-							<p>Ea melius ceteros oportere quo, pri habeo viderer facilisi ei</p>
+							<h2 className="h-bold" id="">Top Services</h2>
+							<p>Easily access doctors offering these services</p>
 						</div>
 					</div>
 					
@@ -20,59 +20,59 @@ export default function Facilities(){
         <div>
           <div class="card-container">
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s1">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">Blood Chemistry
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s2">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">Urinalysis
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s3">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">PCR Testing
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s4">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">Saliva Testing
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s5">
     
               </div>
-              <div class="card-name">Heart and Cardiology
+              <div class="card-name">X-RAY
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s6">
             
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">Physical Therapy
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s7">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">CT-Scan
               </div>
             </div>
             <div class="card">
-              <div class="card-image">
+              <div class="card-image-s8">
     
               </div>
-              <div class="card-name">SAMPLE
+              <div class="card-name">Mental Health
               </div>
             </div>
            

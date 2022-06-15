@@ -1,222 +1,166 @@
 import React, {useEffect, useState} from "react"; 
-import {userBasicAppointment,removeBasicAppointment} from "../actions/userActions";
+import {userBasicAppointment,removeBasicAppointment, addPatient} from "../actions/userActions";
 import {useDispatch, useSelector} from "react-redux"; 
 import AppointmentSteps from "../components/appointmentSteps";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 export default function CreateAppointmentSlip(props){
     const getUserAppointmentRequest = useSelector(x=>x.appointmentRequest); 
-    const {saveBasicAppointment} = getUserAppointmentRequest; 
+    const {SaveAppointment} = getUserAppointmentRequest; 
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const doc_id = searchParams.get("doctor")
+    const mode = searchParams.get('mode')
+
     var id=""; 
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
+    console.log(SaveAppointment)
     if(userInfo){
         id =  userInfo.data[0];
     }
     
-    const doctorInfo = useSelector(x=>x.loadDoctor); 
-    const {doctor} = doctorInfo; 
 
-    const [PatientFirstName, setPatientFirstName] = useState(userInfo.data[1]);
-    const [PatientLastName, setPatientLastName] = useState(userInfo.data[2]); 
-    const [Email, setEmail] = useState(userInfo.data[13]); 
-    const [Phone, setPhoneNumber] = useState(userInfo.data[12])
-    const [ServiceType, setServiceType] = useState("Dentistry");
+    const [PatientFirstName, setPatientFirstName] = useState(userInfo.data[3]);
+    const [PatientLastName, setPatientLastName] = useState(userInfo.data[4]); 
+    const [Email, setEmail] = useState(userInfo.data[1]); 
+    const [Birthday, setBirthday] = useState('')
+    const [Gender, setGender] = useState('')
     const [PreferredDate, setPreferredDate] = useState("");
-    const [PreferredTime, setPreferredTime] = useState("");
-    const [DropdownDoctor, setDropdownDoctor] = useState([])
-    const [dropdownName, setDropdownName]= useState([])
-    const [PickDoctor, setPickDoctor] = useState("")
-
-    const [toSelf, setToSelf] = useState("Yes");                     //for future considerations
-    const [addressLine1, setAddress1] = useState("");
-    const [addressLine2, setAddress2] = useState("");
-    const [Municipality, setMunicipality] = useState("");
-    const [provice, setProvince] = useState(""); 
+    const [toSelf, setToSelf] = useState(true);                     
     const [appointmentRequest, setAppointmentRequest] = useState("");
+    const [Relationship, setRelationship] = useState("")
+    const [description, setDescription] = useState()
+    const [Appmode, setMode] = useState(mode==0 ? "Online": mode==1 ? "Face to Face" : "Online")
    
     const dispatch = useDispatch()
+    var date = new Date(); 
+    var time = date.getDate()+""+date.getMonth()+1+""+date.getSeconds()+""+ date.getMilliseconds();
 
-    const dropdownHandler = (text) =>{
-        setServiceType(text); 
-
-        let matches = []; 
-        let matchesInfo = [];
-        if(text.length > 0){
-            matches = doctor.data.filter((doc,index)=>{
-                const regex = new RegExp(`${text}`, "gi");
-                if(doc[1].match(regex)){
-                    matchesInfo.push(doctor.doctor_info[index])
-                    return doc[1].match(regex)
-                }
-                
-            })
-        }
-        setDropdownDoctor(matches)
-        setPickDoctor(matches[0][1])
-        setDropdownName(matchesInfo)
-    }
-    
-    const dropdownChange = (text)=>{
-        console.log("called")
-        console.log(text);
-        setPickDoctor(text)
-    }
-    const toSelfHandler = (value) =>{                               //intended for future purposes
-        if(value==="Yes"){
-            setPatientFirstName(userInfo.data[1]);
-            setPatientLastName(userInfo.data[2]); 
-            setEmail(userInfo.data[13]); 
-            setPhoneNumber(userInfo.data[12]);
-        }
-        else{
-            setPatientFirstName(saveBasicAppointment.PatientFirstName);
-            setPatientLastName(saveBasicAppointment.PatientLastName); 
-            setEmail(saveBasicAppointment.PatientEmail); 
-            setPhoneNumber(saveBasicAppointment.PhoneNumber);
-        }
-        setToSelf(value);
-    }
-
+    useEffect(()=>{
+        setAppointmentRequest("PTR"+time);
+    }, []);
+  
+   
     const NextHandler = (e) =>{
-        e.preventDefault();
-        props.history.push("/medicalCard");
-        
-        dispatch(userBasicAppointment({appointmentRequest,  id ,PickDoctor,  PatientFirstName, PatientLastName, Email, Phone, ServiceType, PreferredDate, PreferredTime}));
-
+        e.preventDefault();  
+        if(!toSelf){
+            id = "PATIENT" + time
+            dispatch(addPatient([id, userInfo.data[0], PatientFirstName, PatientLastName, Relationship,  Birthday, Gender])) //save patient details to local storage
+            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
+        }else{
+            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
+        }
     }
+    useEffect(()=>{
+        if(SaveAppointment && SaveAppointment.success){
+            navigate("/appointments")
+        }
+    }, [SaveAppointment])
 
     const cancelHandler = (e)=>{
         e.preventDefault();
-        props.history.push("/");
+        navigate("/");
         dispatch(removeBasicAppointment());
     }
 
     
   
-    var date = new Date(); 
-    var time = date.getDate()+""+date.getMonth()+1+""+date.getFullYear()+""+ date.getMilliseconds();
 
-    useEffect(()=>{
-        dropdownHandler("Dentistry");
-        setAppointmentRequest("PTR"+time);
-    }, []);
-    
-   
-   
-//     <div className="form-group">
-//     <label className="col-form-label col-4">Appointment For Self?</label>
-//     <div className="form-check form-check-inline">
-//         <input className="form-check-input" type="radio"  name="toWhom" value="Yes" onChange={(e)=>{toSelfHandler(e.target.value)}} required/>
-//         <label className="form-check-label" > Yes</label>
-//     </div>
-//     <div className="form-check form-check-inline">
-//         <input className="form-check-input" type="radio"  name="toWhom" value="No"  onChange={(e)=>{toSelfHandler(e.target.value)}} required disabled/>
-//         <label className="form-check-label" > No</label>
-//     </div>
-//     </div>
-   
-   
+
     return(
 
         <div className="signup-form">
-    <form onSubmit={NextHandler}>
-		<h2>Appointment Request</h2>
-		<p>Please fill in this form to create an appointment request!</p>
-		<hr/>
-        <AppointmentSteps step1/>
-        {
-            toSelf === "No" && (
+            <form onSubmit={NextHandler}>
+            <h2>Appointment Request</h2>
+            <p>Please fill in this form to create an appointment request!</p>
+            <hr/>
+            
             <div className="form-group">
-        	    <input type="text" className="form-control"  placeholder="Relationship with the Patient"  required="required" />
+                <label htmlFor="fullName">Is the appointment for yourself or others?</label>
+                <select className="form-control" onChange={()=> setToSelf(!toSelf)}>
+                    <option >Yes</option>
+                    <option >No</option>
+                </select>
             </div>
-            )
-        }
-      
-        <div className="form-group">
-        	<input type="text" className="form-control"  placeholder="Patient First Name" value ={PatientFirstName} required="required" readOnly />
-        </div>
-        <div className="form-group">
-        	<input type="text" className="form-control"  placeholder="Patient Last Name" value ={PatientLastName} required="required" readOnly/>
-        </div>
-        <div className="form-group">
-        	<input type="email" className="form-control"  placeholder="Email" value={Email} required="required" readOnly/>
-        </div>
-		<div className="form-group">
-            <input type="text" className="form-control"  placeholder="Phone"  value ={Phone}required="required" readOnly/>
-        </div>
-		
-        {
-            toSelf === "No" && (
-            <>
+
+            {
+                toSelf ? (
+                <>
                 <div className="form-group">
-                    <input type="text" className="form-control" name="address" placeholder="House number, Street" value= {addressLine1}required="required" onChange={(e)=>{setAddress1(e.target.value)}}/>
+                    <input type="text" className="form-control"  placeholder="Patient First Name" value ={PatientFirstName} required="required" readOnly />
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control" name="address" placeholder="Subdivision, Barangay" value={addressLine2} required="required" onChange={(e)=>{setAddress2(e.target.value)}}/>
+                    <input type="text" className="form-control"  placeholder="Patient Last Name" value ={PatientLastName} required="required" readOnly/>
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control" name="address" placeholder="Municipality" value={Municipality} required="required" onChange={(e)=>{setMunicipality(e.target.value)}}/>
-                </div>
-                <div className="form-group">
-                    <input type="text" className="form-control" name="address" placeholder="Province" value={provice} required="required" onChange={(e)=>{setProvince(e.target.value)}}/>
-                </div>
-                <div className="form-group">
-                    <label className="col-form-label col-4">BIRTHDATE</label>
-                    <input type="date" className="form-control" name="username" placeholder="Birthday" required="required"/>
-                </div>
-                
-                <div className="form-group">
-                    <label className="col-form-label col-4">GENDER</label>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" id="inlineCheckboxGender" name="gender" value="Male"/>
-                        <label className="form-check-label" for="inlineCheckboxGender"> Male</label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="radio" id="inlineCheckboxGender2" name="gender" value="Female" />
-                        <label className="form-check-label" for="inlineCheckboxGender"> Female</label>
-                    </div>
+                    <input type="email" className="form-control"  placeholder="Email" value={Email} required="required" readOnly/>
                 </div>
             </>
-            )
-        }
-     
-        <div className="form-group">
-            <label className="control-label" for="appointmentfor">Appointment to</label>
-            <select id="appointmentfor" name="appointmentfor" className="form-control" onChange={e=>dropdownHandler(e.target.value)} required>
-                <option value = "Dentistry">Dentistry</option>
-                <option value = "General Health">General Health</option>
-                <option value = "OB-Gyn">OB-Gyn</option>
-                <option value = "Opthalmologist"> Ophthalmologist</option>
-            </select>
-        </div>
-
-        <div className="form-group">
-            <label className="control-label" for="doctorP">Select A doctor: </label>
-            <select id="doctorP" name="doctorP" className="form-control" onChange={e=>dropdownChange(e.target.value)} required >
+            ) : (
+                <>
+               <div className="form-group">
+                    <label htmlFor="fullName">Relationship with the patient</label>
+                    <input type="text" className="form-control"  placeholder="Son, Daughter, Cousin, Sister, Brother"  required="required" onChange={(event)=>{setRelationship(event.target.value)}} />
+                 </div>
+                <div className="form-group">
+                    <label htmlFor="fullName">First Name</label>
+                    <input type="text" className="form-control"  placeholder="Patient First Name"  onChange={(event)=> setPatientFirstName(event.target.value)} required="required"  />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="fullName">Last Name</label>
+                    <input type="text" className="form-control"  placeholder="Patient Last Name"  onChange={(event)=> setPatientLastName(event.target.value)} required="required" />
+                </div>
                 
-                {
-                    DropdownDoctor && DropdownDoctor.map((val, index)=>(
-                        <option value = { val[0] }> {"Dr " + dropdownName[index][1] + " " +dropdownName[index][2]} </option>
-                    ))
-                }
-            </select>
-        </div>
-        
-        <div className="form-group">
-            <label className="control-label" for="date">Preferred Date</label>
-            <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)}/>
-        </div>
-        <div className="form-group">
-            <label className="control-label" for="date">Preferred Time</label>
-            <input type="time"  placeholder="Preferred Time"  min="09:00" max="18:00" className="form-control input-md" onChange={e=>setPreferredTime(e.target.value)} />
-        </div>
-        
-          <div className="form-group">
-                <button className="btn btn-primary btn-lg cancelButton" onClick={cancelHandler} >Cancel</button>
-                <button type="submit" className="btn btn-primary btn-lg" >Next</button>  
-          </div>
-           
+                <div className="form-group">
+                    <label className="col-form-label col-4">BIRTHDATE</label>
+                    <input type="date" className="form-control" name="username" placeholder="Birthday" required="required" onChange={(event)=> setBirthday(event.target.value)}/>
+                </div>
+                <div className="form-group">
+                        <label className="col-form-label col-4">GENDER</label>
+                        <select className="form-control" onChange={event => setGender(event.target.value)}>
+                            <option value="Male" >Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </>
+            )
+            }
+            {mode == 2 ?(<>
+                <div className="form-group">
+                    <label htmlFor="fullName">Appointment Mode</label>
+                    <select className="form-control" onChange={(event)=> setMode(event.target.value)} required>
+                        <option value='Online'>Online</option>
+                        <option value='Face to Face'>Face to Face</option>
+                    </select>
+                </div>
+            
+            </>):(
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Appointment Mode</label>
+                    <input class="form-control" id="textArea" value={mode==0 ? "Online": "Face To Face"}readOnly></input>
+                </div>
+            )}
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="textArea" rows="3" placeholder="Enter other details you want to tell the Doctor" onChange={e=>setDescription(e.target.value)}></textarea>
+            </div>
+
+            <div className="form-group">
+                <label className="control-label" for="date">Preferred Date</label>
+                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)}/>
+            </div>
+            {SaveAppointment && !SaveAppointment.success && (
+                    <div className="alert alert-danger">Error saving the data</div>
+            )}
+            
+            <div className="form-group">
+                    <button className="btn btn-primary btn-lg cancelButton" onClick={cancelHandler} >Cancel</button>
+                    <button type="submit" className="btn btn-primary btn-lg" >Next</button>  
+            </div>
+            
 		
     </form>
     </div>

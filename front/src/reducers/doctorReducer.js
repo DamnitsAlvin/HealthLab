@@ -12,7 +12,14 @@ import {
     REGISTER_SPECIALTY_DOCTOR_FAIL,
     GET_DOCTOR_TITLE_BASIC_REQUEST,
     GET_DOCTOR_TITLE_BASIC_SUCCESS,
-    GET_DOCTOR_TITLE_BASIC_FAIL
+    GET_DOCTOR_TITLE_BASIC_FAIL,
+    UPDATE_DOC_INFO_REQ,
+    UPDATE_DOC_IMAGE_SUC,
+    UPDATE_DOC_INFO_FAIL,
+    UPDATE_DOC_INFO_SUC,
+    GET_DOCTOR_REQ,
+    GET_DOCTOR_SUC,
+    GET_DOCTOR_FAIL
 } from "../constants/doctorConstants"
 
 export const BasicDoctorReducer = (state={}, action) =>{
@@ -64,5 +71,31 @@ export const DoctorInformationReducer = (state={}, action) =>{
             return {loading: false, error: action.payload}
         default: 
             return state
+    }
+}
+
+export const DoctorUpdateReducer = (state={}, action) =>{
+    switch(action.type){
+        case UPDATE_DOC_INFO_REQ:
+            return {Updateloading: true}
+        case UPDATE_DOC_INFO_SUC:
+            return {Updateloading: false, success: true}
+        case UPDATE_DOC_INFO_FAIL: 
+            return {Updateloading: false, success: false}
+        default: 
+            return state
+    }
+}
+
+export const getDoctorReducer = (state={}, action)=>{
+    switch(action.type){
+        case GET_DOCTOR_REQ:
+            return {doctorLoading: true}
+        case GET_DOCTOR_SUC:
+            return {doctorLoading: false, doctors: action.payload}
+        case GET_DOCTOR_FAIL: 
+            return {doctorLoading: false, error: action.payload}
+        default: 
+             return state
     }
 }
