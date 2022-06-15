@@ -9,14 +9,11 @@ import {
     GETALLDOCTOR_REQUEST,
     GETALLDOCTOR_FAIL,
     GETALLDOCTOR_SUCCESS,
-    SAVE_APPOINTMENT_REQUEST_1,
     REMOVE_APPOINTMENT_REQUEST, 
-    ADD_MEDICAL_CARD, 
     REMOVE_MEDICAL_CARD,
-    ADD_DENTIST_INFO,
     SAVE_APPOINTMENT_REQUEST,
     SAVE_APPOINTMENT_SUCCESS,
-    SAVE_APPOINTMENT_ERROR,
+    SAVE_APPOINTMENT_FAIL,
     GET_APPOINTMENT_REQUEST,
     GET_APPOINTMENT_FAIL,
     GET_APPOINTMENT_SUCCESS, 
@@ -24,10 +21,13 @@ import {
     CHECK_EMAIL_REQUEST,
     CHECK_EMAIL_FAIL,
     CHECK_EMAIL_SUCCESS,
-    ADD_PATIENT_REQ,
-    ADD_PATIENT_SUC,
-    ADD_PATIENT_FAIL,
-    SAVE_PATIENT_DET, 
+  
+    SAVE_PATIENT_DET,
+    SAVE_PATIENT_SUC,
+    SAVE_PATIENT_FAIL,
+    DELETE_APPOINTMENT_REQUEST,
+    DELETE_APPOINTMENT_SUCCESS,
+    DELETE_APPOINTMENT_FAIL, 
 
 } from "../constants/userConstants";
 import Axios from "axios";
@@ -167,9 +167,34 @@ export const displayalldoctor = (par) => async(dispatch)=>{
     }
 }
 
-export const userBasicAppointment = (data) => (dispatch) =>{
-    dispatch({type: SAVE_APPOINTMENT_REQUEST_1, payload:data})
-    localStorage.setItem("Patient_Information", JSON.stringify(data));
+export const userBasicAppointment = (details) => async(dispatch) =>{
+    dispatch({type: SAVE_APPOINTMENT_REQUEST})
+    try{
+        const {data} = await axios.post("http://localhost:5000/api/postAppointment", {"appointment": details})
+        dispatch({type: SAVE_APPOINTMENT_SUCCESS, payload: data})
+    }
+    catch(error){
+        dispatch({type: SAVE_APPOINTMENT_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
+}
+
+export const addPatient = (details) => async(dispatch) =>{
+    dispatch({type: SAVE_PATIENT_DET})
+    try{
+        const {data} = await axios.post("http://localhost:5000/api/", {"Patient": details})
+        dispatch({type: SAVE_PATIENT_SUC, payload: data})
+    }
+    catch(error){
+        dispatch({type: SAVE_PATIENT_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
 }
 export const removeBasicAppointment = () => (dispatch) =>{
     dispatch({type:REMOVE_APPOINTMENT_REQUEST, payload: []})
@@ -177,10 +202,7 @@ export const removeBasicAppointment = () => (dispatch) =>{
     localStorage.removeItem("Patient_Information"); 
     localStorage.removeItem("Patient_details");
 }
-export const addPatient = (data) => (dispatch) =>{
-    dispatch({type: SAVE_PATIENT_DET, payload: data})
-    localStorage.setItem("Patient_details", JSON.stringify(data));
-}
+
 export const saveDentistryCheckupRequest = (data) => async(dispatch) =>{
     const params = {
         method: "POST", 
@@ -213,7 +235,7 @@ export const saveDentistryCheckupRequest = (data) => async(dispatch) =>{
         const data  = await response.json();
         if(response.status !==200){
             dispatch({
-                type: SAVE_APPOINTMENT_ERROR, 
+                type: SAVE_APPOINTMENT_FAIL, 
                 payload: data
             })
         }
@@ -261,7 +283,7 @@ export const saveOptalQuestions = (data) => async(dispatch)=>{
         const data = resp.json();
         if(resp.status !== 200){
             dispatch({
-                type: SAVE_APPOINTMENT_ERROR, 
+                type: SAVE_APPOINTMENT_FAIL, 
                 payload: data
             })
         }
@@ -307,7 +329,7 @@ export const saveOBQuestions = (data) => async(dispatch)=>{
         const data = resp.json();
         if(resp.status !== 200){
             dispatch({
-                type: SAVE_APPOINTMENT_ERROR, 
+                type: SAVE_APPOINTMENT_FAIL, 
                 payload: data
             })
         }
@@ -351,7 +373,7 @@ export const saveGHQuestions = (data) => async(dispatch)=>{
         const data = resp.json();
         if(resp.status !== 200){
             dispatch({
-                type: SAVE_APPOINTMENT_ERROR, 
+                type: SAVE_APPOINTMENT_FAIL, 
                 payload: data
             })
         }
@@ -364,7 +386,8 @@ export const saveGHQuestions = (data) => async(dispatch)=>{
     localStorage.removeItem("Patient_Information"); 
     localStorage.removeItem("Patient_Medical_Card");
 }
-export const getAppointments = (id) => async(dispatch) => {
+
+export const getAppointments = (id, type) => async(dispatch) => {
     dispatch({type: GET_APPOINTMENT_REQUEST})
     try{
         const params = {
@@ -375,6 +398,7 @@ export const getAppointments = (id) => async(dispatch) => {
             },
             body: JSON.stringify({
                 "User_id": id, 
+                "User_type": type
             })
         }
         const resp = await fetch("http://localhost:5000/api/getAppointment", params)
@@ -391,18 +415,18 @@ export const getAppointments = (id) => async(dispatch) => {
         return false 
     }
 }
-
-export const AddPatient = (details) => async(dispatch) =>{
-    dispatch({type: ADD_PATIENT_REQ})
+export const deleteAppointment = (appointmentId) => async(dispatch) =>{
+    dispatch({type: DELETE_APPOINTMENT_REQUEST})
     try{
-        const {data} = await axios.post("http://localhost:5000", {'det': details})
-        dispatch({type: ADD_PATIENT_SUC, payload: data})
+        const {data} = await axios.delete(`http://localhost:5000/api/deleteAppointment?id=${appointmentId}`)
+        dispatch({type: DELETE_APPOINTMENT_SUCCESS})
     }
     catch(error){
-        dispatch({type: ADD_PATIENT_FAIL, 
+        dispatch({type: DELETE_APPOINTMENT_FAIL, 
             payload: error.response && error.response.data.message 
             ? error.response.data.message
             : error.message,
             })
     }
+
 }

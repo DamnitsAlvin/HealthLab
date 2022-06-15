@@ -20,7 +20,15 @@ import {
     CHECK_EMAIL_REQUEST,
     CHECK_EMAIL_SUCCESS,
     CHECK_EMAIL_FAIL,
-    SAVE_PATIENT_DET
+    SAVE_PATIENT_DET,
+    SAVE_PATIENT_SUC,
+    SAVE_PATIENT_FAIL,
+    SAVE_APPOINTMENT_REQUEST,
+    SAVE_APPOINTMENT_SUCCESS,
+    SAVE_APPOINTMENT_FAIL,
+    DELETE_APPOINTMENT_REQUEST,
+    DELETE_APPOINTMENT_SUCCESS,
+    DELETE_APPOINTMENT_FAIL
 } from "../constants/userConstants";
 
 
@@ -93,7 +101,32 @@ export const appointmentRequestSlipReducer=(state={}, action)=>{
             return {...state, PatientDetail: action.payload}
         default: 
             return state;
+    }
+}
 
+export const addPatientReducer = (state={}, action)=>{
+    switch(action.type){
+        case SAVE_PATIENT_DET: 
+            return {loading: true}
+        case SAVE_PATIENT_SUC:
+            return {loading: false, SavePatient: "success"}
+        case SAVE_PATIENT_FAIL:
+            return {loading: false, SavePatient: "fail"}
+        default:
+            return state
+    }
+}
+
+export const saveAppointmentReducer = (state={}, action) =>{
+    switch(action.type){
+        case SAVE_APPOINTMENT_REQUEST:
+            return {loading: true}
+        case SAVE_APPOINTMENT_SUCCESS: 
+            return {loading: false, SaveAppointment: action.payload}
+        case SAVE_APPOINTMENT_FAIL:
+            return {loading:false, SaveAppointmentError: action.payload}
+        default:
+            return state; 
     }
 }
 
@@ -121,4 +154,18 @@ export const fileImageHandlerReducer = (state={}, action)=>{
         default:
             return state
     }
+}
+
+export const deleteAppointmentReducer = (state={}, action) =>{
+    switch(action.type){
+        case DELETE_APPOINTMENT_REQUEST:
+            return {Deleteloading: true}
+        case DELETE_APPOINTMENT_SUCCESS:
+            return {Deleteloading: false, DeleteSuccess: true}
+        case DELETE_APPOINTMENT_FAIL:
+            return {DeleteLoading: false, DeleteSuccess: false}
+        default:
+            return state
+    }
+
 }

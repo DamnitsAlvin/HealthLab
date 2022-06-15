@@ -18,9 +18,9 @@ export default function Bookdoctor() {
         dispatch(DoctorInformation(id))
     },[dispatch, id])
 
-    const bookDoctorHandler = () =>{
+    const bookDoctorHandler = (mode) =>{
         if(userInfo){
-            navigate(`/createAppointment?doctor=${id}`)
+            navigate(`/createAppointment?doctor=${id}&mode=${mode}`)
         }
         else{
             navigate(`/signin?userType=user&redirect=/bookdoctor/${id}`)
@@ -195,7 +195,7 @@ export default function Bookdoctor() {
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={bookDoctorHandler}>Book Now</button>
+                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={()=>bookDoctorHandler(DocBasicInfo.BasicInfo[8])}>Book Now</button>
                         </div>
                     </div>
                 </div>

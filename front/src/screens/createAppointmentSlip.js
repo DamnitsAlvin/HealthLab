@@ -7,14 +7,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function CreateAppointmentSlip(props){
     const getUserAppointmentRequest = useSelector(x=>x.appointmentRequest); 
-    const {saveBasicAppointment} = getUserAppointmentRequest; 
+    const {SaveAppointment} = getUserAppointmentRequest; 
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const doc_id = searchParams.get("doctor")
+    const mode = searchParams.get('mode')
 
     var id=""; 
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
+    console.log(SaveAppointment)
     if(userInfo){
         id =  userInfo.data[0];
     }
@@ -28,29 +30,34 @@ export default function CreateAppointmentSlip(props){
     const [PreferredDate, setPreferredDate] = useState("");
     const [toSelf, setToSelf] = useState(true);                     
     const [appointmentRequest, setAppointmentRequest] = useState("");
+    const [Relationship, setRelationship] = useState("")
     const [description, setDescription] = useState()
+    const [Appmode, setMode] = useState(mode==0 ? "Online": mode==1 ? "Face to Face" : "Online")
    
     const dispatch = useDispatch()
     var date = new Date(); 
-    var time = date.getDate()+""+date.getMonth()+1+""+date.getFullYear()+""+ date.getMilliseconds();
+    var time = date.getDate()+""+date.getMonth()+1+""+date.getSeconds()+""+ date.getMilliseconds();
 
     useEffect(()=>{
         setAppointmentRequest("PTR"+time);
     }, []);
-    console.log("To self: ", toSelf)
+  
    
     const NextHandler = (e) =>{
-        e.preventDefault();
-        navigate(`/`);
-        
+        e.preventDefault();  
         if(!toSelf){
             id = "PATIENT" + time
-            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate ]));
-            dispatch(addPatient([id, userInfo.data[0], PatientFirstName, PatientLastName, Birthday, Gender])) //save patient details to local storage
+            dispatch(addPatient([id, userInfo.data[0], PatientFirstName, PatientLastName, Relationship,  Birthday, Gender])) //save patient details to local storage
+            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
         }else{
-            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate ]));
+            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
         }
     }
+    useEffect(()=>{
+        if(SaveAppointment && SaveAppointment.success){
+            navigate("/appointments")
+        }
+    }, [SaveAppointment])
 
     const cancelHandler = (e)=>{
         e.preventDefault();
@@ -69,8 +76,7 @@ export default function CreateAppointmentSlip(props){
             <h2>Appointment Request</h2>
             <p>Please fill in this form to create an appointment request!</p>
             <hr/>
-            <AppointmentSteps step1/>
-
+            
             <div className="form-group">
                 <label htmlFor="fullName">Is the appointment for yourself or others?</label>
                 <select className="form-control" onChange={()=> setToSelf(!toSelf)}>
@@ -96,15 +102,15 @@ export default function CreateAppointmentSlip(props){
                 <>
                <div className="form-group">
                     <label htmlFor="fullName">Relationship with the patient</label>
-                    <input type="text" className="form-control"  placeholder="Son, Daughter, Cousin, Sister, Brother"  required="required" />
+                    <input type="text" className="form-control"  placeholder="Son, Daughter, Cousin, Sister, Brother"  required="required" onChange={(event)=>{setRelationship(event.target.value)}} />
                  </div>
                 <div className="form-group">
                     <label htmlFor="fullName">First Name</label>
-                    <input type="text" className="form-control"  placeholder="Patient First Name" value ={PatientFirstName} onChange={(event)=> setPatientFirstName(event.target.values)} required="required"  />
+                    <input type="text" className="form-control"  placeholder="Patient First Name"  onChange={(event)=> setPatientFirstName(event.target.value)} required="required"  />
                 </div>
                 <div className="form-group">
                     <label htmlFor="fullName">Last Name</label>
-                    <input type="text" className="form-control"  placeholder="Patient Last Name" value ={PatientLastName} onChange={(event)=> setPatientLastName(event.target.values)} required="required" />
+                    <input type="text" className="form-control"  placeholder="Patient Last Name"  onChange={(event)=> setPatientLastName(event.target.value)} required="required" />
                 </div>
                 
                 <div className="form-group">
@@ -121,17 +127,34 @@ export default function CreateAppointmentSlip(props){
                 </>
             )
             }
+            {mode == 2 ?(<>
+                <div className="form-group">
+                    <label htmlFor="fullName">Appointment Mode</label>
+                    <select className="form-control" onChange={(event)=> setMode(event.target.value)} required>
+                        <option value='Online'>Online</option>
+                        <option value='Face to Face'>Face to Face</option>
+                    </select>
+                </div>
+            
+            </>):(
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Appointment Mode</label>
+                    <input class="form-control" id="textArea" value={mode==0 ? "Online": "Face To Face"}readOnly></input>
+                </div>
+            )}
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description</label>
-                <textarea class="form-control" id="textArea" rows="3" placeholder="Enter other details you want to tell the Dentist" onChange={e=>setDescription(e.target.value)}></textarea>
+                <textarea class="form-control" id="textArea" rows="3" placeholder="Enter other details you want to tell the Doctor" onChange={e=>setDescription(e.target.value)}></textarea>
             </div>
 
             <div className="form-group">
                 <label className="control-label" for="date">Preferred Date</label>
                 <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)}/>
             </div>
-            
+            {SaveAppointment && !SaveAppointment.success && (
+                    <div className="alert alert-danger">Error saving the data</div>
+            )}
             
             <div className="form-group">
                     <button className="btn btn-primary btn-lg cancelButton" onClick={cancelHandler} >Cancel</button>

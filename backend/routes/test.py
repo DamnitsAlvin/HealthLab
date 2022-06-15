@@ -56,4 +56,16 @@ def testonle():
     print("Request: ", type(args))
     return args
 
+@test_api.route("/users", methods =["GET"])
+def displayUser():
+    cur = mysql.connection.cursor()
+    Resval = cur.execute("Select * from user")
+    if Resval > 0:
+        data = cur.fetchall()
+        print(data)
+        cur.connection.commit()
+        cur.close()
+        
+        return jsonify({"data": data}), 200
+
 

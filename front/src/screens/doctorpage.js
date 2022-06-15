@@ -16,6 +16,7 @@ export default function DoctorPage(){
     const getDoc = useSelector(x => x.getDoc)
     const {doctorLoading, doctors, error} = getDoc
     const [docToDisp, setDocToDisp] = useState([])
+    const [mode, setMode] = useState()
     useEffect(()=>{
         setDocToDisp(doctors ? doctors.data: [])
     }, [doctors])
@@ -44,8 +45,8 @@ export default function DoctorPage(){
     const viewDoctorHander = (id) =>{
         navigate(`/bookdoctor/${id}`)
     }
-    const bookDoctorHandler = (id) =>{
-        navigate(`/createAppointment?doctor=${id}`)
+    const bookDoctorHandler = (id, mode) =>{
+        navigate(`/createAppointment?doctor=${id}&mode=${mode}`)
     }
     return(
         <>
@@ -82,7 +83,7 @@ export default function DoctorPage(){
                             return x[1];
                         }
                     }).join(" ")}</small>
-                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={()=>{bookDoctorHandler(values[0])}}>Book Doctor</button>
+                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={()=>{bookDoctorHandler(values[0], values[8])}}>Book Doctor</button>
                 </div>
                 <div className="flex-doctor-desc">
                     <p className="headerBook">Consultation Type</p> 

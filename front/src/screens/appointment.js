@@ -1,27 +1,33 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux"
-import {getAppointments} from "../actions/userActions"
+import {deleteAppointment, getAppointments} from "../actions/userActions"
 
 export default function AppointmentPage(){
     const dispatch = useDispatch()
     const getAppoint = useSelector(x=>x.userAppointment)
     const {loading, appointments, message} = getAppoint
+    const delAppoint = useSelector(x=>x.deleteAppointment)
+
+    const {DeleteSuccess} = delAppoint
 
     const getUser = useSelector(x=>x.userSignIn)
     const {userInfo} = getUser
-    if(userInfo){
-        console.log(userInfo.data[0])
-    }
-    if(appointments){
-        console.log("appointments: ", appointments)
-    }
+
+   
     useEffect(()=>{
-        console.log("dispatch!")
-        dispatch(getAppointments(userInfo.data[0]))
-        console.log("called here")
-    }, [dispatch])
+        dispatch(getAppointments(userInfo.data[0], userInfo.data[2]))
+    }, [dispatch,DeleteSuccess])
+
+    const deleteHandler = (appointId) =>{
+        if(window.confirm(`Are you sure you want to delete appointment ${appointId}?`)==true){
+            dispatch(deleteAppointment(appointId))
+        }
+  
+    }
     
     return(
+    <>
+   
     <div className="tableform">
         <div className="table-wrapper">
             <div className="table-title">
@@ -31,48 +37,99 @@ export default function AppointmentPage(){
                 </div>
                 </div>
             </div>
-            <table className="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Appointment ID</th>
-                    <th>Patient ID</th>
-                    <th>Doctor ID</th>
-                    <th>Field</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Mode</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                </tr>
-               
-                {appointments && 
-                    appointments.data.map((appoint)=>(
-                        <tr>
-                        <td>
-                            {appoint[0]}
-                        </td>
-                        <td>{appoint[1]}</td>
-                        <td>{appoint[2]}</td>
-                        <td>{appoint[6]}</td>
-                        <td>{appoint[3]}</td>
-                        <td>{appoint[4]}</td>
-                        <td>{appoint[5]}</td>
-                        <td>ex MODE</td>
-                        <td>
-                            <button>Details</button>
-                            <button>Delete</button>
-                            <button>Edit</button>
-                        </td>
+            {
+        DeleteSuccess  && (<div className="alert alert-success">Successfully deleted</div>)
+            }
+            {
+                userInfo.data[2] == "user" ? (
+                <table className="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Doctor Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Mode</th>
+                        <th>Mode</th>
                     </tr>
-                        ))
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    </tr>
+                
+                    {appointments && 
+                        appointments.Appointments.map((appoint)=>(
+                            <tr>
+                            <td>
+                                {appoint[0]}
+                            </td>
+                            <td>{appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2]}</td>
+                            <td>{"Dr. "+appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2]}</td>
+                            <td>{appoint[3]}</td>
+                            <td>{appoint[4]}</td>
+                            <td>{appoint[5]}</td>
+                            <td>{appoint[6]}</td>
+                            <td>{appoint[7]}</td>
+                            <td>
+                                <button className="btn btn-success" >Details</button>
+                                <button className="btn btn-danger" onClick={()=>deleteHandler(appoint[0])}>Delete</button>
+                            </td>
+                        </tr>
+                            ))
+                    }
+                    </tbody>
+                </table>
+
+                ) : (
+
+                    <table className="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Mode</th>
+                        <th>Mode</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    </tr>
+                   
+                    {appointments && 
+                        appointments.Appointments.map((appoint)=>(
+                            <tr>
+                            <td>
+                                {appoint[0]}
+                            </td>
+                            <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
+                            <td>{appoint[3]}</td>
+                            <td>{appoint[4]}</td>
+                            <td>{appoint[5]}</td>
+                            <td>{appoint[6]}</td>
+                            <td>{appoint[7]}</td>
+                            <td>
+                                <button className="btn btn-success" >Accept</button>
+                                <button className="btn btn-danger" >Decline</button>
+                                <button className="btn btn-warning" >Details</button>
+                            </td>
+                        </tr>
+                            ))
+                    }
+                    </tbody>
+                    </table>
+                )
+
+            }
+            
         </div>
     </div>
+    </>
     );
 }

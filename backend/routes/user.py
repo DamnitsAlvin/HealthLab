@@ -12,17 +12,7 @@ app,mysql = create_app()
 api=Blueprint('api', __name__)
 
 
-@api.route("/users", methods =["GET"])
-def displayUser():
-    cur = mysql.connection.cursor()
-    Resval = cur.execute("Select * from user")
-    if Resval > 0:
-        data = cur.fetchall()
-        print(data)
-        cur.connection.commit()
-        cur.close()
-        
-        return jsonify({"data": data}), 200
+
 @api.route("/email", methods=["POST"])
 def checkEmail():
     if request.method == "POST":
@@ -137,171 +127,96 @@ def registerUser():
             return jsonify({"message": "Email was already in use" }), 404
 
 
-@api.route("/getalldoctor", methods=["GET", "POST"])
-def getalldoctor():
-    if request.method == "POST":
-        tosearch = request.json.get("category"); 
-        query =""
-        if tosearch == "1": 
-            query = "Select * from doctor where 1"
-           
-        else:
-            query = "Select * from doctor where Specialization = '" +tosearch+"'"
-           
-        
-        cur = mysql.connection.cursor()
-        resval = cur.execute(query)
-        doctorname = []
-        if resval > 0: 
-            data = cur.fetchall()
-            for i in range(0,len(data)):
-                curs = mysql.connection.cursor()
-                curs.execute("SELECT * from employee where Employee_id=%s",(data[i][0]) ); 
-                val= curs.fetchall()
-                curs.connection.commit()
-                curs.close()
-                doctorname.append(val[0])    
-            cur.connection.commit()
-            cur.close()
-            return jsonify({"data": data, "doctor_info": doctorname}), 200
-        return jsonify({"error": "No doctor found!"})
+
 
 @api.route("/postAppointment", methods=["GET", "POST"])
 def postAppointment():
     if request.method=="POST":
         cur = mysql.connection.cursor()
-        appointmentId = request.json.get("appointmentId")
-        patientId = request.json.get("patientId")
-        doctorId = request.json.get("doctorId")
-        appointmentDate = request.json.get("appointmentDate")
-        appointmentTime = request.json.get("appointmentTime")
-        status = "Pending"
-        specialty = request.json.get("specialty")
-        if specialty == "Dentistry":
-            dentistFunction(appointmentId)
-        elif specialty == "Opthalmologist":
-            optalFunctions(appointmentId)
-        elif specialty == "Ob-Gyn":
-            OBFunctions(appointmentId)
-        else: 
-            GHFunctions(appointmentId)
+        appointment = request.json.get("appointment")
+        print(f'{appointment}')
         try:
-            cur.execute("INSERT INTO appointment_request(Appointment_Id, Patient_id, Doctor_id, Appointment_date, Appointment_time, Status, Specialty) values(%s, %s,%s,%s, %s,%s,%s)", (appointmentId, patientId, doctorId, appointmentDate, appointmentTime, status, specialty)) 
+            cur.execute("INSERT INTO `appointment_request`(`Appointment_Id`, `Patient_id`, `Doctor_id`, `Appointment_date`,  `Description`, `Mode`) VALUES (%s,%s,%s,%s,%s, %s)", appointment) 
             cur.connection.commit()
-            cur.close()
-            return "Successful", 200
-        except:
-            return "Error"
+            response = cur.execute("SELECT * FROM appointment_request WHERE Doctor_id=%s and Appointment_date=%s", (appointment[2], appointment[3]))
+            if response > 0:
+                rows= cur.rowcount
+                cur.connection.commit()
+                cur.close()
+            return jsonify({"success": True, "queue": rows }), 200
+        except Exception as e:
+            print(e)
+            return jsonify({"success": False}), 404
 
-def dentistFunction(appointmentId):
-    print("called")
-    if request.method =="POST":
+@api.route("/regPatient", methods=["POST"])
+def registerPatient():
+    if request.method == "POST":
         cur = mysql.connection.cursor()
-        hasMouthSore = request.json.get("hasMouthSore")
-        hasJawPain = request.json.get("hasJawPain")
-        hasSwollenFace = request.json.get("hasSwollenFace")
-        hasSensitiveTeeth = request.json.get("hasSensitiveTeeth")
-        hasBrokenTeeth = request.json.get("hasBrokenTeeth")
-        hasDryMouth = request.json.get("hasDryMouth")
-        hasBleedingGums = request.json.get("hasBleedingGums")
-        hasBadTaste = request.json.get("hasBadTaste")
-        isSmoker = request.json.get("isSmoker")
-        description = request.json.get("description")
+        patient = request.json.get("Patient")
         try:
-            cur.execute("INSERT INTO `dentistappointmentrequest`(`appointment_request`, `hasMouthSore`, `hasJawPain`, `hasSwollenFace`, `hasSensitiveTeeth`, `hasBrokenTeeth`, `hasDryMouth`, `hasBleedingGums`, `hasBadTaste`, `isSmoker`, `description`) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s)",(appointmentId, hasMouthSore, hasJawPain, hasSwollenFace, hasSensitiveTeeth, hasBrokenTeeth, hasDryMouth, hasBleedingGums, hasBadTaste, isSmoker, description))
-            cur.connection.commit()
-            cur.close()
-            return "Successful", 200
-        except Exception:
-            return "Error"
-
-def optalFunctions(appointmentId):
-    if request.method == "POST":
-        print("called")
-        cur = mysql.connection.cursor() 
-        hasEyeStrain = request.json.get("hasEyeStrain")
-        hasDryEyes = request.json.get("hasDryEyes")
-        hasItchyEyes = request.json.get("hasItchyEyes")
-        hasIrritatedEyes  = request.json.get("hasIrritatedEyes")
-        hasFluctuatingVision= request.json.get("hasFluctuatingVision")
-        hasFrequentHeadache= request.json.get("hasFrequentHeadach")
-        hasRedEyes= request.json.get("hasRedEyes") 
-        hasTrouble= request.json.get("hasTrouble") 
-        usingGadget = request.json.get("usingGadget") 
-        seeingGlare = request.json.get("seeingGlare")
-        description = request.json.get("description")
-        try:
-            cur.execute("INSERT INTO `optalappointmentrequest`(`appointment_request`, `hasEyeStrain`, `hasDryEyes`, `hasIrritatedEyes`, `hasItchyEyes`, `hasFluctuatingVision`, `hasFrequentHeadache`, `hasRedEyes`, `hasTrouble`, `usingGadget`, `seeingGlare`, `description`) VALUES(%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)", (appointmentId,hasEyeStrain,hasDryEyes,hasItchyEyes, hasIrritatedEyes, hasFluctuatingVision,hasFrequentHeadache,hasRedEyes,hasTrouble,usingGadget,seeingGlare,description))
-            cur.connection.commit()
-            cur.close()
-            return "Succesful", 200
-        except:
-            return "Error"
-
-def OBFunctions(appointmentId):
-    if request.method == "POST":
-        print("called")
-        cur = mysql.connection.cursor() 
-        hasPainfulPeriods = request.json.get("hasPainfulPeriods")
-        hasVaginalOdor = request.json.get("hasVaginalOdor")
-        hasSwollenBumps = request.json.get("hasSwollenBumps")
-        hasVaginalDryness  = request.json.get("hasVaginalDryness")
-        hasPain = request.json.get("hasPain")
-        hasUrinaryLeak = request.json.get("hasUrinaryLeak")
-        hasLowLibido= request.json.get("hasLowLibido") 
-        isASmoker= request.json.get("isASmoker") 
-        hasSTD = request.json.get("hasSTD") 
-        description = request.json.get("description")
-        try:
-            cur.execute("INSERT INTO `obappointmentrequest`(`appointment_request`, `hasPainfulPeriods`, `hasVaginalOdor`, `hasSwollenBumps`, `hasVaginalDryness`, `hasPain`, `hasUrinaryLeak`, `hasLowLibido`, `isASmoker`, `hasSTD`, `description`) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s)",(appointmentId, hasPainfulPeriods ,hasVaginalOdor,hasSwollenBumps,hasVaginalDryness,hasPain,hasUrinaryLeak,hasLowLibido,isASmoker,hasSTD,description))
-            cur.connection.commit()
-            cur.close()
-            return "Succesful", 200
-        except:
-            return "Error"
-
-def GHFunctions(appointmentId):
-    if request.method == "POST":
-        print("called")
-        cur = mysql.connection.cursor() 
-        patientInCur = request.json.get("patientInCur")
-        frequentHeadache  = request.json.get("frequentHeadache")
-        fatigue = request.json.get("fatigue")
-        shortness  = request.json.get("shortness")
-        sleepless  = request.json.get("sleepless")
-        urinary  = request.json.get("urinary")
-        isSmoker = request.json.get("isSmoker")
-        description = request.json.get("description")
-        try:
-            cur.execute("INSERT INTO `ghappointmentrequest`(`appointment_request`, `patientInCur`, `frequentHeadaches`, `fatigue`, `shortnessOfBreath`, `sleeplessNight`, `urinaryLeakage`, `isSmoker`, `description`) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s)", (appointmentId, patientInCur, frequentHeadache, fatigue, shortness, sleepless, urinary, isSmoker, description))
-            cur.connection.commit()
-            cur.close()
-            return "Succesful", 200
-        except:
-            return "Error"
+            response = cur.execute("SELECT * FROM patient WHERE USER_ID=%s AND First_name=%s")
+            if not response > 0:
+                cur.execute("INSERT INTO `patient`(`Patient_id`, `user_id`, `First_name`, `Last_name`, `Relationship`, `Birthday`, `Gender`) VALUES (%s,%s,%s,%s,%s,%s,%s)", patient)
+                cur.connection.commit()
+                cur.close()
+            return jsonify({"success": True}), 200
+        except Exception as e:
+            return jsonify({"success": False}), 404
 
 @api.route("/getAppointment", methods=["GET", "POST"])
 def getUserAppointment():
     if request.method == "POST": 
         userId = request.json.get("User_id")
+        userType = request.json.get("User_type")
         cur = mysql.connection.cursor() 
-        try:
-            print("called here")
-            resval = cur.execute("SELECT * FROM appointment_request WHERE Patient_id = %s",(userId,))
-         
-            print("called here againt")
-            
-            if resval > 0: 
-                data = cur.fetchall()
-                print(data)
-                cur.connection.commit()
-                cur.close()
-                print(jsonify({"data": data}))
+        if userType == "user":
+            try:
+                response = cur.execute("SELECT Patient_id FROM patient WHERE user_id=%s", (userId, ))
+                if response > 0: 
+                    Patient_id = cur.fetchall() 
+                    cur.connection.commit()
 
-                return jsonify({"data":data}), 200
-            return jsonify({"message": "currently no appointments to show!"})
-        except:
-            return "Error"
+                resval = cur.executemany("SELECT * FROM appointment_request WHERE Patient_id = %s ORDER BY date_created",Patient_id)
+               
+                if resval > 0: 
+                    data = cur.fetchall()
+                    cur.connection.commit()
+                    
+                    Patient_name = cur.executemany("SELECT Patient_id, First_name, Last_name FROM patient WHERE Patient_id=%s", Patient_id)
+                    Patient_name = cur.fetchall()
+                    doctor_name = list()
+                    for i in range(0, len(data)):
+                        doc = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (data[i][2], ))
+                        doctor_name.append(cur.fetchone()[0:4])
+
+                    return jsonify({"Appointments": data, "Name": Patient_name, "Doctor": doctor_name}), 200
+                return jsonify({"message": "currently no appointments to show!"})
+            except:
+                return jsonify({"error": True})
+
+        elif userType == "doctor": 
+            try:
+                resval = cur.execute("SELECT * FROM appointment_request WHERE Doctor_id = %s ORDER BY date_created",(userId, ))
+               
+                if resval > 0: 
+                    data = cur.fetchall()
+                    response = cur.execute('SELECT DISTINCT Patient_id FROM appointment_request WHERE Doctor_id=%s', (userId, ))
+                    patient_id = cur.fetchall()
+                    print(f"{patient_id}")
+                    response = cur.executemany("SELECT * FROM patient WHERE Patient_Id=%s", patient_id)
+                    Patient = cur.fetchall()
+                
+                    Patient_name = list()
+                    for i in range(0, len(Patient)):
+                        Patient_name.append(Patient[i][0:4])
+
+                    
+
+                    return jsonify({"Appointments": data, "Name": Patient_name}), 200
+                return jsonify({"message": "currently no appointments to show!"})
+            except:
+                return jsonify({"error": True})
+            return jsonify({'ongoing': True})
 
 @api.route("/updateImage", methods=["POST"])
 def fileImageHandler():
@@ -316,3 +231,15 @@ def fileImageHandler():
         filed.save(os.path.join("C:\\Users\\User\\Desktop\\Projects\\HealthLab\\front\\public\\uploads", id+"Image."+extension))
         return jsonify({"success": True}), 200
 
+@api.route("/deleteAppointment", methods=["DELETE"])
+def deleteAppointment():
+    cur = mysql.connection.cursor()
+    args  = request.args.to_dict()
+    app_id = args.get("id") 
+    try:
+        data = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_Id=%s", (app_id, ))
+        cur.connection.commit()
+        cur.close()
+        return jsonify({'success': True}), 200
+    except Exception as e: 
+        return jsonify({"success": False}), 404
