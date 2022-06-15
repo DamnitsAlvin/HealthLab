@@ -11,19 +11,18 @@ import MedicalHistory from "./screens/medhistory";
 import AppointmentPage from "./screens/appointment";
 import Results from "./screens/results";
 import Overview from "./screens/dentistquestions";
-import Testing from "./screens/Testing";
+import Testing from "./test/Testing";
 
-import OBquestionScreen from "./screens/OBgynequestions";
-import OptalQuestionsScreen from "./screens/OptalQuestions";
-import GeneralHealthScreen from "./screens/generalhealth";
-import './App.css';
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
 import DoctorPage from './screens/doctorpage';
-
+import Chatbog from './components/chatbot1';
+import './App.css';
+import TestClass from './test/classful';
+import Chatbot from './components/chatbot';
 
 function App() {
   
@@ -97,6 +96,7 @@ function App() {
         </div>	
     </div>
 		<main>
+		
 			<Routes>
 				
 				<Route path='/signin/' element={<SignIn/>}/>
@@ -123,7 +123,7 @@ function App() {
 				
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
-		
+			<Chatbot></Chatbot>
 		</main>
 
 
