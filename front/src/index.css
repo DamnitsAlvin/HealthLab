@@ -27,7 +27,7 @@ body {
   left: 10%;
   width: 80%;
   height: 80%;
-  box-shadow: 5px 10px 18px #636262;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 20px;
   /*  used by signin */
   display: flex;
@@ -44,7 +44,7 @@ body {
   position: relative;
   left: 25%;
   border-radius: 25px;
-  box-shadow: rgba(59, 59, 59, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   margin-bottom: 5rem;
 
@@ -189,8 +189,9 @@ body {
 /* user type signin */
 .userType {
   margin-top: 18rem;
-  height: 80vh;
+  height: 100%;
   width: 100%;
+  
 }
 
 .whologin {
@@ -205,8 +206,9 @@ body {
 .v1 {
   position: relative;
   top: 10%;
-  border-left: 6px solid #6bd4cd;
+  border-left: 5px solid #6bd4cd;
   height: 80%;
+  
 }
 
 .type {
@@ -306,7 +308,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
   
 }
 
@@ -316,7 +318,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-3 {
@@ -325,7 +327,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-4 {
@@ -334,7 +336,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-5 {
@@ -343,7 +345,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height:85%;
 }
 
 .card-image-6 {
@@ -352,7 +354,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-7 {
@@ -361,7 +363,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-8 {
@@ -370,7 +372,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s1 {
@@ -379,7 +381,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s2 {
@@ -388,7 +390,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s3 {
@@ -397,7 +399,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s4 {
@@ -406,7 +408,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s5 {
@@ -415,7 +417,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s6 {
@@ -424,7 +426,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s7 {
@@ -433,7 +435,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 .card-image-s8 {
@@ -442,7 +444,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   width: 100%;
-  height: 100%;
+  height: 85%;
 }
 
 /* Service register screen */
@@ -814,6 +816,7 @@ border-radius: 10px 0px 0px 10px;
   padding: 30px;
   height: 170vh;
 }
+
 
 .signup-form h2 {
   color: #333;
@@ -1303,13 +1306,13 @@ border-radius: 10px 0px 0px 10px;
   background: rgb(255, 255, 255);
   padding: 20px 25px;
   margin: 30px 0;
-  border-radius: 3px;
-  box-shadow: 0 1px 1px rgba(223, 0, 0, 0.05);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .table-title {
   padding-bottom: 15px;
-  background: #68b2ee;
+  background: #3fbbc0;
   color: #fff;
   padding: 16px 30px;
   margin: -20px -25px 10px;
@@ -1318,7 +1321,12 @@ border-radius: 10px 0px 0px 10px;
 
 .table-title h2 {
   margin: 5px 0 0;
-  font-size: 24px;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.3px;
+  font-weight: 550;
+
 }
 
 .table-title .btn-group {
@@ -1525,11 +1533,12 @@ table.table .avatar {
 }
 
 .tableform {
-  margin-top: 20rem;
+  margin-top: 15rem;
   margin-bottom: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .tab {
@@ -1682,4 +1691,62 @@ hr {
   padding: 50px;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#pepeButton{
+  padding:5px;
+}
+#pepeButo{
+  padding:5px;
+  margin-left:2px;
+}
+
+.pepeFlex{
+  display: flex;
+  
+}
+
+#buttonQr{
+  background-color: #47adb1;
+  border-color: #3fbbc0;
+}
+
+#closeShit{
+  margin-right: 2px;
+}
+.modal-body{
+
+}
+#downloadPDF{
+  font-weight: 400;
+  background-color: #47adb1;
+  border-color: #3fbbc0;
+  border-radius: 5px;
+}
+#pdfLogo{
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.qr-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:solid black;
+  width : 100%;
+  height: 100%;
+    
+}
+
+img, .samplepic{
+height: 100%;
+width: 100%;
+
+}
+
+.downloadPDFile{
+  margin-top: 20px;
+  display: flex;
+ justify-content: center;
+ align-items: center;
 }
