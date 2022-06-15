@@ -68,7 +68,7 @@ function App() {
 
                       <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul className="nav navbar-nav">
-                          <li className="active top"><Link to="/">Home</Link></li>
+                          <li className="top"><Link to="/">Home</Link></li>
                           <li className="top"><Link to="/#service">Doctors</Link></li>
                           <li className="top"><Link to="/#doctor">Service</Link></li>
                           {userInfo ? (
@@ -87,7 +87,7 @@ function App() {
                           ):(
                             <li className="top"><Link to="/signintype">Sign In</Link></li>
                           )}
-						  <li className="top"><Link to="/test/85">Test</Link></li>
+						  
                         </ul>
                     </div>
                   
@@ -157,7 +157,7 @@ function App() {
 							<div className="widget">
 								<h5>Medicall Center</h5>
 								<p>
-									Nam leo lorem, tincidunt id risus ut, ornare tincidunt naqunc sit amet.
+									Providing the Best Quality Healthcare for you.
 								</p>
 								<ul>
 									<li>

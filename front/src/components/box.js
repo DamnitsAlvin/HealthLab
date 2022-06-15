@@ -13,8 +13,7 @@ export default function Box(){
                                 <i className="fa fa-check fa-3x circled bg-skin"></i>
                                 <h4 className="h-bold">Make an appoinment</h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix,
-                                    graecis eligendi ne.
+                                    Find out available doctors for your health concerns.
                                 </p>
                             </div>
                         </div>
@@ -26,8 +25,7 @@ export default function Box(){
                                 <i className="fa fa-list-alt fa-3x circled bg-skin"></i>
                                 <h4 className="h-bold">Wait announcements</h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix,
-                                    graecis eligendi ne.
+                                    First come first serve basis
                                 </p>
                             </div>
                         </div>
@@ -38,8 +36,7 @@ export default function Box(){
                                 <i className="fa fa-user-md fa-3x circled bg-skin"></i>
                                 <h4 className="h-bold">Help by specialist</h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix,
-                                    graecis eligendi ne.
+                                    Handled by professional medical personnels
                                 </p>
                             </div>
                         </div>
@@ -51,8 +48,7 @@ export default function Box(){
                                 <i className="fa fa-hospital-o fa-3x circled bg-skin"></i>
                                 <h4 className="h-bold">Get diagnostic report</h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix,
-                                    graecis eligendi ne.
+                                   Immediate report will be sent after consultation
                                 </p>
                             </div>
                         </div>
@@ -70,8 +66,8 @@ export default function Box(){
                                     <div className="wow fadeInUp" data-wow-delay="0.1s">
                                         <div className="cta-text">
                                             <h3>In an emergency? Need help now?</h3>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit uisque interdum ante
-                                                eget faucibus. </p>
+                                            <p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

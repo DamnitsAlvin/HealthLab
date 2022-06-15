@@ -50,10 +50,11 @@ export default function DoctorPage(){
     }
     return(
         <>
+        <div className="wow fadeInDown" data-wow-delay="0.1s">
         <div className="containerWhole d-flex justify-content-center">
         <div className="cardBook">
             <div className="top-doctor-page">
-                <input type="text" className="form-control" onChange={searchHandler}/>
+                <input type="text" className="form-control-bobo" onChange={searchHandler}/>
                 <div className="input-group-append" id="form3"><button className="btn btn-primary"id="bobo5">Search</button></div>
                 
                 <div className="form-outline">
@@ -130,6 +131,7 @@ export default function DoctorPage(){
                 <p className="bobo">Cardiologists Near You | Find the Right Doctor </p>
                 <p className="bobo2">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
                 <p className="bobo3">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
+            </div>
             </div>
         </>
     )

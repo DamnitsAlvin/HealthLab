@@ -34,7 +34,7 @@ export default function Intro(){
 				<div className="row">
 					<div className="col-lg-6">
 						<div className="wow fadeInDown" data-wow-offset="0" data-wow-delay="0.1s">
-							<h2 className="h-ultra">Medicall Health Center</h2>
+							<h2 className="h-ultra">Medicall Appointment Center</h2>
 						</div>
 						<div className="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
 							<h4 className="h-light">Provide <span className="color">best quality healthcare</span> for you</h4>
@@ -44,14 +44,14 @@ export default function Intro(){
 
 								<ul className="lead-list">
 									<li><span className="fa fa-check fa-2x icon-success"></span> <span
-											className="list"><strong>Handled by healthcare professionals</strong><br />Lorem
-											ipsum dolor sit amet, in verterem persecuti vix, sit te meis</span></li>
+											className="list"><strong>Handled by healthcare professionals</strong><br />
+											Used by  healthcare personnel with specialization</span></li>
 									<li><span className="fa fa-check fa-2x icon-success"></span> <span
-											className="list"><strong>Book appointments immediately</strong><br />Sit zril
-											sanctus scaevola ei, ea usu movet graeco</span></li>
+											className="list"><strong>Book appointments immediately</strong><br />
+											Advance booking features for your everyday concern</span></li>
 									<li><span className="fa fa-check fa-2x icon-success"></span> <span
-											className="list"><strong>Safety is the best policy</strong><br />Wisi
-											lobortis eos ex, per at movet delectus, qui no vocent deleniti</span></li>
+											className="list"><strong>Safety is the best policy</strong><br />
+											We prioritize safety measures including face to face interaction</span></li>
 								</ul>
 
 							</div>

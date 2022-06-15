@@ -43,7 +43,8 @@ export default function SignIn(props){
 
 
     return(
-        <div className= "signinform">
+      <div className="wow fadeInDown" data-wow-delay="0.1s">
+        <div className= "signinform" >
           <div className='halfImage'>
              <img src="/img/backgrounds/signin_BG.jpg" alt ="signinbackground"/>
           </div>
@@ -89,6 +90,7 @@ export default function SignIn(props){
               </div>
             </div>
           </form>
+        </div>
         </div>
     )
 }

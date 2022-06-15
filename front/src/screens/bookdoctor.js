@@ -30,7 +30,7 @@ export default function Bookdoctor() {
     return(
         
     
-    <div className="container">
+    <div className="container">  
         <div className="row gutters">
         <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 ">
         <div className="pard h-100">

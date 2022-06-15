@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 export default function UserTypeSignIn(props){
 
     return(
+        <div className="wow fadeInDown" data-wow-delay="0.1s">
         <div className='userType'>
             <div className='mycontainer'>
                 <div className='whologin'>
@@ -262,6 +263,7 @@ export default function UserTypeSignIn(props){
                     </Link>
                 </div>
             </div>
+        </div>
         </div>
     );
 }
