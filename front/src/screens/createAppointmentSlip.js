@@ -150,7 +150,7 @@ export default function CreateAppointmentSlip(props){
 
             <div className="form-group">
                 <label className="control-label" for="date">Preferred Date</label>
-                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)}/>
+                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)} required/>
             </div>
             {SaveAppointment && !SaveAppointment.success && (
                     <div className="alert alert-danger">Error saving the data</div>

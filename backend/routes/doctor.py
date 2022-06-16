@@ -474,3 +474,18 @@ def getDoctor():
     except Exception as e: 
         print(e)
         return jsonify({"error": e}), 404
+
+@doc_api.route("/setappointment", methods=["POST"])
+def updateAppointmentStatus():
+    if request.method == 'POST':
+        cur = mysql.connection.cursor()
+        app_id = request.json.get("id")
+        status = request.json.get("status")
+        try:
+            cur.execute("UPDATE `appointment_request` SET `Status`= %s WHERE `Appointment_Id`=%s", (status, app_id))
+            cur.connection.commit()
+            cur.close()
+            return jsonify({'success': True}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({'success': False}), 404
