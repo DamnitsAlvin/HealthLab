@@ -19,7 +19,7 @@ import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
 import DoctorPage from './screens/doctorpage';
-import Chatbog from './components/chatbot1';
+
 import './App.css';
 import TestClass from './test/classful';
 import Chatbot from './components/chatbot';
@@ -123,7 +123,7 @@ function App() {
 				
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
-			<Chatbot></Chatbot>
+			
 		</main>
 
 
