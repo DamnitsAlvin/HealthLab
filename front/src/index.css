@@ -1150,10 +1150,10 @@ border-radius: 10px 0px 0px 10px;
 }
 
 .messages__item--operator {
-  margin-left: auto;
+  margin-right: auto;
 }
 .messages__item--visitor {
-  margin-right: auto;
+  margin-left: auto;
 }
 /* FOOTER */
 .chatbox__footer {
@@ -1270,6 +1270,7 @@ border-radius: 10px 0px 0px 10px;
 
 .chatbox__send--footer {
   color: white;
+  align-items: center;
   
 }
 

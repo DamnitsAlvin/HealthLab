@@ -123,7 +123,7 @@ function App() {
 				
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 			</Routes>
-			
+			<Chatbot></Chatbot>
 		</main>
 
 
