@@ -19,12 +19,14 @@ export default function CreateAppointmentSlip(props){
     console.log(SaveAppointment)
     if(userInfo){
         id =  userInfo.data[0];
+    }else{
+        navigate(`/signin?userType=user&redirect=/createAppointment?doctor=${doc_id}&mode=2`)
     }
     
 
-    const [PatientFirstName, setPatientFirstName] = useState(userInfo.data[3]);
-    const [PatientLastName, setPatientLastName] = useState(userInfo.data[4]); 
-    const [Email, setEmail] = useState(userInfo.data[1]); 
+    const [PatientFirstName, setPatientFirstName] = useState(userInfo && userInfo.data[3]);
+    const [PatientLastName, setPatientLastName] = useState(userInfo &&userInfo.data[4]); 
+    const [Email, setEmail] = useState(userInfo && userInfo.data[1]); 
     const [Birthday, setBirthday] = useState('')
     const [Gender, setGender] = useState('')
     const [PreferredDate, setPreferredDate] = useState("");

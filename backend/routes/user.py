@@ -52,7 +52,10 @@ def authenticateUser():
             response = cur.execute('SELECT * FROM service where (service_id=%s or email=%s)', (username,username))
         
         if response is None:
+            print("rresponse is none ")
             return ({"message": "NO user with that ID"}), 401
+            print("should not be seen")
+
         else: 
             data = cur.fetchone()
  

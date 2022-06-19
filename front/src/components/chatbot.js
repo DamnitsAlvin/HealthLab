@@ -33,7 +33,7 @@ export default class Chatbot extends Component{
     }
     async componentDidMount(){
         
-        if(window.location.pathname=="/" && !this.state.shopWelcomeSent){
+        if(!this.state.shopWelcomeSent){
             await this.df_event_query("WELCOME")
             this.setState({shopWelcomeSent: true})
         }
@@ -154,7 +154,7 @@ export default class Chatbot extends Component{
     render(){
         return(
             <div className="chatbox">
-                <div className="chatbox__support">
+                <div className="chatbox__support chatbox--inactive">
                     <div className="chatbox__header">
             
                         <div className="chatbox_image--header">
