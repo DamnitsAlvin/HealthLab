@@ -1,6 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { GetUserProfile } from '../actions/userActions';
+
 
 export default function UserProfile(){
+    const dispatch = useDispatch()
+    const getUserInfo = useSelector(x=>x.userSignIn)
+    const {userInfo} = getUserInfo
+   
+
+    useEffect(()=>{
+        if(userInfo.data[0]){
+            dispatch(GetUserProfile(userInfo.data[0]))
+        }
+    })
+    
     return(
 
         <div className="container">  

@@ -248,19 +248,23 @@ def deleteAppointment():
         return jsonify({"success": False}), 404
 
 @api.route("/userInformation", methods=["GET"])
-def getUserAppointment():
+def getUserInformation():
     args  = request.args.to_dict()
-    user_id = args.get("user_ID")
+    user_id = args.get("userID")
+    print(user_id)
     cur = mysql.connection.cursor()
     try:
         response = cur.execute("SELECT * FROM user WHERE user_id=%s", (user_id, )) 
-        if response > 0:
+        if response is not None:
             data = cur.fetchone()
+            cur.connection.commit()
+            print(f'{data}')
             cur.close()
             return ({'userData': data}), 200
-        else
+        else:
             return ({'success': False}), 404
     except Exception as e:
+        print(e)
         return({'success': False}), 404
 
 @api.route("/updateuserinformation", methods=["POST"])
