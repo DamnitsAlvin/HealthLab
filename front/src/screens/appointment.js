@@ -43,7 +43,7 @@ export default function AppointmentPage() {
                 <div className="table-wrapper">          
         {
             userInfo.data[2] == "user" ? (
-                <div className="tableform">
+               
                     <div className="table-wrapper">
                         <div className="table-title">
                             <div className="row">
@@ -97,7 +97,7 @@ export default function AppointmentPage() {
                             </tbody>
                         </table>
                     </div>
-                </div>
+            
         ) : (
         <>
       

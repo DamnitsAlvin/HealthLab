@@ -246,3 +246,33 @@ def deleteAppointment():
         return jsonify({'success': True}), 200
     except Exception as e: 
         return jsonify({"success": False}), 404
+
+@api.route("/userInformation", methods=["GET"])
+def getUserAppointment():
+    args  = request.args.to_dict()
+    user_id = args.get("user_ID")
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM user WHERE user_id=%s", (user_id, )) 
+        if response > 0:
+            data = cur.fetchone()
+            cur.close()
+            return ({'userData': data}), 200
+        else
+            return ({'success': False}), 404
+    except Exception as e:
+        return({'success': False}), 404
+
+@api.route("/updateuserinformation", methods=["POST"])
+def updateUserInformation():
+    if request.method == "POST":
+        cur = mysql.connection.cursor()
+        req = request.json.get("details")
+        try: 
+            cur.execute("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Suffix`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s WHERE `user_id`=%s", (req[1:14], req[0]))
+            cur.connection.commit()
+            cur.close()
+            return({'succes': True}), 200
+        except Exception as e:
+            print(e)
+            return ({'success':False}), 404

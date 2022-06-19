@@ -28,7 +28,13 @@ import {
     SAVE_APPOINTMENT_FAIL,
     DELETE_APPOINTMENT_REQUEST,
     DELETE_APPOINTMENT_SUCCESS,
-    DELETE_APPOINTMENT_FAIL
+    DELETE_APPOINTMENT_FAIL,
+    GET_USER_DETAIL_REQ,
+    GET_USER_DETAIL_SUC,
+    GET_USER_DETAIL_FAIL, 
+    UPDATE_USER_DETAIL_REQ, 
+    UPDATE_USER_DETAIL_SUC,
+    UPDATE_USER_DETAIL_FAIL,
 } from "../constants/userConstants";
 
 
@@ -168,4 +174,30 @@ export const deleteAppointmentReducer = (state={}, action) =>{
             return state
     }
 
+}
+
+export const getUserDetailReducer = (state={}, action) =>{
+    switch(action.type){
+        case GET_USER_DETAIL_REQ:
+            return {loading: true}
+        case GET_USER_DETAIL_SUC:
+            return {loading:false, UserDetails: action.payload}
+        case GET_USER_DETAIL_FAIL:
+            return {loading:false, error: action.payload}
+        default:
+            return state
+    }
+}
+
+export const updateUserDetailReducer = (state={}, action) =>{
+    switch(action.type){
+        case UPDATE_USER_DETAIL_REQ:
+            return {loading: true}
+        case UPDATE_USER_DETAIL_SUC:
+            return {loading:false, UpdateUser: true}
+        case UPDATE_USER_DETAIL_FAIL:
+            return {loading:false, UpdateUser: false}
+        default:
+            return state
+    }
 }

@@ -27,7 +27,13 @@ import {
     SAVE_PATIENT_FAIL,
     DELETE_APPOINTMENT_REQUEST,
     DELETE_APPOINTMENT_SUCCESS,
-    DELETE_APPOINTMENT_FAIL, 
+    DELETE_APPOINTMENT_FAIL,
+    GET_USER_DETAIL_REQ,
+    GET_USER_DETAIL_SUC,
+    GET_USER_DETAIL_FAIL, 
+    UPDATE_USER_DETAIL_REQ,
+    UPDATE_USER_DETAIL_SUC,
+    UPDATE_USER_DETAIL_FAIL, 
 
 } from "../constants/userConstants";
 import Axios from "axios";
@@ -429,4 +435,34 @@ export const deleteAppointment = (appointmentId) => async(dispatch) =>{
             })
     }
 
+}
+
+export const GetUserProfile = (userId) => async(dispatch) =>{
+    dispatch({type:GET_USER_DETAIL_REQ})
+    try{
+        const {data} = await axios.get(`http://localhost:5000/api/userInformation?userID=${userId}`)
+        dispatch({type: GET_USER_DETAIL_SUC, payload: data})
+    }
+    catch(error){
+        dispatch({type: GET_USER_DETAIL_FAIL,  
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
+}
+
+export const updateProfile = (datum) => async(dispatch) =>{
+    dispatch({type:UPDATE_USER_DETAIL_REQ})
+    try{
+        const {data} = await axios.post(`http://localhost:5000/api/updateuserinformation`, {details: datum})
+        dispatch({type: UPDATE_USER_DETAIL_SUC, payload: data})
+    }
+    catch(error){
+        dispatch({type: UPDATE_USER_DETAIL_FAIL,  
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
 }
