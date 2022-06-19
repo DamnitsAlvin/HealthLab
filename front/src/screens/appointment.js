@@ -88,7 +88,7 @@ export default function AppointmentPage() {
                                             <td>{appoint[6]}</td>
                                             <td>{appoint[7]}</td>
                                             <td>
-                                                <button className="btn btn-success" >Details</button>
+                                                <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" onClick={() =>clickView(appoint[0])}>Details</button>
                                                 <button className="btn btn-danger" onClick={() => deleteHandler(appoint[0])}>Delete</button>
                                             </td>
                                         </tr>
@@ -232,8 +232,8 @@ export default function AppointmentPage() {
         </div>
    
     </>
-)
-}
+    )
+    }
 
 
                     {/*MODAL*/}
