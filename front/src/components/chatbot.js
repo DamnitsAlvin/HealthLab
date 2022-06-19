@@ -115,9 +115,11 @@ export default class Chatbot extends Component{
 
     showOrHideChatBox() {
         if(this.state.chatboxState) {
+            document.querySelector('.chatbox__support').classList.remove('chatbox--inactive')  
             document.querySelector('.chatbox__support').classList.add('chatbox--active')  
         } else{
             document.querySelector('.chatbox__support').classList.remove('chatbox--active')  
+            document.querySelector('.chatbox__support').classList.add('chatbox--inactive')  
         }
     }
     

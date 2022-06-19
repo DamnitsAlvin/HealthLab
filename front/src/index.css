@@ -1121,6 +1121,9 @@ border-radius: 10px 0px 0px 10px;
   opacity: 1;
   
 }
+.chatbox--inactive{
+  display:none;
+}
 
 /* BUTTON */
 .chatbox__button {
