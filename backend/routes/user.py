@@ -60,7 +60,7 @@ def authenticateUser():
             data = cur.fetchone()
  
         if userType == "user": 
-            if data[14] == password:
+            if data[13] == password:
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
@@ -272,8 +272,17 @@ def updateUserInformation():
     if request.method == "POST":
         cur = mysql.connection.cursor()
         req = request.json.get("details")
+        dat = req[1:15]
+        if req[15] is None:
+            dat.append("")
+        else:
+            dat.append(req[15])
+        dat.append(req[0])
+        print(f'{req[1:16]}')
+        print('length: ', len(req))
+        print("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s,`userType`=%s,`userImage`=%s WHERE `user_id`=%s"%tuple(dat))
         try: 
-            cur.execute("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Suffix`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s WHERE `user_id`=%s", (req[1:14], req[0]))
+            cur.execute("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s,`userType`=%s,`userImage`=%s WHERE `user_id`=%s", tuple(dat))
             cur.connection.commit()
             cur.close()
             return({'succes': True}), 200
