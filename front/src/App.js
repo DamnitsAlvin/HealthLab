@@ -24,6 +24,7 @@ import './App.css';
 import TestClass from './test/classful';
 import Chatbot from './components/chatbot';
 import UserProfile from './screens/userProfile';
+import Kalendaryo from './components/calendar1';
 
 function App() {
   
@@ -121,7 +122,7 @@ function App() {
 
 
 				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
-				
+				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
