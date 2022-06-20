@@ -69,8 +69,8 @@ function App() {
                       <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul className="nav navbar-nav">
                           <li className="top"><Link to="/">Home</Link></li>
-                          <li className="top"><Link to="/#service">Doctors</Link></li>
-                          <li className="top"><Link to="/#doctor">Service</Link></li>
+                          <li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
+                          <li className="top"><Link to="/service">Service</Link></li>
                           {userInfo ? (
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
@@ -125,6 +125,7 @@ function App() {
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
+				
 			</Routes>
 			<Chatbot></Chatbot>
 		</main>

@@ -7,13 +7,18 @@ export default function UserProfile(){
     const dispatch = useDispatch()
     const getUserInfo = useSelector(x=>x.userSignIn)
     const {userInfo} = getUserInfo
-   
 
+    const getUserDetail = useSelector(x => x.getUser)
+    const {UserDetails} = getUserDetail
+   
     useEffect(()=>{
         if(userInfo.data[0]){
             dispatch(GetUserProfile(userInfo.data[0]))
         }
-    })
+    }, [dispatch])
+    if(UserDetails){
+    console.log(UserDetails.userData)
+    }
     
     return(
 
@@ -27,10 +32,11 @@ export default function UserProfile(){
                 <div className="account-settings">
                     <div className="user-profile">
                         <div className="user-avatar">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin"/>
+                            <img src={UserDetails && UserDetails.userData[15] ? UserDetails.userData[15]:"https://bootdey.com/img/Content/avatar/avatar7.png" } alt="Maxwell Admin"/>
                         </div>
-                        <h3 className="user-name"></h3>
-                        <h5 className="user-email"></h5>
+                        <h3 className="user-name">{UserDetails && UserDetails.userData[1].concat(" ", UserDetails.userData[2])}</h3>
+                        <h4 className="user-email">{UserDetails && UserDetails.userData[12]}</h4>
+                        <h5 className="user-email">{UserDetails && UserDetails.userData[0]}</h5>
                     </div>
                 </div>
             </div>
