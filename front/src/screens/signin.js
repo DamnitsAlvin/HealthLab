@@ -13,7 +13,6 @@ export default function SignIn(props){
   
   const navigate = useNavigate(); 
   const [searchParams] = useSearchParams()
-  console.log("Parameter: ", )
   const user = searchParams.get('userType') 
 
 
