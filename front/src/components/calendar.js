@@ -78,14 +78,17 @@ export default function Kalendaryo(){
         
     }
     return(
-        <div className="centerContainer">
-            <h1>Calendar</h1>
-         
+        <div className="wow fadeInDown" data-wow-delay="0.1s">
+        <div className="CalendarContainer">
+            <div className="CalendarMain">
+
             <Calendar localizer={localizer} 
             events={allEvents} 
             startAccessor="start" 
             endAccessor="end"
             style={{height: 500, margin:"50px"}}></Calendar>
+        </div>
+        </div>
         </div>
     )
 }

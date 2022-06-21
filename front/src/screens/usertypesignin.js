@@ -111,7 +111,7 @@ export default function UserTypeSignIn(props){
                                 </svg>
                             </div>
                             <div className='typeDescription'>
-                                <h2>Doctor</h2>
+                                <h2 id="userTypeRes">Doctor</h2>
                             </div>
                         </div>
                     </Link>
@@ -189,7 +189,7 @@ export default function UserTypeSignIn(props){
                             </svg>
                         </div>
                         <div className='typeDescription'>
-                            <h2>Patient</h2>
+                            <h2 id="userTypeRes">Patient</h2>
                         </div>
                     </div>
                     </Link>
@@ -257,7 +257,7 @@ export default function UserTypeSignIn(props){
 
                         </div>
                         <div className='typeDescription'>
-                            <h2>Service Provider</h2>
+                            <h2 id="userTypeRes">Service Provider</h2>
                         </div>
                     </div>
                     </Link>
