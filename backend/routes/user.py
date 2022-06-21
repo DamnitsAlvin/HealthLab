@@ -65,7 +65,7 @@ def authenticateUser():
                 cur.connection.commit()
                 cur.close()
                 return jsonify({"access_token": access_token, 
-                                "data": [data[0], data[13], data[14], data[1], data[2]] }), 200
+                                "data": [data[0], data[12], data[14], data[1], data[2]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 
@@ -125,6 +125,7 @@ def registerUser():
             cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.connection.commit()
             cur.close()
+            cur.execute("INSERT INTO `patient`(`Patient_id`, `user_id`, `First_name`, `Last_name`, `Relationship`, `Birthday`, `Gender`) VALUES (%s,%s,%s,%s,%s,%s,%s)", (username, username, firstname, lastname, "Self", birthday, gender))
             access_token = create_access_token(identity=username)
             return jsonify({"access_token": access_token, "data": data}), 200
         
