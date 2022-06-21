@@ -79,7 +79,12 @@ def authenticateUser():
             else:
                 return jsonify({"message": "Invalid password"}), 401
         else:
-            pass
+            if data[4] == password:
+                access_token = create_access_token(identity=username)
+                cur.connection.commit()
+                cur.close()
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[1], data[6]] }), 200
         
 
 @api.route("/userreg", methods=["POST"])

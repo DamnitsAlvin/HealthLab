@@ -19,10 +19,10 @@ import Bookdoctor from './screens/bookdoctor';
 import DoctorPage from './screens/doctorpage';
 
 import './App.css';
-import TestClass from './test/classful';
 import Chatbot from './components/chatbot';
 import UserProfile from './screens/userProfile';
 import Kalendaryo from './components/calendar';
+import ServiceProfile from './screens/serviceprofile';
 
 function App() {
   
@@ -120,9 +120,11 @@ function App() {
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
+				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
 				
 			</Routes>
 			<Chatbot></Chatbot>
+			
 		</main>
 
 
