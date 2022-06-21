@@ -86,7 +86,7 @@ export default function SignIn(props){
             <div>
               <label />
               <div class="new">
-                New user? <Link to={userType=="user" ? "/register": "/registerService"}> Create your account</Link>
+                New user? <Link to={userType=="user" ? "/register": userType=="doctor" ? "/registerdoctor":"/registerService"}> Create your account</Link>
               </div>
             </div>
           </form>
