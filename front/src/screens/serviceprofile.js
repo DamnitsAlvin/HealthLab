@@ -36,6 +36,24 @@ export default function ServiceProfile(){
         'Password', 
         'Image'
     ]
+
+    const removeTimeHandler = (index) =>{
+        const values = [...time]
+        values.splice(index,1)
+        settime(values)
+    }
+    
+    const addTimeHandler = () =>{
+        const values = [...time]
+        values.push([userInfo.data[0], "", "","", "",""])
+        settime(values)
+    }
+
+    const timeChangeHandler = (event, index, index1) =>{
+        const values = [...time]
+        values[index][index1] = event.target.value
+        settime(values)
+    }
     return(
         <div className="container">  
         <div className="row gutters">
@@ -59,10 +77,9 @@ export default function ServiceProfile(){
         </div>
 
 
-        <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
-        <div className="pard h-100">
+    <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
+        <div className="pard_4">
             <div className="card-body">
-            <form method="post">
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <h6 className="mb-2 text-primary">Service Information</h6>
@@ -89,7 +106,7 @@ export default function ServiceProfile(){
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                 <div className="form-group">
                                     <label >{labels[index]}</label>
-                                    <input type="password" className="form-control"  value={value} disabled />
+                                    <input type="password" className="form-control"  value={value} />
                                 </div>
                             </div>
                             ): (
@@ -101,12 +118,80 @@ export default function ServiceProfile(){
                             </div>
                             )
                         ))
-                    }
-                        
+                    }     
                 </div>
-                
+            </div>
+        </div>
 
-                
+        <div className="pard_4">
+            <div className="card-body">
+                <div className="row gutters">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 className="mb-2 text-primary">Service Available Time</h6>
+                    </div>
+                {
+                    time && time.map((value,index)=>(
+                        <>
+                        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">Available Day</label>
+                                    <select className="form-control" value={value[4]} name="day_from" onChange={(event)=>{timeChangeHandler(event, index, 4)}}>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">To</label>
+                                    <select className="form-control" value={value[5]} onChange={(event)=>{timeChangeHandler(event, index, 5)}} >
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">Available Time</label>
+                                    <input className="form-control" type="time" value={value[2]} name="time_from" onChange={(event)=>{timeChangeHandler(event, index, 2)}} />
+                                </div>
+                            </div>
+
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div className="form-group">
+                                    <label htmlFor="fullName">To</label>
+                                    <input className="form-control" type="time" value={value[3]} name="time_to" onChange={(event)=>{timeChangeHandler(event, index, 3)}}/>
+                                </div>
+                            </div>
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div className="text-right">
+                                    <button type="button" className="btn btn-danger" onClick={()=>{removeTimeHandler(index)}}>Remove Time</button>
+                                </div>
+                            </div>
+                            <hr></hr>
+                            </>
+                    ))
+                }  
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div className="text-right">
+                        <button type="button" className="btn btn-success"id="colorBlue" onClick={()=>{addTimeHandler()}}>Add Time</button>
+                    </div>
+                    <hr></hr>
+                </div> 
+
+                </div>
 
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -115,11 +200,12 @@ export default function ServiceProfile(){
                         </div>
                     </div>
                 </div>
-            </form>
+        
             </div>
         </div>
         </div>
         </div>
         </div>
+       
     )
 }

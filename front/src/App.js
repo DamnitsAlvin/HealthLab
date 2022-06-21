@@ -74,7 +74,7 @@ function App() {
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
                             <ul className="dropdown-menu">
-							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` : "/userprofile" }>Profile</Link></li>
+							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
                               <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
                               <li className="top"><Link to="/onlineres">Online Result</Link></li>
