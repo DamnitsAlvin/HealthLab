@@ -122,15 +122,17 @@ def registerUser():
                 email
                 ]
         try:
+            print("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"% (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.connection.commit()
-            cur.close()
             cur.execute("INSERT INTO `patient`(`Patient_id`, `user_id`, `First_name`, `Last_name`, `Relationship`, `Birthday`, `Gender`) VALUES (%s,%s,%s,%s,%s,%s,%s)", (username, username, firstname, lastname, "Self", birthday, gender))
+            cur.connection.commit()
+            cur.close()
             access_token = create_access_token(identity=username)
             return jsonify({"access_token": access_token, "data": data}), 200
         
         except Exception as ex: 
-            print("Something went wrong: {} ".format(type(ex)))
+            print("Something went wrong: " , ex)
             return jsonify({"message": "Email was already in use" }), 404
 
 
@@ -178,20 +180,23 @@ def getUserAppointment():
         cur = mysql.connection.cursor() 
         if userType == "user":
             try:
-                response = cur.execute("SELECT Patient_id FROM patient WHERE user_id=%s", (userId, ))
+                response = cur.execute("SELECT Patient_id, First_name, Last_name FROM patient WHERE user_id=%s", (userId, ))
                 if response > 0: 
-                    Patient_id = cur.fetchall() 
+                    Patient_name = cur.fetchall() 
                     cur.connection.commit()
-
-                resval = cur.executemany("SELECT * FROM appointment_request WHERE Patient_id = %s ORDER BY date_created",Patient_id)
-               
-                if resval > 0: 
-                    data = cur.fetchall()
-                    cur.connection.commit()
-                    
-                    Patient_name = cur.executemany("SELECT Patient_id, First_name, Last_name FROM patient WHERE Patient_id=%s", Patient_id)
-                    Patient_name = cur.fetchall()
+                
+                    #get appointments
+                    data = list()
                     doctor_name = list()
+
+                    for i in range(0, len(Patient_name)): 
+                        resval = cur.execute("SELECT * FROM appointment_request WHERE Patient_id = %s ORDER BY date_created",(Patient_name[i][0], ))
+                        if resval > 0: 
+                            appointments = cur.fetchall()
+                            cur.connection.commit()
+                            for i in range(0, len(appointments)):
+                                data.append(appointments[i])
+                
                     for i in range(0, len(data)):
                         doc = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (data[i][2], ))
                         doctor_name.append(cur.fetchone()[0:4])
@@ -209,14 +214,18 @@ def getUserAppointment():
                 if resval > 0: 
                     data = cur.fetchall()
                     response = cur.execute('SELECT DISTINCT Patient_id FROM appointment_request WHERE Doctor_id=%s', (userId, ))
+                    cur.connection.commit()
                     patient_id = cur.fetchall()
                     print(f"{patient_id}")
-                    response = cur.executemany("SELECT * FROM patient WHERE Patient_Id=%s", patient_id)
-                    Patient = cur.fetchall()
-                
+
                     Patient_name = list()
-                    for i in range(0, len(Patient)):
-                        Patient_name.append(Patient[i][0:4])
+                    for i in range(0, len(patient_id)):
+                        response = cur.execute("SELECT * FROM patient WHERE Patient_Id=%s", (patient_id[i][0], ))
+                        cur.connection.commit()
+                        Patient = cur.fetchone()
+                        Patient_name.append(Patient[0:4])
+
+                    print(f'{Patient_name}')
                     return jsonify({"Appointments": data, "Name": Patient_name}), 200
                 return jsonify({"message": "currently no appointments to show!"})
             except Exception as e :
