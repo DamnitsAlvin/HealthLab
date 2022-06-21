@@ -1335,19 +1335,15 @@ border-radius: 10px 0px 0px 10px;
   }
 
 
-
-
-
-
-
-
-
-
-
-
 /*Trial */
-
-
+@media only screen and (max-width: 480px){
+  .table-wrapper
+  {
+    overflow-x: auto;
+  
+  
+  }
+}
 
 .table-wrapper {
   background: rgb(255, 255, 255);
@@ -1355,6 +1351,7 @@ border-radius: 10px 0px 0px 10px;
   margin: 30px 0;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  
 }
 
 .table-title {
@@ -1364,6 +1361,7 @@ border-radius: 10px 0px 0px 10px;
   padding: 16px 30px;
   margin: -20px -25px 10px;
   border-radius: 3px 3px 0 0;
+  
 }
 
 .table-title h2 {

@@ -170,7 +170,9 @@ export default function AppointmentPage() {
                 <div className="table-title">
                     <div className="row">
                         <div className="col-sm-6">
+                            <div class="container-fluid">
                             <h2>Current Appointment</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
