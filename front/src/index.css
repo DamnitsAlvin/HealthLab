@@ -65,8 +65,7 @@ body {
 }
 .centerContainerVin:hover{
   background:#ffffff;
-  border-radius: 20px;
-  background-image: url("../src/image/Okay.png");
+  border-radius: 50px;
   transition:all 0.3s ease;
  
 
@@ -182,8 +181,10 @@ body {
 .imagehandler img {
   height: 100%;
   width: 100%;
-  background-color: rgb(140, 228, 7);
+  background-color: rgb(7, 228, 184);
   border-radius: 100px;
+  padding:10px;
+
 }
 
 /* user type signin */
@@ -807,8 +808,13 @@ border-radius: 10px 0px 0px 10px;
 
 }
 
+#calendarHeader{
+  text-align: center;
+  margin-top: 10px;
+}
+
 .signup-form form {
-  color: #999;
+  color: rgb(121, 118, 118);
   border-radius: 10px;
   margin-bottom: 15px;
   background: #fff;
@@ -818,8 +824,40 @@ border-radius: 10px 0px 0px 10px;
 }
 
 
+/*calendar*/
+
+.CalendarContainer{
+  margin-top:20rem ;
+  display:flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  height:100%;
+}
+.CalendarMain{
+  width: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.252);
+  background: rgb(255, 255, 255);
+  border-top: 10px solid rgb(58, 181, 170);
+}
+
+.rbc-toolbar{
+  color: rgb(9, 8, 8);
+  font-weight: 600;
+}
+
+.rbc-toolbar .rbc-toolbar-label{
+  text-transform: uppercase;
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #3fbbc0;
+  
+}
+.rbc-off-range-bg{
+  background-color: white;
+}
+/*calendar*/
 .signup-form h2 {
-  color: #333;
+  color: rgba(51, 51, 51, 0);
   font-weight: bold;
   margin-top: 0;
 }
@@ -1005,7 +1043,7 @@ border-radius: 10px 0px 0px 10px;
   margin-bottom: 1rem;
   padding: 50px;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  box-shadow: 0 0 15px rgb(0 0 0 / 10%);
 }
 .pard:hover{
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -1122,6 +1160,7 @@ border-radius: 10px 0px 0px 10px;
   bottom: 30px;
   right: 30px;
   z-index: 100;
+  transition: max-height 2s ease-out;
 }
 
 /* CONTENT IS CLOSE */
@@ -1226,7 +1265,6 @@ border-radius: 10px 0px 0px 10px;
   justify-content: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: var(--primaryBoxShadow);
   
 }
 
@@ -1271,8 +1309,11 @@ border-radius: 10px 0px 0px 10px;
   border-bottom-left-radius: 20px;
   background:#63c1d2;
   color: white;
+  
 }
-
+#colorh2{
+  color: rgb(58, 58, 58);
+}
 /* FOOTER */
 .chatbox__footer {
   display: flex;
@@ -1280,7 +1321,7 @@ border-radius: 10px 0px 0px 10px;
   align-items: center;
   justify-content: space-between;
   padding:10px;
-  background:rgb(241, 240, 240);
+  background:rgb(238, 242, 242);
   margin-top: 20px;
   color: #3fbbc0;
   font-weight: 600;
@@ -1340,9 +1381,25 @@ border-radius: 10px 0px 0px 10px;
   .table-wrapper
   {
     overflow-x: auto;
+    width: 100vh;
   
   
   }
+  #userTypeRes{
+    font-size: 20px;
+  }
+  .centerContainer{
+    left:0%;
+    width: 100%;
+  }
+}
+.alert-danger{
+  background-color: rgba(230, 64, 64, 0.692);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 15px;
 }
 
 .table-wrapper {
@@ -1350,7 +1407,7 @@ border-radius: 10px 0px 0px 10px;
   padding: 20px 25px;
   margin: 30px 0;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
   
 }
 
@@ -1578,14 +1635,25 @@ table.table .avatar {
 }
 
 .tableform {
-  margin-top: 15rem;
-  margin-bottom: 10rem;
+  margin-top: 20rem;
+  margin-bottom: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+;
   
 }
-
+.form-control, .btn{
+  border-radius: 5px;
+}
+#colorBlue{
+  background-color: #3fbbc0;
+  border-color: #3fbbc0;
+}
+#colorBlue:hover{
+  background-color: #339da1;
+  border-color: #3fbbc0;
+}
 .tab {
   overflow: hidden;
   display: flex;
@@ -1682,11 +1750,10 @@ table.table .avatar {
 
 .text-primary {
   color: #3fbbc0;
-  text-transform: uppercase;
   font-size: 2.5rem;
-  text-align: center;
   letter-spacing: 0.5px;
-  font-weight: 500;
+  font-weight: 450;
+  
 }
 
 .text-container {

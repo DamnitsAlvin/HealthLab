@@ -75,7 +75,7 @@ export default function CreateAppointmentSlip(props){
 
         <div className="signup-form">
             <form onSubmit={NextHandler}>
-            <h2>Appointment Request</h2>
+            <h2 id="colorh2">Appointment Request</h2>
             <p>Please fill in this form to create an appointment requests!</p>
             <hr/>
             

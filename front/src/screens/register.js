@@ -53,9 +53,9 @@ export default function Register(props){
     return (
         <div className="wow fadeInDown" data-wow-delay="0.1s">
     <div classNameName="bodyform">
-        <div className="signup-form">
+        <div className="centerContainer">
             <form  method="post" onSubmit={submitHandler}>
-		        <h2>Sign up</h2>
+		        <h2 id="colorh2">Sign up</h2>
 		        <p>Please fill in this form to create an account</p>
 		        <hr/>
                  
@@ -95,13 +95,13 @@ export default function Register(props){
                 }
 
                 <div className="form-group">
-                    <label className="col-form-label col-4">BIRTHDATE</label>
+                    <label className="col-form-label col-4">Birthdate</label>
                     <input type="date" className="form-control" name="username" placeholder="Birthday" value={Birthday} required="required" onChange={(e)=>{setBirthday(e.target.value)}}/>
                 </div>
             
                 <div className="form-group">
                     <div className="col-xs-6">
-                        <label className="col-form-label col-4">GENDER</label>
+                        <label className="col-form-label col-4">Gender</label>
                         <div class="radio ">
                             <label>
                                 <input type="radio" name="optionsRadios2"  value="Male" onChange={(e)=>{setGender(e.target.value)}}/>

@@ -60,7 +60,7 @@ export default function AppointmentPage() {
 
     return (
         <>
-
+<div className="wow fadeInDown" data-wow-delay="0.1s">
             <div className="tableform">
                 <div className="table-wrapper">          
         {
@@ -338,7 +338,7 @@ export default function AppointmentPage() {
                         </div>
                     </div>
                          {/*MODAL REJECT*/}
-
+                         </div>
                 </div>
             </div>
         </>
