@@ -77,14 +77,18 @@ export default function DoctorCert(props){
                                     <div className="text-right">
                                         <button type="button" onClick={()=>removeCertFieldHandler(index)} className="btn btn-danger">Remove</button>
                                     </div>
+                                    <hr></hr>
                             </div>
-                            <hr></hr>
+                            
+                           
                             </>
                         ))}
+                       
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">
                                 <button type="button" onClick={addCertFieldHandler} className="btn btn-success">Add Fields</button>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

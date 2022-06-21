@@ -43,7 +43,7 @@ body {
   background-color: rgb(255, 255, 255);
   position: relative;
   left: 25%;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   margin-bottom: 5rem;
@@ -809,12 +809,12 @@ border-radius: 10px 0px 0px 10px;
 
 .signup-form form {
   color: #999;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-bottom: 15px;
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 30px;
-  height: 170vh;
+  height: 100%;
 }
 
 
@@ -957,7 +957,7 @@ border-radius: 10px 0px 0px 10px;
 
 .account-settings .user-profile h6.user-email {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #9fa8b9;
 }
@@ -969,13 +969,20 @@ border-radius: 10px 0px 0px 10px;
 
 .account-settings .about h5 {
   margin: 0 0 15px 0;
-  color: #007ae1;
+  color:#3fbbc0;
+  font-size: 2.0rem;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .account-settings .about h6 {
   margin: 0 0 15px 0;
-  color: #007ae1;
+  color: #3fbbc0;
+  font-size: 2.0rem;
+  text-transform: uppercase;
+  font-weight: 400;
 }
+
 
 
 .account-settings .about p {
@@ -997,9 +1004,24 @@ border-radius: 10px 0px 0px 10px;
   margin-top: 150px;
   margin-bottom: 1rem;
   padding: 50px;
-  border-radius: 25px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+.pard:hover{
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
+  transition: 0.5s;
+}
+.pard_2:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.5s;
+}
+.pard_3:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.5s;
+}
+.pard_4:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.5s;
 }
 
 #submitJonathan {
@@ -1020,8 +1042,8 @@ border-radius: 10px 0px 0px 10px;
   margin-top: 150px;
   margin-bottom: -10rem;
   padding: 50px;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 
 
 }
@@ -1031,8 +1053,8 @@ border-radius: 10px 0px 0px 10px;
   margin-top: 150px;
   margin-bottom: -10rem;
   padding: 50px;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 
 
 }
@@ -1062,7 +1084,7 @@ border-radius: 10px 0px 0px 10px;
 
 .docAvailOnline {
   height: auto;
-  box-shadow: 0 0 15px rgba(26, 25, 25, 0.328);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   padding: 20px;
   border-radius: 15px;
   background: rgb(255, 255, 255);
@@ -1078,7 +1100,7 @@ border-radius: 10px 0px 0px 10px;
 
 .docAvailOffline {
   height: auto;
-  box-shadow: 0 0 15px rgba(26, 25, 25, 0.328);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   padding: 20px;
   border-radius: 15px;
   background: rgb(255, 255, 255);
@@ -1112,6 +1134,7 @@ border-radius: 10px 0px 0px 10px;
   z-index: -123456;
   opacity: 0;
   transition: all .5s ease-in-out;
+  font-family: 'Varela Round', sans-serif;
 }
 
 /* CONTENT ISOPEN */
@@ -1132,7 +1155,6 @@ border-radius: 10px 0px 0px 10px;
 
 /* HEADER */
 .chatbox__header {
-  position: sticky;
   top: 0;
   background: orange;
 }
@@ -1160,7 +1182,6 @@ border-radius: 10px 0px 0px 10px;
 }
 /* FOOTER */
 .chatbox__footer {
-  position: sticky;
   bottom: 0;
 }
 
@@ -1188,12 +1209,12 @@ border-radius: 10px 0px 0px 10px;
 
 
 .chatbox__support {
-  background: #f9f9f9;
+  background: #ffffff;
   height: 450px;
   width: 350px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
 /* HEADER */
@@ -1203,17 +1224,25 @@ border-radius: 10px 0px 0px 10px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 15px 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   box-shadow: var(--primaryBoxShadow);
+  
 }
 
 .chatbox__image--header {
   margin-right: 10px;
 }
 
-
+.chatbox_content--header{
+  margin-top: 20px;
+}
+#colorHeaderChatBot{
+  color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 2rem;
+}
 
 
 
@@ -1224,7 +1253,7 @@ border-radius: 10px 0px 0px 10px;
 
 .messages__item {
   margin-top: 10px;
-  background: #b3eff1; 
+  background: #caf0f8; 
   padding: 8px 12px;
   max-width: 70%;
 }
@@ -1240,7 +1269,7 @@ border-radius: 10px 0px 0px 10px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  background: var(--primary);
+  background:#63c1d2;
   color: white;
 }
 
@@ -1250,30 +1279,27 @@ border-radius: 10px 0px 0px 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px;
-  background: var(--secondaryGradient);
-  box-shadow: var(--secondaryBoxShadow);
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  padding:10px;
+  background:rgb(241, 240, 240);
   margin-top: 20px;
   color: #3fbbc0;
   font-weight: 600;
 }
 
 .chatbox__footer input {
-  border: solid #3fbcc0a1;;
-  padding: 10px 45px;
-  border-radius: 25px;
+  border: 0.5px solid #f5f7f7a1;;
+  padding: 10px 30px;
+  border-radius: 10px;
   text-align: center;
   letter-spacing: 1px;
+  font-family: 'Varela Round', sans-serif;
+  width: 100%;
   
 }
 
+
 .chatbox__send--footer {
   color: white;
-  align-items: center;
   
 }
 
@@ -1639,6 +1665,9 @@ table.table .avatar {
 .pogi:hover {
   color: #1fcecb;
 }
+#btn_doctorProfileSpace{
+  margin-right: 10px;;
+}
 
 .inner-skew {
   display: inline-block;
@@ -1654,11 +1683,11 @@ table.table .avatar {
 }
 
 .text-primary {
-  color: #007ae1;
+  color: #3fbbc0;
   text-transform: uppercase;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   text-align: center;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   font-weight: 500;
 }
 
@@ -1710,8 +1739,8 @@ hr {
   margin-top: 150px;
   margin-bottom: 1rem;
   padding: 50px;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 #pepeButton{
   padding:5px;

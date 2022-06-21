@@ -67,12 +67,12 @@ export default function DoctorSpecialty(props){
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">
-                                <button type="button" onClick={()=>removeSpecialtyFieldHandler(index)} className="btn btn-danger">Remove</button>
+                                <button type="button" onClick={()=>removeSpecialtyFieldHandler(index)} className="btn btn-danger" id="btn_doctorProfileSpace">Remove</button>
                                 <button type="button" onClick={addSpecialtyFieldHandler} className="btn btn-success">Add Fields</button>
                             </div>
-                            
+                            <hr></hr>
                         </div>
-                        <hr></hr>
+                  
                         </>
                     ))
                 }

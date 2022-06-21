@@ -62,8 +62,9 @@ export default function DoctorTitles(props){
                             <div className="text-right">
                                 <button type="button" onClick={()=>removeTitlesFieldHandler(index)} className="btn btn-danger">Remove</button>
                             </div>
+                            <hr></hr>
                         </div>
-                        <hr></hr>
+                        
                         </>
                     ))
                 }

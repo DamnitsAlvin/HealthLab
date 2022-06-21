@@ -200,7 +200,7 @@ export default function DoctorAvailableOffline(props){
                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="text-right">
                                     <button type="button" className="btn btn-success" onClick={()=>{addTime(index)}}>Add Time</button>
-                                    <button type="button" id="kags" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-warning">Remove Address</button>
+                                    <button type="button" id="kags" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-danger">Remove Address Field</button>
                                     
                                 </div>
                                 <hr></hr>

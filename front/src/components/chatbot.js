@@ -161,7 +161,7 @@ export default class Chatbot extends Component{
                         </div>
                     
                         <div className="chatbox_content--header">
-                            <h4 className="chatbox_heading--header">MediCall Chat Support</h4>
+                            <h4 className="chatbox_heading--header" id="colorHeaderChatBot">MediCall Chat Support</h4>
                         </div>
 
                     </div>
@@ -174,7 +174,6 @@ export default class Chatbot extends Component{
                     </div>
                     <div className="chatbox__footer">
                         <input type="text" placeholder="Write a message" onKeyPress={this._handleInputKeyPress}/>
-                        <p className="chatbox_send--footer">Send</p>
                         
                     </div>
                 </div>
