@@ -65,7 +65,7 @@ def authenticateUser():
                 cur.connection.commit()
                 cur.close()
                 return jsonify({"access_token": access_token, 
-                                "data": [data[0], data[13], data[15], data[1], data[2]] }), 200
+                                "data": [data[0], data[13], data[14], data[1], data[2]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 
@@ -90,7 +90,6 @@ def registerUser():
         firstname= request.json.get("firstname")
         lastname = request.json.get("lastname")
         middlename = request.json.get("middlename")
-        suffix = request.json.get("suffix")
         birthday = request.json.get("birthday")
         gender = request.json.get("gender")
         addressline1 = request.json.get("address1")
@@ -106,8 +105,7 @@ def registerUser():
                 username,
                 firstname,
                 lastname,
-                middlename, 
-                suffix, 
+                middlename,
                 birthday,
                 gender, 
                 addressline1, 
@@ -119,7 +117,7 @@ def registerUser():
                 email
                 ]
         try:
-            cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
             cur.connection.commit()
             cur.close()
             access_token = create_access_token(identity=username)
@@ -193,9 +191,10 @@ def getUserAppointment():
                         doctor_name.append(cur.fetchone()[0:4])
 
                     return jsonify({"Appointments": data, "Name": Patient_name, "Doctor": doctor_name}), 200
-                return jsonify({"message": "currently no appointments to show!"})
-            except:
-                return jsonify({"error": True})
+                return jsonify({"message": "currently no appointments to show!"}), 404
+            except Exception as e:
+                print(e)
+                return jsonify({"error": True}), 404
 
         elif userType == "doctor": 
             try:
@@ -212,14 +211,14 @@ def getUserAppointment():
                     Patient_name = list()
                     for i in range(0, len(Patient)):
                         Patient_name.append(Patient[i][0:4])
-
-                    
-
                     return jsonify({"Appointments": data, "Name": Patient_name}), 200
                 return jsonify({"message": "currently no appointments to show!"})
-            except:
+            except Exception as e :
+                print(e)
                 return jsonify({"error": True})
             return jsonify({'ongoing': True})
+        else: 
+            return jsonify({"error": "lack of parameters"})
 
 @api.route("/updateImage", methods=["POST"])
 def fileImageHandler():

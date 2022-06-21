@@ -4,13 +4,16 @@ import { DoctorAppoinmentStatus } from "../actions/doctorActions";
 import { deleteAppointment, getAppointments } from "../actions/userActions"
 import QRCode from 'qrcode'
 
+
 export default function AppointmentPage() {
     const dispatch = useDispatch()
     const getAppoint = useSelector(x => x.userAppointment)
-    const { loading, appointments, message } = getAppoint
+    const {appointments, message } = getAppoint
     const delAppoint = useSelector(x => x.deleteAppointment)
     const setAppoint = useSelector(x => x.setAppointmentMode)
     const {setAppointsuccess} = setAppoint
+
+    const [file, setFile] = useState()
 
     const { DeleteSuccess } = delAppoint
 
@@ -31,9 +34,28 @@ export default function AppointmentPage() {
     const doctorActionHandler = (id, mode) =>{
         dispatch(DoctorAppoinmentStatus(id,mode))
     }
-    const clickView = (text) =>{
+    const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(text).then((setSrc));
+        QRCode.toDataURL(id).then((setSrc));
+        const data = generatePDF()
+    }
+    const generatePDF = () =>{
+        const pdfConstru = `
+        <div className="table-wrapper">
+        <div className="table-title">
+            <div className="row">
+                <div className="col-sm-6">
+                    <h2>Manage Appointment</h2>
+                </div>
+            </div>
+        </div>
+        `
+    }
+
+    const downloadPDF = () =>{
+        // if(file){
+        //     saveAs(file, 'slip.pdf')
+        // }
     }
 
     return (
@@ -88,7 +110,14 @@ export default function AppointmentPage() {
                                             <td>{appoint[6]}</td>
                                             <td>{appoint[7]}</td>
                                             <td>
-                                                <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" onClick={() =>clickView(appoint[0])}>Details</button>
+                                                <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" onClick={() =>clickView(appoint[0], 
+                                                                                                                                                                            appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2],
+                                                                                                                                                                            "Dr. " + appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2],
+                                                                                                                                                                            appoint[3],
+                                                                                                                                                                            appoint[4],
+                                                                                                                                                                            appoint[5], 
+                                                                                                                                                                            appoint[6],
+                                                                                                                                                                            appoint[7])}>Details</button>
                                                 <button className="btn btn-danger" onClick={() => deleteHandler(appoint[0])}>Delete</button>
                                             </td>
                                         </tr>
@@ -154,8 +183,8 @@ export default function AppointmentPage() {
                                     <td>{appoint[6]}</td>
                                     <td>{appoint[7]}</td>
                                     <td className="pepeFlex">
-                                        <button className="btn btn-success" id="pepeButton" onClick={()=>{doctorActionHandler(appoint[0], "Accepted")}}><i className="fa-solid fa-circle-check"></i></button>
-                                        <button className="btn btn-danger" id="pepeButo" onClick={()=>{doctorActionHandler(appoint[0], "Declined")}}><i className="fa-solid fa-rectangle-xmark"></i></button>
+                                        <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" ><i className="fa-solid fa-circle-check"></i></button>
+                                        <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal"><i className="fa-solid fa-rectangle-xmark"></i></button>
                                     </td>
                                 </tr>
                                     )
@@ -252,7 +281,10 @@ export default function AppointmentPage() {
                                     <div className="qr-container" >
                                     <img className="samplepic" src={src} alt ="signinbackground"/>
                                     </div>
-                                   <div className="downloadPDFile"> <button type="button" className="btn btn-primary" id="downloadPDF"><i className="fa-solid fa-file-pdf" id="pdfLogo"></i>Download File</button>
+                                   <div className="downloadPDFile"> 
+                   
+                                   <button type="button" className="btn btn-primary" id="downloadPDF" onClick={downloadPDF}><i className="fa-solid fa-file-pdf" id="pdfLogo"></i>Download File</button>
+                                  
                                    </div></div>
                                 <div className="modal-footer">
                                     <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i className="fa-solid fa-xmark" id="closeShit"></i> Close</button>
@@ -260,6 +292,53 @@ export default function AppointmentPage() {
                             </div>
                         </div>
                     </div>
+
+                     {/*MODAL ACCEPT*/}
+                     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewModal">Manage Appointment</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to accept the requested appointment?</p>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Accept</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     {/*MODAL ACCEPT*/}
+
+                       {/*MODAL REJECT*/}
+                       <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reject">Manage Appointment</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to reject this user?</p>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Reject</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                         {/*MODAL REJECT*/}
+
                 </div>
             </div>
         </>

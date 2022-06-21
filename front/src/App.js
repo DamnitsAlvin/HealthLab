@@ -24,7 +24,7 @@ import './App.css';
 import TestClass from './test/classful';
 import Chatbot from './components/chatbot';
 import UserProfile from './screens/userProfile';
-import Kalendaryo from './components/calendar1';
+import Kalendaryo from './components/calendar';
 
 function App() {
   
@@ -78,9 +78,7 @@ function App() {
                             <ul className="dropdown-menu">
 							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` : "/userprofile" }>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
-                              <li><Link to="/createAppointment">Request Appointment</Link></li>
-                              <li><Link to="/">Transactions</Link></li>
-                              <li><Link to="/">Medicines</Link></li>
+                              <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
                               <li className="top"><Link to="/onlineres">Online Result</Link></li>
                               <li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
                             </ul>
@@ -91,7 +89,6 @@ function App() {
 						  
                         </ul>
                     </div>
-                  
                   </div>
                 </nav>
                 
