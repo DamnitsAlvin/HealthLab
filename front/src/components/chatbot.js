@@ -37,7 +37,6 @@ export default class Chatbot extends Component{
             await this.df_event_query("WELCOME")
             this.setState({shopWelcomeSent: true})
         }
-        console.log(this.state.messages)
 
     }
     componentDidUpdate(){
@@ -64,7 +63,6 @@ export default class Chatbot extends Component{
         if(res.data.fulfillmentMessages){
             if (res.data.fulfillmentMessages[0].platform === "ACTIONS_ON_GOOGLE"){
                 msg = res.data.fulfillmentText
-                console.log(msg)
                 says = {
                     speaks: 'operator', 
                     msg:{
@@ -76,7 +74,6 @@ export default class Chatbot extends Component{
                 this.setState({messages: [...this.state.messages, says ]})
 
             }else{
-                console.log("called else")
                 for(let i=0; i<res.data.fulfillmentMessages.length; i++){
 
                     msg = res.data.fulfillmentMessages[i];

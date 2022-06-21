@@ -7,12 +7,10 @@ import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
 import UserTypeSignIn from "./screens/usertypesignin";
 import Register from "./screens/register"
-import MedicalHistory from "./screens/medhistory";
 import AppointmentPage from "./screens/appointment";
 import Results from "./screens/results";
 import Overview from "./screens/dentistquestions";
 import Testing from "./test/Testing";
-
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
@@ -108,7 +106,6 @@ function App() {
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
 				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
 
-				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
 
