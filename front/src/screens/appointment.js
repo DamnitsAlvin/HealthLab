@@ -14,6 +14,7 @@ export default function AppointmentPage() {
     const {setAppointsuccess} = setAppoint
 
     const [file, setFile] = useState()
+    const [appointID, setappointID] = useState(0)
 
     const { DeleteSuccess } = delAppoint
 
@@ -183,8 +184,8 @@ export default function AppointmentPage() {
                                     <td>{appoint[6]}</td>
                                     <td>{appoint[7]}</td>
                                     <td className="pepeFlex">
-                                        <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" ><i className="fa-solid fa-circle-check"></i></button>
-                                        <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal"><i className="fa-solid fa-rectangle-xmark"></i></button>
+                                        <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" onClick={()=>setappointID(appoint[0])}><i className="fa-solid fa-circle-check"></i></button>
+                                        <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal" onClick={()=>setappointID(appoint[0])}><i className="fa-solid fa-rectangle-xmark"></i></button>
                                     </td>
                                 </tr>
                                     )
@@ -308,8 +309,8 @@ export default function AppointmentPage() {
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Accept</button>
-                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Accepted")}><i class="fa-solid fa-circle-check"></i> Accept</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close" ><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +332,7 @@ export default function AppointmentPage() {
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Reject</button>
+                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Declined")}><i class="fa-solid fa-circle-check"></i> Reject</button>
                                     <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
