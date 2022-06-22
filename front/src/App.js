@@ -23,6 +23,8 @@ import Chatbot from './components/chatbot';
 import UserProfile from './screens/userProfile';
 import Kalendaryo from './components/calendar';
 import ServiceProfile from './screens/serviceprofile';
+import Invoice from './screens/invoice';
+
 
 function App() {
   
@@ -121,6 +123,7 @@ function App() {
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
 				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
+				<Route path="/invoice" element={<Invoice></Invoice>} />
 				
 			</Routes>
 			<Chatbot></Chatbot>
