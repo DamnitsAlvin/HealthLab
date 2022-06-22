@@ -1881,3 +1881,280 @@ width: 100%;
  justify-content: center;
  align-items: center;
 }
+
+
+
+
+/*INVOICE APPOINTMENT DETAILS*/
+
+#wewZer{
+  color: #0034BB;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.containInvoice{
+  font-family: "Roboto", serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.main-content {
+  padding: 0px 20px;
+}
+
+.invoice-container {
+  max-width: 550px;
+  margin: auto;
+  margin-top: 200px;
+  padding: 3rem;
+  margin-bottom: 50px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.invoice-container .top {
+  margin-bottom:2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoice-container .top .top-left {
+  color: #0034BB;
+
+}
+
+.invoice-container .top .main {
+  font-size: 40px;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.invoice-container .top .code {
+  font-size: 24px;
+}
+
+.invoice-container .top .date {
+  font-size: 15px;
+  color: #3a3232;
+  font-weight: 500;
+
+}
+
+.bill-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  color: #ADADAD;
+}
+
+.bill-box .left,
+.bill-box .right {
+  max-width: 240px;
+}
+
+.bill-box .text-m {
+  font-size: 18px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.bill-box .title {
+  font-size: 3.0rem;
+  margin-bottom: 0rem;
+  font-weight: 500;
+  color: #070707fa;
+}
+
+
+.table-service table {
+  width: 100%;
+  border-collapse: 0px;
+  border-spacing: 0px;
+  font-size: 1rem;
+}
+
+.table-service th,
+.table-service td {
+  text-align: left;
+  padding: 10px 10px;
+  font-weight: 500;
+}
+
+.table-service td {
+  padding: 15px 10px;
+}
+
+.table-service th {
+  text-transform: uppercase;
+  color: #0034BB;
+  font-weight: 500;
+}
+
+.table-service .quantity {
+  width: 100px;
+}
+
+.table-service .cost {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table-service .total {
+  font-size: 24px;
+  color: #0034BB;
+}
+
+.table-service .total td {
+  font-weight: normal;
+  border-top: 2px solid #ececec;
+}
+
+.table-service .total .number {
+  text-align: right;
+  font-weight: 600;
+}
+
+.actions {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.actions .btn {
+  margin: 3px;
+  padding: 8px 10px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 0px;
+  min-width: 160px;
+  color: #0034BB;
+  border-radius: 8px;
+  background: rgba(0, 52, 187, 0.06);
+  cursor: pointer;
+}
+
+.actions .btn:hover {
+  background: rgba(0, 52, 187, 0.1);
+}
+
+.note {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 12px;
+  color: #ADADAD;
+}
+
+@media (max-width: 1320px) {
+
+  body,
+  html {
+    font-size: 14px;
+  }
+
+  .invoice-container .top .date {
+    font-size: 14px;
+  }
+
+  .invoice-container .top .main {
+    font-size: 32px;
+  }
+
+  .invoice-container .top .code {
+    font-size: 15px;
+  }
+
+  .bill-box .text-m {
+    font-size: 14px;
+    color: black;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  .bill-box .title {
+    font-size: 1.8rem;
+  }
+
+  .table-service .total {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .invoice-container .top {
+    display: block;
+  }
+
+  .invoice-container .top .top-left {
+    margin-bottom: 1.5rem;
+  }
+
+  .bill-box {
+    display: block;
+  }
+
+  .bill-box .left,
+  .bill-box .right {
+    max-width: 100%;
+  }
+  
+  .table-service table,
+  .table-service tbody,
+  .table-service tfoot,
+  .table-service td,
+  .table-service th,
+  .table-service tr {
+    display: block;
+  }
+
+  .table-service th {
+    display: none;
+  }
+
+  .table-service tbody tr {
+    border-bottom: 1px solid #e5e5e5;
+    color: white;
+  }
+
+  .table-service tbody tr td:first-child {
+    display: none;
+  }
+
+  .table-service td {
+    padding: 5px 0px;
+  }
+
+  .table-service .cost {
+    text-align: left;
+  }
+
+  .table-service .total {
+    margin-top: 20px;
+  }
+
+  .table-service .total td {
+    border-color: white;
+    margin-left: 50px;
+    text-align: center;
+    
+  }
+
+  .table-service .total .number {
+    text-align: left;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .actions .btn {
+    width: 100%;
+    margin: 5px 0px;
+  }
+
+  .header {
+    display: block;
+  }
+}
