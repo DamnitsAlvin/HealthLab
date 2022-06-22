@@ -9,7 +9,7 @@ export default function Register(props){
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("Last name");
     const [middlename, setMiddlename]= useState("");
-    const [suffix,setSuffix]=useState("");
+    
     const [addressLine1, setAddress1] = useState("");
     const [addressLine2, setAddress2] = useState("");
     const [Municipality, setMunicipality] = useState("");
@@ -29,7 +29,6 @@ export default function Register(props){
 
     const userreg = useSelector((x)=>x.userReg)
     const {loading , error, userReg} = userreg;
-    console.log("Email from reg: ", email)
 
     const checker = useSelector((x)=>x.emailCheck)
     const {emailError, message} = checker
@@ -37,9 +36,9 @@ export default function Register(props){
     const dispatch = useDispatch();
     const submitHandler = (e) =>{
         e.preventDefault();
-        dispatch(register(username, firstname, lastname, middlename, suffix,Birthday, gender, addressLine1, addressLine2, Municipality, provice, status, contact, email, password))
+        dispatch(register(username, firstname, lastname, middlename ,Birthday, gender, addressLine1, addressLine2, Municipality, provice, status, contact, email, password))
         if(!error){
-            navigate("/success");    
+            navigate(`/success?username=${username}`);    
         }
         // if(error === undefined || error !== ""){
         //     navigate("/success");
@@ -50,8 +49,10 @@ export default function Register(props){
         dispatch(checkEmail(email))
     }
 
+    console.log("Birthday: ", Birthday )
+
     return (
-        <div className="wow fadeInDown" data-wow-delay="0.1s">
+<div className="wow fadeInDown" data-wow-delay="0.1s">
     <div classNameName="bodyform">
         <div className="centerContainer">
             <form  method="post" onSubmit={submitHandler}>
@@ -68,7 +69,6 @@ export default function Register(props){
                 <div className="form-group">
                     <div className="row">
                         <div className="col-xs-6"><input type="text" className="form-control" name="last_name" placeholder="&#xf2bb; Last Name"  required="required" onChange={(e)=>{setLastname(e.target.value)}}/></div>
-                        <div className="col-xs-6"><input type="text" className="form-control" name="last_name" placeholder="&#x49; Suffix" value={suffix} onChange={(e)=>{setSuffix(e.target.value)}}/></div>  
                     </div>        	
                 </div>
                 <div className="form-group">
@@ -154,11 +154,11 @@ export default function Register(props){
             <div class="privacy">
                 <div className="form-group">
                     <label className="checkbox-inline">
-                        <input type="checkbox" required="required"/> I accept the 
+                        <input type="checkbox" required/> I accept the 
                         <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-lg" onClick={submitHandler}>Next</button>
+                    <button type="submit" className="btn btn-primary btn-lg" onClick={submitHandler} disabled={password!==confirmpassword}>Next</button>
                 </div>
                 <div className="hint-text">Already have an account? <a href="/signin">Login here</a></div>
             </div>
