@@ -37,7 +37,7 @@ export default function AppointmentPage() {
     }
     const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(`http://localhost:3000/appointments/${id}`).then((setSrc));
+        QRCode.toDataURL(`http://192.168.0.19:3000/invoice?appointID=${id}`).then((setSrc));
         const data = generatePDF()
     }
     const generatePDF = () =>{
@@ -101,7 +101,7 @@ export default function AppointmentPage() {
                                     appointments.Appointments.map((appoint,index) => (
                                         <tr key={index}>
                                             <td>
-                                                {appoint[0]}
+                                                <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                             </td>
                                             <td>{appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2]}</td>
                                             <td>{"Dr. " + appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2]}</td>
@@ -161,7 +161,7 @@ export default function AppointmentPage() {
                                 !appoint[5].length > 0 && (
                                     <tr key={index}>
                                     <td>
-                                        {appoint[0]}
+                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                     </td>
                                     <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                     <td>{appoint[3]}</td>
@@ -229,7 +229,7 @@ export default function AppointmentPage() {
                             appoint[5].length > 0 && (
                                 <tr key={index}>
                                 <td>
-                                    {appoint[0]}
+                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                 </td>
                                 <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                 <td>{appoint[3]}</td>

@@ -1,8 +1,20 @@
-import React, {} from 'react'
+import React, {useEffect, useState} from 'react'
+import { useSearchParams } from 'react-router-dom'
+import axios from 'axios'
 
-export default function Invoice()
-{
-   
+export default function Invoice(){ 
+    const [searchParams] = useSearchParams()
+    const appointId = searchParams.get("appointID")
+    const [displayData, setdisplayData] = useState()
+
+    useEffect( async ()=>{
+        const {data} = await axios.get(`http://localhost:5000/api/getappointmentDetail?id=${appointId}`)
+        if(data){
+            setdisplayData(data)
+        }
+    }, [appointId])
+    
+    console.log(displayData)
     return(
         <>
         <div className="containInvoice">
@@ -11,27 +23,27 @@ export default function Invoice()
             <div className="top">
                 <div className="top-left">
                     <h1 id="wewZer">Appointment Details</h1>
-                    <span className="code">#258942(qr number)</span>
+                    <span className="code">#{displayData && displayData.app_req[0]}  (appointment number)</span>
                 </div>
                 <div className="top-right">
-                    <div className="date">Date: 23.08.2022(now)</div>
-                    <div className="date">Date Booked: 23.02.2022</div>
+                    <div className="date">Date: {displayData && displayData.app_req[3]} </div>
+                    <div className="date">Date Booked: {displayData && displayData.app_req[8].split(" ")[0]}</div>
                 </div>
             </div>
-            <div class="bill-box">
+            <div className="bill-box">
                 <div className="left">
                     <div className="text-m">Requested by:</div>
-                    <div className="title">Crister Palumpon</div>
+                    <div className="title">{displayData && displayData.patient[2].concat(" ", displayData.patient[3])}</div>
                     <div className="addr">Patient</div>
                     
                 </div>
                 <div className="right">
                     <div className="text-m">Received by:</div>
-                    <div className="title">Dr. Alvin Lim</div>
-                    <div className="addr">General Medicine ( category )</div>
+                    <div className="title">Dr. {displayData && displayData.doc_info[1].concat(" ", displayData.doc_info[3])}</div>
+                    <div className="addr">{displayData && displayData.specialty.map((values)=> values +" / " )}</div>
                 </div>
             </div>
-            <div clasNames="table-bill">
+            <div className="table-bill">
                 <table className="table-service">
                     <thead>
                         <th className="quantity">Category</th>
@@ -40,15 +52,15 @@ export default function Invoice()
                     </thead>
                     <tbody>
                         <tr>
-                            <td>General Medicine</td>
-                            <td>My heart went oops</td>
-                            <td className="cost">Online </td>
+                            <td>{displayData && displayData.specialty.map((values)=> values +" / " )}</td>
+                            <td>{displayData && displayData.app_req[6]}</td>
+                            <td className="cost">{displayData && displayData.app_req[7]}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr className="total">
                             <td className="name">APPOINTMENT STATUS</td>
-                            <td colspan="2" className="number">ACCEPTED</td>
+                            <td colspan="2" className="number">{displayData && displayData.app_req[5]}</td>
                         </tr>
                     </tfoot>
                 </table>
