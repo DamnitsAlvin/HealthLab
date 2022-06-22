@@ -361,8 +361,17 @@ export default function ServiceProfile(){
                     <>
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div className="form-group">
-                            <label htmlFor="fullName">Service Name</label>
-                            <input className="form-control" type="text" value={values[1]} onChange={(event)=> offeredChangeHandler(event, index, 1)}/>
+                            <label htmlFor="fullName">Service Type</label>
+                            <select value ={values[1]} className="form-control" onChange={(event)=> offeredChangeHandler(event, index, 1)}>
+                                <option value="Blood Chemistry">Blood Chemistry</option>
+                                <option value="Urinalysis">Urinalysis</option>
+                                <option value="PCR Testing">PCR Testing</option>
+                                <option value="Saliva Testing">Saliva Testing</option>
+                                <option value="X-RAY">X-RAY</option>
+                                <option value="Physical Therapy">Physical Therapy</option>
+                                <option value="CT-Scan">CT-Scan</option>
+                                <option value="Mental Health">Mental Health</option>
+                            </select>
                         </div>
                     </div>
 

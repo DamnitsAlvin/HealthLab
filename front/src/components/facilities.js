@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Facilities(){
+  const navigate = useNavigate()
     return(
         <section id="facilities" className="home-section paddingbot-60">
 		<div className="container marginbot-15" id="spaceVin">
@@ -19,56 +21,64 @@ export default function Facilities(){
         <div class="category">
         <div>
           <div class="card-container">
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/Blood Chemistry`)}>
               <div class="card-image-s1">
     
               </div>
               <div class="card-name">Blood Chemistry
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/Urinalysis`)}>
               <div class="card-image-s2">
     
               </div>
               <div class="card-name">Urinalysis
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/PCR Testing`)}>
               <div class="card-image-s3">
     
               </div>
               <div class="card-name">PCR Testing
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/Saliva Testing`)}>
               <div class="card-image-s4">
     
               </div>
               <div class="card-name">Saliva Testing
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/X-RAY`)}>
               <div class="card-image-s5">
     
               </div>
               <div class="card-name">X-RAY
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/Physical Therapy`)}>
               <div class="card-image-s6">
             
               </div>
               <div class="card-name">Physical Therapy
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/CT-Scan`)}>
               <div class="card-image-s7">
     
               </div>
               <div class="card-name">CT-Scan
               </div>
             </div>
-            <div class="card">
+
+            <div class="card" onClick={()=>navigate(`/service/Mental Health`)}>
               <div class="card-image-s8">
     
               </div>

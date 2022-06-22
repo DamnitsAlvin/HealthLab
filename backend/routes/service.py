@@ -119,3 +119,68 @@ def updateService():
         except Exception as e:
             print(e)
             return jsonify({'success': False}), 404
+
+@ser_api.route("/getappointmentDetail", methods=["GET"])
+def getAppointmentDetails():
+    args = request.args.to_dict()
+    appointId = args.get("id")
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM `appointment_request` WHERE Appointment_Id=%s", (appointId, ))
+        app_req = cur.fetchone()
+
+        response = cur.execute("SELECT * FROM `doctor` WHERE doctor_id=%s", (app_req[2], ))
+        doc_info = cur.fetchone()
+
+        specialty = cur.execute("SELECT specialties FROM doctor_specialty WHERE doctor_id=%s", (app_req[2], ))
+        specialty = cur.fetchall()
+
+        patient = cur.execute("SELECT * FROM patient WHERE  Patient_id=%s", (app_req[1], ))
+        patient = cur.fetchone()
+
+        return jsonify({
+            "app_req": app_req, 
+            "doc_info": doc_info, 
+            "specialty": specialty, 
+            "patient": patient, 
+        }), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"success": False}), 404
+
+@ser_api.route("/getServiceTodisp", methods=["GET"])
+def serviceDisplay():
+    args = request.args.to_dict()
+    category = args.get("category")
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT DISTINCT service_id FROM `service_offered` WHERE service_name=%s", (category, ))
+        cur.connection.commit()
+
+        if response > 0: 
+            offered = cur.fetchall()
+
+            service_name = list()
+            province = list()
+            for i in range(0, len(offered)):
+                response = cur.execute('SELECT * FROM `service` WHERE service_id=%s', (offered[i][0], ))
+                service_name.append(cur.fetchone())
+
+                response = cur.execute("SELECT service_id, province FROM `service_location` WHERE service_id=%s", (offered[i][0], ))
+                province.append(cur.fetchone())
+
+            return jsonify({
+                "service_name": service_name, 
+                "service_location": province,
+                "offered": offered
+            }) , 200
+        else:
+            return jsonify({
+                "message": "No service to display"
+            }), 404
+    except Exception as e:
+        print(e)
+        return jsonify({
+            "success" :False
+        }), 404
+
