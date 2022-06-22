@@ -1391,6 +1391,21 @@ border-radius: 10px 0px 0px 10px;
   .centerContainer{
     left:0%;
     width: 100%;
+    border-radius: 0px;
+  }
+
+  .signinform{
+    background-color: rgb(255, 255, 255);
+    margin-top: 14rem;
+    grid-template-columns: 0% 0%;
+  }
+  .boxShadow{
+    font-size: 12px;
+    text-align: center;
+  }
+  .CalendarMain{
+    overflow: auto;
+    width: fit-content;
   }
 }
 .alert-danger{
@@ -1400,6 +1415,7 @@ border-radius: 10px 0px 0px 10px;
   font-weight: 500;
   font-family: 'Varela Round', sans-serif;
   font-size: 15px;
+  text-align: center;
 }
 
 .table-wrapper {
