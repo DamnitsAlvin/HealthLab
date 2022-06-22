@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState} from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateImage } from '../actions/doctorActions'
 
 export default function ServiceProfile(){
     const getuserInfo = useSelector(x=>x.userSignIn)
@@ -11,6 +12,9 @@ export default function ServiceProfile(){
     const [location, setlocation] = useState([])
     const [payment, setpayment] = useState()
     const [offered, setoffered] = useState()
+    const [serviceImage, setserviceImage] = useState()
+
+    const dispatch = useDispatch()
 
     useEffect( async()=>{
         const {data} = await axios.get(`http://localhost:5000/api/serviceInfo?service_id=${userInfo.data[0]}`)
@@ -22,12 +26,30 @@ export default function ServiceProfile(){
             setoffered(data.service_offered ? data.service_offered: [])
         }
     }, [userInfo])
+
+    const submitHandler = async(event) =>{
+        const {data} = await axios.post("http://localhost:5000/api/updateService", {
+            serviceInfo, 
+            time, 
+            location, 
+            payment, 
+            offered
+        })
+        if(serviceImage){
+            const formData = new FormData()
+            formData.append('id', userInfo.data[0])
+            formData.append('file', serviceImage)
+            dispatch(UpdateImage(formData))
+        }
+
+       
+        // console.log(serviceInfo)
+        // console.log(time)
+        // console.log(location)
+        // console.log(payment)
+        // console.log(offered)
+    }
     
-    // console.log(serviceInfo)
-    // console.log(time)
-    // console.log(location)
-    console.log(payment)
-    // console.log(offered)
     const labels = [
         "Service ID", 
         'Service Name', 
@@ -65,18 +87,18 @@ export default function ServiceProfile(){
     
     const addTimeHandler = () =>{
         const values = [...time]
-        values.push([userInfo.data[0], "", "","", "",""])
+        values.push([userInfo.data[0],"", "09:00", "10:00","Monday", "Monday"]) //45 23
         settime(values)
     }
     const addofferedHandler = () =>{
         const values = [...offered]
-        values.push([userInfo.data[0],"","", "",""])
+        values.push([userInfo.data[0],"","","", ""])
         setoffered(values)
     }
 
     const addpaymentHandler = () =>{
         const values = [...payment]
-        values.push([userInfo.data[0],"", "",""])
+        values.push([userInfo.data[0],"","", ""])
         setpayment(values)
     }
     
@@ -86,14 +108,18 @@ export default function ServiceProfile(){
         values.push([userInfo.data[0], id , "","", "","", ""])
         setlocation(values)
     }
-    
 
+
+    const serviceInfoChangeHandler = (event, index) =>{
+        const values = [...serviceInfo]
+        values[index] = event.target.value
+        setserviceInfo(values)
+    }
     const timeChangeHandler = (event, index, index1) =>{
         const values = [...time]
         values[index][index1] = event.target.value
         settime(values)
     }
-    
     const locationChangeHandler = (event, index, index1) =>{
         const values = [...location]
         values[index][index1] = event.target.value
@@ -104,13 +130,19 @@ export default function ServiceProfile(){
         values[index][index1] = event.target.value
         setoffered(values)
     }
-
     const paymentChangeHandler = (event, index, index1) =>{
         const values = [...payment]
         values[index][index1] = event.target.value
         setpayment(values)
     }
 
+    const fileImageHandler = (event, index) =>{
+        const extension = event.target.files[0].name.split(".")[1]
+        setserviceImage(event.target.files[0])
+        const values = [...serviceInfo]
+        values[5] = `/uploads/${values[0]}Image.${extension}`
+        setserviceInfo(values)
+    }
 
 
     return(
@@ -158,21 +190,21 @@ export default function ServiceProfile(){
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                 <div className="form-group">
                                     <label >{labels[index]}</label>
-                                    <input type="file" className="form-control"/>
+                                    <input type="file" className="form-control" accept="image/*" onChange={event=>fileImageHandler(event, index)}/>
                                 </div>
                             </div>
                             ): index==4 ? (
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                 <div className="form-group">
                                     <label >{labels[index]}</label>
-                                    <input type="password" className="form-control"  value={value} />
+                                    <input type="password" className="form-control"  value={value} onChange={event => serviceInfoChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             ): (
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" key={index}>
                                 <div className="form-group">
                                     <label >{labels[index]}</label>
-                                    <input type="text" className="form-control"  value={value}/>
+                                    <input type="text" className="form-control"  value={value} onChange={event => serviceInfoChangeHandler(event, index)}/>
                                 </div>
                             </div>
                             )
@@ -188,7 +220,7 @@ export default function ServiceProfile(){
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <h6 className="mb-2 text-primary">Service Available Time</h6>
                     </div>
-                {
+                    {
                     time && time.map((value,index)=>(
                         <>
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -432,7 +464,7 @@ export default function ServiceProfile(){
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            <button type="button" id="submit" name="submit" className="btn btn-primary">Update</button>
+                            <button type="button" className="btn btn-primary" onClick={event=>submitHandler(event)}>Update</button>
                         </div>
                     </div>
                 </div>
