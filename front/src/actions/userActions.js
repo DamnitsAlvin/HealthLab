@@ -78,7 +78,7 @@ export const signout=()=> (dispatch)=> {
     dispatch({type: USER_SIGNOUT})
 }
 
-export const register = (User_id,First_name,Last_name,Middle_name, Suffix, Birthday, Gender, Address_line1, Address_line2, Municipality, Province, Civil_status, Phone_number, Email,password) => async(dispatch) =>{
+export const register = (User_id,First_name,Last_name,Middle_name, Birthday, Gender, Address_line1, Address_line2, Municipality, Province, Civil_status, Phone_number, Email,password) => async(dispatch) =>{
     // const params = {
     //     method: "POST", 
     //     headers:{
@@ -109,7 +109,6 @@ export const register = (User_id,First_name,Last_name,Middle_name, Suffix, Birth
             "firstname": First_name,
             "lastname": Last_name,
             "middlename": Middle_name,
-            "suffix":Suffix,
             "birthday":Birthday,
             "gender":Gender,
             "address1":Address_line1,

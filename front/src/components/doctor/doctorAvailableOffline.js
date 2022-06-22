@@ -191,8 +191,9 @@ export default function DoctorAvailableOffline(props){
                                             <div className="text-right">
                                                 <button type="button" className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
                                             </div>
-                                            <hr></hr>
+
                                     </div>
+                                    <hr></hr>
                                    
                                     </>
                                 ) : (<></>)

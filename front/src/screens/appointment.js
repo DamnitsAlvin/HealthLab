@@ -36,7 +36,7 @@ export default function AppointmentPage() {
     }
     const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(id).then((setSrc));
+        QRCode.toDataURL(`http://localhost:3000/appointments/${id}`).then((setSrc));
         const data = generatePDF()
     }
     const generatePDF = () =>{
@@ -96,7 +96,7 @@ export default function AppointmentPage() {
                                 <tr>
                                 </tr>
 
-                                {appointments &&
+                                {appointments && appointments.Appointments && 
                                     appointments.Appointments.map((appoint,index) => (
                                         <tr key={index}>
                                             <td>
@@ -155,7 +155,7 @@ export default function AppointmentPage() {
                         <tr>
                         </tr>
 
-                        {appointments &&
+                        {appointments && appointments.Appointments && 
                             appointments.Appointments.map((appoint, index) => (
                                 !appoint[5].length > 0 && (
                                     <tr key={index}>
@@ -223,7 +223,7 @@ export default function AppointmentPage() {
                     <tr>
                     </tr>
 
-                    {appointments &&
+                    {appointments && appointments.Appointments && 
                         appointments.Appointments.map((appoint, index) => (
                             appoint[5].length > 0 && (
                                 <tr key={index}>
