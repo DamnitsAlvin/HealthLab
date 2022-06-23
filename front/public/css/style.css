@@ -14,7 +14,7 @@
 body {
     width: 100%;
     height: 100%;
-    font-family: 'Open Sans', sans-serif;
+	font-family: 'D-DIN', sans-serif, FontAwesome;
 	font-weight: 300;
     color: #666;
     background-color: #ddd;
@@ -32,7 +32,7 @@ input,
 button,
 select,
 textarea {
-  font-family: 'Open Sans', sans-serif;
+	font-family: 'D-DIN', sans-serif, FontAwesome;
   font-size: inherit;
   line-height: inherit;
 }
@@ -96,9 +96,10 @@ h4,
 h5,
 h6 {
     margin: 0 0 30px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-	color: #444;
+    
+  font-family: 'D-DIN', sans-serif;
+    font-weight: 600;
+	color: #212121;
 	line-height: 1em;
 }
 
@@ -239,7 +240,7 @@ Top area
 	width: 100%;
 	color: #fff;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	
 }
 
 .top-area.top-padding {
@@ -337,7 +338,7 @@ Navigation
 }
 
 .navbar-custom ul.nav li a {
-	font-size: 13px;
+	font-size: 15px;
 	letter-spacing: 1px;
     color: #666;
 	text-transform: uppercase;
@@ -659,11 +660,15 @@ hr.bold {
 
 .section-heading h2 {
 	margin-bottom: 10px;
+	font-family: 'D-DIN', sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	font-size: 40px;
 }
 
 .section-heading p {
 	font-weight: 300;
-	font-size: 20px;
+	font-size: 25px;
 	line-height: 1.6em;
 }
 
@@ -766,6 +771,7 @@ ul.lead-list {
 ul.lead-list li {
 	margin: 0 0 20px 0;
 	line-height: 1.6em;
+	font-size:17px;
 }
 
 ul.lead-list li span.fa {
@@ -945,7 +951,9 @@ Elements
 }
 
 .box h4 {
-	font-size: 24px;
+	font-size: 25px;
+	font-family: 'D-DIN', sans-serif;
+	letter-spacing: 0;
 }
 
 .box i {
@@ -981,6 +989,9 @@ Elements
 
 .service-desc h5 {
 	margin-bottom: 10px;
+	font-family: 'D-DIN', sans-serif;
+	font-weight: 550;
+	font-size: 25px;
 }
 
 
@@ -1276,6 +1287,7 @@ footer .widget {
 
 footer .widget h5 {
 	font-size: 20px;
+	font-weight: 500;
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }

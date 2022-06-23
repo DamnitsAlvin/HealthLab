@@ -107,9 +107,9 @@ export default function UserProfile(){
                         <div className="user-avatar">
                             <img src={UserDetails && UserDetails.userData[15] ? UserDetails.userData[15]:"https://bootdey.com/img/Content/avatar/avatar7.png" } alt="Maxwell Admin"/>
                         </div>
-                        <h3 className="user-name">{UserDetails && UserDetails.userData[1].concat(" ", UserDetails.userData[2])}</h3>
-                        <h4 className="user-email">{UserDetails && UserDetails.userData[12]}</h4>
-                        <h5 className="user-email">{UserDetails && UserDetails.userData[0]}</h5>
+                        <h3 className="user-name"id="userprof">{UserDetails && UserDetails.userData[1].concat(" ", UserDetails.userData[2])}</h3>
+                        <h5 className="user-email"id="userprof2">{UserDetails && UserDetails.userData[0]}</h5>
+                        <h4 className="user-email"id="userprof1">{UserDetails && UserDetails.userData[12]}</h4>
                     </div>
                 </div>
             </div>
