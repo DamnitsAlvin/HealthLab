@@ -19,12 +19,14 @@ export default function CreateAppointmentSlip(props){
     console.log(SaveAppointment)
     if(userInfo){
         id =  userInfo.data[0];
+    }else{
+        navigate(`/signin?userType=user&redirect=/createAppointment?doctor=${doc_id}&mode=2`)
     }
     
 
-    const [PatientFirstName, setPatientFirstName] = useState(userInfo.data[3]);
-    const [PatientLastName, setPatientLastName] = useState(userInfo.data[4]); 
-    const [Email, setEmail] = useState(userInfo.data[1]); 
+    const [PatientFirstName, setPatientFirstName] = useState(userInfo && userInfo.data[3]);
+    const [PatientLastName, setPatientLastName] = useState(userInfo &&userInfo.data[4]); 
+    const [Email, setEmail] = useState(userInfo && userInfo.data[1]); 
     const [Birthday, setBirthday] = useState('')
     const [Gender, setGender] = useState('')
     const [PreferredDate, setPreferredDate] = useState("");
@@ -73,7 +75,7 @@ export default function CreateAppointmentSlip(props){
 
         <div className="signup-form">
             <form onSubmit={NextHandler}>
-            <h2>Appointment Request</h2>
+            <h2 id="colorh2">Appointment Request</h2>
             <p>Please fill in this form to create an appointment requests!</p>
             <hr/>
             
@@ -150,7 +152,7 @@ export default function CreateAppointmentSlip(props){
 
             <div className="form-group">
                 <label className="control-label" for="date">Preferred Date</label>
-                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)}/>
+                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)} required/>
             </div>
             {SaveAppointment && !SaveAppointment.success && (
                     <div className="alert alert-danger">Error saving the data</div>

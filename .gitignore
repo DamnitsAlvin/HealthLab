@@ -2,3 +2,4 @@
 front/node_modules
 .env
 notes.txt
+front/chatbot_backend/config/dev.js

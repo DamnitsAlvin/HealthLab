@@ -56,7 +56,7 @@ export default function DoctorAvailableOnline(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Available Online Information</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-calendar" aria-hidden="true"id="fontawesomeSpace"></i>Available Online Information</h6>
                         </div>
                         {AvailableOnline.map((value, index)=>(
                             <>
@@ -118,7 +118,7 @@ export default function DoctorAvailableOnline(props){
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">
-                                <button type="button" onClick={addAvailableOnlineFieldHandler} className="btn btn-success">Add Fields</button>
+                                <button type="button" onClick={addAvailableOnlineFieldHandler} className="btn btn-success" id="colorBlue">Add Fields</button>
                             </div>
                         </div>
                     </div>

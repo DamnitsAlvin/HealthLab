@@ -48,7 +48,7 @@ export default function DoctorSpecialty(props){
         <div className="card-body">
             <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 className="mb-2 text-primary">Specialization</h6>
+                    <h6 className="mb-2 text-primary"><i class="fa fa-user-md" aria-hidden="true" id="fontawesomeSpace"></i>Specialization</h6>
                 </div>
                 {
                     Specialty.map((value, index)=>(
@@ -67,18 +67,18 @@ export default function DoctorSpecialty(props){
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">
-                                <button type="button" onClick={()=>removeSpecialtyFieldHandler(index)} className="btn btn-danger">Remove</button>
-                                <button type="button" onClick={addSpecialtyFieldHandler} className="btn btn-success">Add Fields</button>
+                                <button type="button" onClick={()=>removeSpecialtyFieldHandler(index)} className="btn btn-danger" id="btn_doctorProfileSpace">Remove</button>
+                                <button type="button" onClick={addSpecialtyFieldHandler} className="btn btn-success" id="colorBlue">Add Fields</button>
                             </div>
-                            
+                            <hr></hr>
                         </div>
-                        <hr></hr>
+                  
                         </>
                     ))
                 }
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="text-right">
-                        <button type="button" onClick={addSpecialtyFieldHandler} className="btn btn-success">Add Fields</button>
+                        <button type="button" onClick={addSpecialtyFieldHandler} className="btn btn-success" id="colorBlue">Add Fields</button>
                     </div>
                 </div>
             </div>

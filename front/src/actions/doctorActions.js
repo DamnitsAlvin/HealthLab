@@ -21,7 +21,10 @@ import {
     UPDATE_DOC_INFO_FAIL,
     GET_DOCTOR_REQ,
     GET_DOCTOR_SUC,
-    GET_DOCTOR_FAIL
+    GET_DOCTOR_FAIL,
+    UPDATE_APPOINTMENT_STATUS_REQ,
+    UPDATE_APPOINTMENT_STATUS_SUC,
+    UPDATE_APPOINTMENT_STATUS_FAIL
 } from "../constants/doctorConstants"
 import Axios from "axios"
 import axios from 'axios'
@@ -141,4 +144,20 @@ export const getDoctor = (category) => async(dispatch) =>{
             : error.message,
             })
     }
+}
+
+export const DoctorAppoinmentStatus = (id,status) => async(dispatch) =>{
+    dispatch({type: UPDATE_APPOINTMENT_STATUS_REQ})
+    try{
+        const {data} = await axios.post("http://localhost:5000/api/setappointment", {id, status})
+        dispatch({type: UPDATE_APPOINTMENT_STATUS_SUC})
+    }
+    catch(error){
+        dispatch({type: UPDATE_APPOINTMENT_STATUS_FAIL, 
+            payload: error.response && error.response.data.message 
+            ? error.response.data.message
+            : error.message,
+            })
+    }
+
 }

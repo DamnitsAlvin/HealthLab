@@ -19,7 +19,10 @@ import {
     UPDATE_DOC_INFO_SUC,
     GET_DOCTOR_REQ,
     GET_DOCTOR_SUC,
-    GET_DOCTOR_FAIL
+    GET_DOCTOR_FAIL,
+    UPDATE_APPOINTMENT_STATUS_REQ,
+    UPDATE_APPOINTMENT_STATUS_SUC,
+    UPDATE_APPOINTMENT_STATUS_FAIL
 } from "../constants/doctorConstants"
 
 export const BasicDoctorReducer = (state={}, action) =>{
@@ -97,5 +100,18 @@ export const getDoctorReducer = (state={}, action)=>{
             return {doctorLoading: false, error: action.payload}
         default: 
              return state
+    }
+}
+
+export const doctorAppointmentReducer = (state={}, action) =>{
+    switch(action.type){
+        case UPDATE_APPOINTMENT_STATUS_REQ:
+            return {loading: true}
+        case UPDATE_APPOINTMENT_STATUS_SUC:
+            return {loading: false, setAppointsuccess: true}
+        case UPDATE_APPOINTMENT_STATUS_FAIL:
+            return {loading: false, setAppointsuccess: false}
+        default:
+            return state
     }
 }

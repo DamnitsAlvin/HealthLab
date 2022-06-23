@@ -80,7 +80,7 @@ export default function DoctorPersonal(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Personal Details</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-address-book-o" aria-hidden="true"id="fontawesomeSpace"></i>Personal Details</h6>
                         </div>
                         <form method="post">
                         {BasicFormFields.map((value, index)=>(

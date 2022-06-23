@@ -7,22 +7,25 @@ import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
 import UserTypeSignIn from "./screens/usertypesignin";
 import Register from "./screens/register"
-import MedicalHistory from "./screens/medhistory";
 import AppointmentPage from "./screens/appointment";
 import Results from "./screens/results";
 import Overview from "./screens/dentistquestions";
 import Testing from "./test/Testing";
-
 import RegisterService from './screens/registerService';
 import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
 import DoctorPage from './screens/doctorpage';
-import Chatbog from './components/chatbot1';
+
 import './App.css';
-import TestClass from './test/classful';
 import Chatbot from './components/chatbot';
+import UserProfile from './screens/userProfile';
+import Kalendaryo from './components/calendar';
+import ServiceProfile from './screens/serviceprofile';
+import Invoice from './screens/invoice';
+import ServicePage from './screens/servicepage';
+
 
 function App() {
   
@@ -68,17 +71,16 @@ function App() {
                       <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
                         <ul className="nav navbar-nav">
                           <li className="top"><Link to="/">Home</Link></li>
-                          <li className="top"><Link to="/#service">Doctors</Link></li>
-                          <li className="top"><Link to="/#doctor">Service</Link></li>
+                          <li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
+                          <li className="top"><Link to="/service">Service</Link></li>
                           {userInfo ? (
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
                             <ul className="dropdown-menu">
-							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` : "/profile"}>Profile</Link></li>
+							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
-                              <li><Link to="/createAppointment">Request Appointment</Link></li>
-                              <li><Link to="/">Transactions</Link></li>
-                              <li><Link to="/">Medicines</Link></li>
+							  <li><Link to="/calendar">Calendar</Link></li>
+                              <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
                               <li className="top"><Link to="/onlineres">Online Result</Link></li>
                               <li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
                             </ul>
@@ -89,7 +91,6 @@ function App() {
 						  
                         </ul>
                     </div>
-                  
                   </div>
                 </nav>
                 
@@ -108,8 +109,8 @@ function App() {
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
 				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
+				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
 
-				<Route path ="/medhistory" element={<MedicalHistory/>}/>
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
 
@@ -120,10 +121,16 @@ function App() {
 
 
 				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
-				
+				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
+
+				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
+				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
+				<Route path="/invoice" element={<Invoice></Invoice>} />
+				
 			</Routes>
 			<Chatbot></Chatbot>
+			
 		</main>
 
 

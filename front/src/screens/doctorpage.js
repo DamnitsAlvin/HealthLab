@@ -7,7 +7,6 @@ export default function DoctorPage(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {category} = useParams()
-    console.log("Category: ", category)
 
     useEffect(()=>{
         dispatch(getDoctor(category))

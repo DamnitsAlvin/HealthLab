@@ -46,7 +46,7 @@ export default function DoctorTitles(props){
         <div className="card-body">
             <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 className="mb-2 text-primary">Titles</h6>
+                    <h6 className="mb-2 text-primary"><i class="fa fa-user-circle" aria-hidden="true"id="fontawesomeSpace"></i>Titles</h6>
                 </div>
                 {
                     Titles.map((value, index)=>(
@@ -62,14 +62,15 @@ export default function DoctorTitles(props){
                             <div className="text-right">
                                 <button type="button" onClick={()=>removeTitlesFieldHandler(index)} className="btn btn-danger">Remove</button>
                             </div>
+                            <hr></hr>
                         </div>
-                        <hr></hr>
+                        
                         </>
                     ))
                 }
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="text-right">
-                        <button type="button" onClick={addTitlesFieldHandler} className="btn btn-success">Add Fields</button>
+                        <button type="button" onClick={addTitlesFieldHandler} className="btn btn-success" id="colorBlue">Add Fields</button>
                     </div>
                 </div>
             </div>

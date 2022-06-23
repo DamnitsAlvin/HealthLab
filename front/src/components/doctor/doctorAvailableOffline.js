@@ -104,7 +104,7 @@ export default function DoctorAvailableOffline(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Available Offline Information</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-calendar-times-o" aria-hidden="true"id="fontawesomeSpace"></i>Available Offline Information</h6>
                         </div>
                         {Address.map((value, index)=>(
                             <>
@@ -189,18 +189,19 @@ export default function DoctorAvailableOffline(props){
                                     </div>
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div className="text-right">
-                                                <button type="button" className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
+                                                <button type="button" id="marginBottom"className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
                                             </div>
-                                            <hr></hr>
+
                                     </div>
+                                    <hr></hr>
                                    
                                     </>
                                 ) : (<></>)
                             ))}
                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="text-right">
-                                    <button type="button" className="btn btn-success" onClick={()=>{addTime(index)}}>Add Time</button>
-                                    <button type="button" id="kags" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-warning">Remove Address</button>
+                                    <button type="button" className="btn btn-success"id="colorBlue" onClick={()=>{addTime(index)}}>Add Time</button>
+                                    <button type="button" id="kags" onClick={()=>removeAvailableOfflineFieldHandler(index)} className="btn btn-danger">Remove Address Field</button>
                                     
                                 </div>
                                 <hr></hr>
@@ -211,7 +212,7 @@ export default function DoctorAvailableOffline(props){
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">
-                                <button type="button" onClick={addAvailableOfflineFieldHandler} className="btn btn-success">Add Address Fields</button>
+                                <button type="button" onClick={addAvailableOfflineFieldHandler} className="btn btn-success" id="colorBlue">Add Address Fields</button>
                             </div>
                         </div>
                     </div>

@@ -52,17 +52,20 @@ def authenticateUser():
             response = cur.execute('SELECT * FROM service where (service_id=%s or email=%s)', (username,username))
         
         if response is None:
+            print("rresponse is none ")
             return ({"message": "NO user with that ID"}), 401
+            print("should not be seen")
+
         else: 
             data = cur.fetchone()
  
         if userType == "user": 
-            if data[14] == password:
+            if data[13] == password:
                 access_token = create_access_token(identity=username)
                 cur.connection.commit()
                 cur.close()
                 return jsonify({"access_token": access_token, 
-                                "data": [data[0], data[13], data[15], data[1], data[2]] }), 200
+                                "data": [data[0], data[12], data[14], data[1], data[2]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
 
@@ -76,7 +79,12 @@ def authenticateUser():
             else:
                 return jsonify({"message": "Invalid password"}), 401
         else:
-            pass
+            if data[4] == password:
+                access_token = create_access_token(identity=username)
+                cur.connection.commit()
+                cur.close()
+                return jsonify({"access_token": access_token, 
+                                "data": [data[0], data[1], data[6]] }), 200
         
 
 @api.route("/userreg", methods=["POST"])
@@ -87,7 +95,6 @@ def registerUser():
         firstname= request.json.get("firstname")
         lastname = request.json.get("lastname")
         middlename = request.json.get("middlename")
-        suffix = request.json.get("suffix")
         birthday = request.json.get("birthday")
         gender = request.json.get("gender")
         addressline1 = request.json.get("address1")
@@ -103,8 +110,7 @@ def registerUser():
                 username,
                 firstname,
                 lastname,
-                middlename, 
-                suffix, 
+                middlename,
                 birthday,
                 gender, 
                 addressline1, 
@@ -116,14 +122,17 @@ def registerUser():
                 email
                 ]
         try:
-            cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Suffix`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,suffix,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            print("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"% (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            cur.execute("Insert into user(`user_id`, `First_name`, `Last_name`,`Middle_name`, `Birthday`, `Gender`, `Address_line1`, `Address_line2`, `Municipality`, `Province`, `Civil_status`, `Phone_number`, `Email`,`Password`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (username, firstname, lastname,middlename,birthday,gender,addressline1,addressline2,municipality,province, civilstats, contactnum,email, password ))
+            cur.connection.commit()
+            cur.execute("INSERT INTO `patient`(`Patient_id`, `user_id`, `First_name`, `Last_name`, `Relationship`, `Birthday`, `Gender`) VALUES (%s,%s,%s,%s,%s,%s,%s)", (username, username, firstname, lastname, "Self", birthday, gender))
             cur.connection.commit()
             cur.close()
             access_token = create_access_token(identity=username)
             return jsonify({"access_token": access_token, "data": data}), 200
         
         except Exception as ex: 
-            print("Something went wrong: {} ".format(type(ex)))
+            print("Something went wrong: " , ex)
             return jsonify({"message": "Email was already in use" }), 404
 
 
@@ -171,28 +180,32 @@ def getUserAppointment():
         cur = mysql.connection.cursor() 
         if userType == "user":
             try:
-                response = cur.execute("SELECT Patient_id FROM patient WHERE user_id=%s", (userId, ))
+                response = cur.execute("SELECT Patient_id, First_name, Last_name FROM patient WHERE user_id=%s", (userId, ))
                 if response > 0: 
-                    Patient_id = cur.fetchall() 
+                    Patient_name = cur.fetchall() 
                     cur.connection.commit()
-
-                resval = cur.executemany("SELECT * FROM appointment_request WHERE Patient_id = %s ORDER BY date_created",Patient_id)
-               
-                if resval > 0: 
-                    data = cur.fetchall()
-                    cur.connection.commit()
-                    
-                    Patient_name = cur.executemany("SELECT Patient_id, First_name, Last_name FROM patient WHERE Patient_id=%s", Patient_id)
-                    Patient_name = cur.fetchall()
+                
+                    #get appointments
+                    data = list()
                     doctor_name = list()
+
+                    for i in range(0, len(Patient_name)): 
+                        resval = cur.execute("SELECT * FROM appointment_request WHERE Patient_id = %s ORDER BY date_created",(Patient_name[i][0], ))
+                        if resval > 0: 
+                            appointments = cur.fetchall()
+                            cur.connection.commit()
+                            for i in range(0, len(appointments)):
+                                data.append(appointments[i])
+                
                     for i in range(0, len(data)):
                         doc = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (data[i][2], ))
                         doctor_name.append(cur.fetchone()[0:4])
 
                     return jsonify({"Appointments": data, "Name": Patient_name, "Doctor": doctor_name}), 200
-                return jsonify({"message": "currently no appointments to show!"})
-            except:
-                return jsonify({"error": True})
+                return jsonify({"message": "currently no appointments to show!"}), 404
+            except Exception as e:
+                print(e)
+                return jsonify({"error": True}), 404
 
         elif userType == "doctor": 
             try:
@@ -201,22 +214,26 @@ def getUserAppointment():
                 if resval > 0: 
                     data = cur.fetchall()
                     response = cur.execute('SELECT DISTINCT Patient_id FROM appointment_request WHERE Doctor_id=%s', (userId, ))
+                    cur.connection.commit()
                     patient_id = cur.fetchall()
                     print(f"{patient_id}")
-                    response = cur.executemany("SELECT * FROM patient WHERE Patient_Id=%s", patient_id)
-                    Patient = cur.fetchall()
-                
+
                     Patient_name = list()
-                    for i in range(0, len(Patient)):
-                        Patient_name.append(Patient[i][0:4])
+                    for i in range(0, len(patient_id)):
+                        response = cur.execute("SELECT * FROM patient WHERE Patient_Id=%s", (patient_id[i][0], ))
+                        cur.connection.commit()
+                        Patient = cur.fetchone()
+                        Patient_name.append(Patient[0:4])
 
-                    
-
+                    print(f'{Patient_name}')
                     return jsonify({"Appointments": data, "Name": Patient_name}), 200
                 return jsonify({"message": "currently no appointments to show!"})
-            except:
+            except Exception as e :
+                print(e)
                 return jsonify({"error": True})
             return jsonify({'ongoing': True})
+        else: 
+            return jsonify({"error": "lack of parameters"})
 
 @api.route("/updateImage", methods=["POST"])
 def fileImageHandler():
@@ -243,3 +260,46 @@ def deleteAppointment():
         return jsonify({'success': True}), 200
     except Exception as e: 
         return jsonify({"success": False}), 404
+
+@api.route("/userInformation", methods=["GET"])
+def getUserInformation():
+    args  = request.args.to_dict()
+    user_id = args.get("userID")
+    print(user_id)
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM user WHERE user_id=%s", (user_id, )) 
+        if response is not None:
+            data = cur.fetchone()
+            cur.connection.commit()
+            print(f'{data}')
+            cur.close()
+            return ({'userData': data}), 200
+        else:
+            return ({'success': False}), 404
+    except Exception as e:
+        print(e)
+        return({'success': False}), 404
+
+@api.route("/updateuserinformation", methods=["POST"])
+def updateUserInformation():
+    if request.method == "POST":
+        cur = mysql.connection.cursor()
+        req = request.json.get("details")
+        dat = req[1:15]
+        if req[15] is None:
+            dat.append("")
+        else:
+            dat.append(req[15])
+        dat.append(req[0])
+        print(f'{req[1:16]}')
+        print('length: ', len(req))
+        print("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s,`userType`=%s,`userImage`=%s WHERE `user_id`=%s"%tuple(dat))
+        try: 
+            cur.execute("UPDATE `user` SET `First_name`=%s,`Last_name`=%s,`Middle_name`=%s,`Birthday`=%s,`Gender`=%s,`Address_line1`=%s,`Address_line2`=%s,`Municipality`=%s,`Province`=%s,`Civil_Status`=%s,`Phone_Number`=%s,`Email`=%s,`Password`=%s,`userType`=%s,`userImage`=%s WHERE `user_id`=%s", tuple(dat))
+            cur.connection.commit()
+            cur.close()
+            return({'succes': True}), 200
+        except Exception as e:
+            print(e)
+            return ({'success':False}), 404
