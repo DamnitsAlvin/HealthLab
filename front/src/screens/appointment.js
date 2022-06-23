@@ -15,7 +15,6 @@ export default function AppointmentPage() {
     const setAppoint = useSelector(x => x.setAppointmentMode)
     const {setAppointsuccess} = setAppoint
 
-    const [file, setFile] = useState()
     const [appointID, setappointID] = useState(0)
 
     const { DeleteSuccess } = delAppoint
@@ -41,7 +40,7 @@ export default function AppointmentPage() {
     }
     const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(`http://192.168.0.19:3000/invoice?appointID=${id}`).then((setSrc));
+        QRCode.toDataURL(`http://localhost:3000/invoice?appointID=${id}`).then((setSrc));
         const data = generatePDF()
     }
     const generatePDF = () =>{
@@ -90,7 +89,7 @@ export default function AppointmentPage() {
                                     <th>Patient Name</th>
                                     <th>Doctor Name</th>
                                     <th>Date</th>
-                                    <th>Time</th>
+                                     
                                     <th>Status</th>
                                     <th>Description</th>
                                     <th>Mode</th>
@@ -112,7 +111,7 @@ export default function AppointmentPage() {
                                             <td>{appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2]}</td>
                                             <td>{"Dr. " + appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2]}</td>
                                             <td>{appoint[3]}</td>
-                                            <td>{appoint[4]}</td>
+                                         
                                             <td>{appoint[5]}</td>
                                             <td>{appoint[6]}</td>
                                             <td>{appoint[7]}</td>
@@ -157,7 +156,6 @@ export default function AppointmentPage() {
                             <th>ID</th>
                             <th>Patient Name</th>
                             <th>Date</th>
-                            <th>Time</th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Mode</th>
@@ -177,7 +175,7 @@ export default function AppointmentPage() {
                                     </td>
                                     <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                     <td>{appoint[3]}</td>
-                                    <td>{appoint[4]}</td>
+                                   
                                     {appoint[5]=="Accepted" ? (
                                     <td className="alert alert-success">
                                         {appoint[5]}
@@ -225,6 +223,7 @@ export default function AppointmentPage() {
                         <th>Patient Name</th>
                         <th>Date</th>
                         <th>Time</th>
+                        <th>Queue</th>
                         <th>Status</th>
                         <th>Description</th>
                         <th>Mode</th>
@@ -246,6 +245,7 @@ export default function AppointmentPage() {
                                 <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                 <td>{appoint[3]}</td>
                                 <td>{appoint[4]}</td>
+                                <td>{appoint[9]}</td>
                                 {appoint[5]=="Accepted" ? (
                                 <td className="alert alert-success">
                                     {appoint[5]}
