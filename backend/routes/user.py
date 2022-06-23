@@ -303,3 +303,22 @@ def updateUserInformation():
         except Exception as e:
             print(e)
             return ({'success':False}), 404
+
+@api.route("/checkDate", methods=["GET"])
+def CheckAppointmentDate():
+    cur = mysql.connection.cursor()
+    args = request.args.to_dict()
+    doc_id = args.get('doc_id')
+    date = args.get('date')
+    try:
+        response = cur.execute("SELECT * FROM `appointment_request` where Doctor_id=%s AND Appointment_date=%s AND Status='Accepted'", (doc_id, date))
+        cur.connection.commit()
+        print(response)
+        if response > 5:
+            return jsonify({"dateFull": True}), 200
+        else:
+            return jsonify({"dateFull": False}), 200
+        
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'gg'}), 404
