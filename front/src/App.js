@@ -81,7 +81,6 @@ function App() {
                               <li><Link to="/appointments">Appointments</Link></li>
 							  <li><Link to="/calendar">Calendar</Link></li>
                               <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
-                              <li className="top"><Link to="/onlineres">Online Result</Link></li>
                               <li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
                             </ul>
                           </li>
