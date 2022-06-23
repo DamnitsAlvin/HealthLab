@@ -79,6 +79,7 @@ function App() {
                             <ul className="dropdown-menu">
 							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
                               <li><Link to="/appointments">Appointments</Link></li>
+							  <li><Link to="/calendar">Calendar</Link></li>
                               <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
                               <li className="top"><Link to="/onlineres">Online Result</Link></li>
                               <li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
