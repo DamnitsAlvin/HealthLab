@@ -51,7 +51,7 @@ export default function DoctorCert(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Certification</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-certificate" aria-hidden="true"id="fontawesomeSpace"></i>Certification</h6>
                         </div>
                         {Cert.map((value, index)=>(
                             <>
