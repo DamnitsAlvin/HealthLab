@@ -41,9 +41,9 @@ export default function Bookdoctor() {
                         <div className="user-avatar">
                             <img src={DocBasicInfo ? (DocBasicInfo.BasicInfo[10]): "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
                         </div>
-                        <h3 className="user-name">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
-                        <h4 className="user-name">{DocBasicInfo && DocBasicInfo.Titles}</h4>
-                        <h5 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h5>
+                        <h3 className="user-name"id="pepeMo1">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
+                        <h4 className="user-name"id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles}</h4>
+                        <h6 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
                     </div>
                     <div className="about">
                         <h5>Education</h5>
@@ -99,7 +99,7 @@ export default function Bookdoctor() {
                 <div className="row gutters">
                     <div className="doctop col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <h6 className="mb-2 text-primary">Mode of Consulation</h6>
+                        <h6 className="mb-2 text-primary" id="bookDoctorFont"><i class="fa fa-calendar-check-o" aria-hidden="true"id="fontawesomeSpace"></i>Mode of Consulation</h6>
                        
                         <div className={DocBasicInfo && (DocBasicInfo.BasicInfo[8]==0 ? '' : DocBasicInfo.BasicInfo[8]==2 ? '': 'mod') }><span><img className={DocBasicInfo && (DocBasicInfo.BasicInfo[8]==0 ? 'checkicona' : DocBasicInfo.BasicInfo[8]==2 ? 'checkicona': 'checkiconb') } src="/img/svg icons/checkmark-pngrepo-com.png"/></span>Virtual </div>
                         <div className={DocBasicInfo && (DocBasicInfo.BasicInfo[8]==1 ? '' : DocBasicInfo.BasicInfo[8]==2 ? '': 'mod') }><span><img className={DocBasicInfo && (DocBasicInfo.BasicInfo[8]==1 ? 'checkicona' : DocBasicInfo.BasicInfo[8]==2 ? 'checkicona': 'checkiconb')} src="/img/svg icons/checkmark-pngrepo-com.png"/></span>Face-to-Face</div>
@@ -107,7 +107,7 @@ export default function Bookdoctor() {
                     </div>
 
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <h6 className="mb-2 text-primary">Work Experience</h6>
+                        <h6 className="mb-2 text-primary"id="bookDoctorFont"><i class="fa fa-hospital-o" aria-hidden="true"id="fontawesomeSpace"></i>Work Experience</h6>
                         <div><strong>{
                                 DocBasicInfo ? (DocBasicInfo.Experience ? 
                                     DocBasicInfo.Experience.reduce((total, num)=>{
@@ -122,9 +122,9 @@ export default function Bookdoctor() {
 
                     <div className="doctop col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <h6 className="mb-2 text-primary">Specialties</h6>
+                        <h6 className="mb-2 text-primary"id="bookDoctorFont"><i class="fa fa-user-md" aria-hidden="true" id="fontawesomeSpace"></i>Specialties</h6>
                         <div>
-                            <ul>
+                            <ul id="bookDoctorwew">
                                 {
                                     DocBasicInfo && DocBasicInfo.Specialty.map((spec, index)=>(
                                         <li key={index}>{spec[2]}</li>
@@ -136,9 +136,9 @@ export default function Bookdoctor() {
                     </div>
 
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <h6 className="mb-2 text-primary">Sub-Specialties</h6>
+                        <h6 className="mb-2 text-primary"id="bookDoctorFont"><i class="fa fa-user-md" aria-hidden="true" id="fontawesomeSpace"></i>Sub-Specialties</h6>
                         <div>
-                            <ul>
+                            <ul id="bookDoctorwew">
                                 {
                                     DocBasicInfo && DocBasicInfo.Specialty.map((spec)=>(
                                         <li>{spec[3]}</li>
@@ -154,7 +154,7 @@ export default function Bookdoctor() {
 
                 <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 className="mt-3 mb-2 text-primary">Available Dates </h6>
+                        <h6 className="mt-3 mb-2 text-primary"id="bookDoctorFont"> <i class="fa fa-calendar" aria-hidden="true"id="fontawesomeSpacee"></i>Available Dates </h6>
                         {DocBasicInfo ?(
                             DocBasicInfo.Available_Online ? 
                             (<div className="availOnline">
@@ -180,8 +180,8 @@ export default function Bookdoctor() {
                 
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 className="mt-3 mb-2 text-primary">Payment Information </h6>  
-                        <ul>
+                        <h6 className="mt-3 mb-2 text-primary"id="bookDoctorFont"><i class="fa fa-credit-card" aria-hidden="true"id="fontawesomeSpacee"></i>Payment Information </h6>  
+                        <ul id="bookDoctorwew1">
                         {DocBasicInfo ? (DocBasicInfo.Payment ? (
                             DocBasicInfo.Payment.map(payment=>(
                                 <li>{payment[2]}</li>

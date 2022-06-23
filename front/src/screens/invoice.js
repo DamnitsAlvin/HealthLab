@@ -23,11 +23,13 @@ export default function Invoice(){
             <div className="top">
                 <div className="top-left">
                     <h1 id="wewZer">Appointment Details</h1>
-                    <span className="code">#{displayData && displayData.app_req[0]}  (appointment number)</span>
+                    <span className="code">APT#{displayData && displayData.app_req[0]}  </span>
+                    <div className="date">Date Booked: {displayData && displayData.app_req[8].split(" ")[0]}</div>
                 </div>
                 <div className="top-right">
+                    <div className='date'id="qNumber">Queue Number:</div>
                     <div className="date">Date: {displayData && displayData.app_req[3]} </div>
-                    <div className="date">Date Booked: {displayData && displayData.app_req[8].split(" ")[0]}</div>
+                   
                 </div>
             </div>
             <div className="bill-box">
@@ -69,7 +71,7 @@ export default function Invoice(){
                 <button className="btn btn-main">Print Details</button>
             </div>
             <div className="note">
-                <p>Thank You for working with us!</p>
+                <p id="notespace">Thank You for working with us!</p>
                 <p>medicall.com</p>
             </div>
         </div>

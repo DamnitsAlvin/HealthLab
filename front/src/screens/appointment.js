@@ -94,8 +94,9 @@ export default function AppointmentPage() {
                                     <th>Status</th>
                                     <th>Description</th>
                                     <th>Mode</th>
-                                    <th>Mode</th>
-                                    <th>Mode</th>
+                                    <th>Action</th>
+                                    <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,8 +125,9 @@ export default function AppointmentPage() {
                                                                                                                                                                             appoint[5], 
                                                                                                                                                                             appoint[6],
                                                                                                                                                                             appoint[7])}>Details</button>
-                                                <button className="btn btn-danger" onClick={() => deleteHandler(appoint[0])}>Delete</button>
+                                             
                                             </td>
+                                            <td>   <button className="btn btn-danger" onClick={() => deleteHandler(appoint[0])}>Delete</button></td>
                                         </tr>
                                     ))
                                 }
@@ -139,9 +141,14 @@ export default function AppointmentPage() {
             <div className="table-wrapper">
                 <div className="table-title">
                     <div className="row">
-                        <div className="col-sm-6">
-                            <h2>Manage Appointment</h2>
-                        </div>
+                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+									<h2 class="ml-lg-2">Manage Appointment</h2>
+								</div>
+								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+									<a href="#" class="btn btn-success" data-toggle="modal">
+										<span>Visit Schedule</span>
+									</a>
+								</div>
                     </div>
                 </div>
                 <table className="table table-striped table-hover">

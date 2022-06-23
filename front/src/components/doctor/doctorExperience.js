@@ -53,7 +53,7 @@ export default function DoctorExperience(props){
         <div className="card-body">
             <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 className="mb-2 text-primary">Experiences</h6>
+                    <h6 className="mb-2 text-primary"><i class="fa fa-hospital-o" aria-hidden="true"id="fontawesomeSpace"></i>Experiences</h6>
                 </div>
                 {
                     Experience.map((value, index)=>(
