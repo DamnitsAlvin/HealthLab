@@ -475,6 +475,7 @@ def getDoctor():
         print(e)
         return jsonify({"error": e}), 404
 
+#add more logic
 @doc_api.route("/setappointment", methods=["POST"])
 def updateAppointmentStatus():
     if request.method == 'POST':
@@ -482,8 +483,46 @@ def updateAppointmentStatus():
         app_id = request.json.get("id")
         status = request.json.get("status")
         try:
-            cur.execute("UPDATE `appointment_request` SET `Status`= %s WHERE `Appointment_Id`=%s", (status, app_id))
-            cur.connection.commit()
+            if status == "Accepted":
+                response = cur.execute("SELECT Doctor_id, Appointment_date FROM `appointment_request` WHERE Appointment_Id=%s", (app_id, ))
+                det = cur.fetchone()
+
+                response = cur.execute("SELECT * FROM `appointment_request` WHERE Doctor_id=%s AND Appointment_date=%s AND Status='Accepted' ORDER BY date_created", (det[0], det[1]))
+                time = cur.fetchall()
+                
+                times = list()
+                apt_time = "09:00"
+                hasTime = False
+                for i in range(0, len(time)):
+                    if time[i][4]:
+                        times.append(time[i][4].split(":"))
+                        hasTime = True
+
+                hour_max = 0 
+                min_max = 0
+                time_index = 0 
+                if hasTime:
+                    # find the largest hour
+                    for i in range(0, len(times)):
+                        if int(times[i][0]) > time_max:
+                            time_max = times[i][0]
+                            time_index = i
+                    
+                    if time_index != len(times)-1: 
+                        if time_index + 1 == len(times):
+                            apt_time = str(time)
+                    else: 
+                        if(time_max>9):
+                            apt_time = str(time_max) + ":00"
+                        else:
+                            apt_time = "0"+str(time_max)+":00"
+                
+                cur.execute("UPDATE `appointment_request` SET `Status`= %s, Queue=%s WHERE `Appointment_Id`=%s", (status, response+1, app_id))
+                cur.connection.commit()
+            else:
+                cur.execute("UPDATE `appointment_request` SET `Status`= %s WHERE `Appointment_Id`=%s", (status, app_id))
+                cur.connection.commit()
+
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e:

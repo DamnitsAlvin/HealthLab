@@ -26,6 +26,7 @@ export default function Invoice(){
                     <span className="code">#{displayData && displayData.app_req[0]}  (appointment number)</span>
                 </div>
                 <div className="top-right">
+                    <div className="date">Queue Number: {displayData && displayData.app_req[9]} </div>
                     <div className="date">Date: {displayData && displayData.app_req[3]} </div>
                     <div className="date">Date Booked: {displayData && displayData.app_req[8].split(" ")[0]}</div>
                 </div>
