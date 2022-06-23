@@ -5,10 +5,12 @@ import { deleteAppointment, getAppointments } from "../actions/userActions"
 import QRCode from 'qrcode'
 
 
+
 export default function AppointmentPage() {
     const dispatch = useDispatch()
     const getAppoint = useSelector(x => x.userAppointment)
     const {appointments, message } = getAppoint
+
     const delAppoint = useSelector(x => x.deleteAppointment)
     const setAppoint = useSelector(x => x.setAppointmentMode)
     const {setAppointsuccess} = setAppoint
@@ -26,6 +28,8 @@ export default function AppointmentPage() {
     useEffect(() => {
         dispatch(getAppointments(userInfo.data[0], userInfo.data[2]))
     }, [dispatch, DeleteSuccess, setAppointsuccess])
+
+    
 
     const deleteHandler = (appointId) => {
         if (window.confirm(`Are you sure you want to delete appointment ${appointId}?`) == true) {
@@ -52,7 +56,9 @@ export default function AppointmentPage() {
         </div>
         `
     }
-
+   
+    
+  
     const downloadPDF = () =>{
         // if(file){
         //     saveAs(file, 'slip.pdf')
@@ -61,7 +67,6 @@ export default function AppointmentPage() {
 
     return (
         <>
-
             <div className="tableform">
                 <div className="table-wrapper">          
         {
@@ -200,7 +205,7 @@ export default function AppointmentPage() {
                 <div className="table-title">
                     <div className="row">
                         <div className="col-sm-6">
-                            <div class="container-fluid">
+                            <div className="container-fluid">
                             <h2>Current Appointment</h2>
                             </div>
                         </div>
@@ -269,7 +274,7 @@ export default function AppointmentPage() {
 
 
                     {/*MODAL*/}
-                    <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -295,22 +300,22 @@ export default function AppointmentPage() {
                     </div>
 
                      {/*MODAL ACCEPT*/}
-                     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="viewModal">Manage Appointment</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <div className="modal fade" id="viewModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="viewModal">Manage Appointment</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <p>Are you sure you want to accept the requested appointment?</p>
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Accepted")}><i class="fa-solid fa-circle-check"></i> Accept</button>
-                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close" ><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                <div className="modal-footer">
+                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Accepted")}><i className="fa-solid fa-circle-check"></i> Accept</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close" ><i className="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
                         </div>
@@ -318,22 +323,22 @@ export default function AppointmentPage() {
                      {/*MODAL ACCEPT*/}
 
                        {/*MODAL REJECT*/}
-                       <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="reject">Manage Appointment</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <div className="modal fade" id="rejectModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="reject">Manage Appointment</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     <p>Are you sure you want to reject this user?</p>
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Declined")}><i class="fa-solid fa-circle-check"></i> Reject</button>
-                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                <div className="modal-footer">
+                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Declined")}><i className="fa-solid fa-circle-check"></i> Reject</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i className="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
                         </div>
