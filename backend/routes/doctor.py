@@ -493,31 +493,23 @@ def updateAppointmentStatus():
                 times = list()
                 apt_time = "09:00"
                 hasTime = False
+                hour = 0 
+                minute = 0
                 for i in range(0, len(time)):
                     if time[i][4]:
-                        times.append(time[i][4].split(":"))
+                        times.append(time[i][4])
                         hasTime = True
-
-                hour_max = 0 
-                min_max = 0
-                time_index = 0 
                 if hasTime:
-                    # find the largest hour
-                    for i in range(0, len(times)):
-                        if int(times[i][0]) > time_max:
-                            time_max = times[i][0]
-                            time_index = i
-                    
-                    if time_index != len(times)-1: 
-                        if time_index + 1 == len(times):
-                            apt_time = str(time)
-                    else: 
-                        if(time_max>9):
-                            apt_time = str(time_max) + ":00"
-                        else:
-                            apt_time = "0"+str(time_max)+":00"
+                    tom = max(times).split(":")
+                    if int(tom[1]) + 30 == 60:
+                        hour = int(tom[0])
+                        minute = "00"
+                    else:
+                        hour = tom[0]
+                        minute = "30"
+                    apt_time = str(hour) + ":" +str(minute)
                 
-                cur.execute("UPDATE `appointment_request` SET `Status`= %s, Queue=%s WHERE `Appointment_Id`=%s", (status, response+1, app_id))
+                cur.execute("UPDATE `appointment_request` SET `Status`= %s, Queue=%s, Appointment_time=%s WHERE `Appointment_Id`=%s", (status, response+1,apt_time, app_id))
                 cur.connection.commit()
             else:
                 cur.execute("UPDATE `appointment_request` SET `Status`= %s WHERE `Appointment_Id`=%s", (status, app_id))
