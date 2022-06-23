@@ -23,6 +23,9 @@ import Chatbot from './components/chatbot';
 import UserProfile from './screens/userProfile';
 import Kalendaryo from './components/calendar';
 import ServiceProfile from './screens/serviceprofile';
+import Invoice from './screens/invoice';
+import ServicePage from './screens/servicepage';
+
 
 function App() {
   
@@ -105,6 +108,7 @@ function App() {
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
 				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
+				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
 
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
@@ -121,6 +125,7 @@ function App() {
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
 				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
+				<Route path="/invoice" element={<Invoice></Invoice>} />
 				
 			</Routes>
 			<Chatbot></Chatbot>

@@ -41,9 +41,14 @@ export default function RegisterService(){
     const submitHandler = (event) =>{
         event.preventDefault()
         const id = generateServiceID()
+        setserviceInfo((serviceInfo) =>{
+            console.log(serviceInfo)
+            saveToDatabase(serviceInfo)
+            return serviceInfo
+        }) 
         if(servicePic){
             const extension = fileName.split(".")[1]
-            const filedet = id +"Image."+extension
+            const filedet = "/uploads/" +id +"Image."+extension
 
             const formData = new FormData()
             formData.append('id', id)
@@ -57,11 +62,7 @@ export default function RegisterService(){
                 )   
             })
         } 
-        setserviceInfo((serviceInfo) =>{
-            console.log(serviceInfo)
-            saveToDatabase(serviceInfo)
-            return serviceInfo
-        }) 
+       
     }
     const saveToDatabase = async(info) =>{
         const response = await axios.post("http://localhost:5000/api/registerService", {"Info": Object.values(info)})

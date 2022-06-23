@@ -14,6 +14,7 @@ export default function AppointmentPage() {
     const {setAppointsuccess} = setAppoint
 
     const [file, setFile] = useState()
+    const [appointID, setappointID] = useState(0)
 
     const { DeleteSuccess } = delAppoint
 
@@ -36,7 +37,7 @@ export default function AppointmentPage() {
     }
     const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(`http://localhost:3000/appointments/${id}`).then((setSrc));
+        QRCode.toDataURL(`http://192.168.0.19:3000/invoice?appointID=${id}`).then((setSrc));
         const data = generatePDF()
     }
     const generatePDF = () =>{
@@ -60,7 +61,7 @@ export default function AppointmentPage() {
 
     return (
         <>
-<div className="wow fadeInDown" data-wow-delay="0.1s">
+
             <div className="tableform">
                 <div className="table-wrapper">          
         {
@@ -100,7 +101,7 @@ export default function AppointmentPage() {
                                     appointments.Appointments.map((appoint,index) => (
                                         <tr key={index}>
                                             <td>
-                                                {appoint[0]}
+                                                <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                             </td>
                                             <td>{appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2]}</td>
                                             <td>{"Dr. " + appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2]}</td>
@@ -160,7 +161,7 @@ export default function AppointmentPage() {
                                 !appoint[5].length > 0 && (
                                     <tr key={index}>
                                     <td>
-                                        {appoint[0]}
+                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                     </td>
                                     <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                     <td>{appoint[3]}</td>
@@ -183,8 +184,8 @@ export default function AppointmentPage() {
                                     <td>{appoint[6]}</td>
                                     <td>{appoint[7]}</td>
                                     <td className="pepeFlex">
-                                        <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" ><i className="fa-solid fa-circle-check"></i></button>
-                                        <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal"><i className="fa-solid fa-rectangle-xmark"></i></button>
+                                        <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" onClick={()=>setappointID(appoint[0])}><i className="fa-solid fa-circle-check"></i></button>
+                                        <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal" onClick={()=>setappointID(appoint[0])}><i className="fa-solid fa-rectangle-xmark"></i></button>
                                     </td>
                                 </tr>
                                     )
@@ -228,7 +229,7 @@ export default function AppointmentPage() {
                             appoint[5].length > 0 && (
                                 <tr key={index}>
                                 <td>
-                                    {appoint[0]}
+                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
                                 </td>
                                 <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                 <td>{appoint[3]}</td>
@@ -308,8 +309,8 @@ export default function AppointmentPage() {
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Accept</button>
-                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                                    <button className="btn btn-success" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Accepted")}><i class="fa-solid fa-circle-check"></i> Accept</button>
+                                    <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close" ><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +332,7 @@ export default function AppointmentPage() {
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-circle-check"></i> Reject</button>
+                                    <button className="btn btn-warning" id="pepeButo" data-dismiss="modal" aria-label="Close" onClick={()=>doctorActionHandler(appointID, "Declined")}><i class="fa-solid fa-circle-check"></i> Reject</button>
                                     <button className="btn btn-danger" id="pepeButo" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark" id="closeShit"></i> Close</button>
                                 </div>
                             </div>
@@ -340,7 +341,7 @@ export default function AppointmentPage() {
                          {/*MODAL REJECT*/}
                          </div>
                 </div>
-            </div>
+            
         </>
     );
 }

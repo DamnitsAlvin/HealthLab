@@ -1,0 +1,25 @@
+@test_api.route("/serviceBackup", methods=["GET"])
+def backuponly():
+    #if type(time[i][1]) is not str:
+                    avail_time = time[i][2:6]
+                    avail_time.insert(0, time[i][0])
+                    avail_time.append(time[i][1])
+                    cur.execute("UPDATE `service_available_time` SET `service_id`=%s,`open_time`=%s,`closing_time`=%s,`open_day`=%s,`close_day`=%s WHERE `id`=%s", (avail_time))
+                    cur.connection.commit()
+                else:
+
+
+    
+
+     loc = list()
+                response = cur.execute("SELECT * FROM `service_location` WHERE address_id=%s", (location[i][1], ))
+                if response > 0:
+                    print('if')
+                    loc = location[i][2:7]
+                    loc.insert(0, location[i][0])
+                    loc.append(location[i][1])
+                    print(loc)
+                    cur.execute("UPDATE `service_location` SET `service_id`=%s,`address`=%s,`barangay`=%s,`municipality`=%s,`province`=%s,`zip_code`=%s WHERE `address_id`=%s", (loc))
+                    cur.connection.commit()
+                else:
+                    print("else")
