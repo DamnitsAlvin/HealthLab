@@ -32,18 +32,11 @@ export default function RegisterDoctor(){
 
 
     const BasicInformationInputHandler = (event) =>{
-<<<<<<< HEAD
         //try 2
         const values = {...formState}
         values[event.target.name] = event.target.value
         setformState(values)
       
-=======
-        setformState({
-            ...formState, 
-            [event.target.name] : event.target.value
-        })
->>>>>>> origin/master
     }   
     
 
@@ -51,7 +44,6 @@ export default function RegisterDoctor(){
         var date = new Date(); 
         var time = date.getMinutes() +""+ date.getMilliseconds();
         var doctor_id = formState["first_name"] && formState["last_name"]  ? formState["first_name"].substring(0,1).toUpperCase()+"."+formState["last_name"].toUpperCase()+time: "";
-<<<<<<< HEAD
         const values = {...formState}
         values.doctor_id = doctor_id
         if(docImage){
@@ -63,42 +55,12 @@ export default function RegisterDoctor(){
         }
 
         setformState(values)
-=======
-        const value = {...formState}
-        value.doctor_id = doctor_id;
-        if(servicePic){
-            console.log("service picture was found ")
-            const extension = servicePic.name.split(".")[1]
-            const filename = `/uploads/${doctor_id}Image.${extension}`
-            const values = {...formState}
-            values.doctor_image = filename
-            setformState(values)
-        }
-        setformState(value)
-        
->>>>>>> origin/master
         return doctor_id
-    }
-
-    const imageFileHandler = (event) =>{
-        setdocImage(docImage=>{
-            return event.target.files[0]
-        })
     }
 
     const submitHandler = (e) =>{
         e.preventDefault(); 
         const doctor_id = generateDoctorId()
-<<<<<<< HEAD
-
-        setformState(formState =>{
-            console.log(formState)
-            dispatch(registerBasicInformationDoctor(formState))
-            return formState
-        })
-        if(docBasicReg){
-            console.log("Registration:", docBasicReg.register)
-=======
         console.log("Doctor ID: ", doctor_id)
         setformState(formState =>{
             dispatchAction(formState, doctor_id)
@@ -116,7 +78,6 @@ export default function RegisterDoctor(){
         console.log(`/success?username=${id}`)
         if(!error){
             navigate(`/success?username=${id}`)
->>>>>>> origin/master
         }
         // if(!error){
         //     navigate(`/success?username=${doctor_id}`)
@@ -179,11 +140,7 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                 <label className="col-form-label col-4">Doctor Image</label>    
                     <div className="row">
-<<<<<<< HEAD
                         <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event) =>  imageFileHandler(event)} /></div>
-=======
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event)=>imageFileHandler(event)} /></div>
->>>>>>> origin/master
                     </div> 
                 </div>
 

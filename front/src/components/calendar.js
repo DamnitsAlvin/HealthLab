@@ -4,11 +4,7 @@ import {format, getDay, parse, startOfWeek  } from "date-fns";
 import { Calendar, dateFnsLocalizer, Navigate } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getAppointments } from "../actions/userActions"
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom'
-=======
-import {useNavigate} from 'react-router-dom'
->>>>>>> origin/master
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../App.css";
