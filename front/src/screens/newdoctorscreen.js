@@ -58,7 +58,7 @@ export default function DoctorScreen(){
 
                     <div className="input-field first-wrap">
                         <div className="input-select">
-                        <select data-trigger="" name="choices-single-defaul"id="butones" onChange={dropdownHandler} value={category}>
+                        <select data-trigger="" name="choices-single-defaul" id="butones" onChange={dropdownHandler} value={category}>
                             <option>General Medicine</option>
                             <option>Neurology</option>
                             <option>Heart and Cardiology</option>
@@ -101,9 +101,10 @@ export default function DoctorScreen(){
                                 }
                             }).join("/")}</p>
                             <div className="skills">
-                                <a href="#" className="skill">General Medicine</a>
-                                <a href="#" className="skill">Dentistry</a>
-                                <a href="#" className="skill">Dermatologist</a>
+                                {
+                                    doctors && doctors.Specialization.filter((x) => x[0] == values[0] ).map((val) =>(<a href={`/doctor/${val[2]}`} className="skill">{val[2]}</a>))
+                                }
+                            
                             </div>
                             <p className="about">{values[8] == 0 ? "Online Consulation only" : 
                                                     values[8] == 1 ? "Face to Face Consulation only": 

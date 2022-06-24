@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import {format, getDay, parse, startOfWeek  } from "date-fns";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { Calendar, dateFnsLocalizer, Navigate } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getAppointments } from "../actions/userActions"
+import { useNavigate } from 'react-router-dom'
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../App.css";
@@ -55,7 +56,7 @@ const localizer = dateFnsLocalizer({
 
 export default function Kalendaryo(props){
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const getAppoint = useSelector(x => x.userAppointment)
     const {appointments, message } = getAppoint
 
@@ -188,7 +189,7 @@ export default function Kalendaryo(props){
             style={{height: 700, margin:"40px"}}>
 
             </Calendar>
-            <div><button type="button" className="btn btn-primary"id="calendarButton">View Appointment Table</button></div>
+            <div><button type="button" className="btn btn-primary"id="calendarButton" onClick={()=>navigate("/appointments")}>View Appointment Table</button></div>
           
         </div>
         

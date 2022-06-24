@@ -83,7 +83,7 @@ export default function DoctorPage(){
                             return x[1];
                         }
                     }).join(" ")}</small>
-                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={(evt)=>{bookDoctorHandler(values[0], values[8])}}>Book Doctor</button>
+                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={()=>{bookDoctorHandler(values[0], values[8])}}>Book Doctor</button>
                 </div>
                 <div className="flex-doctor-desc">
                     <p className="headerBook">Consultation Type</p> 

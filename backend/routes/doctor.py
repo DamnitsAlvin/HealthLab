@@ -33,20 +33,15 @@ def registerBasicInformationDoctor():
         password = request.json.get("password") 
         data = [
             doctor_id, 
-            firstname, 
-            middlename, 
-            lastname, 
-            birthday, 
-            phone, 
             email, 
-            consultation
+            "doctor"
         ]
         try:
-            response = cur.execute("INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `password`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (doctor_id, firstname, middlename, lastname, suffix, birthday, phone, email, consultation, "false", password))
+            response = cur.execute("INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`,`doctor_image`,`password`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (doctor_id, firstname, middlename, lastname, suffix, birthday, phone, email, consultation, "false", image, password))
             cur.connection.commit()
             cur.close()
             access_token = create_access_token(identity = doctor_id)
-            return jsonify({"access_token": access_token, "data": data}), 200
+            return jsonify({"register": True}), 200
 
         except Exception as e:
             print("Something went wrong: ", e)
@@ -81,7 +76,8 @@ def registerSpecialtyInformationDoctor():
             cur.connection.commmit()
             cur.close()
             return jsonify({"message": "Success"}), 200
-        except:
+        except Exception as e:
+            print(e)
             return jsonify({"message": "invalid operation on database "}), 404
 
 
@@ -466,11 +462,23 @@ def getDoctor():
             doc_id = cur.fetchall()
         response1 = cur.executemany("SELECT * FROM doctor WHERE `doctor_id`=%s", doc_id)
         data = cur.fetchall()
+        doc_spec = list()   
+        doc_title = list()
+        if response > 0: 
+            for i in range(0, len(data)):
+                doc = cur.execute("SELECT * FROM `doctor_specialty` WHERE doctor_id=%s", (data[i][0], ))
+                doc = cur.fetchall()
+                for i in range(0, len(doc)):
+                    doc_spec.append(doc[i])
+            
+            for i in range(0, len(data)):
+                response2 = cur.execute("SELECT * FROM doctor_title WHERE doctor_id=%s", (data[i][0], ))
+                title = cur.fetchall()
+                for i in range(0 ,len(title)):
+                    doc_title.append(title[i])
 
-        response2 = cur.executemany("SELECT * FROM doctor_title WHERE doctor_id=%s", doc_id)
-        titles = cur.fetchall()
-        print(data)
-        return jsonify({"data": data, "titles": titles})
+
+        return jsonify({"data": data, "titles": doc_title, "Specialization": doc_spec})
     except Exception as e: 
         print(e)
         return jsonify({"error": e}), 404
