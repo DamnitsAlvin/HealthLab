@@ -7,7 +7,7 @@ import QRCode from 'qrcode'
 
 
 export default function AppointmentPage() {
-    const dispatch = useDispatch()
+    
     const getAppoint = useSelector(x => x.userAppointment)
     const {appointments, message } = getAppoint
 
@@ -23,6 +23,7 @@ export default function AppointmentPage() {
     const { userInfo } = getUser
     const [src, setSrc] = useState("")
 
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getAppointments(userInfo.data[0], userInfo.data[2]))
@@ -55,7 +56,10 @@ export default function AppointmentPage() {
         </div>
         `
     }
-   
+    setTimeout(()=>{
+        const inter = document.getElementById('inter')
+        inter.style.display = "none"
+    },3000)
     
   
     const downloadPDF = () =>{
@@ -80,7 +84,7 @@ export default function AppointmentPage() {
                             </div>
                         </div>
                         {
-                        DeleteSuccess && (<div className="alert alert-success">Successfully deleted</div>)
+                        DeleteSuccess && (<div id= "inter" className="alert alert-success">Successfully deleted</div>)
                         }
                         <table className="table table-striped table-hover">
                             <thead>
@@ -89,9 +93,9 @@ export default function AppointmentPage() {
                                     <th>Patient Name</th>
                                     <th>Doctor Name</th>
                                     <th>Date</th>
-                                     
+                                     <th>Time</th>
                                     <th>Status</th>
-                                    <th>Description</th>
+                                  
                                     <th>Mode</th>
                                     <th>Action</th>
                                     <th>Action</th>
@@ -111,9 +115,9 @@ export default function AppointmentPage() {
                                             <td>{appointments.Name.find(ele => ele[0] == appoint[1])[1] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[2]}</td>
                                             <td>{"Dr. " + appointments.Doctor.find(ele => ele[0] == appoint[2])[1] + " " + appointments.Doctor.find(ele => ele[0] == appoint[2])[2]}</td>
                                             <td>{appoint[3]}</td>
-                                         
+                                            <td>{appoint[4]}</td>
                                             <td>{appoint[5]}</td>
-                                            <td>{appoint[6]}</td>
+                                           
                                             <td>{appoint[7]}</td>
                                             <td>
                                                 <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" onClick={() =>clickView(appoint[0], 

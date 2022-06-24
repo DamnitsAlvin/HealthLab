@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "concurrently \"nodemon ./chatbot_backend/index.js\" \"npm start\" ",
+    "dev": "concurrently \"nodemon ./chatbot_backend/index.js\" \"npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
