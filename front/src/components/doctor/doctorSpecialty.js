@@ -56,7 +56,16 @@ export default function DoctorSpecialty(props){
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Specialty</label>
-                                <input type="text" className="form-control" id="fullName" name="special" value={value.special} onChange={(event)=>SpecialtyChangeHandler(event, index)}/>
+                                <select className="form-control category-dropdown" value={value.special} onChange={(event)=>SpecialtyChangeHandler(event, index)}>
+                                    <option value="General Medicine">General Medicine</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Nephrology">Nephrology</option>
+                                    <option value="OB GYNE">OB GYNE</option>
+                                    <option value="Optalmology">Optalmology</option>
+                                    <option value="Dermatology">Dermatology</option>
+                                    <option value="Dentistry">Dentistry</option>
+                                </select>
                             </div>
                         </div>
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

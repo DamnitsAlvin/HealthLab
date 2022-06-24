@@ -82,7 +82,7 @@ export default function DoctorExperience(props){
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Last Date to the company</label>
-                                <input type="text" className="form-control"  name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="date" className="form-control"  name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

@@ -94,7 +94,16 @@ def getDoctorInformation():
     try:
         BasicInfo = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (doctor_id, ))
         Title = cur1.execute("SELECT * FROM doctor_title WHERE doctor_id=%s", (doctor_id,))
+
         DocTitle=""
+        Specialty = list()
+        Education = list()
+        Certification = list()
+        Experience = list()
+        Available_Online = list()
+        Available_Offline = list()
+        Payment = list()
+        ClinicAddress  = list()
         if BasicInfo > 0:
             BasicInfo = cur.fetchone()
             cur.connection.commit()
@@ -162,7 +171,8 @@ def getDoctorInformation():
                          }), 200
 
     except Exception as e: 
-        return jsonify({"message": e}), 404
+        print(e)
+        return jsonify({"message": "dunno"}), 404
 
 @doc_api.route("/doctor/update/personal", methods=["POST"])
 def updatePersonalInfo():

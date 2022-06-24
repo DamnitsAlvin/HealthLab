@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { DoctorAppoinmentStatus } from "../actions/doctorActions";
 import { deleteAppointment, getAppointments } from "../actions/userActions"
+import {useNavigate} from 'react-router-dom'
 import QRCode from 'qrcode'
 
 
@@ -10,7 +11,7 @@ export default function AppointmentPage() {
     
     const getAppoint = useSelector(x => x.userAppointment)
     const {appointments, message } = getAppoint
-
+    const navigate = useNavigate()
     const delAppoint = useSelector(x => x.deleteAppointment)
     const setAppoint = useSelector(x => x.setAppointmentMode)
     const {setAppointsuccess} = setAppoint
@@ -58,7 +59,10 @@ export default function AppointmentPage() {
     }
     setTimeout(()=>{
         const inter = document.getElementById('inter')
-        inter.style.display = "none"
+        if(inter){
+            inter.style.display = "none"
+        }
+        
     },3000)
     
   
@@ -149,7 +153,7 @@ export default function AppointmentPage() {
 								</div>
 								<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
 									<a href="#" class="btn btn-success" data-toggle="modal">
-										<span>Visit Schedule</span>
+										<span onClick={()=>navigate("/calendar")}>Visit Schedule</span>
 									</a>
 								</div>
                     </div>
