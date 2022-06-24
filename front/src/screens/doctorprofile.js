@@ -124,7 +124,7 @@ export default function Doctorprofile() {
                 <div className="account-settings">
                     <div className="user-profile">
                         <div className="user-avatar">
-                            <img src={DocBasicInfo ? DocBasicInfo.BasicInfo[10] : "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"id="pepe2"/>
+                            <img src={DocBasicInfo && DocBasicInfo.BasicInfo[10].length>0 ? DocBasicInfo.BasicInfo[10] : "https://bootdey.com/img/Content/avatar/avatar7.png"} id="pepe2"/>
                         </div>
                         <h3 className="user-name"id="pepeMo1">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
                         <h4 className="user-name" id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles}</h4>
@@ -133,14 +133,28 @@ export default function Doctorprofile() {
 
                     <div className="about">
                         <h5>Education</h5>
-                        <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                        {DocBasicInfo && DocBasicInfo.Education ? DocBasicInfo.Education.map(educ => (
+                                        <p>
+                                            {educ[2]} <br/>
+                                            {educ[3]} <br/>
+                                            {educ[4]} <br/>
+                                            {educ[6]}
+                                        </p> 
+                        )): (<></>)}
                        
                     </div>
                         
                         <div className="about">
-                            <h6>Certifications</h6>
-                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                           
+                            <h5>Certifications</h5>
+                                {DocBasicInfo && DocBasicInfo.Certification ? DocBasicInfo.Certification.map(cert =>(
+                                    <p>
+                                        {cert[2]}<br/>
+                                        {cert[3]}
+                                    </p>
+                                )): (<></>) }
+                            
+                            
+                        
                         </div>
                        
                 </div>
@@ -157,7 +171,7 @@ export default function Doctorprofile() {
             <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction}/>
             <DoctorSpecialty data={DocBasicInfo ? DocBasicInfo.Specialty : []} ParentFunction={SpecializationParentFunction}/>       
             <DoctorExperience data={DocBasicInfo ? DocBasicInfo.Experience : []} ParentFunction={ExperienceParentFunction}/>
-            <DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} ParentFunction={TitleParentFunction}/>
+            {/*<DoctorTitles data={DocBasicInfo ? DocBasicInfo.Titles.split(" , "): []} ParentFunction={TitleParentFunction}/>*/}
             <DoctorPayment data={DocBasicInfo ? DocBasicInfo.Payment: []} ParentFunction={PaymentParentFunction}/>
             <DoctorAvailableOnline data={DocBasicInfo ? DocBasicInfo.Available_Online: []} ParentFunction={availableOnlineParentFunction}/>
             <DoctorAvailableOffline address={DocBasicInfo ? DocBasicInfo.Clinic_Address: []} time={DocBasicInfo ? DocBasicInfo.Available_Offline: []} ParentFunction1={clinicaddressParentFunction} ParentFunction2={clinicTimeParentFunction}/>
