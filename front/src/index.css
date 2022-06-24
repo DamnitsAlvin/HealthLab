@@ -1265,7 +1265,7 @@ border-radius: 10px;
   bottom: 30px;
   right: 30px;
   z-index: 100;
-  transition: max-height 2s ease-out;
+  transition:  2s ease-out;
 }
 
 /* CONTENT IS CLOSE */
@@ -1279,6 +1279,7 @@ border-radius: 10px;
   opacity: 0;
   transition: all .5s ease-in-out;
   font-family: 'Varela Round', sans-serif;
+  
 }
 
 /* CONTENT ISOPEN */
@@ -1286,6 +1287,7 @@ border-radius: 10px;
   transform: translateY(-40px);
   z-index: 123456;
   opacity: 1;
+  
 
 }
 
@@ -1311,6 +1313,7 @@ border-radius: 10px;
   flex-direction: column;
   overflow-y: scroll;
   flex-direction: column-reverse;
+  
 }
 
 .messages__item {
@@ -2327,3 +2330,10 @@ img,
 #notespace{
   margin-bottom: 15px;
 }
+
+
+
+
+
+
+
