@@ -116,33 +116,33 @@ export default function DoctorScreen(){
                 }
                
             </div>
-                <div classNameName="bobo4">
-                    <div classNameName="demo">
-                        <nav classNameName="pagination-outer" aria-label="Page navigation">
-                            <ul classNameName="pagination">
-                                <li classNameName="page-item">
-                                    <a href="#" classNameName="page-link" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
-                                </li>
-                                <li classNameName="page-item"><a classNameName="page-link" href="#">1</a></li>
-                                <li classNameName="page-item"><a classNameName="page-link" href="#">2</a></li>
-                                <li classNameName="page-item active"><a classNameName="page-link" href="#">3</a></li>
-                                <li classNameName="page-item"><a classNameName="page-link" href="#">4</a></li>
-                                <li classNameName="page-item"><a classNameName="page-link" href="#">5</a></li>
-                                <li classNameName="page-item">
-                                    <a href="#" classNameName="page-link" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <p classNameName="bobo">Doctors Near You | Find the Right Doctor </p>
-                    <p classNameName="bobo2">Find the right doctor near you. Book an appointment today and be on your way to recovery.</p>
-                    <p classNameName="bobo3">Find the right doctor near you. Book an appointment today and be on your way to recovery.</p>
+
+            <div className="bobo4">
+                <div className="demo">
+                    <nav className="pagination-outer" aria-label="Page navigation">
+                        <ul className="pagination">
+                            <li className="page-item">
+                                <a href="#" className="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <li className="page-item"><a className="page-link" href="#">1</a></li>
+                            <li className="page-item"><a className="page-link" href="#">2</a></li>
+                            <li className="page-item active"><a className="page-link" href="#">3</a></li>
+                            <li className="page-item"><a className="page-link" href="#">4</a></li>
+                            <li className="page-item"><a className="page-link" href="#">5</a></li>
+                            <li className="page-item">
+                                <a href="#" className="page-link" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                </div>
+                <p className="bobo">Find the Right Doctor </p>
+                <p className="bobo2">Find the right Doctor near you. Book an appointment today and be on your way to recovery.</p>
+            </div>
+            </div>
         </>
     )
 }
