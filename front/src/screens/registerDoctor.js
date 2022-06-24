@@ -26,27 +26,33 @@ export default function RegisterDoctor(){
     const {docBasicReg, error} = selector
     const emailchecker = useSelector((x)=>x.emailCheck)
     const {emailError} = emailchecker
+    const [servicePic, setservicePic] = useState()
 
 
     const BasicInformationInputHandler = (event) =>{
-        //try 2
-        if(event.target.name=="doctor_image"){
-            setformState({
-                ...formState, 
-                ['doctor_image'] : event.target.files[0]
-            })
-        }else{
         setformState({
             ...formState, 
             [event.target.name] : event.target.value
         })
     }   
-    }
+    
 
     const generateDoctorId = () =>{
         var date = new Date(); 
         var time = date.getMinutes() +""+ date.getMilliseconds();
         var doctor_id = formState["first_name"] && formState["last_name"]  ? formState["first_name"].substring(0,1).toUpperCase()+"."+formState["last_name"].toUpperCase()+time: "";
+        const value = {...formState}
+        value.doctor_id = doctor_id;
+        if(servicePic){
+            console.log("service picture was found ")
+            const extension = servicePic.name.split(".")[1]
+            const filename = `/uploads/${doctor_id}Image.${extension}`
+            const values = {...formState}
+            values.doctor_image = filename
+            setformState(values)
+        }
+        setformState(value)
+        
         return doctor_id
     }
 
@@ -54,16 +60,22 @@ export default function RegisterDoctor(){
         e.preventDefault(); 
         const doctor_id = generateDoctorId()
         console.log("Doctor ID: ", doctor_id)
-        setformState({
-            ...formState, 
-            ["doctor_id"] : doctor_id
+        setformState(formState =>{
+            dispatchAction(formState, doctor_id)
+            return formState
         })
-        dispatchAction()
+       
     }   
-    const dispatchAction = () =>{
-        dispatch(registerBasicInformationDoctor(formState))
+    const imageFileHandler = (event) =>{
+        console.log("Triggered image file handler")
+        setservicePic(event.target.files[0])
+    }
+
+    const dispatchAction = (form, id) =>{
+        dispatch(registerBasicInformationDoctor(form))
+        console.log(`/success?username=${id}`)
         if(!error){
-            navigate("/success")
+            navigate(`/success?username=${id}`)
         }
     }
     useEffect(()=>{
@@ -115,7 +127,7 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                 <label className="col-form-label col-4">Doctor Image</label>    
                     <div className="row">
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={BasicInformationInputHandler} /></div>
+                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event)=>imageFileHandler(event)} /></div>
                     </div> 
                 </div>
 

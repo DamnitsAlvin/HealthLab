@@ -121,7 +121,6 @@ export const register = (User_id,First_name,Last_name,Middle_name, Birthday, Gen
             "password": password
         })
         dispatch({type: USER_REGISTER_SUCCESS, payload: data })
-        dispatch({type: USER_SIGNIN_SUCCESS, payload: data })
 
         // const resp = await fetch("http://localhost:5000/api/userreg", params);
         // const data = await resp.json();

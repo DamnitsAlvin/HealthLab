@@ -94,7 +94,7 @@ def getDoctorInformation():
     try:
         BasicInfo = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (doctor_id, ))
         Title = cur1.execute("SELECT * FROM doctor_title WHERE doctor_id=%s", (doctor_id,))
-        
+        DocTitle=""
         if BasicInfo > 0:
             BasicInfo = cur.fetchone()
             cur.connection.commit()
