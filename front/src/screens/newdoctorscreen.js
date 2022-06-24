@@ -51,7 +51,8 @@ export default function DoctorScreen(){
 
     return(
         <>
-            <div classNameName="wow fadeInDown" data-wow-delay="0.1s">
+
+            <div classNameName="wow fadeInDown" data-wow-delay="0.2s">
             <div className="s003">
                 <form>
                 <div className="inner-form">
@@ -94,7 +95,7 @@ export default function DoctorScreen(){
                             <p className="price" onClick={()=>{viewDoctorHander(values[0])}}>View</p>
                             <p className="online">Active</p>
                             <img src={values[10] ? values[10]: "https://bootdey.com/img/Content/avatar/avatar7.png"} alt='profile image' className="profile-img"/>
-                            <h1 className='name'id='nametag'>Dr. {`${values[1]} ${values[2]} ${values[3]} `}</h1>
+                            <h1 className='name'id='nametag'><i class="fa fa-check-circle-o" aria-hidden="true"id='verified'></i>Dr. {`${values[1]} ${values[2]} ${values[3]} `}</h1>
                             <p className='occupation'id='occupations'>{ doctors && doctors.titles.map((x)=>{
                                 if(x[0] == values[0]){
                                     return x[1];
@@ -115,6 +116,7 @@ export default function DoctorScreen(){
                         </div>
                     )):(<></>)
                 }
+                
                
             </div>
 
@@ -127,9 +129,9 @@ export default function DoctorScreen(){
                                     <span aria-hidden="true">«</span>
                                 </a>
                             </li>
-                            <li className="page-item"><a className="page-link" href="#">1</a></li>
+                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
                             <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item active"><a className="page-link" href="#">3</a></li>
+                            <li className="page-item"><a className="page-link" href="#">3</a></li>
                             <li className="page-item"><a className="page-link" href="#">4</a></li>
                             <li className="page-item"><a className="page-link" href="#">5</a></li>
                             <li className="page-item">

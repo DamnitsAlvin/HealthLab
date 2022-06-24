@@ -1860,113 +1860,15 @@ table.table .avatar {
 }
 
 /* New Doctor Screen */
-.wrapper-grid {
-  display: grid;
-  grid-template-columns: minmax(300px, 1fr);
-  grid-gap: 2rem;
-  justify-content: center;
-  font-family: 'D-DIN', sans-serif, FontAwesome;
-  
+
+#verified{
+  color: rgb(6, 212, 6);
+  margin-right: 5px;
+  font-size: 25px;
   
 }
 
-.cardo {
-  overflow: hidden;
-  box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
-  background-color: white;
-  text-align: center;
-  border-radius: 1rem;
-  position: relative;
-  
-  
-}
 
-.cardo .price{
-  font-size: 20px;
-  font-weight: 600;
-  position: absolute;
-  top:20px;
-  right: 20px;
-  transition: 0.5s;
-  cursor: pointer;
-}
-
-.cardo .price:hover{
-background-color:#38adb1;
-color: white;
-padding: 5px 30px;
-border-radius: 20px;
-}
-
-.cardo .online{
-background-color:#38adb1;
-color: white;
-padding: 5px 20px;
-position: absolute;
-top:20px;
-left: 20px;
-
-border-radius: 20px;
-}
-.cardo .occupation{
-margin-top: 5px;
-color: #888;
-text-align: center;
-margin-bottom: 5px;
-}
-
-
-.cardo .skills{
-display:flex;
-flex-wrap: wrap;
-padding:10px;
-justify-content: center;}
-
-.cardo .skills a {
-  text-decoration: none;
-  padding: 7px 10px;
-  border:1px solid #888;
-  color: #888;
-  border-radius: 20px;
-  font-size: 18px;
-  margin: 10px;
-  font-weight:500;
-}
-
-.cardo .about{
-color: #888;
-padding: 0 20px;
-display:block;
-text-align: center;
-font-size: 20px;
-}
-.cardo .about2{
-color: #888;
-padding: 0 20px;
-display:block;
-text-align: center;;
-margin-bottom: 20px;
-}
-
-
-.profile-img {
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
-  clip-path: circle(60px at center);
-  margin-top: 2.5rem;
-  margin-bottom: 10px;
-}
-
-#nametag{
-  font-size: 3rem;
-}
-
-
-.description {
-  margin: 1rem 2rem;
-  font-size: 0.9rem;
-}
 
 
 .tanginamo {
@@ -1986,19 +1888,9 @@ margin-bottom: 20px;
   background-color: rgb(38, 174, 176);
   color: white;
 }
-
-
-@media screen and (min-width: 500px) {
-  .wrapper-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-
-@media screen and (min-width: 760px) {
-  .wrapper-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+#nametag{
+  font-size: 3rem;
+  margin-bottom: 5px;
 }
 
 .wrapper-grid {
@@ -2009,6 +1901,8 @@ margin-bottom: 20px;
   font-family: 'D-DIN', sans-serif, FontAwesome;
   margin: 1rem;
   margin-top:5rem;
+
+  padding: 10px 20px 0px 20px;
   
 }
 
@@ -2020,6 +1914,11 @@ margin-bottom: 20px;
   border-radius: 1rem;
   position: relative;
   
+}
+
+.cardo:hover{
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  transition: 0.5s;
 }
 
 .cardo .price{
@@ -2079,6 +1978,7 @@ padding: 0 20px;
 display:block;
 text-align: center;
 font-size: 20px;
+margin-bottom: 10px;
 }
 .cardo .about2{
 color: #888;
@@ -2094,7 +1994,7 @@ margin-bottom: 20px;
   width: 100px;
   border-radius: 100%;
   clip-path: circle(60px at center);
-  margin-top: 2.5rem;
+  margin-top: 3.5rem;
   margin-bottom: 10px;
 }
 
@@ -2349,7 +2249,7 @@ margin-bottom: 20px;
     width: 100%;
   }
 }
-#butones, select{
+.input-select #butones{
   width: 100%;
   height:100%;
   text-align: center;

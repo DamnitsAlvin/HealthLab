@@ -175,7 +175,7 @@ export default function Doctorprofile() {
         
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div className="text-right-jonathan">
-                    <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" onClick={submitHandler}>Save Information</button>
+                    <button type="button" id="submitJonathan" name="submit" className="btn btn-primary" disabled={Updateloading} onClick={submitHandler}>Save Information</button>
                 </div>
             </div>
             
