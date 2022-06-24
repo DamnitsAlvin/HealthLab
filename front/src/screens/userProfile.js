@@ -14,7 +14,7 @@ export default function UserProfile(){
     const {UserDetails} = getUserDetail
 
     const getUpdateStats = useSelector(x=>x.updateUserInfo)
-    const {UpdateUser} = getUpdateStats
+    const {loading, UpdateUser} = getUpdateStats
     const [data, setData] = useState(UserDetails ? UserDetails.userData: [])
     const [fileChange, setfileChange] = useState(false)
     const [userImage, setuserImage] = useState("")
@@ -89,6 +89,11 @@ export default function UserProfile(){
         if(UpdateUser){
             dispatch(GetUserProfile(userInfo.data[0]))
         }
+
+        setTimeout(()=>{
+            const inter = document.getElementById("inter")
+            inter.style.display = "none"
+        }, 3000)
         //action update personal info of doctor
     }
     
@@ -202,13 +207,17 @@ export default function UserProfile(){
                    
                 </div>
                 
-
+                <div className="row gutters">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        {UpdateUser ? <div id="inter" className="alert alert-success">Successfully Updated!</div>: UpdateUser ?<div id="inter"  className="alert alert-danger">Record update failed!</div> : <></>}     
+                    </div>
+                </div>
                 
 
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={submitHandler}>Update</button>
+                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={submitHandler} disabled={loading}>Update</button>
                         </div>
                     </div>
                 </div>

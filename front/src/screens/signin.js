@@ -32,7 +32,9 @@ export default function SignIn(props){
     const dispatch = useDispatch();
     const submitHandler = (e) =>{
         e.preventDefault();
+        console.log("Clicked submit")
         dispatch(usersignin(ID,password, userType))
+        
     }
     useEffect(()=>{
       if(userInfo){
@@ -52,7 +54,7 @@ export default function SignIn(props){
             <div>
               <h1>ACCOUNT LOGIN</h1>
               <p class="parag">Login here using Email and Password</p>
-              {error && <div className="alert alert-danger">Invalid password</div>}
+              {error && <div className="alert alert-danger">Invalid Credentials</div>}
               
             </div>
             <div>
@@ -78,7 +80,7 @@ export default function SignIn(props){
             </div>
             <div>
               <label />
-              <button className="btn signin-submit" type="submit">
+              <button className="btn signin-submit" type="submit" disabled={loading}>
                 Sign In
               </button>
             </div>
