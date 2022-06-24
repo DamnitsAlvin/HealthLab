@@ -185,11 +185,15 @@ export default function Kalendaryo(props){
             events={allEvents} 
             startAccessor="start" 
             endAccessor="end"
-            style={{height: 500, margin:"50px"}}>
+            style={{height: 700, margin:"40px"}}>
 
             </Calendar>
+            <div><button type="button" className="btn btn-primary"id="calendarButton">View Appointment Table</button></div>
+          
         </div>
+        
         </div>
+        
         </div>
     )
 }

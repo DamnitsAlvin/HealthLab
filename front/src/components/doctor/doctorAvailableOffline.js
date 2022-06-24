@@ -104,7 +104,7 @@ export default function DoctorAvailableOffline(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Available Offline Information</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-calendar-times-o" aria-hidden="true"id="fontawesomeSpace"></i>Available Offline Information</h6>
                         </div>
                         {Address.map((value, index)=>(
                             <>
@@ -189,7 +189,7 @@ export default function DoctorAvailableOffline(props){
                                     </div>
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div className="text-right">
-                                                <button type="button" className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
+                                                <button type="button" id="marginBottom"className="btn btn-danger" onClick={()=>{removeTime(index)}}>Remove Time</button>
                                             </div>
 
                                     </div>
