@@ -65,7 +65,7 @@ export default function Invoice(){
                     <tfoot>
                         <tr className="total">
                             <td className="name">APPOINTMENT STATUS</td>
-                            <td colspan="2" className="number">{displayData && displayData.app_req[5]}</td>
+                            <td colspan="2" className="number">{displayData && displayData.app_req[5].length >0 ? displayData.app_req[5] : "On-Queue" }</td>
                         </tr>
                     </tfoot>
                 </table>

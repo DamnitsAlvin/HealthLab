@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registerBasicInformationDoctor } from "../actions/doctorActions";
+import { registerBasicInformationDoctor,UpdateImage } from "../actions/doctorActions";
 import Accordion from "../components/accordion"; 
 import { useNavigate } from "react-router-dom";
 import { checkEmail } from "../actions/userActions";
 
 export default function RegisterDoctor(){
     const dispatch = useDispatch()
+    const dispatch1 = useDispatch()
     const [confirm_password, setConfirmpassword] = useState("")
     const [formState, setformState] = useState({
         doctor_id: "",
@@ -23,52 +24,72 @@ export default function RegisterDoctor(){
     })
     const navigate = useNavigate()
     const selector = useSelector((x)=>x.doctorBasicRegister)
-    const {docBasicReg, error} = selector
+    const {loading, docBasicReg, error} = selector
+    const [docImage, setdocImage] = useState()
     const emailchecker = useSelector((x)=>x.emailCheck)
     const {emailError} = emailchecker
 
 
     const BasicInformationInputHandler = (event) =>{
         //try 2
-        if(event.target.name=="doctor_image"){
-            setformState({
-                ...formState, 
-                ['doctor_image'] : event.target.files[0]
-            })
-        }else{
-        setformState({
-            ...formState, 
-            [event.target.name] : event.target.value
-        })
+        const values = {...formState}
+        values[event.target.name] = event.target.value
+        setformState(values)
+      
     }   
-    }
+    
 
     const generateDoctorId = () =>{
         var date = new Date(); 
         var time = date.getMinutes() +""+ date.getMilliseconds();
         var doctor_id = formState["first_name"] && formState["last_name"]  ? formState["first_name"].substring(0,1).toUpperCase()+"."+formState["last_name"].toUpperCase()+time: "";
+        const values = {...formState}
+        values.doctor_id = doctor_id
+        if(docImage){
+            const formData = new FormData()
+            formData.append('id', doctor_id)
+            formData.append('file', docImage)
+            dispatch1(UpdateImage(formData))
+            values.doctor_image = `/uploads/${doctor_id}Image.${docImage.name.split(".")[1]}`
+        }
+
+        setformState(values)
         return doctor_id
+    }
+
+    const imageFileHandler = (event) =>{
+        setdocImage(docImage=>{
+            return event.target.files[0]
+        })
     }
 
     const submitHandler = (e) =>{
         e.preventDefault(); 
         const doctor_id = generateDoctorId()
-        console.log("Doctor ID: ", doctor_id)
-        setformState({
-            ...formState, 
-            ["doctor_id"] : doctor_id
+
+        setformState(formState =>{
+            console.log(formState)
+            dispatch(registerBasicInformationDoctor(formState))
+            return formState
         })
-        dispatchAction()
-    }   
-    const dispatchAction = () =>{
-        dispatch(registerBasicInformationDoctor(formState))
-        if(!error){
-            navigate("/success")
+        if(docBasicReg){
+            console.log("Registration:", docBasicReg.register)
         }
-    }
+        // if(!error){
+        //     navigate(`/success?username=${doctor_id}`)
+        // }
+    }   
+
+    
     useEffect(()=>{
         dispatch(checkEmail(formState.email))
     }, [formState.email])
+
+
+    setTimeout(() => {
+        const inter = document.getElementById("inter")
+        inter.style.display = "none"
+    }, 3000);
 
     return(
         <form method="post" onSubmit={submitHandler} encType="multipart/form-data" >
@@ -115,7 +136,7 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                 <label className="col-form-label col-4">Doctor Image</label>    
                     <div className="row">
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={BasicInformationInputHandler} /></div>
+                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event) =>  imageFileHandler(event)} /></div>
                     </div> 
                 </div>
 
@@ -146,8 +167,9 @@ export default function RegisterDoctor(){
               
                 <div className="form-group">
                     <div className="hint-text">Already have an account? <a href="/signin">Login here</a></div>
+                    {error ? <div className= "alert alert-danger" id="inter">Save Failed</div> : !error ? <div id="inter" className="alert alert-success">Saved successfully</div> : <></>}
                     <div className="leftSubmit">
-                        <button type="submit" className="btn btn-info btn-lg" >Submit</button>
+                        <button type="submit" className="btn btn-info btn-lg" disabled={loading}>Submit</button>
                     </div>
                 </div>
             </div>

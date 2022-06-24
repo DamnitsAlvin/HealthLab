@@ -46,7 +46,11 @@ export default function CreateAppointmentSlip(props){
     useEffect(()=>{
         setAppointmentRequest("PTR"+time);
     }, []);
-  
+
+    
+    const removeappointmentsuccess = () => async(dispatch) =>{
+        dispatch({type: 'REMOVE_APPOINTMENT_SUCCESS'})
+    }
    
     const NextHandler = (e) =>{
         e.preventDefault();  
@@ -60,6 +64,7 @@ export default function CreateAppointmentSlip(props){
     }
     useEffect(()=>{
         if(SaveAppointment && SaveAppointment.success){
+            dispatch(removeappointmentsuccess())
             navigate("/appointments")
         }
     }, [SaveAppointment])
@@ -83,7 +88,7 @@ export default function CreateAppointmentSlip(props){
     return(
 
         <div className="signup-form">
-            <form onSubmit={NextHandler}>
+            <form >
             <h2 id="colorh2">Appointment Request</h2>
             <p>Please fill in this form to create an appointment requests!</p>
             <hr/>
@@ -161,7 +166,7 @@ export default function CreateAppointmentSlip(props){
 
             <div className="form-group">
                 <label className="control-label" htmlFor="date">Preferred Date</label>
-                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>dateHandler(e)} required/>
+                <input type="date"  placeholder="Preferred Date" className="form-control input-md" required onChange={e=>dateHandler(e)} />
             </div>
             {/** Here goes the message if date is not available */
                 dateFull && <div className="alert alert-danger">Schedule is already full</div>
@@ -172,7 +177,7 @@ export default function CreateAppointmentSlip(props){
             
             <div className="form-group">
                     <button className="btn btn-primary btn-lg cancelButton" onClick={cancelHandler} >Cancel</button>
-                    <button type="submit" className="btn btn-primary btn-lg" disabled={dateFull}>Next</button>  
+                    <button type="submit" className="btn btn-primary btn-lg" disabled={dateFull} onClick={NextHandler}>Next</button>  
             </div>
             
 		

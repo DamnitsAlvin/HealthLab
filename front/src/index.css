@@ -1859,6 +1859,507 @@ table.table .avatar {
   border-top: none;
 }
 
+/* New Doctor Screen */
+.wrapper-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr);
+  grid-gap: 2rem;
+  justify-content: center;
+  font-family: 'D-DIN', sans-serif, FontAwesome;
+  
+  
+}
+
+.cardo {
+  overflow: hidden;
+  box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
+  background-color: white;
+  text-align: center;
+  border-radius: 1rem;
+  position: relative;
+  
+  
+}
+
+.cardo .price{
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  top:20px;
+  right: 20px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.cardo .price:hover{
+background-color:#38adb1;
+color: white;
+padding: 5px 30px;
+border-radius: 20px;
+}
+
+.cardo .online{
+background-color:#38adb1;
+color: white;
+padding: 5px 20px;
+position: absolute;
+top:20px;
+left: 20px;
+
+border-radius: 20px;
+}
+.cardo .occupation{
+margin-top: 5px;
+color: #888;
+text-align: center;
+margin-bottom: 5px;
+}
+
+
+.cardo .skills{
+display:flex;
+flex-wrap: wrap;
+padding:10px;
+justify-content: center;}
+
+.cardo .skills a {
+  text-decoration: none;
+  padding: 7px 10px;
+  border:1px solid #888;
+  color: #888;
+  border-radius: 20px;
+  font-size: 18px;
+  margin: 10px;
+  font-weight:500;
+}
+
+.cardo .about{
+color: #888;
+padding: 0 20px;
+display:block;
+text-align: center;
+font-size: 20px;
+}
+.cardo .about2{
+color: #888;
+padding: 0 20px;
+display:block;
+text-align: center;;
+margin-bottom: 20px;
+}
+
+
+.profile-img {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  clip-path: circle(60px at center);
+  margin-top: 2.5rem;
+  margin-bottom: 10px;
+}
+
+#nametag{
+  font-size: 3rem;
+}
+
+
+.description {
+  margin: 1rem 2rem;
+  font-size: 0.9rem;
+}
+
+
+.tanginamo {
+  width: 100%;
+  border: none;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  padding: 1.5rem;
+  background-color: var(--clr-primary);
+  font-family: 'D-DIN', sans-serif;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.tanginamo:hover{
+  background-color: rgb(38, 174, 176);
+  color: white;
+}
+
+
+@media screen and (min-width: 500px) {
+  .wrapper-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media screen and (min-width: 760px) {
+  .wrapper-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wrapper-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr);
+  grid-gap: 2rem;
+  justify-content: center;
+  font-family: 'D-DIN', sans-serif, FontAwesome;
+  margin: 1rem;
+  margin-top:5rem;
+  
+}
+
+.cardo {
+  overflow: hidden;
+  box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
+  background-color: white;
+  text-align: center;
+  border-radius: 1rem;
+  position: relative;
+  
+}
+
+.cardo .price{
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  top:20px;
+  right: 20px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.cardo .price:hover{
+background-color:#38adb1;
+color: white;
+padding: 5px 30px;
+border-radius: 20px;
+}
+
+.cardo .online{
+background-color:#38adb1;
+color: white;
+padding: 5px 20px;
+position: absolute;
+top:20px;
+left: 20px;
+
+border-radius: 20px;
+}
+.cardo .occupation{
+margin-top: 5px;
+color: #888;
+text-align: center;
+margin-bottom: 5px;
+}
+
+.cardo .skills{
+display:flex;
+flex-wrap: wrap;
+padding:10px;
+justify-content: center;}
+
+.cardo .skills a {
+  text-decoration: none;
+  padding: 7px 10px;
+  border:1px solid #888;
+  color: #888;
+  border-radius: 20px;
+  font-size: 18px;
+  margin: 10px;
+  font-weight:500;
+}
+
+.cardo .about{
+color: #888;
+padding: 0 20px;
+display:block;
+text-align: center;
+font-size: 20px;
+}
+.cardo .about2{
+color: #888;
+padding: 0 20px;
+display:block;
+text-align: center;;
+margin-bottom: 20px;
+}
+
+
+.profile-img {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  clip-path: circle(60px at center);
+  margin-top: 2.5rem;
+  margin-bottom: 10px;
+}
+
+
+.name {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+
+.description {
+  margin: 1rem 2rem;
+  font-size: 0.9rem;
+}
+
+
+
+
+@media screen and (min-width: 500px) {
+  .wrapper-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media screen and (min-width: 760px) {
+  .wrapper-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.s003 {
+  margin-top: 150px;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.s003 form {
+  width: 100%;
+  max-width: 790px;
+}
+
+.s003 form .inner-form {
+  background: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.s003 form .inner-form .input-field {
+  height: 68px;
+}
+
+.s003 form .inner-form .input-field input {
+  height: 100%;
+  background: transparent;
+  border: 0;
+  display: block;
+  width: 100%;
+  padding: 10px 32px;
+  font-size: 16px;
+  color: #555;
+}
+
+.s003 form .inner-form .input-field input.placeholder {
+  color: #888;
+  font-size: 16px;
+}
+
+.s003 form .inner-form .input-field input:-moz-placeholder {
+  color: #888;
+  font-size: 16px;
+}
+
+.s003 form .inner-form .input-field input::-webkit-input-placeholder {
+  color: #888;
+  font-size: 16px;
+}
+
+.s003 form .inner-form .input-field input:hover,
+.s003 form .inner-form .input-field input:focus {
+  box-shadow: none;
+  outline: 0;
+  border-color: #fff;
+}
+
+.s003 form .inner-form .input-field.first-wrap {
+  width: 200px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__inner {
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  height: 100%;
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__list.choices__list--single {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  opacity: 1;
+  color: #888;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__list--single .choices__item {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  color: #555;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices[data-type*="select-one"]:after {
+  right: 30px;
+  border-color: #e5e5e5 transparent transparent transparent;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__list.choices__list--dropdown {
+  border: 0;
+  background: #fff;
+  padding: 20px 30px;
+  margin-top: 2px;
+  border-radius: 4px;
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__list.choices__list--dropdown .choices__item--selectable {
+  padding-right: 0;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background: #fff;
+  color: #63c76a;
+}
+
+.s003 form .inner-form .input-field.first-wrap .choices__list--dropdown .choices__item {
+  color: #555;
+  min-height: 24px;
+}
+
+.s003 form .inner-form .input-field.second-wrap {
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.s003 form .inner-form .input-field.third-wrap {
+  width: 74px;
+}
+
+.s003 form .inner-form .input-field.third-wrap .btn-search {
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  color: rgb(160, 159, 159);
+  border: 0;
+  cursor: pointer;
+ color: #3fbbc0;
+  transition: all .2s ease-out, color .2s ease-out;
+}
+
+.s003 form .inner-form .input-field.third-wrap .btn-search svg {
+  width: 16px;
+}
+
+.s003 form .inner-form .input-field.third-wrap .btn-search:hover {
+  background: #3fbbc0;
+  color: white;
+}
+
+.s003 form .inner-form .input-field.third-wrap .btn-search:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 500px) {
+  .s003 form .inner-form .input-field {
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .s003 form .inner-form {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .s003 form .inner-form .input-field {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .s003 form .inner-form .input-field input {
+    padding: 10px 15px;
+  }
+
+  .s003 form .inner-form .input-field.first-wrap {
+    width: 100%;
+    border-right: 0;
+  }
+
+  .s003 form .inner-form .input-field.first-wrap .choices__inner {
+    padding: 10px 15px;
+  }
+
+  .s003 form .inner-form .input-field.first-wrap .choices[data-type*="select-one"]:after {
+    right: 11.5px;
+    border-color: #e5e5e5 transparent transparent transparent;
+  }
+
+  .s003 form .inner-form .input-field.second-wrap {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .s003 form .inner-form .input-field.second-wrap input {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .s003 form .inner-form .input-field.third-wrap {
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+#butones, select{
+  width: 100%;
+  height:100%;
+  text-align: center;
+  border-color: white;
+  color: rgb(85, 85, 85);
+  padding: 23px;
+  
+ }
+
+
 
 .doctorArea {
   display: flex;

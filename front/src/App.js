@@ -25,6 +25,7 @@ import Kalendaryo from './components/calendar';
 import ServiceProfile from './screens/serviceprofile';
 import Invoice from './screens/invoice';
 import ServicePage from './screens/servicepage';
+import DoctorScreen from './screens/newdoctorscreen';
 
 
 function App() {
@@ -72,7 +73,7 @@ function App() {
                         <ul className="nav navbar-nav">
                           <li className="top"><Link to="/">Home</Link></li>
                           <li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
-                          <li className="top"><Link to="/service">Service</Link></li>
+                          <li className="top"><Link to="/service/Urinalysis">Service</Link></li>
                           {userInfo ? (
                             <li className="dropdown top">
                             <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
@@ -107,7 +108,6 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
-				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
 
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
@@ -117,7 +117,7 @@ function App() {
 				<Route path="/overview" element={<Overview/>}/>
 			
 				<Route exact path = "/" element={<Intro/>}/>
-
+				<Route path ="/doctor/:category" element={<DoctorScreen></DoctorScreen>}/>
 
 				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>

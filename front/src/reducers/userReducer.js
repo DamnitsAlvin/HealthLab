@@ -131,6 +131,8 @@ export const saveAppointmentReducer = (state={}, action) =>{
             return {loading: false, SaveAppointment: action.payload}
         case SAVE_APPOINTMENT_FAIL:
             return {loading:false, SaveAppointmentError: action.payload}
+        case "REMOVE_APPOINTMENT_SUCCESS":
+            return {SaveAppointment: false}
         default:
             return state; 
     }
