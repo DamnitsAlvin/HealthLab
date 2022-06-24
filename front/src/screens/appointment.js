@@ -40,7 +40,7 @@ export default function AppointmentPage() {
     }
     const clickView = (id, patient, doctor, date, time, status, desciption, mode) =>{
         console.log("called")
-        QRCode.toDataURL(`http://192.168.0.19:3000/invoice?appointID=${id}`).then((setSrc));
+        QRCode.toDataURL(`http://localhost:3000/invoice?appointID=${id}`).then((setSrc));
         const data = generatePDF()
     }
     const generatePDF = () =>{
