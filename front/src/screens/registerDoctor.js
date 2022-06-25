@@ -4,6 +4,7 @@ import { registerBasicInformationDoctor,UpdateImage } from "../actions/doctorAct
 import Accordion from "../components/accordion"; 
 import { useNavigate } from "react-router-dom";
 import { checkEmail } from "../actions/userActions";
+import axios from 'axios'
 
 export default function RegisterDoctor(){
     const dispatch = useDispatch()
@@ -29,6 +30,7 @@ export default function RegisterDoctor(){
     const emailchecker = useSelector((x)=>x.emailCheck)
     const {emailError} = emailchecker
     const [servicePic, setservicePic] = useState()
+    const [fileName, setFileName] = useState()
 
 
     const BasicInformationInputHandler = (event) =>{
@@ -46,14 +48,6 @@ export default function RegisterDoctor(){
         var doctor_id = formState["first_name"] && formState["last_name"]  ? formState["first_name"].substring(0,1).toUpperCase()+"."+formState["last_name"].toUpperCase()+time: "";
         const values = {...formState}
         values.doctor_id = doctor_id
-        if(docImage){
-            const formData = new FormData()
-            formData.append('id', doctor_id)
-            formData.append('file', docImage)
-            dispatch1(UpdateImage(formData))
-            values.doctor_image = `/uploads/${doctor_id}Image.${docImage.name.split(".")[1]}`
-        }
-
         setformState(values)
         return doctor_id
     }
@@ -62,29 +56,48 @@ export default function RegisterDoctor(){
         e.preventDefault(); 
         const doctor_id = generateDoctorId()
         console.log("Doctor ID: ", doctor_id)
+        const formData = new FormData()
+        if(servicePic){
+            const extension = fileName.split(".")[1]
+            const filedet = "/uploads/" +doctor_id +"Image."+extension
+            formData.append('id', doctor_id)
+            formData.append('file', servicePic)
+            setformState((formState)=>{
+                return(
+                    {
+                        ...formState, 
+                        doctor_image: filedet
+                    }
+                )
+            })
+        }
+
         setformState(formState =>{
-            dispatchAction(formState, doctor_id)
+            console.log(formState)
+            saveToDatabase(formState, doctor_id)
             return formState
         })
-       
-    }   
-    const imageFileHandler = (event) =>{
-        console.log("Triggered image file handler")
-        setservicePic(event.target.files[0])
-    }
 
-    const dispatchAction = (form, id) =>{
-        dispatch(registerBasicInformationDoctor(form))
-        console.log(`/success?username=${id}`)
-        if(!error){
+        if(servicePic){
+            dispatch(UpdateImage(formData))
+        }
+    }   
+
+
+    const saveToDatabase = async(info,id) =>{
+        const response = await axios.post("http://localhost:5000/api/doctorbasicreg", info)
+        if(response.status==200){
             navigate(`/success?username=${id}`)
         }
-        // if(!error){
-        //     navigate(`/success?username=${doctor_id}`)
-        // }
-    }   
+        console.log(response)
+    }
 
-    
+    const fileHandler = (event) =>{
+        setservicePic(event.target.files[0])
+        setFileName(event.target.files[0].name)
+    }
+
+  
     useEffect(()=>{
         dispatch(checkEmail(formState.email))
     }, [formState.email])
@@ -140,7 +153,7 @@ export default function RegisterDoctor(){
                 <div className="form-group">
                 <label className="col-form-label col-4">Doctor Image</label>    
                     <div className="row">
-                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event) =>  imageFileHandler(event)} /></div>
+                        <div className="col-xs-12"><input type="file" className="form-control" name="doctor_image" onChange={(event) => fileHandler(event)} /></div>
                     </div> 
                 </div>
 

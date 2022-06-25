@@ -1,0 +1,39 @@
+
+    const [pin, setpin] = useState(new Array(PARENTAL_PIN_LENGTH))
+    const inputRefs = useRef()
+
+    const onPinChanged = (number ,index) =>{
+        console.log(number, " " , index)
+    }
+
+    const changePinFocus = (index) =>{
+        const ref = inputRefs.current[index]
+        if(ref){
+            ref.focus()
+        }
+    }
+    const data = `<div className='centerContainer'>
+    { 
+    Array.from({length: PARENTAL_PIN_LENGTH}, (_, index)=>
+         <input key = {index} />
+     )
+     }
+     </div>`
+
+
+function resetAll(){
+        pinUI.forEach(function(el, i){
+            el.classList.remove('on','animate');
+        });
+        numChars = 0;
+        acceptInput = true;
+        pinInput.value = "";
+        document.querySelector('.mask').classList.remove('visible');
+        document.querySelector('.login').classList.remove('hide');
+    }
+
+    
+    window.document.querySelector('.reset').addEventListener('click',function(e){
+        e.preventDefault();
+        resetAll();
+    });

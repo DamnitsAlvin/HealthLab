@@ -26,6 +26,7 @@ import ServiceProfile from './screens/serviceprofile';
 import Invoice from './screens/invoice';
 import ServicePage from './screens/servicepage';
 import DoctorScreen from './screens/newdoctorscreen';
+import AdminLogin from './screens/adminLogin';
 
 
 function App() {
@@ -126,6 +127,7 @@ function App() {
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
 				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
 				<Route path="/invoice" element={<Invoice></Invoice>} />
+				<Route path="/admin" element={<AdminLogin></AdminLogin>}/>
 				
 			</Routes>
 			<Chatbot></Chatbot>

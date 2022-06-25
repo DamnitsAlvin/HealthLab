@@ -6,6 +6,7 @@ from flask_jwt_extended import create_access_token
 app,mysql = create_app()
 doc_api=Blueprint('doc_api', __name__)
 
+#Create doctor
 @doc_api.route("/doctorbasicreg", methods=["POST"])
 def registerBasicInformationDoctor():
     if request.method == "POST":
@@ -21,6 +22,7 @@ def registerBasicInformationDoctor():
         phone = request.json.get("phone")
         email = request.json.get("email") 
         consultation = request.json.get("mode_of_consultation")
+        password = request.json.get("password") 
 
         if consultation == "Virtual": 
             consultation = 0 
@@ -29,58 +31,28 @@ def registerBasicInformationDoctor():
         else:
             consulation = 2 
 
-        image = request.json.get("doctor_image")
-        password = request.json.get("password") 
+        if(request.json.get("doctor_image")):
+            image = request.json.get("doctor_image")
+        else: 
+            image = ""
+        
         data = [
             doctor_id, 
             email, 
             "doctor"
         ]
+
         try:
             response = cur.execute("INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`,`doctor_image`,`password`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (doctor_id, firstname, middlename, lastname, suffix, birthday, phone, email, consultation, "false", image, password))
             cur.connection.commit()
             cur.close()
-            access_token = create_access_token(identity = doctor_id)
             return jsonify({"register": True}), 200
 
         except Exception as e:
             print("Something went wrong: ", e)
             return jsonify({"message": "invalid operation on database"}), 404
 
-@doc_api.route("/doctoreducreg", methods = ["POST"])
-def registerEducInformationDoctor():
-    if request.method =="POST":
-        cur = mysql.connection.cursor()
-        doctor_id = request.json.get("doctor_id")
-        school_name = request.json.get("School_name")
-        graduation_date = request.json.get("Grad_date")
-        degree = request.json.get("Degree")
-        course = request.json.get("Course")
-        try:
-            response = cur.execute("INSERT INTO `doctor_education` (`doctor_id`, `school_name`, `graduation_date`, `degree`, `course`) VALUES (%s, %s, %s, %s, %s)", (doctor_id, school_name, graduation_date, degree, course))
-            cur.connection.commmit()
-            cur.close()
-            return jsonify({"message": "Success"}), 200
-        except:
-            return jsonify({"message": "invalid operation on database "}), 404
-
-@doc_api.route("/doctorspecialtyreg", methods = ["POST"])
-def registerSpecialtyInformationDoctor():
-    if request.method =="POST":
-        cur = mysql.connection.cursor()
-        doctor_id = request.json.get('doctor_id')
-        specialties = request.json.get("specialization")
-        sub_specialty = request.json.get("sub_specialization")
-        try:
-            response = cur.execute("INSERT INTO `doctor_specialty` (`doctor_id`, `specialties`, `sub-specialty`) VALUES (%s, %s, %s)", (doctor_id, specialties, sub-specialty))
-            cur.connection.commmit()
-            cur.close()
-            return jsonify({"message": "Success"}), 200
-        except Exception as e:
-            print(e)
-            return jsonify({"message": "invalid operation on database "}), 404
-
-
+# Retrieve Doctor information
 @doc_api.route("/doctorInformation", methods=["GET"])
 def getDoctorInformation():
     cur = mysql.connection.cursor()
@@ -155,7 +127,7 @@ def getDoctorInformation():
         cur1.close()
 
         return jsonify({"BasicInfo": BasicInfo,
-                        "Titles": DocTitle,
+                        "Titles": Title,
                         "Specialty": Specialty,
                         "Education": Education, 
                         "Certification": Certification, 
@@ -170,6 +142,7 @@ def getDoctorInformation():
         print(e)
         return jsonify({"message": "dunno"}), 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/personal", methods=["POST"])
 def updatePersonalInfo():
     if request.method == 'POST':
@@ -197,270 +170,325 @@ def updatePersonalInfo():
             print("Error has occured", e)
             return jsonify({"success": False}), 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/education", methods=["POST"])
 def updateEducInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Ed")
+        doc = request.json.get("id")
         newreq = list()
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:7]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-         
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:7]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    #newlist = [] newreq = [[]]
+                    newreq.append(newlist)
+            
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
+
         try:
+            cur.execute("DELETE FROM doctor_education WHERE `doctor_id`=%s", (doc,))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM doctor_education WHERE `doctor_id`=%s AND id=%s ", (newreq[i][5], newreq[i][6]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_education` SET `school_type`=%s,`school_name`=%s,`graduation_date`=%s,`degree`=%s,`course`=%s WHERE `doctor_id`=%s AND id=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_education`(`doctor_id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES (%s,%s,%s,%s,%s,%s)", (newreq[i][5], newreq[i][0:5]))
+                rak = newreq[i][0:5]
+                rak.insert(0,newreq[i][5] )
+                cur.execute("INSERT INTO `doctor_education`(`doctor_id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES (%s,%s,%s,%s,%s,%s)", rak)
+           
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
-            return jsonify({'sucess': False, 'problem': e}), 404
+            print(e)
+            return jsonify({'sucess': False}), 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/certificate", methods=["POST"])
 def updateCertInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Cert")
+        doc = request.json.get("id")
         newreq = list()
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:5]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:5]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
         try:
-
+            cur.execute("DELETE FROM doctor_certification WHERE `doctor_id`=%s", (doc,) )
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM doctor_certification WHERE `doctor_id`=%s AND id=%s ", (newreq[i][3], newreq[i][4]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_certification` SET `title`=%s,`giver`=%s,`date_given`=%s WHERE `doctor_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_certification`(`doctor_id`, `title`, `giver`, `date_given`) VALUES (%s,%s,%s,%s)", (newreq[i][3], newreq[i][0:3]))
+                rak = newreq[i][0:3]
+                rak.insert(0,newreq[i][3])
+                cur.execute("INSERT INTO `doctor_certification`(`doctor_id`, `title`, `giver`, `date_given`) VALUES (%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
-            return jsonify({'sucess': False, 'problem': e}), 404
-      
+            print(e)
+            return jsonify({'sucess': False}), 404
+
+#Update Doctor Information      
 @doc_api.route("/doctor/update/specialization", methods=["POST"])
 def updateSpecializationInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Spec")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:4]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:4]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
         try:
-
+            cur.execute("DELETE FROM doctor_specialty WHERE `doctor_id`=%s", (doc,))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM doctor_specialty WHERE `doctor_id`=%s AND id=%s ", (newreq[i][2], newreq[i][3]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_specialty` SET `specialties`=%s,`sub-specialty`=%s WHERE `doctor_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_specialty`(`doctor_id`, `specialties`, `sub-specialty`) VALUES (%s,%s,%s)", (newreq[i][2], newreq[i][0:2]))
+                rak = newreq[i][0:2]
+                rak.insert(0, newreq[i][2])
+                cur.execute("INSERT INTO `doctor_specialty`(`doctor_id`, `specialties`, `sub-specialty`) VALUES (%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
-            return jsonify({'sucess': False, 'problem': e})  , 404
+            print(e)
+            return jsonify({'sucess': False})  , 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/experience", methods=["POST"])
 def updateExperienceInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Exp")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:6]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:6]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
         try:
-
+            cur.execute("DELETE FROM doctor_experience WHERE `doctor_id`=%s", (doc, ))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM doctor_experience WHERE `doctor_id`=%s AND id=%s ", (newreq[i][4], newreq[i][5]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_experience` SET `place_of_work`=%s,`job_title`=%s,`years_of_experience`=%s,`date_ended`=%s WHERE `doctor_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_experience`(`doctor_id`, `place_of_work`, `job_title`, `years_of_experience`, `date_ended`) VALUES (%s,%s,%s,%s,%s)", (newreq[i][4], newreq[i][0:4]))
+                rak = newreq[i][0:4]
+                rak.insert(0,newreq[i][4])
+                cur.execute("INSERT INTO `doctor_experience`(`doctor_id`, `place_of_work`, `job_title`, `years_of_experience`, `date_ended`) VALUES (%s,%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
             return jsonify({'sucess': False, 'problem': e})  , 404
 
-
+#Update Doctor Information
 @doc_api.route("/doctor/update/payment", methods=["POST"])
 def updatePaymentInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Pay")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:5]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:5]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
         try:
-
+            cur.execute("DELETE FROM doctor_paymentinfo WHERE `doctor_id`=%s", (doc, ))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM `doctor_paymentinfo` WHERE `doctor_id`=%s AND id=%s ", (newreq[i][3], newreq[i][4]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_paymentinfo` SET `payment_mode`=%s,`reference_name`=%s,`reference_number`=%s WHERE `doctor_id`=%s and `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_paymentinfo`(`doctor_id`, `payment_mode`, `reference_name`, `reference_number`) VALUES (%s,%s,%s,%s)", (newreq[i][3], newreq[i][0:3]))
+                rak = newreq[i][0:3]
+                rak.insert(0, newreq[i][3])
+                cur.execute("INSERT INTO `doctor_paymentinfo`(`doctor_id`, `payment_mode`, `reference_name`, `reference_number`) VALUES (%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
             return jsonify({'sucess': False, 'problem': e})  , 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/timeonline", methods=["POST"])
 def updatetimeonlineInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("On")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][2:6]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][2:6]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
         try:
-
+            cur.execute("DELETE FROM doctor_available_online WHERE `doctor_id`=%s", (doc, ))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM `doctor_available_online` WHERE `doctor_id`=%s AND id=%s ", (newreq[i][4], newreq[i][5]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_available_online` SET `day`=%s,`day_end`=%s,`time_start`=%s,`time_end`=%s WHERE `doctor_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_available_online`(`doctor_id`, `day`, `day_end`, `time_start`, `time_end`) VALUES (%s,%s,%s,%s,%s)", (newreq[i][4], newreq[i][0:4]))
+                rak = newreq[i][0:4]
+                rak.insert(0, newreq[i][4])
+                cur.execute("INSERT INTO `doctor_available_online`(`doctor_id`, `day`, `day_end`, `time_start`, `time_end`) VALUES (%s,%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
             return jsonify({'sucess': False, 'problem': e})  , 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/timeoffline", methods=["POST"])
 def updatetimeofflineInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Off")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][3:7]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newlist.append(req[i][2])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][3:7]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newlist.append(req[i][2])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
   
         try:
-
+            cur.execute("DELETE FROM doctor_availabledateclinic WHERE `doctor_id`=%s", (doc, ))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM `doctor_availabledateclinic` WHERE `doctor_id`=%s AND id=%s  ", (newreq[i][4], newreq[i][6]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_availabledateclinic` SET `day`=%s,`day_end`=%s,`time_start`=%s,`time_end`=%s WHERE `doctor_id`=%s AND `address_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_availabledateclinic`(`doctor_id`, `address_id`, `day`, `day_end`, `time_start`, `time_end`) VALUES (%s,%s,%s,%s,%s,%s)", (newreq[i][4],newreq[i][5], newreq[i][0:5]))
+                print(newreq[i])
+                rak = newreq[i][0:4]
+                rak.insert(0, newreq[i][4])
+                rak.insert(1,newreq[i][5])
+                cur.execute("INSERT INTO `doctor_availabledateclinic`(`doctor_id`, `address_id`, `day`, `day_end`, `time_start`, `time_end`) VALUES (%s,%s,%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             return jsonify({'success': True}), 200
         except Exception as e: 
-            return jsonify({'sucess': False, 'problem': e})  , 404
+            print(e)
+            return jsonify({'sucess': False})  , 404
 
+#Update Doctor Information
 @doc_api.route("/doctor/update/clinicaddress", methods=["POST"])
 def updateclinicInfo():
     if request.method == "POST": 
         cur = mysql.connection.cursor()
         req = request.json.get("Clinic")
+        doc = request.json.get("id")
         newreq = list()
         
-        if type(req[0]) == list:
-            for i in range(0, len(req)):
-                newlist = req[i][3:9]
-                newlist.append(req[i][0])
-                newlist.append(req[i][1])
-                newlist.append(req[i][2])
-                newreq.append(newlist)
-        elif type(req[0]) == dict:
-            for i in range(0, len(req)):
-                newreq.append(list(req[i].values()))
-        else:
-           print("None of the above")
-        try:
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][3:9]
+                    newlist.append(req[i][0])
+                    newlist.append(req[i][1])
+                    newlist.append(req[i][2])
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
+        try:
+            cur.execute("DELETE FROM doctor_clinicaddress WHERE `doctor_id`=%s", (doc, ))
             for i in range(0, len(newreq)):
-                response = cur.execute("SELECT * FROM `doctor_clinicaddress` WHERE `doctor_id`=%s AND id=%s  ", (newreq[i][6], newreq[i][8]))
-                if response > 0:
-                    cur.execute("UPDATE `doctor_clinicaddress` SET `address`=%s,`barangay`=%s,`municipality`=%s,`province`=%s,`zip_code`=%s,`image`=%s WHERE `doctor_id`=%s AND `address_id`=%s AND `id`=%s", newreq[i])
-                else:
-                    cur.execute("INSERT INTO `doctor_clinicaddress`(`doctor_id`, `address_id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", (newreq[i][6],newreq[i][7], newreq[i][0:6]))
+                print(newreq)
+                rak = newreq[i][0:5]
+                rak.insert(0,newreq[i][5])
+                rak.insert(1,newreq[i][6])
+                cur.execute("INSERT INTO `doctor_clinicaddress`(`doctor_id`, `address_id`, `address`, `barangay`, `municipality`, `province`, `zip_code`) VALUES (%s,%s,%s,%s,%s,%s,%s)", rak)
             cur.connection.commit()
             cur.close()
             print("success")
             return jsonify({'success': True}), 200
         except Exception as e: 
-            return jsonify({'sucess': False, 'problem': e})  , 404
+            print(e)
+            return jsonify({'sucess': False})  , 404
 
+#Update Doctor Information
+@doc_api.route("/doctor/update/title", methods=["POST"])
+def updatetitleInfo():
+    if request.method == "POST": 
+        cur = mysql.connection.cursor()
+        req = request.json.get("Title")
+        doc = request.json.get("id")
+        newreq = list()
+        print(req)
+        if req:
+            if type(req[0]) == list:
+                for i in range(0, len(req)):
+                    newlist = req[i][0:2]
+                    print(newlist)
+                    newreq.append(newlist)
+            elif type(req[0]) == dict:
+                for i in range(0, len(req)):
+                    newreq.append(list(req[i].values()))
+            else:
+                print("None of the above")
 
+        try:
+            cur.execute("DELETE FROM doctor_title WHERE `doctor_id`=%s", (doc, ))
+            for i in range(0, len(newreq)):
+                cur.execute("INSERT INTO `doctor_title`(`doctor_id`, `doctor_title`) VALUES (%s,%s)", newreq[i])
+            cur.connection.commit()
+            cur.close()
+            print("success")
+            return jsonify({'success': True}), 200
+        except Exception as e: 
+            print(e)
+            return jsonify({'sucess': False})  , 404
+
+#Retrieve doctor to display
 @doc_api.route("/doctor/getdoctor", methods=["GET"])
 def getDoctor():
     args = request.args.to_dict()
@@ -500,7 +528,7 @@ def getDoctor():
         print(e)
         return jsonify({"error": "gg"}), 404
 
-#add more logic
+#Update appointment
 @doc_api.route("/setappointment", methods=["POST"])
 def updateAppointmentStatus():
     if request.method == 'POST':
@@ -545,3 +573,38 @@ def updateAppointmentStatus():
         except Exception as e:
             print(e)
             return jsonify({'success': False}), 404
+
+#????????
+@doc_api.route("/doctoreducreg", methods = ["POST"])
+def registerEducInformationDoctor():
+    if request.method =="POST":
+        cur = mysql.connection.cursor()
+        doctor_id = request.json.get("doctor_id")
+        school_name = request.json.get("School_name")
+        graduation_date = request.json.get("Grad_date")
+        degree = request.json.get("Degree")
+        course = request.json.get("Course")
+        try:
+            response = cur.execute("INSERT INTO `doctor_education` (`doctor_id`, `school_name`, `graduation_date`, `degree`, `course`) VALUES (%s, %s, %s, %s, %s)", (doctor_id, school_name, graduation_date, degree, course))
+            cur.connection.commmit()
+            cur.close()
+            return jsonify({"message": "Success"}), 200
+        except:
+            return jsonify({"message": "invalid operation on database "}), 404
+
+@doc_api.route("/doctorspecialtyreg", methods = ["POST"])
+def registerSpecialtyInformationDoctor():
+    if request.method =="POST":
+        cur = mysql.connection.cursor()
+        doctor_id = request.json.get('doctor_id')
+        specialties = request.json.get("specialization")
+        sub_specialty = request.json.get("sub_specialization")
+        try:
+            response = cur.execute("INSERT INTO `doctor_specialty` (`doctor_id`, `specialties`, `sub-specialty`) VALUES (%s, %s, %s)", (doctor_id, specialties, sub-specialty))
+            cur.connection.commmit()
+            cur.close()
+            return jsonify({"message": "Success"}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({"message": "invalid operation on database "}), 404
+

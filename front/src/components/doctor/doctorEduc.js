@@ -12,10 +12,10 @@ export default function DoctorEduc(props){
     }
     const addEducFieldHandler = () =>{
         setEducation([...Educ, {
-            school_type: "", 
+            school_type: "Residence", 
             school_name: "", 
             graduation_date: "", 
-            degree: "", 
+            degree: "Bachelor", 
             course: "",
             doctor_id: doc_id, 
             id: ""
@@ -25,6 +25,7 @@ export default function DoctorEduc(props){
         const values = [...Educ]
         values.splice(index, 1)
         setEducation(values)
+        ParentFunction(values)
     }
     useEffect(()=>{
         if(data){
@@ -54,7 +55,7 @@ export default function DoctorEduc(props){
                             <h6 className="mb-2 text-primary"><i class="fa fa-book" aria-hidden="true"id="fontawesomeSpace"></i>Education</h6>
                         </div>
                         {Educ.map((value, index)=>(
-                            <>
+                            <div key={index}>
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" >
                                 <div className="form-group">
                                     <label htmlFor="fullName">School Type</label>
@@ -102,7 +103,7 @@ export default function DoctorEduc(props){
                                 </div>
          
 
-                            </>
+                            </div>
                     
 
                         ))}

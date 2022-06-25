@@ -80,16 +80,21 @@ export default function Kalendaryo(props){
         const allEvents = []
 
         //parse all dates
-        console.log(userInfo.data[2])
+      
         if(userInfo.data[2] == 'user'){
             if(appointments && appointments.Appointments){
 
                 for(var i=0; i<appointments.Appointments.length; i++){
                     const date = appointments.Appointments[i][3].split("-")
 
-                    console.log(date)
+                    console.log("date:", date)
                     var month, year; 
 
+                    var time
+                    if(appointments.Appointments[i][4]){
+                        time = appointments.Appointments[i][4].split(":")
+                    }
+    
                     if(parseInt(date[1])-1 == -1) { 
                         month = 11
                         year = parseInt(date[0]) - 1
@@ -99,11 +104,19 @@ export default function Kalendaryo(props){
                         year = parseInt( date[0] )
                     }
 
-                    const newdate = new Date(year, month, parseInt(date[2])) 
+                    var newdate, enddate; 
+                    if(time){
+                        newdate = new Date(year, month, parseInt(date[2]), parseInt(time[0]), parseInt(time[1])) 
+                        enddate = new Date(year, month, parseInt(date[2]), parseInt(time[0]), parseInt(time[1])+30 )
+                    }else{
+                        newdate = new Date(year, month, parseInt(date[2])) 
+                        enddate = new Date(year, month, parseInt(date[2])) 
+                    }
+                   
                     const evt = {
                         title: appointments.Appointments[i][0], 
                         start: newdate, 
-                        end:  newdate  
+                        end:  enddate 
                     }
                     allEvents.push(evt)
                 }
@@ -117,9 +130,14 @@ export default function Kalendaryo(props){
                     if(appointments.Appointments[i][5]=="Accepted"){
                         const date = appointments.Appointments[i][3].split("-")
 
-                        console.log(date)
+                       
                         var month, year; 
-    
+                        
+                        var time
+                        if(appointments.Appointments[i][4]){
+                            time = appointments.Appointments[i][4].split(":")
+                        }
+
                         if(parseInt(date[1])-1 == -1) { 
                             month = 11
                             year = parseInt(date[0]) - 1
@@ -129,12 +147,23 @@ export default function Kalendaryo(props){
                             year = parseInt( date[0] )
                         }
     
-                        const newdate = new Date(year, month, parseInt(date[2])) 
+                       
+
+                        var newdate, enddate; 
+                        if(time){
+                            newdate = new Date(year, month, parseInt(date[2]), parseInt(time[0]), parseInt(time[1])) 
+                            enddate = new Date(year, month, parseInt(date[2]), parseInt(time[0]), parseInt(time[1])+30 )
+                        }else{
+                            newdate = new Date(year, month, parseInt(date[2])) 
+                            enddate = new Date(year, month, parseInt(date[2])) 
+                        }
+
                         const evt = {
                             title: appointments.Appointments[i][0], 
                             start: newdate, 
-                            end:  newdate  
+                            end:  enddate 
                         }
+                        console.log(evt)
                         allEvents.push(evt)
                     }
                   

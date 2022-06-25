@@ -13,6 +13,7 @@ export default function DoctorCert(props){
         const values = [...Cert]
         values.splice(index, 1)
         setCert(values)
+        ParentFunction(values)
     }
     const addCertFieldHandler = () =>{
         setCert([
@@ -54,7 +55,7 @@ export default function DoctorCert(props){
                             <h6 className="mb-2 text-primary"><i class="fa fa-certificate" aria-hidden="true"id="fontawesomeSpace"></i>Certification</h6>
                         </div>
                         {Cert.map((value, index)=>(
-                            <>
+                            <div key={index}>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Certification Title</label>
@@ -81,7 +82,7 @@ export default function DoctorCert(props){
                             </div>
                             
                            
-                            </>
+                            </div>
                         ))}
                        
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
