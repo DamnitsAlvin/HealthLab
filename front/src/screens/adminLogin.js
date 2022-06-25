@@ -48,11 +48,17 @@ export default function AdminLogin(){
     }
   
     return(
-        <div className="centerContainer">
+
+        
+        <div className="admin-container">
+            <div className='headerAdmin'>Administrator</div>
             <PinInputGrid onPinChanged={onPinChanged} pin={pin} pin_input={PARENTAL_PIN_LENGTH} wrong={wrongPass}>
 
             </PinInputGrid>
+
+           <div className='buttonAdmin'> <button type="button" class="btn btn-primary"id="adminButton">Log in Admin</button></div>
         </div>
+        
 
     )
 }
