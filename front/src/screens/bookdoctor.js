@@ -195,7 +195,9 @@ export default function Bookdoctor() {
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={()=>bookDoctorHandler(DocBasicInfo.BasicInfo[8])}>Book Now</button>
+                            {userInfo.data[2] != "admin" ? (
+                                <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={()=>bookDoctorHandler(DocBasicInfo.BasicInfo[8])}>Book Now</button>
+                            ):(<></>)}
                         </div>
                     </div>
                 </div>

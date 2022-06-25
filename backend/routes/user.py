@@ -151,8 +151,14 @@ def getUserAppointment():
                         Patient = cur.fetchone()
                         Patient_name.append(Patient[0:4])
 
+                    Email = list()
+                    for i in range(0, len(Patient_name)):
+                        response = cur.execute("SELECT user_id, Email from user where user_id=%s", (Patient_name[i][1], ))
+                        response = cur.fetchone()
+                        Email.append(response)
+
                     print(f'{Patient_name}')
-                    return jsonify({"Appointments": data, "Name": Patient_name}), 200
+                    return jsonify({"Appointments": data, "Name": Patient_name, "Email": Email}), 200
                 return jsonify({"message": "currently no appointments to show!"})
             except Exception as e :
                 print(e)
@@ -309,7 +315,7 @@ def authenticateUser():
                 cur.connection.commit()
                 cur.close()
                 return jsonify({"access_token": access_token, 
-                                "data": [data[0], data[7], data[12]] }), 200
+                                "data": [data[0], data[7], data[12], data[1], data[3]] }), 200
             else:
                 return jsonify({"message": "Invalid password"}), 401
         else:

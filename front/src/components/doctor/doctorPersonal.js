@@ -1,8 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import axios from 'axios'
+import React, {useState, useEffect, useRef} from 'react'
+import { useDispatch } from 'react-redux'
+import {UpdateImage} from '../../actions/doctorActions'
 
 export default function DoctorPersonal(props){
     const {data, ParentFunction, ParentFunction1} = props
-
+    const [image, setImage] = useState()
+    const [preview, setpreview] = useState()
+    const fileinputRef = useRef()
+    const clickClose = useRef()
+    const dispatch = useDispatch()
 
     const [formState, setformState] = useState({
         doctor_id: "",
@@ -48,6 +55,19 @@ export default function DoctorPersonal(props){
         }: {} )
         
     }, [data])
+
+    useEffect(()=>{
+        console.log("called")
+        if(image){
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setpreview(reader.result)
+            }
+            reader.readAsDataURL(image); 
+        }else{
+            setpreview(null)
+        }
+    },[image])
     
  
     const BasicInfoChangeHandler = async(event, index) =>{
@@ -75,7 +95,36 @@ export default function DoctorPersonal(props){
         ParentFunction1(event.target.files[0])
     }
     
+    const VerificationProcess = async() =>{
+        var filename = ""
+        const formData = new FormData()
+        if(preview){
+            const date = new Date()
+            const name = `${date.getMilliseconds()}${date.getMinutes()}${date.getSeconds()}`
+            const ext = image.name.split(".")[1]
+            filename = `/uploads/${name}Image.${ext}`
+            
+            formData.append('id', name)
+            formData.append('file', image)
+            console.log("succcess!!!!!")
+        }
+        const {status} = await axios.post("http://localhost:5000/api/addVerification", {"data": [
+            formState.doctor_id, 
+            formState.first_name, 
+            formState.last_name, 
+            filename, 
+            'doctor'
+        ]})
+        if(preview){
+            dispatch(UpdateImage(formData))
+        }
+        if(status==200){
+            clickClose.current.click()
+        }
+
+    }
     return(
+        <>
         <div className="pard_2">
                 <div className="card-body">
                     <div className="row gutters">
@@ -135,14 +184,66 @@ export default function DoctorPersonal(props){
                                     <input type="text" className="form-control" onChange={(event)=>BasicInfoChangeHandler(event, index)} value={formState[BasicFormFields2[index+1]]} />
                                 </div>
                             </div>)
-                        
-
                         ))} 
 
                         </form>
                     </div>
+                   {
+                       !data[9] ? ( <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" >Verify now</button>): (<></>)
+                   } 
+                
+            
+
+            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Appointment Details</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="qr-container" >
+                       {preview && <img className="samplepic" src={preview} alt ="signinbackground"/> }
+                        </div>
+                    <div className="downloadPDFile"> 
+
+                    <button 
+                    type="button" 
+                    className="btn btn-primary" 
+                    id="downloadPDF"
+                    onClick={(event)=>{
+                        event.preventDefault();
+                        fileinputRef.current.click()
+
+                    }} ><i className="fa-solid fa-file-pdf" id="pdfLogo"></i>Upload File</button>
+                    <input 
+                    accept="image/*"
+                    type="file" 
+                    style={{display: 'none'}} 
+                    ref={fileinputRef}
+                    onChange={(event)=>{
+                        const file = event.target.files[0]
+
+                        if(file && file.type.substr(0,5)==="image"){
+                            setImage(file)
+                        }
+                        else{
+                            setImage(null)
+                        }
+                    }}></input>
+                    </div></div>
+                    <div className="modal-footer">
+                        <button className="btn btn-success" id="pepeButo" onClick={VerificationProcess}><i className="fa-solid fa-circle-check" id="closeShit"></i>Submit</button>
+                        <button className="btn btn-danger" id="pepeButo" ref={clickClose} data-dismiss="modal" aria-label="Close"><i className="fa-solid fa-xmark" id="closeShit"></i> Close</button>
+                    </div>
                 </div>
             </div>
+            </div>
+        </div>
+        </div>
+    </>
     )
 
 }
