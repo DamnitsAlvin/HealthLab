@@ -150,7 +150,7 @@ export default function Doctorprofile() {
                             <img src={DocBasicInfo && DocBasicInfo.BasicInfo[10].length>0 ? DocBasicInfo.BasicInfo[10] : "https://bootdey.com/img/Content/avatar/avatar7.png"} id="pepe2"/>
                         </div>
                         <h3 className="user-name"id="pepeMo1">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
-                        <h4 className="user-name" id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles && DocBasicInfo.Titles.map(val => `${val[1]} , `)}</h4>
+                        <h4 className="user-name" id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles ? DocBasicInfo.Titles.map(val => `${val[1]} , `) : (<></>)} </h4>
                         <h6 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
                     </div>
 
@@ -174,10 +174,7 @@ export default function Doctorprofile() {
                                         {cert[2]}<br/>
                                         {cert[3]}
                                     </p>
-                                )): (<></>) }
-                            
-                            
-                        
+                                )): (<></>) }  
                         </div>
                        
                 </div>
@@ -187,8 +184,7 @@ export default function Doctorprofile() {
 
       
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
-        
-            
+
             <DoctorPersonal data={DocBasicInfo ? DocBasicInfo.BasicInfo : []} ParentFunction={PersonalParentFunction} ParentFunction1={PersonalParentFunction1}/>
             <DoctorEduc data={DocBasicInfo ? DocBasicInfo.Education : []} ParentFunction={EducParentFunction} doc_id={id}/>     
             <DoctorCert data={DocBasicInfo ? DocBasicInfo.Certification : []} ParentFunction={CertParentFunction} doc_id={id}/>
