@@ -39,15 +39,15 @@ export default function Bookdoctor() {
                 <div className="account-settings">
                     <div className="user-profile">
                         <div className="user-avatar">
-                            <img src={DocBasicInfo ? (DocBasicInfo.BasicInfo[10]): "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
+                            <img src={DocBasicInfo && DocBasicInfo.BasicInfo[10].length > 0 ? (DocBasicInfo.BasicInfo[10]): "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
                         </div>
                         <h3 className="user-name"id="pepeMo1">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
-                        <h4 className="user-name"id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles}</h4>
+                        <h4 className="user-name"id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles.map(valu => `${valu[1]} ,`)}</h4>
                         <h6 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
                     </div>
                     <div className="about">
                         <h5>Education</h5>
-                        {DocBasicInfo && (
+                        {DocBasicInfo && DocBasicInfo.Education ? (
                             <>
                                 {DocBasicInfo.Education.map(educ => (
                                         <p>
@@ -58,7 +58,7 @@ export default function Bookdoctor() {
                                         </p> 
                                 ))}
                             </>
-                        )}
+                        ): (<></>)}
                     </div>
                     {
                         DocBasicInfo ? ( DocBasicInfo.Certification ? (

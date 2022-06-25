@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { GetUserProfile, updateProfile } from '../actions/userActions';
 import { UpdateImage } from "../actions/doctorActions"
@@ -7,6 +7,9 @@ import { UpdateImage } from "../actions/doctorActions"
 export default function UserProfile(){
     const dispatch = useDispatch()
     const dispatch1 = useDispatch()
+    const reft = useRef()
+   
+    //get data 
     const getUserInfo = useSelector(x=>x.userSignIn)
     const {userInfo} = getUserInfo
 
@@ -15,29 +18,12 @@ export default function UserProfile(){
 
     const getUpdateStats = useSelector(x=>x.updateUserInfo)
     const {loading, UpdateUser} = getUpdateStats
-    const [data, setData] = useState(UserDetails ? UserDetails.userData: [])
-    const [fileChange, setfileChange] = useState(false)
-    const [userImage, setuserImage] = useState("")
 
-    useEffect(()=>{
-        if(userInfo.data[0]){
-            dispatch(GetUserProfile(userInfo.data[0]))
-        }
-       
-    }, [dispatch])
-
-    useEffect(()=>{
-        if(UserDetails && UserDetails.userData){
-            setData(UserDetails.userData)
-        }
-    }, [UserDetails])
-
-
-    if(data){
-        console.log("data:" ,data)
-    }
-    
-    const fields = [
+     //states
+     const [data, setData] = useState(UserDetails ? UserDetails.userData: [])
+     const [fileChange, setfileChange] = useState(false)
+     const [userImage, setuserImage] = useState("")
+     const fields = [
         "User ID", 
         "First Name", 
         "Last Name", 
@@ -55,6 +41,33 @@ export default function UserProfile(){
         "", 
         "Image"
     ]
+   
+
+    // Get the user profile and display it in the page 
+    useEffect(()=>{
+        if(userInfo.data[0]){
+            //returned as array
+            dispatch(GetUserProfile(userInfo.data[0]))
+        }
+        if(reft){
+            console.log(reft)
+            reft.current.focus()
+        }
+    }, [dispatch])
+
+    // if the user profile was loaded, load the data also
+    useEffect(()=>{
+        if(UserDetails && UserDetails.userData){
+            setData(UserDetails.userData)
+        }
+    }, [UserDetails])
+
+    //checking data before passing to 
+    if(data){
+        console.log("data:" ,data)
+    }
+    
+
 
     const PersonalChangeHandler = (event, index) =>{
         const values = [...data]
@@ -65,7 +78,6 @@ export default function UserProfile(){
     const fileChangeHandler = (event, index) =>{
         const extension = event.target.files[0].name.split(".")[1]
         const filename = data[0] + "Image." +extension
-       
         const values = [...data]
         values[index] = "/uploads/"+ filename
         setData(values)
@@ -73,10 +85,14 @@ export default function UserProfile(){
         setuserImage(event.target.files[0])
     }
 
-    const submitHandler = async(event) =>{
+    const submitHandler = (event) =>{
         event.preventDefault()
         //upload image
-        
+        console.log("Clicked")
+
+        dispatch1(updateProfile(data))
+
+        //this block rerenders the whole page, dunno why?
         if(userImage){
             const formData = new FormData()
             formData.append('id', userInfo.data[0])
@@ -84,15 +100,20 @@ export default function UserProfile(){
             dispatch1(UpdateImage(formData))
             console.log("succcess!!!!!")
         }
-        dispatch1(updateProfile(data))
-
-        if(UpdateUser){
-            dispatch(GetUserProfile(userInfo.data[0]))
-        }
+        console.log('done')
+        
+        //this also causes error, dunno why?
+        // if(UpdateUser){
+        //     dispatch(GetUserProfile(userInfo.data[0]))
+        //     reft.current.focus()
+        // }
 
         setTimeout(()=>{
             const inter = document.getElementById("inter")
-            inter.style.display = "none"
+            if(inter){
+                inter.style.display = "none"
+            }
+            
         }, 3000)
         //action update personal info of doctor
     }
@@ -104,7 +125,7 @@ export default function UserProfile(){
         <div className="row gutters">
 
         <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 ">
-        <div className="pard h-100">
+        <div className="pard h-100" ref={reft}>
         
             <div className="card-body">
                 <div className="account-settings">
@@ -125,7 +146,7 @@ export default function UserProfile(){
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
         <div className="pard h-100">
             <div className="card-body">
-            <form method="post">
+         
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <h6 className="mb-2 text-primary">Personal Information</h6>
@@ -217,11 +238,11 @@ export default function UserProfile(){
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={submitHandler} disabled={loading}>Update</button>
+                            <button type="button" className="btn btn-primary" onClick={(event)=>submitHandler(event)} disabled={loading}>Update</button>
                         </div>
                     </div>
                 </div>
-            </form>
+        
             </div>
         </div>
         </div>

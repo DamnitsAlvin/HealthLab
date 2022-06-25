@@ -6,6 +6,7 @@ from flask_jwt_extended import create_access_token
 app,mysql = create_app()
 ser_api=Blueprint('ser_api', __name__)
 
+#Create service
 @ser_api.route("/registerService", methods=["POST"])
 def registerService():
     if request.method == "POST":
@@ -21,6 +22,7 @@ def registerService():
             print(e)
             return jsonify({"success": False}), 404
 
+#Retrieve service 
 @ser_api.route("/serviceInfo", methods=["GET"])
 def getServiceInfo():
     cur = mysql.connection.cursor()
@@ -70,6 +72,7 @@ def getServiceInfo():
         print(e)
         return jsonify({"service_info": False}), 404
 
+#update service
 @ser_api.route("/updateService", methods=["POST"])
 def updateService():
     if request.method == "POST":
@@ -120,34 +123,7 @@ def updateService():
             print(e)
             return jsonify({'success': False}), 404
 
-@ser_api.route("/getappointmentDetail", methods=["GET"])
-def getAppointmentDetails():
-    args = request.args.to_dict()
-    appointId = args.get("id")
-    cur = mysql.connection.cursor()
-    try:
-        response = cur.execute("SELECT * FROM `appointment_request` WHERE Appointment_Id=%s", (appointId, ))
-        app_req = cur.fetchone()
-
-        response = cur.execute("SELECT * FROM `doctor` WHERE doctor_id=%s", (app_req[2], ))
-        doc_info = cur.fetchone()
-
-        specialty = cur.execute("SELECT specialties FROM doctor_specialty WHERE doctor_id=%s", (app_req[2], ))
-        specialty = cur.fetchall()
-
-        patient = cur.execute("SELECT * FROM patient WHERE  Patient_id=%s", (app_req[1], ))
-        patient = cur.fetchone()
-
-        return jsonify({
-            "app_req": app_req, 
-            "doc_info": doc_info, 
-            "specialty": specialty, 
-            "patient": patient, 
-        }), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"success": False}), 404
-
+#Retrieve service to display
 @ser_api.route("/getServiceTodisp", methods=["GET"])
 def serviceDisplay():
     args = request.args.to_dict()
@@ -183,4 +159,33 @@ def serviceDisplay():
         return jsonify({
             "success" :False
         }), 404
+
+#invoice 
+@ser_api.route("/getappointmentDetail", methods=["GET"])
+def getAppointmentDetails():
+    args = request.args.to_dict()
+    appointId = args.get("id")
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM `appointment_request` WHERE Appointment_Id=%s", (appointId, ))
+        app_req = cur.fetchone()
+
+        response = cur.execute("SELECT * FROM `doctor` WHERE doctor_id=%s", (app_req[2], ))
+        doc_info = cur.fetchone()
+
+        specialty = cur.execute("SELECT specialties FROM doctor_specialty WHERE doctor_id=%s", (app_req[2], ))
+        specialty = cur.fetchall()
+
+        patient = cur.execute("SELECT * FROM patient WHERE  Patient_id=%s", (app_req[1], ))
+        patient = cur.fetchone()
+
+        return jsonify({
+            "app_req": app_req, 
+            "doc_info": doc_info, 
+            "specialty": specialty, 
+            "patient": patient, 
+        }), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"success": False}), 404
 

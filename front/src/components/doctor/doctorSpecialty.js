@@ -14,12 +14,13 @@ export default function DoctorSpecialty(props){
         const values = [...Specialty]
         values.splice(index, 1)
         setSpecialty(values)
+        ParentFunction(values)
     }
     const addSpecialtyFieldHandler = () =>{
         setSpecialty([
             ...Specialty, 
             {
-                special: "", 
+                special: "General Medicine", 
                 sub_special: "", 
                 doctor_id: doc_id, 
                 id: ""
@@ -52,11 +53,11 @@ export default function DoctorSpecialty(props){
                 </div>
                 {
                     Specialty.map((value, index)=>(
-                        <>
+                        <div key={index}>
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Specialty</label>
-                                <select className="form-control category-dropdown" value={value.special} onChange={(event)=>SpecialtyChangeHandler(event, index)}>
+                                <select className="form-control category-dropdown" name="special" value={value.special} onChange={(event)=>SpecialtyChangeHandler(event, index)}>
                                     <option value="General Medicine">General Medicine</option>
                                     <option value="Cardiology">Cardiology</option>
                                     <option value="Neurology">Neurology</option>
@@ -82,7 +83,7 @@ export default function DoctorSpecialty(props){
                             <hr></hr>
                         </div>
                   
-                        </>
+                        </div>
                     ))
                 }
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

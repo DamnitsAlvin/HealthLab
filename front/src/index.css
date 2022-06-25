@@ -79,6 +79,104 @@ body {
   text-align: center;
 }
 
+/*PIN LOGIN*/
+
+form.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 90%;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0px 10px 30px -15px black;
+  border-radius: 5px;
+  transition: 400ms; 
+}
+
+form.login h3 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px; 
+}
+
+form.login p {
+  opacity: 0.5; 
+}
+
+form.login fieldset {
+    display: flex;
+    flex-direction: column;
+    position: relative; }
+    form.login fieldset .mask {
+      position: absolute;
+      background: red;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      height: 100px;
+      width: 100%;
+      max-width: 130px;
+      z-index: 20;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      opacity: 0; 
+}
+    form.login fieldset .mask.visible {
+      opacity: 1;
+      transition: 400ms 500ms;
+      transform: translateX(-50%) scaleX(1); }
+  form.login .input-pin {
+    position: absolute;
+    left: -1000px; }
+  form.login .input-pin:focus {
+    outline: none; }
+  form.login input[type=submit] {
+    display: none; }
+
+form.hide {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 0;
+  pointer-events: none; }
+
+.pin-ui {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px 0 0 0; }
+  .pin-ui li {
+    width: 12px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 100%;
+    margin: 0 6px;
+    transition: transform 200ms;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    will-change: transform; }
+  .pin-ui li.on {
+    background: #7fd89a;
+    transform: scale(1.4); }
+  .pin-ui li.animate {
+    animation: pip 1s 1 forwards; }
+
+
+@keyframes pip {
+  0% {
+    transform: translateY(0) scale(1.4); }
+  60% {
+    transform: translateY(-75%) scale(1.4); }
+  99% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateY(250%) scale(1.4); } }
+
 
 /*Sign In*/
 .signinform {
