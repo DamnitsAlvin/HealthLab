@@ -7,6 +7,7 @@ export default function DoctorPersonal(props){
     const {data, ParentFunction, ParentFunction1} = props
     const [image, setImage] = useState()
     const [preview, setpreview] = useState()
+    const [status, setStatus] = useState(false)
     const fileinputRef = useRef()
     const clickClose = useRef()
     const dispatch = useDispatch()
@@ -54,10 +55,9 @@ export default function DoctorPersonal(props){
             password: data[11],   
         }: {} )
         
-    }, [data])
+    }, [data, status])
 
     useEffect(()=>{
-        console.log("called")
         if(image){
             const reader = new FileReader()
             reader.onloadend = () => {
@@ -120,6 +120,9 @@ export default function DoctorPersonal(props){
         }
         if(status==200){
             clickClose.current.click()
+            setTimeout(()=>{
+                window.location.reload()
+            },1500)
         }
 
     }
@@ -189,7 +192,7 @@ export default function DoctorPersonal(props){
                         </form>
                     </div>
                    {
-                       !data[9] ? ( <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" >Verify now</button>): (<></>)
+                       data[9]==0 ? ( <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" >Verify now</button>): data[9]==1 ? (<div className="alert alert-success">Already Verified</div>) : (<div className="alert alert-warning">Verification in progress</div>)
                    } 
                 
             
