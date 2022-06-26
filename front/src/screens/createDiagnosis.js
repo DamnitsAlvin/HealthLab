@@ -14,7 +14,7 @@ export default function CreateDiagnosis() {
     const sendEmail = (e) => {
         e.preventDefault();
 
-        emailjs.sendForm('service_2n8fpsl', 'template_6llu3vi', form.current, 'T9vOuT4BccsjgoItY')
+        emailjs.sendForm('service_2n8fpsl', 'template_6llu3vi', form.current, process.env.REACT_APP_MAPJS_API_KEY)
             .then((result) => {
                 console.log(result.text);
             }, (error) => {
