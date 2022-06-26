@@ -125,7 +125,7 @@ export default function DoctorPersonal(props) {
         }
         if(backpreview){
             date = new Date()
-            name = `${date.getMilliseconds()}${date.getMinutes()}${date.getSeconds()}`
+            name = `${date.getMilliseconds()}${date.getMinutes()+1}${date.getSeconds()}`
             const ext = backImg.name.split(".")[1]
             filename1 =  `/uploads/${name}Image.${ext}`
             formData1.append('id', name)
