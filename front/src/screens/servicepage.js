@@ -45,7 +45,12 @@ export default function ServicePage(){
             })
         }
     }
-    console.log(serviceToDisp)
+    const viewServiceHander = (id) =>{
+        navigate(`/bookservice/${id}`)
+    }
+    const bookServiceHandler = (id, mode) =>{
+        navigate(`/createServiceAppointment?service=${id}`)
+    }
     
     return(
         <>
@@ -78,13 +83,13 @@ export default function ServicePage(){
                 <div className="flex-doctor-info" key={index}>
                 <div className="flex-doctor-desc">
                     <p className="headerBook">{values[1]}</p> 
-                    <button type="button" className="btn btn-primary" id="buttonBook">Book this</button>
+                    <button type="button" className="btn btn-primary" id="buttonBook" onClick={()=>bookServiceHandler(values[0])}>Book this</button>
                 </div>
                 
                 <div className="flex-doctor-desc">
                     <p className="headerBook">Location</p> 
                     <small className="text-muted">{serviceToDisp.service_location.find(el => el[0] == values[0])[1]}</small>
-                    <button type="button" className="btn btn-primary" id="buttonView" >View Detail</button>
+                    <button type="button" className="btn btn-primary" id="buttonView" onClick={()=>{viewServiceHander(values[0])}}>View Detail</button>
                 </div>
 
                 <div className="price">

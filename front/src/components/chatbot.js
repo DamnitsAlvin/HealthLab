@@ -7,7 +7,7 @@ import Message from './Message';
 const cookies = new Cookies()
 
 export default class Chatbot extends Component{
-
+    
     constructor(props){
         super(props)
         this._handleInputKeyPress = this._handleInputKeyPress.bind(this); 
@@ -26,6 +26,7 @@ export default class Chatbot extends Component{
             //messages: [{says, msg: {text {text} } }, {}, {}]
             chatboxState: true
         }
+        this.props = props
         if(cookies.get("userId")===undefined){
             cookies.set("userId", uuid(), {path:"/"}); 
         }
@@ -60,6 +61,7 @@ export default class Chatbot extends Component{
         const res = await Axios.post('http://localhost:4000/api/df_text_query', {text: querytext, userID: cookies.get("userId")})
         let msg = ""
         //bot response
+        console.log("Response: ", res)
         if(res.data.fulfillmentMessages){
             if (res.data.fulfillmentMessages[0].platform === "ACTIONS_ON_GOOGLE"){
                 msg = res.data.fulfillmentText
@@ -73,7 +75,33 @@ export default class Chatbot extends Component{
                 }
                 this.setState({messages: [...this.state.messages, says ]})
 
-            }else{
+            }else if(res.data && res.data.action &&  res.data.action=="admin.admin-custom"){
+                console.log("Triggered admin page")
+                for(let i=0; i<res.data.fulfillmentMessages.length; i++){
+                    msg = res.data.fulfillmentMessages[i]
+                    says = {
+                        speaks: 'operator', 
+                        msg: msg
+                    }
+                    this.setState({
+                        messages: [...this.state.messages, says]
+                    })
+                }
+                console.log("Triggered admin page")
+                window.location.replace("/admin")  
+            }else if(res.data.queryResult && res.data.queryResult.fulfillmentMessages){
+                for(let i=0; i<res.data.queryResult.fulfillmentMessages.length; i++){
+                    msg = res.data.queryResult.fulfillmentMessages[i]
+                    says = {
+                        speaks: 'operator', 
+                        msg: msg
+                    }
+                    this.setState({
+                        messages: [...this.state.messages, says]
+                    })
+                }
+            }
+            else{
                 for(let i=0; i<res.data.fulfillmentMessages.length; i++){
 
                     msg = res.data.fulfillmentMessages[i];

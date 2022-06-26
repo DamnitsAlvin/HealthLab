@@ -6,8 +6,12 @@ import { UpdateImage } from '../../actions/doctorActions'
 export default function DoctorPersonal(props) {
     const { data, ParentFunction, ParentFunction1 } = props
     const [image, setImage] = useState()
+    const [backImg, setbackImge] = useState()
     const [preview, setpreview] = useState()
+    const [backpreview, setbackpreview] = useState()
+    const [status, setStatus] = useState(false)
     const fileinputRef = useRef()
+    const backfileinputref = useRef()
     const clickClose = useRef()
     const dispatch = useDispatch()
 
@@ -42,23 +46,22 @@ export default function DoctorPersonal(props) {
     useEffect(() => {
         setformState(data ? {
             doctor_id: data[0],
-            first_name: data[1],
-            middle_name: data[2],
-            last_name: data[3],
-            suffix: data[4],
-            birthday: data[5],
-            phone: data[6],
-            email: data[7],
-            mode_of_consultation: data[8],
-            doctor_image: data[10],
-            password: data[11],
-        } : {})
+            first_name: data[1], 
+            middle_name: data[2], 
+            last_name: data[3], 
+            suffix : data[4], 
+            birthday:data[5], 
+            phone: data[6], 
+            email: data[7], 
+            mode_of_consultation: data[8], 
+            doctor_image: data[10], 
+            password: data[11],   
+        }: {} )
+        
+    }, [data, status])
 
-    }, [data])
-
-    useEffect(() => {
-        console.log("called")
-        if (image) {
+    useEffect(()=>{
+        if(image){
             const reader = new FileReader()
             reader.onloadend = () => {
                 setpreview(reader.result)
@@ -67,7 +70,18 @@ export default function DoctorPersonal(props) {
         } else {
             setpreview(null)
         }
-    }, [image])
+
+        if(backImg){
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setbackpreview(reader.result)
+            }
+            reader.readAsDataURL(backImg);
+        } else {
+            setbackpreview(null)
+        }
+
+    }, [image,backImg])
 
 
     const BasicInfoChangeHandler = async (event, index) => {
@@ -96,17 +110,26 @@ export default function DoctorPersonal(props) {
     }
 
     const VerificationProcess = async () => {
-        var filename = ""
+        var filename,filename1 = ""
         const formData = new FormData()
+        const formData1 = new FormData()
+        var date = new Date()
+        var name = `${date.getMilliseconds()}${date.getMinutes()}${date.getSeconds()}`
+        
         if (preview) {
-            const date = new Date()
-            const name = `${date.getMilliseconds()}${date.getMinutes()}${date.getSeconds()}`
             const ext = image.name.split(".")[1]
             filename = `/uploads/${name}Image.${ext}`
-
             formData.append('id', name)
             formData.append('file', image)
             console.log("succcess!!!!!")
+        }
+        if(backpreview){
+            date = new Date()
+            name = `${date.getMilliseconds()}${date.getMinutes()+1}${date.getSeconds()}`
+            const ext = backImg.name.split(".")[1]
+            filename1 =  `/uploads/${name}Image.${ext}`
+            formData1.append('id', name)
+            formData1.append('file', backImg)
         }
         const { status } = await axios.post("http://localhost:5000/api/addVerification", {
             "data": [
@@ -114,14 +137,23 @@ export default function DoctorPersonal(props) {
                 formState.first_name,
                 formState.last_name,
                 filename,
+                filename1, 
                 'doctor'
             ]
         })
+
         if (preview) {
             dispatch(UpdateImage(formData))
         }
+        if(backpreview){
+            dispatch(UpdateImage(formData1))
+        }
+
         if (status == 200) {
             clickClose.current.click()
+            setTimeout(()=>{
+                window.location.reload()
+            },1500)
         }
 
     }
@@ -191,7 +223,7 @@ export default function DoctorPersonal(props) {
                         </form>
                     </div>
                     {
-                        !data[9] ? (<div className='buttonveri'><button className="btn btn-warning" id="buttonVerify" data-toggle="modal" data-target="#exampleModal" >Verify Account</button></div>) : (<></>)
+                        data[9]==0 ? ( <div className='buttonveri'><button className="btn btn-warning" id="buttonVerify" data-toggle="modal" data-target="#exampleModal" >Verify now</button></div>): data[9]==1 ? (<div className="alert alert-success">Already Verified</div>) : (<div className="alert alert-warning">Verification in progress</div>)
                     }
 
 
@@ -211,7 +243,7 @@ export default function DoctorPersonal(props) {
                                         {preview && <img className="samplepic" src={preview} alt="signinbackground" />}
                                     </div>
                                     <div className="qr-container" id="verifyImagecontainerBack">
-                                        {preview && <img className="samplepic" src={preview} alt="signinbackground" />}
+                                        {backpreview && <img className="samplepic" src={backpreview} alt="signinbackground" />}
                                     </div>
                                     <div className="downloadPDFile">
 
@@ -224,15 +256,17 @@ export default function DoctorPersonal(props) {
                                                 fileinputRef.current.click()
 
                                             }} >Upload Front</button>
+
                                         <button
                                             type="button"
                                             className="btn btn-primary"
                                             id="downloadBack"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                fileinputRef.current.click()
+                                                backfileinputref.current.click()
 
                                             }} >Upload Back</button>
+
                                         <input
                                             accept="image/*"
                                             type="file"
@@ -246,6 +280,22 @@ export default function DoctorPersonal(props) {
                                                 }
                                                 else {
                                                     setImage(null)
+                                                }
+                                            }}></input>
+
+                                            <input
+                                            accept="image/*"
+                                            type="file"
+                                            style={{ display: 'none' }}
+                                            ref={backfileinputref}
+                                            onChange={(event) => {
+                                                const file = event.target.files[0]
+
+                                                if (file && file.type.substr(0, 5) === "image") {
+                                                    setbackImge(file)
+                                                }
+                                                else {
+                                                    setbackImge(null)
                                                 }
                                             }}></input>
                                     </div></div>

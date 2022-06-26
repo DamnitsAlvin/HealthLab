@@ -1,5 +1,5 @@
 #dependencies 
 front/node_modules
-.env
+front/.env.local
 notes.txt
 front/chatbot_backend/config/dev.js
