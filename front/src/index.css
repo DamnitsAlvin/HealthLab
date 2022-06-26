@@ -23,7 +23,7 @@ body {
   border-radius: 15px;
   background-color: white;
   margin-top: 30px;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   position: relative;
   left: 10%;
   width: 80%;
@@ -1598,6 +1598,9 @@ html {
     left: 0%;
     width: 100%;
     border-radius: 0px;
+    padding: 40px;
+    margin-bottom:0;
+    margin-top:160px
   }
 .form{
   width: 100%;
@@ -1973,7 +1976,7 @@ table.table .avatar {
   grid-gap: 2rem;
   justify-content: center;
   font-family: 'D-DIN', sans-serif, FontAwesome;
-  margin: 1rem;
+
   margin-top:5rem;
 
   padding: 10px 20px 0px 20px;
@@ -2693,10 +2696,7 @@ img,
 }
 @media (max-width: 1320px) {
 
-  body,
-  html {
-    font-size: 14px;
-  }
+  
 
   .invoice-container .top .date {
     font-size: 14px;
