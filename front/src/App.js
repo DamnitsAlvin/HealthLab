@@ -28,7 +28,9 @@ import DoctorScreen from './screens/newdoctorscreen';
 import AdminLogin from './screens/adminLogin';
 import VerifyUser from './screens/verifyUser';
 import CreateDiagnosis from './screens/createDiagnosis';
-
+import BookServiceProfile from './screens/bookservice';
+import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
+import GMaps from './screens/Gmaps'
 
 function App() {
   
@@ -88,6 +90,7 @@ function App() {
 											<li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
 											<li><Link to="/appointments">Appointments</Link></li>
 											<li><Link to="/calendar">Calendar</Link></li>
+											<li><Link to="/map">Map</Link></li>
 											<li><Link to="/doctor/Neurology">Request Appointment</Link></li>
 											<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
 										</ul>
@@ -136,6 +139,7 @@ function App() {
 				<Route path ="/onlineres" element={<Results/>}/>
 
 				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
+				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
 				<Route path="/overview" element={<Overview/>}/>
 			
 				<Route exact path = "/" element={<Intro/>}/>
@@ -144,6 +148,7 @@ function App() {
 				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
+				<Route path="/bookservice/:id" element={<BookServiceProfile></BookServiceProfile>}/>
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
 				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
@@ -151,6 +156,7 @@ function App() {
 				<Route path="/createDiagnosis" element={<CreateDiagnosis></CreateDiagnosis>}/>
 				<Route path="/admin" element={<AdminLogin></AdminLogin>}> </Route>
   				<Route path="/admin/verifyusers" element={<VerifyUser></VerifyUser>}/>
+				<Route path="/map" element={<GMaps></GMaps>} />
 				
 			
 				

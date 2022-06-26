@@ -122,10 +122,15 @@ def getUserAppointment():
                             cur.connection.commit()
                             for i in range(0, len(appointments)):
                                 data.append(appointments[i])
-                
+                    print(data)
                     for i in range(0, len(data)):
-                        doc = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (data[i][2], ))
-                        doctor_name.append(cur.fetchone()[0:4])
+                        try:
+                            doc = cur.execute("SELECT * FROM doctor WHERE doctor_id=%s", (data[i][2], ))
+                            name = cur.fetchone()[0:4]
+                        except:
+                            doc = cur.execute("SELECT * FROM service WHERE service_id=%s", (data[i][2], ))
+                            name = cur.fetchone()[0:4]
+                        doctor_name.append(name)
 
                     return jsonify({"Appointments": data, "Name": Patient_name, "Doctor": doctor_name}), 200
                 return jsonify({"message": "currently no appointments to show!"}), 404

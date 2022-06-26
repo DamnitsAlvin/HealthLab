@@ -50,7 +50,10 @@ def addVerificatoin():
         try:
             response = cur.execute("INSERT INTO `verification`(`user_id`, `first_name`, `last_name`, `license_image`, `user`) VALUES (%s,%s,%s,%s,%s)", data)
             cur.connection.commit()
-            cur.execute("UPDATE `doctor` SET `is_verified`=%s WHERE doctor_id=%s", (2, data[0]))
+            print("UPDATE `doctor` SET `is_verified`=%s WHERE doctor_id=%s"%('2', data[0]))
+            cur.execute("UPDATE `doctor` SET `is_verified`=%s WHERE doctor_id=%s", ('2', data[0].strip()))
+
+            cur.connection.commit()
             cur.close
             return jsonify({"success": True}), 200
         except Exception as e:
