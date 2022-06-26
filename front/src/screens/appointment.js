@@ -12,6 +12,7 @@ export default function AppointmentPage() {
     const getAppoint = useSelector(x => x.userAppointment)
     const {appointments, message } = getAppoint
     const navigate = useNavigate()
+
     const delAppoint = useSelector(x => x.deleteAppointment)
     const setAppoint = useSelector(x => x.setAppointmentMode)
     const {setAppointsuccess} = setAppoint
@@ -179,7 +180,7 @@ export default function AppointmentPage() {
                                 !appoint[5].length > 0 && (
                                     <tr key={index}>
                                     <td>
-                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
+                                    <a href={`/invoice?appointID=${appoint[0]}&email=${appointments.Email.find(el => el[0] == appoint[1])[1]}`}> {appoint[0]} </a>
                                     </td>
                                     <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                     <td>{appoint[3]}</td>
@@ -248,7 +249,7 @@ export default function AppointmentPage() {
                             appoint[5].length > 0 && (
                                 <tr key={index}>
                                 <td>
-                                    <a href={`/invoice?appointID=${appoint[0]}`}> {appoint[0]} </a>
+                                    <a href={`/invoice?appointID=${appoint[0]}&email=${appointments.Email.find(el => el[0] == appoint[1])[1]}`}> {appoint[0]} </a>
                                 </td>
                                 <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                 <td>{appoint[3]}</td>

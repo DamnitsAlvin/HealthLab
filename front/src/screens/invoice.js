@@ -1,11 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 export default function Invoice(){ 
     const [searchParams] = useSearchParams()
     const appointId = searchParams.get("appointID")
+    const email = searchParams.get("email")
     const [displayData, setdisplayData] = useState()
+
+
+    const getuserInfo = useSelector(x => x.userSignIn)
+    const {userInfo} = getuserInfo
+
+    const navigate = useNavigate()
 
     useEffect( async ()=>{
         const {data} = await axios.get(`http://localhost:5000/api/getappointmentDetail?id=${appointId}`)
@@ -70,6 +79,7 @@ export default function Invoice(){
                 </table>
             </div>
             <div className="actions">
+                <button className="btn btn-main" onClick={()=> navigate(`/createDiagnosis?id=${appointId}&email=${email}&name=${displayData && displayData.doc_info[1].concat(" ", displayData.doc_info[3])}`)}>Give Diagnosis</button>
                 <button className="btn btn-main">Print Details</button>
             </div>
             <div className="note">

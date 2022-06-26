@@ -29,6 +29,7 @@ export default function PinInputGrid(props){
     }
 
     const onKeyDownHandler = (e, i) =>{
+        console.log("index: ", i)
         var key = e.nativeEvent.code
         if(key !== "Backspace"){
             return
@@ -40,6 +41,21 @@ export default function PinInputGrid(props){
             onPinChanged(undefined, i)
         }
     }
+
+    const onClickHandler = (index) =>{
+        var counter = index
+        for(let i=index; i>0; i--){
+            if(pin[counter-1]===undefined){
+                counter--
+                changePinFocus(i-1)
+            }
+            else{
+                return
+            }
+        }
+        console.log("CLICKKKKKKKED")
+    }
+
     return(
         <div className="pin">
             PIN CODE
@@ -55,7 +71,8 @@ export default function PinInputGrid(props){
                     }} key={index} 
                     onChange={(e) => onChangeHandler(e, index)} 
                     onKeyDown={(e)=>onKeyDownHandler(e,index)}
-                    value={pin[index]}  
+                    onClick={()=>{onClickHandler(index)}}
+                    value={pin[index]} 
                     type="number"
                     />
                  ) )
