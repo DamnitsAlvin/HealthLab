@@ -23,7 +23,7 @@ body {
   border-radius: 15px;
   background-color: white;
   margin-top: 30px;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   position: relative;
   left: 10%;
   width: 80%;
@@ -1598,6 +1598,9 @@ html {
     left: 0%;
     width: 100%;
     border-radius: 0px;
+    padding: 40px;
+    margin-bottom:0;
+    margin-top:160px
   }
 .form{
   width: 100%;
@@ -1973,10 +1976,8 @@ table.table .avatar {
   grid-gap: 2rem;
   justify-content: center;
   font-family: 'D-DIN', sans-serif, FontAwesome;
-  margin: 1rem;
   margin-top:5rem;
-
-  padding: 10px 20px 0px 20px;
+padding: 10px 50px 0px 50px;
   
 }
 
@@ -2068,7 +2069,7 @@ margin-bottom: 20px;
   width: 100px;
   border-radius: 100%;
   clip-path: circle(60px at center);
-  margin-top: 3.5rem;
+  margin-top: 5.5rem;
   margin-bottom: 10px;
 }
 
@@ -2467,11 +2468,33 @@ hr {
   display: flex;
 
 }
+#modalVerify{
+  margin-top: 20rem;
+}
+#verifyImagecontainer{
+  height: 20vh;
+  border: 0.5px solid gainsboro;
+}
+#verifyImagecontainerBack{
+  height: 20vh;
+  border: 0.5px solid gainsboro;
+  margin-top: 10px;
+}
 
 #buttonQr {
   background-color: #47adb1;
   border-color: #3fbbc0;
 }
+#buttonVerify {
+  background-color: #47adb1;
+  border-color: #3fbbc0;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+  .buttonveri{
+    display: flex;
+    justify-content: center;
+  }
 
 #closeShit {
   margin-right: 2px;
@@ -2485,7 +2508,13 @@ hr {
   border-color: #3fbbc0;
   border-radius: 5px;
 }
-
+#downloadBack {
+  font-weight: 400;
+  background-color: #47adb1;
+  border-color: #3fbbc0;
+  border-radius: 5px;
+  margin-left: 3px;
+}
 #pdfLogo {
   margin-right: 10px;
   font-weight: 600;
@@ -2516,7 +2545,57 @@ img,
   align-items: center;
 }
 
+/*DIAGNOSIS APPOINTMENT DETAILS*/
+#submitReport{
+  margin: 3px;
+  padding: 8px 10px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 0px;
+  min-width: 160px;
+  color: #0034BB;
+  border-radius: 8px;
+  background: rgba(0, 52, 187, 0.06);
+  cursor: pointer;
+}
+#diagnosisTab{
+  width: 100%;
+  padding: 20px;
+}
 
+#diagnosisTabform{
+height: 20vh;
+}
+
+#diagnosePatientID{
+  color: rgb(63, 63, 65);
+  font-weight:600;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+
+.diagnosis-container{
+  max-width: 600px;
+  margin: auto;
+  margin-top: 200px;
+  padding: 3rem;
+  margin-bottom: 50px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.diagnosisHeader{
+  font-size: 35px;
+  color:#0034BB;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
 
 
 /*INVOICE APPOINTMENT DETAILS*/
@@ -2539,8 +2618,9 @@ img,
   padding: 0px 20px;
 }
 
+
 .invoice-container {
-  max-width: 550px;
+  max-width: 600px;
   margin: auto;
   margin-top: 200px;
   padding: 3rem;
@@ -2652,6 +2732,7 @@ img,
 .table-service .total .number {
   text-align: right;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .actions {
@@ -2693,10 +2774,7 @@ img,
 }
 @media (max-width: 1320px) {
 
-  body,
-  html {
-    font-size: 14px;
-  }
+  
 
   .invoice-container .top .date {
     font-size: 14px;

@@ -48,7 +48,7 @@ def addVerificatoin():
         cur = mysql.connection.cursor()
         data = request.json.get("data")
         try:
-            response = cur.execute("INSERT INTO `verification`(`user_id`, `first_name`, `last_name`, `license_image`, `user`) VALUES (%s,%s,%s,%s,%s)", data)
+            response = cur.execute("INSERT INTO `verification`(`user_id`, `first_name`, `last_name`, `license_image`, `license_image_back`,`user`) VALUES (%s,%s,%s,%s,%s, %s)", data)
             cur.connection.commit()
             print("UPDATE `doctor` SET `is_verified`=%s WHERE doctor_id=%s"%('2', data[0]))
             cur.execute("UPDATE `doctor` SET `is_verified`=%s WHERE doctor_id=%s", ('2', data[0].strip()))
