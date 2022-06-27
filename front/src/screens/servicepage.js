@@ -120,9 +120,9 @@ export default function ServicePage(){
                         </ul>
                     </nav>
                 </div>
-                <p className="bobo">Cardiologists Near You | Find the Right Doctor </p>
-                <p className="bobo2">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
-                <p className="bobo3">Find the right cardiologist near you. Book an appointment today and be on your way to recovery.</p>
+                <p className="bobo">Services Near You | Find the Right Service </p>
+                <p className="bobo2">Find the right Service near you. Book an appointment today and be on your way to recovery.</p>
+                <p className="bobo3">Find the right Service near you. Book an appointment today and be on your way to recovery.</p>
             </div>
         </div>
         </>
