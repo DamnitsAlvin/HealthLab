@@ -14,6 +14,7 @@ export default function DoctorPayment(props){
         const values = [...Payment]
         values.splice(index, 1)
         setPayment(values)
+        ParentFunction(values)
     }
     const addPaymentFieldHandler = () =>{
         setPayment([
@@ -54,10 +55,10 @@ export default function DoctorPayment(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Payment Information</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-credit-card" aria-hidden="true"id="fontawesomeSpace"></i>Payment Information</h6>
                         </div>
                         {Payment.map((value, index)=>(
-                            <>
+                            <div key={index}>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Payment Platform Provider</label>
@@ -82,7 +83,7 @@ export default function DoctorPayment(props){
                                     </div> <hr></hr>
                             </div>
                           
-                            </>
+                            </div>
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">

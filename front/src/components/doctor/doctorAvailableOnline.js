@@ -20,11 +20,11 @@ export default function DoctorAvailableOnline(props){
         setAvailableOnline([
             ...AvailableOnline, 
             {
-                day_from: "",
-                day_to: "", 
+                day_from: "Monday",
+                day_to: "Monday", 
                 time_from: "",
                 time_to: "", 
-                doctor_id: "", 
+                doctor_id: doc_id, 
                 id: ""
                
             }
@@ -56,10 +56,10 @@ export default function DoctorAvailableOnline(props){
                 <div className="card-body">
                     <div className="row gutters">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 className="mb-2 text-primary">Available Online Information</h6>
+                            <h6 className="mb-2 text-primary"><i class="fa fa-calendar" aria-hidden="true"id="fontawesomeSpace"></i>Available Online Information</h6>
                         </div>
                         {AvailableOnline.map((value, index)=>(
-                            <>
+                            <div key={index}>
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div className="form-group">
                                     <label htmlFor="fullName">Available Day</label>
@@ -114,7 +114,7 @@ export default function DoctorAvailableOnline(props){
 
                             </div>
                             
-                            </>
+                            </div>
                         ))}
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div className="text-right">

@@ -3,6 +3,7 @@ import {userBasicAppointment,removeBasicAppointment, addPatient} from "../action
 import {useDispatch, useSelector} from "react-redux"; 
 import AppointmentSteps from "../components/appointmentSteps";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 
 export default function CreateAppointmentSlip(props){
@@ -16,7 +17,7 @@ export default function CreateAppointmentSlip(props){
     var id=""; 
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
-    console.log(SaveAppointment)
+
     if(userInfo){
         id =  userInfo.data[0];
     }else{
@@ -25,7 +26,7 @@ export default function CreateAppointmentSlip(props){
     
 
     const [PatientFirstName, setPatientFirstName] = useState(userInfo && userInfo.data[3]);
-    const [PatientLastName, setPatientLastName] = useState(userInfo &&userInfo.data[4]); 
+    const [PatientLastName, setPatientLastName] = useState(userInfo && userInfo.data[4]); 
     const [Email, setEmail] = useState(userInfo && userInfo.data[1]); 
     const [Birthday, setBirthday] = useState('')
     const [Gender, setGender] = useState('')
@@ -34,8 +35,10 @@ export default function CreateAppointmentSlip(props){
     const [appointmentRequest, setAppointmentRequest] = useState("");
     const [Relationship, setRelationship] = useState("")
     const [description, setDescription] = useState()
+    const [dateFull, setdateFull] = useState(false)
     const [Appmode, setMode] = useState(mode==0 ? "Online": mode==1 ? "Face to Face" : "Online")
-   
+    
+    console.log(PatientFirstName)
     const dispatch = useDispatch()
     var date = new Date(); 
     var time = date.getDate()+""+date.getMonth()+1+""+date.getSeconds()+""+ date.getMilliseconds();
@@ -43,7 +46,11 @@ export default function CreateAppointmentSlip(props){
     useEffect(()=>{
         setAppointmentRequest("PTR"+time);
     }, []);
-  
+
+    
+    const removeappointmentsuccess = () => async(dispatch) =>{
+        dispatch({type: 'REMOVE_APPOINTMENT_SUCCESS'})
+    }
    
     const NextHandler = (e) =>{
         e.preventDefault();  
@@ -57,6 +64,7 @@ export default function CreateAppointmentSlip(props){
     }
     useEffect(()=>{
         if(SaveAppointment && SaveAppointment.success){
+            dispatch(removeappointmentsuccess())
             navigate("/appointments")
         }
     }, [SaveAppointment])
@@ -67,14 +75,20 @@ export default function CreateAppointmentSlip(props){
         dispatch(removeBasicAppointment());
     }
 
-    
-  
+    const dateHandler = async(event) =>{
+        const {data} = await axios.get(`http://localhost:5000/api/checkDate?date=${event.target.value}&doc_id=${doc_id}`)
+        if(data){
+            setdateFull(data.dateFull)
+            setPreferredDate(event.target.value)
+        }
+        
+    }
 
 
     return(
 
         <div className="signup-form">
-            <form onSubmit={NextHandler}>
+            <form >
             <h2 id="colorh2">Appointment Request</h2>
             <p>Please fill in this form to create an appointment requests!</p>
             <hr/>
@@ -91,10 +105,10 @@ export default function CreateAppointmentSlip(props){
                 toSelf ? (
                 <>
                 <div className="form-group">
-                    <input type="text" className="form-control"  placeholder="Patient First Name" value ={PatientFirstName} required="required" readOnly />
+                    <input type="text" className="form-control"  placeholder="Patient First Name" value ={PatientFirstName} required readOnly />
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control"  placeholder="Patient Last Name" value ={PatientLastName} required="required" readOnly/>
+                    <input type="text" className="form-control"  placeholder="Patient Last Name" value ={PatientLastName} required readOnly/>
                 </div>
                 <div className="form-group">
                     <input type="email" className="form-control"  placeholder="Email" value={Email} required="required" readOnly/>
@@ -139,28 +153,31 @@ export default function CreateAppointmentSlip(props){
                 </div>
             
             </>):(
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Appointment Mode</label>
-                    <input class="form-control" id="textArea" value={mode==0 ? "Online": "Face To Face"}readOnly></input>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlTextarea1">Appointment Mode</label>
+                    <input className="form-control" id="textArea" value={mode==0 ? "Online": "Face To Face"}readOnly></input>
                 </div>
             )}
 
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                <textarea class="form-control" id="textArea" rows="3" placeholder="Enter other details you want to tell the Doctor" onChange={e=>setDescription(e.target.value)}></textarea>
+            <div className="form-group">
+                <label htmlFor="exampleFormControlTextarea1">Description</label>
+                <textarea className="form-control" id="textArea" rows="3" placeholder="Enter other details you want to tell the Doctor" onChange={e=>setDescription(e.target.value)}></textarea>
             </div>
 
             <div className="form-group">
-                <label className="control-label" for="date">Preferred Date</label>
-                <input type="date"  placeholder="Preferred Date" className="form-control input-md" onChange={e=>setPreferredDate(e.target.value)} required/>
+                <label className="control-label" htmlFor="date">Preferred Date</label>
+                <input type="date"  placeholder="Preferred Date" className="form-control input-md" required onChange={e=>dateHandler(e)} />
             </div>
+            {/** Here goes the message if date is not available */
+                dateFull && <div className="alert alert-danger">Schedule is already full</div>
+            }
             {SaveAppointment && !SaveAppointment.success && (
                     <div className="alert alert-danger">Error saving the data</div>
             )}
             
             <div className="form-group">
                     <button className="btn btn-primary btn-lg cancelButton" onClick={cancelHandler} >Cancel</button>
-                    <button type="submit" className="btn btn-primary btn-lg" >Next</button>  
+                    <button type="submit" className="btn btn-primary btn-lg" disabled={dateFull} onClick={NextHandler}>Next</button>  
             </div>
             
 		

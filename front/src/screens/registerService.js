@@ -30,8 +30,8 @@ export default function RegisterService(){
 
     const generateServiceID = () =>{
             var date = new Date(); 
-            var time = date.getMinutes() +""+ date.getMilliseconds()  +date.getSeconds();
-            var service_id = serviceInfo["name"]  ? serviceInfo["name"].toUpperCase()+time: "";
+            var time = date.getMinutes()+ date.getMilliseconds()  +date.getSeconds();
+            var service_id = serviceInfo["name"]  ? serviceInfo["name"].substring(0,3).toUpperCase().trim()+time: "";
             const values = {...serviceInfo}
             values["id"] = service_id
             setserviceInfo(values)
@@ -41,19 +41,12 @@ export default function RegisterService(){
     const submitHandler = (event) =>{
         event.preventDefault()
         const id = generateServiceID()
-        setserviceInfo((serviceInfo) =>{
-            console.log(serviceInfo)
-            saveToDatabase(serviceInfo)
-            return serviceInfo
-        }) 
+        const formData = new FormData()
         if(servicePic){
             const extension = fileName.split(".")[1]
             const filedet = "/uploads/" +id +"Image."+extension
-
-            const formData = new FormData()
             formData.append('id', id)
             formData.append('file', servicePic)
-            dispatch(UpdateImage(formData))
             setserviceInfo((serviceInfo)=>{
                 return(
                    { ...serviceInfo, 
@@ -62,12 +55,21 @@ export default function RegisterService(){
                 )   
             })
         } 
-       
+
+        setserviceInfo((serviceInfo) =>{
+            console.log(serviceInfo)
+            saveToDatabase(serviceInfo, id)
+            return serviceInfo
+        }) 
+
+        if(servicePic){
+            dispatch(UpdateImage(formData))
+        }
     }
-    const saveToDatabase = async(info) =>{
+    const saveToDatabase = async(info,id) =>{
         const response = await axios.post("http://localhost:5000/api/registerService", {"Info": Object.values(info)})
         if(response.status==200){
-            navigate("/")
+            navigate(`/success?username=${id}`)
         }
         console.log(response)
     }

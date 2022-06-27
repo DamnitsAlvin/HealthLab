@@ -16,7 +16,6 @@ import RegisterDoctor from './screens/registerDoctor';
 import AccountRegister from './screens/accountRegistered';
 import Doctorprofile from './screens/doctorprofile'; 
 import Bookdoctor from './screens/bookdoctor'; 
-import DoctorPage from './screens/doctorpage';
 
 import './App.css';
 import Chatbot from './components/chatbot';
@@ -25,7 +24,13 @@ import Kalendaryo from './components/calendar';
 import ServiceProfile from './screens/serviceprofile';
 import Invoice from './screens/invoice';
 import ServicePage from './screens/servicepage';
-
+import DoctorScreen from './screens/newdoctorscreen';
+import AdminLogin from './screens/adminLogin';
+import VerifyUser from './screens/verifyUser';
+import CreateDiagnosis from './screens/createDiagnosis';
+import BookServiceProfile from './screens/bookservice';
+import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
+import GMaps from './screens/Gmaps'
 
 function App() {
   
@@ -43,58 +48,79 @@ function App() {
 
   return (
   <>
-    <div id="page-top" data-spy="scroll" data-target=".navbar-custom">
-	      <div id="wrapper">
-              <nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
-                  <div className="top-area">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-sm-6 col-md-6">
-                          <p className="bold text-left">Monday - Saturday, 8am to 10pm </p>
-                        </div>
-                        <div className="col-sm-6 col-md-6">
-                          <p className="bold text-right">Call us now +62 008 65 001</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  {
+	  window.location.href != "http://localhost:3000/admin" ? (
+		  <>
+		<div id="page-top" data-spy="scroll" data-target=".navbar-custom">
+				<div id="wrapper">
+					<nav className="navbar navbar-custom navbar-fixed-top" role="navigation">
+						<div className="top-area">
+							<div className="container">
+							<div className="row">
+								<div className="col-sm-6 col-md-6">
+								<p className="bold text-left">Monday - Saturday, 8am to 10pm </p>
+								</div>
+								<div className="col-sm-6 col-md-6">
+								<p className="bold text-right">Call us now +62 008 65 001</p>
+								</div>
+							</div>
+							</div>
+						</div>
 
-                  <div className="container navigation">
-                      <div className="navbar-header page-scroll">
-                        <button type="button" className="navbar-toggle" data-toggle="collapse"
-                          data-target=".navbar-main-collapse">
-                          <i className="fa fa-bars"></i>
-                        </button>
-                        <Link className="navbar-brand" to="/"><span className="medi">MEDI</span><span className="call">CALL</span></Link>
-                      </div>
+						<div className="container navigation">
+							<div className="navbar-header page-scroll">
+								<button type="button" className="navbar-toggle" data-toggle="collapse"
+								data-target=".navbar-main-collapse">
+								<i className="fa fa-bars"></i>
+								</button>
+								<Link className="navbar-brand" to="/"><span className="medi">MEDI</span><span className="call">CALL</span></Link>
+							</div>
 
-                      <div className="collapse navbar-collapse navbar-right navbar-main-collapse">
-                        <ul className="nav navbar-nav">
-                          <li className="top"><Link to="/">Home</Link></li>
-                          <li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
-                          <li className="top"><Link to="/service">Service</Link></li>
-                          {userInfo ? (
-                            <li className="dropdown top">
-                            <Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
-                            <ul className="dropdown-menu">
-							  <li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
-                              <li><Link to="/appointments">Appointments</Link></li>
-                              <li><Link to="/doctor/Neurology">Request Appointment</Link></li>
-                              <li className="top"><Link to="/onlineres">Online Result</Link></li>
-                              <li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
-                            </ul>
-                          </li>
-                          ):(
-                            <li className="top"><Link to="/signintype">Sign In</Link></li>
-                          )}
-						  
-                        </ul>
-                    </div>
-                  </div>
-                </nav>
-                
-        </div>	
-    </div>
+							<div className="collapse navbar-collapse navbar-right navbar-main-collapse">
+								<ul className="nav navbar-nav">
+								{!userInfo || userInfo.data[2] != "admin" ? (
+								<>
+									<li className="top"><Link to="/">Home</Link></li>
+									<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
+									<li className="top"><Link to="/service/Urinalysis">Service</Link></li>
+									{userInfo ? (
+									<li className="dropdown top">
+										<Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
+										<ul className="dropdown-menu">
+											<li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
+											<li><Link to="/appointments">Appointments</Link></li>
+											<li><Link to="/calendar">Calendar</Link></li>
+											<li><Link to="/map">Map</Link></li>
+											<li><Link to="/doctor/Neurology">Request Appointment</Link></li>
+											<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
+										</ul>
+									</li>
+									):(
+									<li className="top"><Link to="/signintype">Sign In</Link></li>
+									)	
+									}
+								</>
+								) : (
+								<>
+									<li> <Link className="dropdown-item" to="/admin/verifyusers" >Back To table</Link></li>
+									<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
+								</>
+								)}
+								
+								
+								</ul>
+							</div>
+						</div>
+						</nav>
+						
+				</div>	
+			</div>
+		  </>
+
+	  ) : <></>
+
+  }
+   
 		<main>
 		
 			<Routes>
@@ -107,32 +133,40 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
-				<Route path="/doctor/:category" element={<DoctorPage></DoctorPage>}/>
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
 
 				<Route path ="/appointments" element={<AppointmentPage/>}/>
 				<Route path ="/onlineres" element={<Results/>}/>
 
 				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
+				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
 				<Route path="/overview" element={<Overview/>}/>
 			
 				<Route exact path = "/" element={<Intro/>}/>
-
+				<Route path ="/doctor/:category" element={<DoctorScreen></DoctorScreen>}/>
 
 				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
+				<Route path="/bookservice/:id" element={<BookServiceProfile></BookServiceProfile>}/>
 
 				<Route path="/userprofile" element={<UserProfile></UserProfile>}/>
 				<Route path="/serviceprofile" element={<ServiceProfile></ServiceProfile>} />
 				<Route path="/invoice" element={<Invoice></Invoice>} />
+				<Route path="/createDiagnosis" element={<CreateDiagnosis></CreateDiagnosis>}/>
+				<Route path="/admin" element={<AdminLogin></AdminLogin>}> </Route>
+  				<Route path="/admin/verifyusers" element={<VerifyUser></VerifyUser>}/>
+				<Route path="/map" element={<GMaps></GMaps>} />
+				
+			
 				
 			</Routes>
 			<Chatbot></Chatbot>
 			
 		</main>
 
-
+		{
+	   window.location.href != "http://localhost:3000/admin"  ? (
 		<footer>
 
 			<div className="container">
@@ -237,6 +271,8 @@ function App() {
 				</div>
 			</div>
 		</footer>
+	   ): <></>
+}
 
 		<Link to="#" className="scrollup"><i className="fa fa-angle-up active"></i></Link>  
 	</>

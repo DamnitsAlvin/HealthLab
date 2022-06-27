@@ -15,6 +15,7 @@ export default function DoctorExperience(props){
         const values = [...Experience]
         values.splice(index, 1)
         setExperience(values)
+        ParentFunction(values)
     }
     const addExperienceFieldHandler = () =>{
         setExperience([
@@ -53,11 +54,11 @@ export default function DoctorExperience(props){
         <div className="card-body">
             <div className="row gutters">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 className="mb-2 text-primary">Experiences</h6>
+                    <h6 className="mb-2 text-primary"><i class="fa fa-hospital-o" aria-hidden="true"id="fontawesomeSpace"></i>Experiences</h6>
                 </div>
                 {
                     Experience.map((value, index)=>(
-                        <>
+                        <div key={index}>
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Position</label>
@@ -82,7 +83,7 @@ export default function DoctorExperience(props){
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div className="form-group">
                                 <label htmlFor="fullName">Last Date to the company</label>
-                                <input type="text" className="form-control"  name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
+                                <input type="date" className="form-control"  name="last_date" value={value.last_date} onChange={(event)=>ExperienceChangeHandler(event, index)}/>
                             </div>
                         </div>
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -95,7 +96,7 @@ export default function DoctorExperience(props){
                             </div>
                         </div>
                         <hr></hr>
-                        </>
+                        </div>
                     ))
                 }
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

@@ -53,7 +53,7 @@ module.exports = {
     }, 
 
     eventQuery: async function(event, userID, parameters = {} ){
-      const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID+userID)
+        const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID+userID)
         let self = module.exports; 
         const request = {
             session: sessionPath,
