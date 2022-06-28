@@ -493,7 +493,6 @@ def updatetitleInfo():
 def getDoctor():
     args = request.args.to_dict()
     category = args.get("category")
-    print(category)
     try:
         cur = mysql.connection.cursor()
         response = cur.execute("SELECT doctor_id FROM `doctor_specialty` WHERE `specialties`=%s", (category,))
@@ -501,10 +500,10 @@ def getDoctor():
             doc_id = cur.fetchall()
         
         doctors = list()
+        print(doc_id)
+        #display if doctor is verified
         for i in range(0, len(doc_id)): 
             response1 = cur.execute("SELECT * FROM doctor WHERE `doctor_id`=%s AND is_verified=%s", (doc_id[i][0], True ))
-         
-            
             data = cur.fetchone()
             if data is None:
                 continue
