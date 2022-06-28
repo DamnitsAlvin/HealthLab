@@ -145,7 +145,7 @@ export default function GMaps(){
                     setSelected(null)
                 }}}>
                     <div>
-                        <h2>Hospitals found</h2>
+                        <h5>Hospitals found</h5>
                         <p>Name: {selected.name}</p>
                         <p>Lat: {selected.lat}</p>
                         <p>Longitude: {selected.lng}</p>

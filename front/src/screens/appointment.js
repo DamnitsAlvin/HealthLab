@@ -76,7 +76,7 @@ export default function AppointmentPage() {
     return (
         <>
             <div className="tableform">
-                <div className="table-wrapper">          
+                <div className="tableContainer">          
         {
             userInfo.data[2] == "user" ? (
                

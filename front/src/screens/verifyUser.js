@@ -29,7 +29,8 @@ export default function VerifyUser(){
     return(
         <>
 
-        <div className="tableform">   
+        <div className="tableform">
+            <div className='tableContainer'>  
             <div className="table-wrapper">
                 <div className="table-title">
                     <div className="row">
@@ -139,6 +140,7 @@ export default function VerifyUser(){
                 </div>
             </div>
         </div>
+        </div> 
                 {/*MODAL REJECT*/}
         </>
     )
