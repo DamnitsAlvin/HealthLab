@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import { signout} from "./actions/userActions";
-import {Route, Routes, Link, useNavigate} from 'react-router-dom'
+import {Route, Routes, Link, useNavigate, Navigate} from 'react-router-dom'
 import Intro from "./components/intro";
 import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
@@ -31,6 +31,8 @@ import CreateDiagnosis from './screens/createDiagnosis';
 import BookServiceProfile from './screens/bookservice';
 import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
 import GMaps from './screens/Gmaps'
+import DoctorRoute from './components/DoctorRoute';
+import SorryPage from './screens/sorryPage';
 
 function App() {
   
@@ -81,8 +83,10 @@ function App() {
 								{!userInfo || userInfo.data[2] != "admin" ? (
 								<>
 									<li className="top"><Link to="/">Home</Link></li>
-									<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
-									<li className="top"><Link to="/service/Urinalysis">Service</Link></li>
+									{!userInfo || userInfo.data[2] == "user" ? 
+									(<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>) : (null)
+									}
+									
 									{userInfo ? (
 									<li className="dropdown top">
 										<Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
@@ -90,8 +94,10 @@ function App() {
 											<li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
 											<li><Link to="/appointments">Appointments</Link></li>
 											<li><Link to="/calendar">Calendar</Link></li>
+											{userInfo.data[2] != "doctor" ? (
 											<li><Link to="/map">Map</Link></li>
-											<li><Link to="/doctor/Neurology">Request Appointment</Link></li>
+											) : (null)}
+											
 											<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
 										</ul>
 									</li>
@@ -124,7 +130,7 @@ function App() {
 		<main>
 		
 			<Routes>
-				
+				<Route exact path = "/" element={<Intro/>}/>
 				<Route path='/signin/' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
 				<Route path='/signintype' element={<UserTypeSignIn/>}/>
@@ -133,19 +139,20 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path='/sorrypage' element={<SorryPage></SorryPage>}/>
+
+				{/**Display to user */}
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
-
-				<Route path ="/appointments" element={<AppointmentPage/>}/>
-				<Route path ="/onlineres" element={<Results/>}/>
-
-				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
-				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
-				<Route path="/overview" element={<Overview/>}/>
-			
-				<Route exact path = "/" element={<Intro/>}/>
 				<Route path ="/doctor/:category" element={<DoctorScreen></DoctorScreen>}/>
 
-				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
+				<Route path ="/appointments" element={<AppointmentPage/>}/>
+				
+				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
+				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
+				
+				
+				<Route path="/doctor/:id/edit" element={!userInfo || userInfo.data[2] !="doctor" ? <Navigate to="/signintype"/> : <Doctorprofile/>}></Route>
+				
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 				<Route path="/bookservice/:id" element={<BookServiceProfile></BookServiceProfile>}/>

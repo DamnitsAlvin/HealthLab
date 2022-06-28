@@ -538,6 +538,7 @@ def updateAppointmentStatus():
         app_id = request.json.get("id")
         status = request.json.get("status")
         try:
+            print(f'{status}')
             if status == "Accepted":
                 response = cur.execute("SELECT Doctor_id, Appointment_date FROM `appointment_request` WHERE Appointment_Id=%s", (app_id, ))
                 det = cur.fetchone()
@@ -576,6 +577,19 @@ def updateAppointmentStatus():
             print(e)
             return jsonify({'success': False}), 404
 
+@doc_api.route("/setappointmentdone", methods=["POST"])
+def updateAppointmentStatusDone():
+    if request.method == 'POST':
+        cur = mysql.connection.cursor()
+        app_id = request.json.get("id")
+        try:
+            cur.execute("UPDATE `appointment_request` SET `Status`= %s WHERE `Appointment_Id`=%s", ("Done", app_id))
+            cur.connection.commit()
+            cur.close()
+            return jsonify({'success': True}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({'success': False}), 404
 #????????
 @doc_api.route("/doctoreducreg", methods = ["POST"])
 def registerEducInformationDoctor():
