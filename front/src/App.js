@@ -81,8 +81,10 @@ function App() {
 								{!userInfo || userInfo.data[2] != "admin" ? (
 								<>
 									<li className="top"><Link to="/">Home</Link></li>
-									<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
-									<li className="top"><Link to="/service/Urinalysis">Service</Link></li>
+									{!userInfo || userInfo.data[2] == "user" ? 
+									(<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>) : (null)
+									}
+									
 									{userInfo ? (
 									<li className="dropdown top">
 										<Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
@@ -90,8 +92,10 @@ function App() {
 											<li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
 											<li><Link to="/appointments">Appointments</Link></li>
 											<li><Link to="/calendar">Calendar</Link></li>
+											{userInfo.data[2] != "doctor" ? (
 											<li><Link to="/map">Map</Link></li>
-											<li><Link to="/doctor/Neurology">Request Appointment</Link></li>
+											) : (null)}
+											
 											<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
 										</ul>
 									</li>
