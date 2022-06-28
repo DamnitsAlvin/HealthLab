@@ -267,6 +267,22 @@ def checkEmail():
             return jsonify({"message": "all goods"}), 200
         else:
             return jsonify({"message": "email is in use"}), 404
+
+@api.route("/checkuserappointment", methods=["POST"])
+def checkuserapp():
+    if request.method=="POST":
+        cur = mysql.connection.cursor()
+        user_id=request.json.get("id")
+
+        try:
+            response = cur.execute("SELECT * FROM appointment_request WHERE Patient_id=%s AND (Status='Accepted' or Status='') ", (user_id, ))
+            if response > 2:
+                return jsonify({'appointment': False}), 200
+            return jsonify({'appointment': True}), 200
+
+        except Exception as e:
+            print(e)
+            return jsonify({'message': 'problem in the database'}),404
        
 @api.route("/updateImage", methods=["POST"])
 def fileImageHandler():

@@ -32,6 +32,7 @@ import BookServiceProfile from './screens/bookservice';
 import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
 import GMaps from './screens/Gmaps'
 import DoctorRoute from './components/DoctorRoute';
+import SorryPage from './screens/sorryPage';
 
 function App() {
   
@@ -138,6 +139,7 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path='/sorrypage' element={<SorryPage></SorryPage>}/>
 
 				{/**Display to user */}
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
