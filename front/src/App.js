@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import { signout} from "./actions/userActions";
-import {Route, Routes, Link, useNavigate} from 'react-router-dom'
+import {Route, Routes, Link, useNavigate, Navigate} from 'react-router-dom'
 import Intro from "./components/intro";
 import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
@@ -31,6 +31,7 @@ import CreateDiagnosis from './screens/createDiagnosis';
 import BookServiceProfile from './screens/bookservice';
 import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
 import GMaps from './screens/Gmaps'
+import DoctorRoute from './components/DoctorRoute';
 
 function App() {
   
@@ -128,7 +129,7 @@ function App() {
 		<main>
 		
 			<Routes>
-				
+				<Route exact path = "/" element={<Intro/>}/>
 				<Route path='/signin/' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
 				<Route path='/signintype' element={<UserTypeSignIn/>}/>
@@ -137,19 +138,19 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+
+				{/**Display to user */}
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
-
-				<Route path ="/appointments" element={<AppointmentPage/>}/>
-				<Route path ="/onlineres" element={<Results/>}/>
-
-				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
-				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
-				<Route path="/overview" element={<Overview/>}/>
-			
-				<Route exact path = "/" element={<Intro/>}/>
 				<Route path ="/doctor/:category" element={<DoctorScreen></DoctorScreen>}/>
 
-				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
+				<Route path ="/appointments" element={<AppointmentPage/>}/>
+				
+				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
+				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
+				
+				
+				<Route path="/doctor/:id/edit" element={!userInfo || userInfo.data[2] !="doctor" ? <Navigate to="/signintype"/> : <Doctorprofile/>}></Route>
+				
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 				<Route path="/bookservice/:id" element={<BookServiceProfile></BookServiceProfile>}/>
