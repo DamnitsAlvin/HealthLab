@@ -503,6 +503,8 @@ def getDoctor():
         doctors = list()
         for i in range(0, len(doc_id)): 
             response1 = cur.execute("SELECT * FROM doctor WHERE `doctor_id`=%s AND is_verified=%s", (doc_id[i][0], True ))
+         
+            
             data = cur.fetchone()
             if data is None:
                 continue
