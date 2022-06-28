@@ -10,7 +10,7 @@ export default function Categories(){
      
   
         <div class="category">
-        <div>
+        <div className='categorySpace'>
         
 		<div className="container marginbot-50">
 			<div className="row">

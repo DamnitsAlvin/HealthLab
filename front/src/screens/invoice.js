@@ -57,10 +57,7 @@ export default function Invoice(){
                 </div>
                 <div className="top-right">
                     <div className="date" id="qNumber">Queue Number: {displayData && displayData.app_req[9]} </div>
-                    <div className="date">Appointment Date: {displayData && displayData.app_req[3]} </div>
-                    <div className="date">Estimated Time: {displayData && displayData.app_req[4]} </div>
-                  
-                   
+                    <div className="date">Appointment Date: {displayData && displayData.app_req[3]} </div>                  
                 </div>
             </div>
             <div className="bill-box">

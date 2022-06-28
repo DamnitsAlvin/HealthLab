@@ -18,11 +18,20 @@ export default function CreateAppointmentSlip(props){
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
 
-    if(userInfo){
-        id =  userInfo.data[0];
-    }else{
-        navigate(`/signin?userType=user&redirect=/createAppointment?doctor=${doc_id}&mode=2`)
-    }
+    useEffect( async()=>{
+        if(userInfo){
+            id =  userInfo.data[0];
+            const {status, data} = await axios.post("http://localhost:5000/api/checkuserappointment", {id: userInfo.data[0]})
+            if(!data.appointment || status != 200 ){
+                navigate("/sorrypage")
+            }
+
+        }else{
+            navigate(`/signin?userType=user&redirect=/createAppointment?doctor=${doc_id}&mode=2`)
+        }
+    }, [userInfo])
+
+   
     
 
     const [PatientFirstName, setPatientFirstName] = useState(userInfo && userInfo.data[3]);
@@ -43,23 +52,28 @@ export default function CreateAppointmentSlip(props){
     var date = new Date(); 
     var time = date.getDate()+""+date.getMonth()+1+""+date.getSeconds()+""+ date.getMilliseconds();
 
-    useEffect(()=>{
-        setAppointmentRequest("PTR"+time);
-    }, []);
-
+    
     
     const removeappointmentsuccess = () => async(dispatch) =>{
         dispatch({type: 'REMOVE_APPOINTMENT_SUCCESS'})
     }
    
     const NextHandler = (e) =>{
-        e.preventDefault();  
+        e.preventDefault(); 
+        setAppointmentRequest("PTR"+time); 
         if(!toSelf){
             id = "PATIENT" + time
             dispatch(addPatient([id, userInfo.data[0], PatientFirstName, PatientLastName, Relationship,  Birthday, Gender])) //save patient details to local storage
-            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
+            setAppointmentRequest((appreq)=>{
+                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate, description, Appmode ]));
+                return appreq
+            })
+            
         }else{
-            dispatch(userBasicAppointment([appointmentRequest,  id , doc_id,  PreferredDate, description, Appmode ]));
+            setAppointmentRequest((appreq)=>{
+                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate, description, Appmode ]));
+                return appreq
+            })
         }
     }
     useEffect(()=>{

@@ -260,7 +260,9 @@ input::-webkit-inner-spin-button {
   background-color: rgb(7, 228, 184);
   border-radius: 100px;
   padding: 10px;
-
+}
+.gg img{
+  background-color: rgb(255,204,203);
 }
 #pepe2{
   margin-bottom: 20px;
@@ -327,6 +329,9 @@ input::-webkit-inner-spin-button {
   background-color: white;
   margin: 0 auto;
   padding: 5rem 4.375rem 2.5rem;
+}
+.categorySpace{
+  margin-bottom: 50px;
 }
 
 .card-container {
