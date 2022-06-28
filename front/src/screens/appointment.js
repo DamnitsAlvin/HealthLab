@@ -36,7 +36,7 @@ export default function AppointmentPage() {
 
     const deleteHandler = (appointId) => {
         if (window.confirm(`Are you sure you want to delete appointment ${appointId}?`) == true) {
-            dispatch(deleteAppointment(appointId))
+            dispatch(deleteAppointment(appointId, "reason"))
         }
     }
     const doctorActionHandler = (id, mode) =>{

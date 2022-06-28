@@ -194,27 +194,30 @@ def getUserInformation():
         return({'success': False}), 404
 
 #Delete appointment 
-@api.route("/deleteAppointment", methods=["DELETE", 'POST'])
+@api.route("/deleteAppointment", methods=['POST'])
 def deleteAppointment():
-    cur = mysql.connection.cursor()
-    args  = request.args.to_dict()
-    app_id = args.get("id") 
     if request.method == "POST":
+        cur = mysql.connection.cursor()
+        args  = request.args.to_dict()
+        app_id = args.get("id") 
         reason = request.json.get('reason')
-    try:
-        data = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_Id=%s AND status=''", (app_id, ))
-        cur.connection.commit()
-        cur.close()
-        if data !=  0:
-            return jsonify({'success': True}), 200
-        else:
-            if request.method == 'POST':
-                cur.execute("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)", (app_id, reason))
-                cur.connection.commit()
-                cur.close()
+        try:
+            data = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_Id=%s AND status=''", (app_id, ))
+            cur.connection.commit()
+            if data !=  0:
                 return jsonify({'success': True}), 200
-    except Exception as e: 
-        return jsonify({"success": False}), 404
+            else:
+                try:
+                    print("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)"%(app_id, reason))
+                    cur.execute("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)", (app_id, reason))
+                    cur.connection.commit()
+                    cur.close()
+                    return jsonify({'success': True}), 200
+                except Exception as e:
+                    print(e)
+                    return jsonify({'success': False}), 404
+        except Exception as e: 
+            return jsonify({"success": False}), 404
 
 #Update User
 @api.route("/updateuserinformation", methods=["POST"])
