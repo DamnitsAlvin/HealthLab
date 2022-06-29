@@ -591,6 +591,31 @@ def updateAppointmentStatusDone():
         except Exception as e:
             print(e)
             return jsonify({'success': False}), 404
+
+@doc_api.route("/reportuser", methods=["POST"])
+def reportauser():
+    if request.method == 'POST':
+        print("called")
+        cur = mysql.connection.cursor()
+        user_id = request.json.get("id")
+        reason = request.json.get("reason")
+        app_id = request.json.get("app_id")
+        doc_id = request.json.get('doc_id')
+        try:
+            cur.execute("UPDATE `appointment_request` SET `Reported`= %s WHERE `Appointment_Id`=%s", (1, app_id))
+            cur.execute("INSERT INTO `admin_reported_user`(`user_id`, `doctor_id`, `reason of report`) VALUES (%s,%s,%s)", (user_id, doc_id, reason))
+            resp = cur.execute("SELECT reports FROM user WHERE user_id=%s", (user_id, ))
+            
+            resp = cur.fetchone()
+            cur.execute("UPDATE user SET reports=%s WHERE user_id=%s", (resp[0]+1, user_id))
+            cur.connection.commit()
+            
+            cur.close()
+            return jsonify({'success': True}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({'success': False}), 404
+
 #????????
 @doc_api.route("/doctoreducreg", methods = ["POST"])
 def registerEducInformationDoctor():

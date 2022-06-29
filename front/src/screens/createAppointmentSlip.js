@@ -13,16 +13,30 @@ export default function CreateAppointmentSlip(props){
     const [searchParams] = useSearchParams()
     const doc_id = searchParams.get("doctor")
     const mode = searchParams.get('mode')
+    const [id, setId] = useState()
+    
 
-    var id=""; 
+    
+    
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
 
     useEffect( async()=>{
         if(userInfo){
-            id =  userInfo.data[0];
+            setId(()=> userInfo.data[0])  
+        }
+
+        if(userInfo){
             const {status, data} = await axios.post("http://localhost:5000/api/checkuserappointment", {id: userInfo.data[0]})
             if(!data.appointment || status != 200 ){
+                navigate("/sorrypage")
+            }
+            const gg = await axios.post("http://localhost:5000/api/checkuserdoctorreport", {
+                'user':userInfo.data[0] , 
+                'doctor': doc_id
+            })
+            console.log(gg)
+            if(!gg.data.appointment){
                 navigate("/sorrypage")
             }
 
@@ -31,6 +45,7 @@ export default function CreateAppointmentSlip(props){
         }
     }, [userInfo])
 
+    console.log("id:", id)
    
     
 

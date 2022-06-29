@@ -136,11 +136,18 @@ export default function UserProfile(){
                         <h3 className="user-name"id="userprof">{UserDetails && UserDetails.userData[1].concat(" ", UserDetails.userData[2])}</h3>
                         <h5 className="user-email"id="userprof2">{UserDetails && UserDetails.userData[0]}</h5>
                         <h4 className="user-email"id="userprof1">{UserDetails && UserDetails.userData[12]}</h4>
+                        {
+                            UserDetails && UserDetails.userData[16] > 3 ? (<div className="alert alert-danger">Account for termination</div>) : (<div className="alert alert-warning">Warning: You have been reported multiple times</div>)
+                        }
                     </div>
                 </div>
             </div>
         </div>
+
+  
         </div>
+
+       
 
 
         <div className="col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">

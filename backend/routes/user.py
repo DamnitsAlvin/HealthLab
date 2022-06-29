@@ -202,20 +202,22 @@ def deleteAppointment():
         app_id = args.get("id") 
         reason = request.json.get('reason')
         try:
-            data = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_Id=%s AND status=''", (app_id, ))
-            cur.connection.commit()
-            if data !=  0:
-                return jsonify({'success': True}), 200
-            else:
-                try:
-                    print("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)"%(app_id, reason))
-                    cur.execute("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)", (app_id, reason))
-                    cur.connection.commit()
-                    cur.close()
-                    return jsonify({'success': True}), 200
-                except Exception as e:
-                    print(e)
-                    return jsonify({'success': False}), 404
+            if app_id:
+                data = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_Id=%s AND (status='' OR status='Declined' )", (app_id, ))
+                cur.connection.commit()
+                print(f'{data}')
+                if data !=  0:
+                    return jsonify({'success': True, 'message': 'successfully deleted'}), 200
+                else:
+                    try:
+                        print("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)"%(app_id, reason))
+                        cur.execute("INSERT INTO `admin_delete_app_req`(`Appointment_Id`, `reason`) VALUES (%s,%s)", (app_id, reason))
+                        cur.connection.commit()
+                        cur.close()
+                        return jsonify({'success': True, 'message': 'this would be under review'}), 200
+                    except Exception as e:
+                        print(e)
+                        return jsonify({'success': False}), 404
         except Exception as e: 
             return jsonify({"success": False}), 404
 
@@ -358,4 +360,19 @@ def authenticateUser():
                 cur.close()
                 return jsonify({"access_token": access_token, 
                                 "data": [data[0], data[1], data[6]] }), 200
-        
+
+@api.route("/checkuserdoctorreport", methods=["POST"])
+def checkuserdoctorreport():
+    cur = mysql.connection.cursor()
+    user_id = request.json.get("user")
+    doc_id = request.json.get('doctor')
+    try:
+        response = cur.execute("SELECT * FROM `admin_reported_user` WHERE user_id=%s AND doctor_id=%s", (user_id, doc_id))
+        cur.connection.commit()
+        cur.close()
+        if response > 0:
+            return jsonify({'appointment': False}), 200
+        return jsonify({'appointment': True}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'appointment': False}), 404

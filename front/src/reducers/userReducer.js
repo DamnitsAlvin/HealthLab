@@ -169,7 +169,7 @@ export const deleteAppointmentReducer = (state={}, action) =>{
         case DELETE_APPOINTMENT_REQUEST:
             return {Deleteloading: true}
         case DELETE_APPOINTMENT_SUCCESS:
-            return {Deleteloading: false, DeleteSuccess: true}
+            return {Deleteloading: false, DeleteSuccess: true, DeleteMessage: action.payload}
         case DELETE_APPOINTMENT_FAIL:
             return {DeleteLoading: false, DeleteSuccess: false}
         default:
