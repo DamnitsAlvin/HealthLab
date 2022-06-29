@@ -330,6 +330,9 @@ input::-webkit-inner-spin-button {
   margin: 0 auto;
   padding: 5rem 4.375rem 2.5rem;
 }
+.categorySpace{
+  margin-bottom: 50px;
+}
 
 .card-container {
   max-width: 50%;
@@ -1569,7 +1572,10 @@ html {
   bottom: 20%;
 }
 
-
+.tableContainer{
+  width: 80%;
+  
+}
 #userTypeRes{
   font-family: 'D-DIN', sans-serif;
   font-weight: 500;
@@ -1582,7 +1588,7 @@ html {
 }
 /*Trial */
 @media only screen and (max-width: 760px) and (max-width:1250px) {
-  .table-wrapper {
+  .tableContainer {
     overflow-x: auto;
     width: 120vh;
   }
@@ -1594,6 +1600,9 @@ html {
 
   #userTypeRes {
     font-size: 20px;
+  }
+  .table-wrapper{
+    width: 120vh;
   }
 
   .centerContainer {
@@ -1644,7 +1653,6 @@ html {
   padding: 8px 25px;
   margin: 30px 0;
   box-shadow: 0 0 15px rgb(0 0 0 / 10%);
-  border-radius: 10px;
 
 }
 
@@ -1877,7 +1885,7 @@ table.table .avatar {
   display: flex;
   justify-content: center;
   align-items: center;
-  ;
+  width: 100%;
 
 }
 

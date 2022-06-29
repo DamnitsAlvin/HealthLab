@@ -86,6 +86,22 @@ function App() {
 									{!userInfo || userInfo.data[2] == "user" ? 
 									(<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>) : (null)
 									}
+									{(userInfo && userInfo.data[2])&&
+															<>
+																<li className="dropdown top"><Link to="/appointments" className='dropdown-toggle' data-toggle="dropdown">Appointment<b className="caret"></b></Link>
+																<ul className='dropdown-menu'>
+																<li className="top"><Link to="/">Manage</Link></li>
+																<li className="top"><Link to='/'>Current</Link></li>
+																<li className="top"><Link to="/">Declined</Link></li>
+																<li className="top"><Link to="/">Done</Link></li>
+																</ul>
+																
+																</li>
+																<li className="top"><Link to="/calendar">Schedule</Link></li>
+																<li className="top"><Link to={userInfo.data[2] == "doctor" ? `/doctor/${userInfo.data[0]}/edit` : userInfo.data[2] == "service" ? "/serviceprofile" : "/userprofile"}>Profile</Link></li>
+																<li className="top"><Link onClick={signoutHandler} to="/">Sign out</Link></li>
+															</>
+														}
 									
 									{userInfo ? (
 									<li className="dropdown top">
