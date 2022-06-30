@@ -10,4 +10,4 @@ gunicorn
 cloudinary 
 flask-admin 
 flask-mysqldb
-flask-jwt-extended 
+flask-jwt-extended
