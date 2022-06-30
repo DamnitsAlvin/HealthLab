@@ -3,7 +3,7 @@ front/node_modules
 front/.env.local
 notes.txt
 front/chatbot_backend/config/dev.js
-backend/credentials.py
+backend/cred.py
 backend/_pychache_
 backend/routes/_pychache_
 backend/.env

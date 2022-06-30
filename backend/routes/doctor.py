@@ -2,7 +2,7 @@ from app import create_app
 from flask import Blueprint, Flask, jsonify, request, url_for
 from flask_jwt_extended import create_access_token
 from math import sin, cos, sqrt, atan2, radians
-from credentials import API_KEY 
+from cred import API_KEY 
 import requests
 
 app,mysql = create_app()
