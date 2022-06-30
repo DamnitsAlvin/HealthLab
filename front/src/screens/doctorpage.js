@@ -6,16 +6,20 @@ import {getDoctor} from "../actions/doctorActions"
 export default function DoctorPage(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [latitude, setlatitude] = useState("14.5995124")
+    const [longitude, setlongitude] = useState("120.9842195")
     const {category} = useParams()
+    
 
     useEffect(()=>{
-        dispatch(getDoctor(category))
-    }, [dispatch, category])
+        dispatch(getDoctor(category, "14.5995124", "120.9842195"))
+    }, [dispatch, category, latitude, longitude])
 
     const getDoc = useSelector(x => x.getDoc)
     const {doctorLoading, doctors, error} = getDoc
     const [docToDisp, setDocToDisp] = useState([])
     const [mode, setMode] = useState()
+
     useEffect(()=>{
         setDocToDisp(doctors ? doctors.data: [])
     }, [doctors])
@@ -23,6 +27,7 @@ export default function DoctorPage(){
     if(docToDisp){
         console.log("Display:", docToDisp)
     }
+
     const searchHandler = (event) =>{
         let values = doctors.data
         if(event.target.value){
@@ -36,6 +41,7 @@ export default function DoctorPage(){
         }
         setDocToDisp(values)
     }
+
     const dropdownHandler = (event) =>{
         const toCategory = event.target.value; 
         navigate(`/doctor/${toCategory}`)

@@ -14,10 +14,7 @@ export default function CreateAppointmentSlip(props){
     const doc_id = searchParams.get("doctor")
     const mode = searchParams.get('mode')
     const [id, setId] = useState()
-    
 
-    
-    
     const getUserInfo = useSelector(x=>x.userSignIn); 
     const { userInfo } = getUserInfo
 

@@ -53,9 +53,7 @@ export default function GMaps(){
     }, [])
 
     useEffect( async()=>{
-        console.log("called")
         if(position){
-            console.log("called")
             const proxyurl = "https://enigmatic-everglades-21603.herokuapp.com/"
             const gmapsurl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&location=${position.latitude}%2C${position.longitude}&radius=${radius}&type=hospital`
             fetch(proxyurl + gmapsurl).then(response =>response.json()).then(sethospitals).catch(()=>console.log("errors"))
@@ -79,7 +77,9 @@ export default function GMaps(){
             }
         }
     }, [hospitals])
-    console.log(position)
+
+    console.log("position:", position)
+    
     const mapRef = useRef()
     const onMapLoad = useCallback((map)=>{
         mapRef.current = map
