@@ -108,9 +108,9 @@ function App() {
 								</>
 								) : userInfo && (userInfo.data && userInfo.data[2] == "admin") ?(
 								<>
-									<li className="dropdown top"><Link to="/admin/verifyusers" className='dropdown-toggle' data-toggle="dropdown">Verify<b className="caret"></b></Link>
+									<li className="dropdown top"><Link to="/admin/verifyusers" className='dropdown-toggle' data-toggle="dropdown">Verification<b className="caret"></b></Link>
 										<ul className='dropdown-menu'>
-											<li className="top"><Link to="/admin/verifyusers">Users</Link></li>
+											<li className="top"><Link to="/admin/verifyusers">Verify Doctors</Link></li>
 											<li className="top"><Link to='/admin/deleteappointment'>Delete Request</Link></li>
 											<li className="top"><Link to='/admin/reporteduser'>Reported User</Link></li>
 										</ul>
@@ -314,7 +314,7 @@ function App() {
 	   ): <></>
 }
 
-		<Link to="#" className="scrollup"><i className="fa fa-angle-up active"></i></Link>  
+		
 	</>
   );
 }

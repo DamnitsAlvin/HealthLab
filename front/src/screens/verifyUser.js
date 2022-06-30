@@ -35,7 +35,7 @@ export default function VerifyUser(){
                 <div className="table-title">
                     <div className="row">
                         <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                            <h2 class="ml-lg-2">Manage Appointment</h2>
+                            <h2 class="ml-lg-2">Manage Doctor Verification</h2>
                         </div>
                     </div>
                 </div>
