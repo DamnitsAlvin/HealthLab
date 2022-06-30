@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import PinInputGrid from '../components/PinInputGrid';
+import {USER_SIGNIN_SUCCESS} from "../constants/userConstants";
 
 const PARENTAL_PIN_LENGTH = 4; 
 
@@ -10,7 +12,7 @@ export default function AdminLogin(){
     const [wrongPass, setwrongPass] = useState(false)
     const [retry, setRetry] = useState(localStorage.getItem("retry") ?localStorage.getItem("retry"): 0 )
     const password = [5,7,2,6]
-   
+    const dispatch = useDispatch()
 
     const onPinChanged = (number, index) =>{
         const values = [...pin]
@@ -27,6 +29,7 @@ export default function AdminLogin(){
                         "admin"
                     ]
                 }
+                dispatch({type: USER_SIGNIN_SUCCESS, payload: toSet}) 
                 localStorage.setItem("userInfo", JSON.stringify(toSet))
                 navigate("/admin/verifyusers")
             }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import { signout} from "./actions/userActions";
-import {Route, Routes, Link, useNavigate} from 'react-router-dom'
+import {Route, Routes, Link, useNavigate, Navigate} from 'react-router-dom'
 import Intro from "./components/intro";
 import CreateAppointmentSlip from "./screens/createAppointmentSlip";
 import SignIn from "./screens/signin";
@@ -31,6 +31,14 @@ import CreateDiagnosis from './screens/createDiagnosis';
 import BookServiceProfile from './screens/bookservice';
 import CreateServiceAppointmentSlip from "./screens/createserviceappointment";
 import GMaps from './screens/Gmaps'
+import DoctorRoute from './components/DoctorRoute';
+import SorryPage from './screens/sorryPage';
+import ManageAppointment from './screens/manage';
+import CurrentAppointment from './screens/current';
+import DeclinedAppointment from './screens/declined';
+import DoneAppointment from './screens/done';
+import DeleteAppointmentByAdmin from './screens/admindelete';
+import ReportedUser from './screens/reportedUser';
 
 function App() {
   
@@ -41,8 +49,11 @@ function App() {
   const dispatch = useDispatch()
 
   const signoutHandler = () =>{
-      	dispatch(signout());
+	  if(userInfo && userInfo.data){
+		dispatch(signout());
 		navigate("/", {replace: true});
+	  }
+      
    }; 
 
 
@@ -78,34 +89,56 @@ function App() {
 
 							<div className="collapse navbar-collapse navbar-right navbar-main-collapse">
 								<ul className="nav navbar-nav">
-								{!userInfo || userInfo.data[2] != "admin" ? (
+
+								{ userInfo && userInfo.data && userInfo.data[2] == "user" ? (
 								<>
 									<li className="top"><Link to="/">Home</Link></li>
 									<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
-									<li className="top"><Link to="/service/Urinalysis">Service</Link></li>
-									{userInfo ? (
+		
 									<li className="dropdown top">
 										<Link to="/" className="dropdown-toggle" data-toggle="dropdown"><span className="badge custom-badge red pull-right"></span>Welcome {userInfo.data[0]} <b className="caret"></b></Link>
 										<ul className="dropdown-menu">
-											<li><Link to={userInfo.data[2]=="doctor" ? `/doctor/${userInfo.data[0]}/edit` :userInfo.data[2]=="service" ? "/serviceprofile":  "/userprofile" }>Profile</Link></li>
+											<li><Link to="/userprofile">Profile</Link></li>
 											<li><Link to="/appointments">Appointments</Link></li>
 											<li><Link to="/calendar">Calendar</Link></li>
 											<li><Link to="/map">Map</Link></li>
-											<li><Link to="/doctor/Neurology">Request Appointment</Link></li>
 											<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
 										</ul>
 									</li>
-									):(
-									<li className="top"><Link to="/signintype">Sign In</Link></li>
-									)	
-									}
 								</>
-								) : (
+								) : userInfo && (userInfo.data && userInfo.data[2] == "admin") ?(
 								<>
-									<li> <Link className="dropdown-item" to="/admin/verifyusers" >Back To table</Link></li>
-									<li> <Link onClick={signoutHandler} className="dropdown-item" to="/" >Sign Out</Link></li>
+									<li className="dropdown top"><Link to="/admin/verifyusers" className='dropdown-toggle' data-toggle="dropdown">Verify<b className="caret"></b></Link>
+										<ul className='dropdown-menu'>
+											<li className="top"><Link to="/admin/verifyusers">Users</Link></li>
+											<li className="top"><Link to='/admin/deleteappointment'>Delete Request</Link></li>
+											<li className="top"><Link to='/admin/reporteduser'>Reported User</Link></li>
+										</ul>
+									</li>
+									<li> <Link onClick={signoutHandler} className="dropdown-item" to="/">Sign Out</Link></li>
 								</>
-								)}
+								): userInfo && (userInfo.data && userInfo.data[2] == "doctor" || userInfo.data[2] == "service") ?(
+									<>
+										<li className="dropdown top"><Link to="/manageappointment" className='dropdown-toggle' data-toggle="dropdown">Appointment<b className="caret"></b></Link>
+										<ul className='dropdown-menu'>
+											<li className="top"><Link to="/manageappointment">Manage</Link></li>
+											<li className="top"><Link to='/currentappointment'>Current</Link></li>
+											<li className="top"><Link to="/declinedappointment">Declined</Link></li>
+											<li className="top"><Link to="/doneappointment">Done</Link></li>
+										</ul>
+										
+										</li>
+										<li className="top"><Link to="/calendar">Schedule</Link></li>
+										<li className="top"><Link to={userInfo.data[2] == "doctor" ? `/doctor/${userInfo.data[0]}/edit` :  "/serviceprofile" }>Profile</Link></li>
+										<li className="top"><Link onClick={signoutHandler} to="/">Sign out</Link></li>
+									</>	
+								):!userInfo &&(
+									<>
+									<li className="top"><Link to="/">Home</Link></li>
+									<li className="top"><Link to="/doctor/Neurology">Doctors</Link></li>
+									<li className="top"><Link to="/signintype">Sign In</Link></li>
+									</>
+								) }
 								
 								
 								</ul>
@@ -124,7 +157,7 @@ function App() {
 		<main>
 		
 			<Routes>
-				
+				<Route exact path = "/" element={<Intro/>}/>
 				<Route path='/signin/' element={<SignIn/>}/>
 				<Route path="/test/:id" element={<Testing/>}/>
 				<Route path='/signintype' element={<UserTypeSignIn/>}/>
@@ -133,19 +166,24 @@ function App() {
 				<Route path="/registerservice" element={<RegisterService/>}/>
 				<Route path="/registerdoctor" element={<RegisterDoctor/>} />
 				<Route path="/success" element={ <AccountRegister> </AccountRegister> }/>
+				<Route path='/sorrypage' element={<SorryPage></SorryPage>}/>
+
+				{/**Display to user */}
 				<Route path="/service/:category" element={<ServicePage></ServicePage>}/>	
-
-				<Route path ="/appointments" element={<AppointmentPage/>}/>
-				<Route path ="/onlineres" element={<Results/>}/>
-
-				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
-				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
-				<Route path="/overview" element={<Overview/>}/>
-			
-				<Route exact path = "/" element={<Intro/>}/>
 				<Route path ="/doctor/:category" element={<DoctorScreen></DoctorScreen>}/>
 
-				<Route path="/doctor/:id/edit" element={<Doctorprofile/>} />
+				<Route path ="/appointments" element={<AppointmentPage/>}/>
+				<Route path="/manageappointment" element={<ManageAppointment></ManageAppointment>}/>
+				<Route path="/currentappointment" element={<CurrentAppointment></CurrentAppointment>}/>
+				<Route path="/declinedappointment" element={<DeclinedAppointment></DeclinedAppointment>}/>
+				<Route path="/doneappointment" element={<DoneAppointment></DoneAppointment>}/>
+				
+				<Route path="/createAppointment" element={<CreateAppointmentSlip/>}/>
+				<Route path="/createServiceAppointment" element={<CreateServiceAppointmentSlip></CreateServiceAppointmentSlip>}/>
+				
+				
+				<Route path="/doctor/:id/edit" element={!userInfo || userInfo.data[2] !="doctor" ? <Navigate to="/signintype"/> : <Doctorprofile/>}></Route>
+				
 				<Route path="/calendar" element={<Kalendaryo></Kalendaryo>}/>
 				<Route path="/bookdoctor/:id" element={<Bookdoctor/>}/>
 				<Route path="/bookservice/:id" element={<BookServiceProfile></BookServiceProfile>}/>
@@ -156,6 +194,8 @@ function App() {
 				<Route path="/createDiagnosis" element={<CreateDiagnosis></CreateDiagnosis>}/>
 				<Route path="/admin" element={<AdminLogin></AdminLogin>}> </Route>
   				<Route path="/admin/verifyusers" element={<VerifyUser></VerifyUser>}/>
+				<Route path="/admin/deleteappointment" element={<DeleteAppointmentByAdmin></DeleteAppointmentByAdmin>}/>
+				<Route path="/admin/reporteduser" element={<ReportedUser></ReportedUser>}/>
 				<Route path="/map" element={<GMaps></GMaps>} />
 				
 			

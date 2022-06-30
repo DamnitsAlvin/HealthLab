@@ -118,8 +118,12 @@ export default function Intro(){
 
 		<Box/>
 		<Service/>	
+		{!userInfo || userInfo.data[2] != "doctor" ? (
 		<Category/>
-		<Facilities />
+		) : (null)}
+		
+		{/** <Facilities /> */}
+		
 	</div>
     );
 }

@@ -59,6 +59,81 @@ def addVerificatoin():
         except Exception as e:
             print(e)
             return jsonify({"success":False}), 404
-        
 
+@ad_api.route("/getdeleterequest", methods=["GET"])
+def getDeleteReq():
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM `admin_delete_app_req`")
+        cur.connection.commit()
+        if response >0:
+            data = cur.fetchall()
+            cur.close()
+            return jsonify({"data": data}), 200
+        return ({'data': []}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False}), 404
+
+@ad_api.route("/deleteapp", methods=["DELETE"])
+def deleteAppointmentReq():
+    cur = mysql.connection.cursor()
+    args = request.args.to_dict()
+    app_id = args.get("id")
+    try:
+
+        response = cur.execute("DELETE FROM `admin_delete_app_req` WHERE Appointment_id=%s", (app_id, ))
+        cur.connection.commit()
+
+        response1 = cur.execute("SELECT Doctor_id, Appointment_date, Queue FROM `appointment_request` WHERE Appointment_id=%s", (app_id, ))
+        dat = cur.fetchone()
+
+        response2 = cur.execute("SELECT * FROM appointment_request WHERE Doctor_id=%s AND Appointment_date=%s", (dat[0], dat[1]))
+        ggez = cur.fetchall()
+        for i in range(0, len(ggez)):
+            if ggez[i][9] > dat[2]:
+                respeto = cur.execute("UPDATE appointment_request SET Queue=%s WHERE Appointment_Id=%s", (ggez[i][9]-1, ggez[i][0]))
+                cur.connection.commit()
+            else:
+                continue
+        
+        response = cur.execute("DELETE FROM `appointment_request` WHERE Appointment_id=%s", (app_id, ))
+        cur.connection.commit()
+
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False}), 404
+
+@ad_api.route("/getreporteduser", methods=['GET'])
+def getreporteduser():
+    cur = mysql.connection.cursor()
+    try:
+        response = cur.execute("SELECT * FROM `admin_reported_user`")
+        data = cur.fetchall()
+        cur.connection.commit()
+        cur.close()
+        return jsonify({'reported': data}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False}), 404
+
+@ad_api.route("/deletereporteduser", methods=["DELETE"])
+def deletereporteduser():
+    cur = mysql.connection.cursor()
+    args =request.args.to_dict()
+    user_id = args.get("id")
+    print(user_id)
+    try:
+        cur.execute("DELETE FROM appointment_request WHERE Patient_id=%s", (user_id, ))
+        cur.execute("DELETE FROM patient WHERE user_id=%s", (user_id, ))
+        cur.execute("DELETE FROM user WHERE user_id=%s", (user_id, ))
+        cur.execute("DELETE FROM `admin_reported_user` where user_id=%s", (user_id, ))
+        cur.connection.commit()
+        cur.close()
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False}), 404
 

@@ -419,11 +419,11 @@ export const getAppointments = (id, type) => async(dispatch) => {
         return false 
     }
 }
-export const deleteAppointment = (appointmentId) => async(dispatch) =>{
+export const deleteAppointment = (appointmentId, reason) => async(dispatch) =>{
     dispatch({type: DELETE_APPOINTMENT_REQUEST})
     try{
-        const {data} = await axios.delete(`http://localhost:5000/api/deleteAppointment?id=${appointmentId}`)
-        dispatch({type: DELETE_APPOINTMENT_SUCCESS})
+        const {data} = await axios.post(`http://localhost:5000/api/deleteAppointment?id=${appointmentId}`, {reason})
+        dispatch({type: DELETE_APPOINTMENT_SUCCESS, payload: data.message})
     }
     catch(error){
         dispatch({type: DELETE_APPOINTMENT_FAIL, 

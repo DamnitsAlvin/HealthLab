@@ -37,8 +37,10 @@ export default function SignIn(props){
         
     }
     useEffect(()=>{
-      if(userInfo){
+      if(userInfo && userInfo.data[2] == "user"){
         navigate(redirect);
+     }else if(userInfo && userInfo.data[2] == "doctor"){
+        navigate("/manageappointment")
      }
    }, [props.history, redirect, userInfo])
 
