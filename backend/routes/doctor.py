@@ -105,7 +105,7 @@ def getDoctorInformation():
             cur1.connection.commit()
 
         Available_Online = cur.execute("SELECT * FROM `doctor_available_online` WHERE doctor_id=%s", (doctor_id, ))
-        Available_Offline = cur1.execute("SELECT * FROM `doctor_availabledateclinic` WHERE doctor_id=%s", (doctor_id, ))
+        Available_Offline = cur1.execute("SELECT * FROM `doctor_clinicaddress` WHERE doctor_id=%s", (doctor_id, ))
 
         if Available_Offline > 0:
             Available_Offline = cur1.fetchall()

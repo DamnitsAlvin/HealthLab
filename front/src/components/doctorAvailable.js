@@ -15,16 +15,12 @@ export default function DoctorAvailable(props){
                     <p>{`${data[4]} - ${data[5]}`}</p>
                 </div>
             ) : (
-                <div className="docAvailOffline">
-                    <div >
+                
+                    <div className="docAvailOnline">
                         <p>{mode} : </p>
                         <p>{data[3]} {data[3]==data[4] ? "" : `- ${data[4]}`}</p>
                         <p>{`${data[5]} - ${data[6]}`}</p>
                     </div>
-                    <div className="off">
-                        
-                    </div>
-                </div>
 
             )}
           
