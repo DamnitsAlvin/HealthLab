@@ -169,7 +169,7 @@ export default function Bookdoctor() {
 
                          {DocBasicInfo ?(
                             DocBasicInfo.Available_Offline ? 
-                            (<div>
+                            (<div className="availOnline">
                                 {DocBasicInfo.Available_Offline.map(offline=>(
                                     <DoctorAvailable mode="Face to Face" data={offline}/>
                                 ))}
