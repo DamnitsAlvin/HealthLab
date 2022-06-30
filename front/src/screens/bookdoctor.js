@@ -44,7 +44,7 @@ export default function Bookdoctor() {
                             <img src={DocBasicInfo && DocBasicInfo.BasicInfo[10].length > 0 ? (DocBasicInfo.BasicInfo[10]): "https://bootdey.com/img/Content/avatar/avatar7.png"} alt="Maxwell Admin"/>
                         </div>
                         <h3 className="user-name"id="pepeMo1">{DocBasicInfo && DocBasicInfo.BasicInfo[1].concat(" ", DocBasicInfo.BasicInfo[2], " ", DocBasicInfo.BasicInfo[3])}</h3>
-                        <h4 className="user-name"id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles.map(valu => `${valu[1]} ,`)}</h4>
+                        <h4 className="user-name"id="pepeMo">{DocBasicInfo && DocBasicInfo.Titles && DocBasicInfo.Titles.map(valu => `${valu[1]} ,`)}</h4>
                         <h6 className="user-email">{DocBasicInfo && DocBasicInfo.BasicInfo[7]}</h6>
                     </div>
                     <div className="about">
@@ -197,7 +197,7 @@ export default function Bookdoctor() {
                 <div className="row gutters">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div className="text-right">  
-                            {userInfo.data[2] != "admin" ? (
+                            {userInfo && userInfo.data[2] != "admin" ? (
                                 <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={()=>bookDoctorHandler(DocBasicInfo.BasicInfo[8])}>Book Now</button>
                             ):(<></>)}
                         </div>

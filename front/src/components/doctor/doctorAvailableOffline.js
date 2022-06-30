@@ -66,11 +66,11 @@ export default function DoctorAvailableOffline(props){
                 setAddress(prevState => ([
                     ...prevState, 
                     {
-                        address_line_1: values[2], 
-                        barangay: values[3], 
-                        city: values[4], 
-                        province: values[5], 
-                        zip_code: values[6],
+                        address_line_1: values[3], 
+                        barangay: values[4], 
+                        city: values[5], 
+                        province: values[6], 
+                        zip_code: values[7],
                         doctor_id: values[0],
                         address_id: values[1], 
                     }

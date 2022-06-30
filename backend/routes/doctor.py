@@ -1,7 +1,9 @@
 from app import create_app
 from flask import Blueprint, Flask, jsonify, request, url_for
 from flask_jwt_extended import create_access_token
-
+from math import sin, cos, sqrt, atan2, radians
+from credentials import API_KEY 
+import requests
 
 app,mysql = create_app()
 doc_api=Blueprint('doc_api', __name__)
@@ -489,27 +491,85 @@ def updatetitleInfo():
             return jsonify({'sucess': False})  , 404
 
 #Retrieve doctor to display
-@doc_api.route("/doctor/getdoctor", methods=["GET"])
+@doc_api.route("/doctor/getdoctor", methods=["POST"])
 def getDoctor():
     args = request.args.to_dict()
-    category = args.get("category")
+    category = request.json.get("category")
+    lat = request.json.get('latitude')
+    longitude = request.json.get('longitude')
+    R = 6373.0
+   
+    if lat is None or lat=="":
+        lat = radians(14.5995)
+        longitude= radians(120.9842)
+
+    try:
+        if isinstance(lat, str):
+            lat = lat.strip()
+            lat = float(lat)
+            lat = radians(lat)
+
+            longitude = longitude.strip()
+            longitude = float(longitude)
+            longitude = radians(longitude)
+        else:
+            lat = radians(lat)
+            longitude = radians(longitude)
+    except ValueError as e:
+        print(e)
+    
+    print("lat: ", lat)
+    print("longitude", longitude)
+ 
     try:
         cur = mysql.connection.cursor()
         response = cur.execute("SELECT doctor_id FROM `doctor_specialty` WHERE `specialties`=%s", (category,))
         if response > 0: 
             doc_id = cur.fetchall()
         
+        
+        doc_address = []
         doctors = list()
-        print(doc_id)
+        payload = {}
+        headers = {}
         #display if doctor is verified
         for i in range(0, len(doc_id)): 
             response1 = cur.execute("SELECT * FROM doctor WHERE `doctor_id`=%s AND is_verified=%s", (doc_id[i][0], True ))
             data = cur.fetchone()
             if data is None:
                 continue
+            else:
+                data = list(data)
+                resp = cur.execute("SELECT * FROM `doctor_clinicaddress` WHERE doctor_id=%s", (doc_id[i][0], ))
+                if resp > 0:
+                    add = cur.fetchone()
+                    add = f"{add[3]} {add[4]} {add[5]} {add[6]}"
+
+                    url = f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={add}&inputtype=textquery&key={API_KEY}"
+                    plac_id = requests.request("GET", url, headers=headers, data=payload)
+                    plac_id = plac_id.json()
+                    plac_id = plac_id['candidates'][0]['place_id']
+
+                    url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={plac_id}&key={API_KEY}"
+                    plac_det = requests.request("GET", url, headers=headers, data=payload)
+                    plac_det = plac_det.json()
+                    lat1 = radians(plac_det['result']['geometry']['location']['lat'])
+                    long1 = radians(plac_det['result']['geometry']['location']['lng'])
+
+                    dlon = longitude - long1
+                    dlat = lat - lat1
+
+                    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat) * sin(dlon / 2)**2
+                    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+                    distance = R * c
+
+                    print("place_det: ", distance, "kms")
+                    data.append(distance)
+                else:
+                    data.append('1000')
             doctors.append(data)
 
-        print(doctors)
         doc_spec = list()   
         doc_title = list()
         if response > 0: 

@@ -7,17 +7,32 @@ export default function DoctorScreen(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {category} = useParams()
+    const [position, setPosition] = useState({"latitude":14.5995, "longitude":120.9842})
+    
+    function getPos(){
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                setPosition({latitude: position.coords.latitude, 
+                            longitude: position.coords.longitude})
+            });
+        }
+    }
+   
+    useEffect(()=>{
+        getPos()
+    },[category])
+    
 
     useEffect(()=>{
-        dispatch(getDoctor(category))
-    }, [dispatch, category])
+        dispatch(getDoctor(category,position.latitude, position.longitude))
+    }, [category, position])
 
     const getDoc = useSelector(x => x.getDoc)
     const {doctorLoading, doctors, error} = getDoc
     const [docToDisp, setDocToDisp] = useState([])
     const [mode, setMode] = useState()
     useEffect(()=>{
-        setDocToDisp(doctors ? doctors.data: [])
+        setDocToDisp(doctors ? doctors.data.sort((a,b)=> a[13] - b[13] ): [])
     }, [doctors])
 
     if(docToDisp){
@@ -112,6 +127,7 @@ export default function DoctorScreen(){
                                                     "Face to Face/Online Consulation"}
                             </p>
                             <p className="about2" >June 27, 12pm-1pm</p>
+                            <p className="about2" style={{color: 'green'}}>{`${parseInt(values[13])} kms`}</p>
                             <button className='tanginamo' onClick={(evt)=>{bookDoctorHandler(values[0], values[8])}}>Book Doctor</button>
                         </div>
                     )):(<></>)

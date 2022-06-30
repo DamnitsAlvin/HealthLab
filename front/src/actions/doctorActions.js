@@ -151,10 +151,14 @@ export const updateDoctorInfo = (personal, Educ, Cert, Spec, Exp, Pay, Online, O
 
 }
 
-export const getDoctor = (category) => async(dispatch) =>{
+export const getDoctor = (category, latitude, longitude) => async(dispatch) =>{
     dispatch({type: GET_DOCTOR_REQ})
     try{
-        const {data} = await axios.get(`http://localhost:5000/api/doctor/getdoctor?category=${category}`)
+        const {data} = await axios.post(`http://localhost:5000/api/doctor/getdoctor`, {
+            'category': category, 
+            'latitude': latitude, 
+            'longitude': longitude,
+        })
         dispatch({type: GET_DOCTOR_SUC, payload: data})
     }
     catch(error){

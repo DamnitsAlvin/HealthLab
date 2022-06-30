@@ -3,3 +3,4 @@ front/node_modules
 front/.env.local
 notes.txt
 front/chatbot_backend/config/dev.js
+backend/credentials.py
