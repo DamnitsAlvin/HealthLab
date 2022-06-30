@@ -2,7 +2,7 @@ from app import create_app
 from flask import Blueprint, Flask, jsonify, request, url_for
 from flask_jwt_extended import create_access_token
 from math import sin, cos, sqrt, atan2, radians
-from credentials import API_KEY 
+from cred import API_KEY 
 import requests
 
 app,mysql = create_app()
@@ -518,8 +518,6 @@ def getDoctor():
     except ValueError as e:
         print(e)
     
-    print("lat: ", lat)
-    print("longitude", longitude)
  
     try:
         cur = mysql.connection.cursor()
@@ -532,19 +530,24 @@ def getDoctor():
         doctors = list()
         payload = {}
         headers = {}
+  
         #display if doctor is verified
         for i in range(0, len(doc_id)): 
+            print("doc_id: ", doc_id[i][0])
             response1 = cur.execute("SELECT * FROM doctor WHERE `doctor_id`=%s AND is_verified=%s", (doc_id[i][0], True ))
             data = cur.fetchone()
+
             if data is None:
                 continue
             else:
+                print("else of data is none")
                 data = list(data)
                 resp = cur.execute("SELECT * FROM `doctor_clinicaddress` WHERE doctor_id=%s", (doc_id[i][0], ))
                 if resp > 0:
+                    print("if of resp > 0")
                     add = cur.fetchone()
                     add = f"{add[3]} {add[4]} {add[5]} {add[6]}"
-
+                    print("add: ", add)
                     url = f"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={add}&inputtype=textquery&key={API_KEY}"
                     plac_id = requests.request("GET", url, headers=headers, data=payload)
                     plac_id = plac_id.json()
@@ -564,9 +567,10 @@ def getDoctor():
 
                     distance = R * c
 
-                    print("place_det: ", distance, "kms")
+                    print("place_det: ", distance, "kms\n")
                     data.append(distance)
                 else:
+                    print("place_det: 1000 kms\n")
                     data.append('1000')
             doctors.append(data)
 
