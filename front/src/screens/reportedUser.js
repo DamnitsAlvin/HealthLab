@@ -127,11 +127,11 @@ export default function ReportedUser(){
                         reportedUser && reportedUser.filter((val)=> val[0] == viewid).map((gg)=>(
                            <>
                            <div class="modal-body">
-                                <h3>Reporter's ID</h3>
+                                <h5>Reporter's ID</h5>
                                 <input className="form-control" value={gg[1]} disabled/>
-                                <h3>Reason</h3>
+                                <h5>Reason</h5>
                                 <input className="form-control" value={gg[2]}disabled/>
-                                <h3>Date</h3>
+                                <h5>Date</h5>
                                 <input className="form-control" value={gg[4]} disabled/>
                             </div>
                             <hr></hr>

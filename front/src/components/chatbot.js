@@ -198,7 +198,7 @@ export default class Chatbot extends Component{
                         </div>
                     </div>
                     <div className="chatbox__footer">
-                        <input type="text" placeholder="Write a message" onKeyPress={this._handleInputKeyPress}/>
+                        <input type="text" placeholder="Write a Symptoms" onKeyPress={this._handleInputKeyPress}/>
                         
                     </div>
                 </div>
