@@ -1872,6 +1872,7 @@ table.table .avatar {
   display: inline-block;
 }
 
+
 .modal .form-control {
   border-radius: 2px;
   box-shadow: none;
@@ -2506,6 +2507,10 @@ hr {
 #buttonQr {
   background-color: #47adb1;
   border-color: #3fbbc0;
+}
+#buttonReport {
+  background-color: #f09825;
+  border-color: #f09825;
 }
 #buttonVerify {
   background-color: #47adb1;
