@@ -196,7 +196,7 @@ export default function UserTypeSignIn(props){
 
                     <div className="v1"></div>
 
-                    <Link to="/signin?userType=service">
+                    <Link to="/admin">
                     <div className="type">
                         <div className='icon'>
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
@@ -257,7 +257,7 @@ export default function UserTypeSignIn(props){
 
                         </div>
                         <div className='typeDescription'>
-                            <h2 id="userTypeRes">Service Provider</h2>
+                            <h2 id="userTypeRes">Admin</h2>
                         </div>
                     </div>
                     </Link>
