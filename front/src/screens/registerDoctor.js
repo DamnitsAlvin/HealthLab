@@ -105,7 +105,10 @@ export default function RegisterDoctor(){
 
     setTimeout(() => {
         const inter = document.getElementById("inter")
-        inter.style.display = "none"
+        if(inter){
+            inter.style.display = "none"
+        }
+        
     }, 3000);
 
     return(
