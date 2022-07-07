@@ -2911,8 +2911,25 @@ height: 20vh;
   margin-bottom: 15px;
 }
 
+fieldset{
+  text-align: center;
+}
 
+.dateSlot{
+  text-align: center;
+}
 
+#longSlot{
+  height: 65vh;
+}
+ .timeslot{
+  display: flex;
+ }
+
+ #spaceSlot{
+  
+  margin-left:10px;
+ }
 
 
 
