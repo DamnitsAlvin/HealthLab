@@ -173,8 +173,8 @@ export default function CreateAppointmentSlip(props){
                 <div className="form-group">
                     <label htmlFor="fullName">Appointment Mode</label>
                     <select className="form-control" onChange={(event)=> setMode(event.target.value)} required>
-                        <option value='Online'>Online</option>
                         <option value='Face to Face'>Face to Face</option>
+                        <option value='Online'>Online</option>
                     </select>
                 </div>
             

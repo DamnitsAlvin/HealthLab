@@ -713,4 +713,3 @@ def registerSpecialtyInformationDoctor():
         except Exception as e:
             print(e)
             return jsonify({"message": "invalid operation on database "}), 404
-
