@@ -20,6 +20,7 @@ export default function DoctorPage(){
     const [docToDisp, setDocToDisp] = useState([])
     const [mode, setMode] = useState()
 
+    console.log("loading:", doctorLoading)
     useEffect(()=>{
         setDocToDisp(doctors ? doctors.data: [])
     }, [doctors])
@@ -80,7 +81,14 @@ export default function DoctorPage(){
             <div className="textBookHeader">We've found {docToDisp.length} Doctors you can book with!</div>
         
         {
-            docToDisp ? docToDisp.map( (values) =>(
+            doctorLoading ? (
+                <div className="centerContainer ">
+                    <div className="spinner-container">
+                        <div className="loading-spinner">
+                        </div>
+                    </div>
+                </div>
+            ) : docToDisp ? docToDisp.map( (values) =>(
             <div className="flex-doctor-info">
                 <div className="flex-doctor-desc">
                     <p className="headerBook">Dr. {`${values[1]} ${values[2]} ${values[3]} `} </p> 

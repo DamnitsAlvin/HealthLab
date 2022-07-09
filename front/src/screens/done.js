@@ -80,6 +80,7 @@ export default function DoneAppointment(){
 
 
                     <th>QR</th>
+                    <th>Actions</th>
 
                 </tr>
             </thead>
@@ -123,10 +124,17 @@ export default function DoneAppointment(){
                                 }
 
                                 <td>
+                                   
                                     <button className="btn btn-warning" id="buttonQr" data-toggle="modal" data-target="#exampleModal" onClick={() => clickView(appoint[0])}>View</button>
-                                    {
-                                        !appoint[10] ? (
-                                            <button className="btn btn-danger" id="buttonQr" data-toggle="modal" data-target="#reportuser" onClick={() => {setID(appoint[1]); setappointID(appoint[0])}} >Report</button>
+                                   
+                                       
+                                   
+                                   
+                                </td>
+                                <td>
+                                {
+                                !appoint[10] ? (
+                                            <button className="btn btn-danger" id="buttonReport" data-toggle="modal" data-target="#reportuser" onClick={() => {setID(appoint[1]); setappointID(appoint[0])}} >Report</button>
                                         ): (null)
                                     }
                                 </td>
