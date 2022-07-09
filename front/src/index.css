@@ -1890,6 +1890,7 @@ table.table .avatar {
   display: inline-block;
 }
 
+
 .modal .form-control {
   border-radius: 2px;
   box-shadow: none;
@@ -2525,6 +2526,10 @@ hr {
   background-color: #47adb1;
   border-color: #3fbbc0;
 }
+#buttonReport {
+  background-color: #f09825;
+  border-color: #f09825;
+}
 #buttonVerify {
   background-color: #47adb1;
   border-color: #3fbbc0;
@@ -2924,8 +2929,25 @@ height: 20vh;
   margin-bottom: 15px;
 }
 
+fieldset{
+  text-align: center;
+}
 
+.dateSlot{
+  text-align: center;
+}
 
+#longSlot{
+  height: 65vh;
+}
+ .timeslot{
+  display: flex;
+ }
+
+ #spaceSlot{
+  
+  margin-left:10px;
+ }
 
 
 

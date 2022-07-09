@@ -194,6 +194,47 @@ export default function CreateAppointmentSlip(props){
                 <label className="control-label" htmlFor="date">Preferred Date</label>
                 <input type="date"  placeholder="Preferred Date" className="form-control input-md" required onChange={e=>dateHandler(e)} />
             </div>
+            <div class="form-group">
+    <label for="formGroupExampleInput">Preferred Time</label>
+    <button id="spaceSlot" className="btn btn-main" data-toggle="modal" data-target="#timeslotModal">Choose schedule</button>
+  </div>
+  <div class="modal fade" id="timeslotModal" tabindex="-1" role="dialog" aria-labelledby="timeslotModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Available Time Slot</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" id="longSlot">
+                            <div className='dateSlot'><h5>June 7 2022</h5></div>
+                            <form id="room-form">
+                                <fieldset>
+
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>8:00 AM - 9:00 AM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>9:00 AM - 10:00 AM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>10:00 AM- 11:00 AM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>11:00 AM- 12:00 NN</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>12:00 NN - 1:00 PM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>1:00 PM - 2:00 PM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>2:00 PM - 3:00 PM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>3:00 PM - 4:00 PM</label></legend>
+                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>4:00 PM - 5:00 PM</label></legend>
+
+
+                                </fieldset>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {/** Here goes the message if date is not available */
                 dateFull && <div className="alert alert-danger">Schedule is already full</div>
             }

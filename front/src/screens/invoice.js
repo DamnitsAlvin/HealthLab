@@ -99,7 +99,7 @@ export default function Invoice(){
             {displayData && displayData.app_req[5] == "Done" ?(                
                 <button className="btn btn-main" onClick={()=> navigate(`/createDiagnosis?id=${appointId}&email=${email}&name=${displayData && displayData.doc_info[1].concat(" ", displayData.doc_info[3])}`)}>Give Diagnosis</button>
             ): (null)}
-                <button className="btn btn-main" onClick={() => {DownloadHandler()}}>Print Details</button>
+                <button className="btn btn-main" data-toggle="modal" data-target="#staticBackdrop" onClick={() => {DownloadHandler()}}>Payment Details</button>
             </div>
             <div className="note">
                 <p id="notespace">Thank You for working with us!</p>
@@ -109,6 +109,46 @@ export default function Invoice(){
         </div>
     </div>
 
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Payment Method</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div className="form-group">
+      <label for="formGroupExampleInput">ACCOUNT NAME</label>
+                    <input type="text" className="form-control"  placeholder="Account Name" required readOnly />
+                </div>
+                <label for="formGroupExampleInput">REFERENCE NUMBER</label>
+                <div className="form-group">
+                    <input type="text" className="form-control"  placeholder="Patient Last Name"  required readOnly/>
+                </div>
+                <label for="formGroupExampleInput">PAYMENT TYPE</label>
+                <div className="form-group">
+                    <input type="email" className="form-control"  placeholder="Gcash/Creditcard" required="required" readOnly/>
+                </div>
+                <hr></hr>
+                <label for="formGroupExampleInput">ACCOUNT QR CODE</label>
+                <div className="qr-container" >
+                                        <img className="samplepic" alt="gcash qr/creditcard qr" />
+                                    </div> <div className="downloadPDFile">
+
+<button type="button" className="btn btn-primary" id="downloadPDF" ><i className="fa-solid fa-file-pdf" id="pdfLogo"></i>Upload Payment Receipt</button>
+
+</div>
+                                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     </>
 
