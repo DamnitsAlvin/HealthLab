@@ -4,6 +4,9 @@ import { DoctorAppoinmentStatus } from "../actions/doctorActions";
 import { deleteAppointment, getAppointments } from "../actions/userActions"
 import { useNavigate } from 'react-router-dom'
 import QRCode from 'qrcode'
+import axios from "axios";
+const stripe = require('stripe')('');
+
 
 export default function ManageAppointment(){
     const [appointID, setappointID] = useState(0)
@@ -13,8 +16,9 @@ export default function ManageAppointment(){
 
     const getAppoint = useSelector(x => x.userAppointment)
     const { appointments, message } = getAppoint
+    const [receiptId, setreceiptId] = useState()
     const navigate = useNavigate()
-
+    console.log("Receipt ID: ", receiptId)
     
     const getUser = useSelector(x => x.userSignIn)
     const { userInfo } = getUser
@@ -22,7 +26,13 @@ export default function ManageAppointment(){
     const [src, setSrc] = useState("")
     const dispatch = useDispatch()
 
-    const doctorActionHandler = (id, mode) => {
+    const doctorActionHandler = async(id, mode) => {
+        if(mode=="Declined"){
+            /*Refunding logic */
+            console.log("If Declined")
+            const response = await axios.post("http://localhost:4000/refund", {charge: receiptId})
+            console.log(response)
+        }
         dispatch(DoctorAppoinmentStatus(id, mode))
     }
 
@@ -54,6 +64,8 @@ export default function ManageAppointment(){
                     <th>ID</th>
                     <th>Patient Name</th>
                     <th>Date</th>
+                    
+                    <th>Time</th>
                     <th>Status</th>
                     <th>Description</th>
 
@@ -66,14 +78,14 @@ export default function ManageAppointment(){
                 </tr>
                 {appointments && appointments.Appointments &&
                     appointments.Appointments.map((appoint, index) => (
-                        !appoint[5].length > 0 && (
+                        !appoint[5].length > 0 && appoint[11] == 1 && (
                             <tr key={index}>
                                 <td>
                                     <a href={`/invoice?appointID=${appoint[0]}&email=${appointments.Email.find(el => el[0] == appoint[1])[1]}`}> {appoint[0]} </a>
                                 </td>
                                 <td>{appointments.Name.find(ele => ele[0] == appoint[1])[2] + " " + appointments.Name.find(ele => ele[0] == appoint[1])[3]}</td>
                                 <td>{appoint[3]}</td>
-
+                                <td>{appoint[4]}</td>
                                 {appoint[5] == "Accepted" ? (
                                     <td className="alert alert-success">
                                         {appoint[5]}
@@ -91,8 +103,10 @@ export default function ManageAppointment(){
 
                                 <td>{appoint[6]}</td>
                                 <td className="pepeFlex">
-                                    <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" onClick={() => setappointID(appoint[0])}><i className="fa-solid fa-circle-check"></i></button>
-                                    <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal" onClick={() => setappointID(appoint[0])}><i className="fa-solid fa-rectangle-xmark"></i></button>
+                                    <button className="btn btn-success" id="pepeButton" data-toggle="modal" data-target="#viewModal" onClick={() => {setappointID(appoint[0]); 
+                                                                                                                                                    setreceiptId(appoint[12])}}><i className="fa-solid fa-circle-check"></i></button>
+                                    <button className="btn btn-danger" id="pepeButo" data-toggle="modal" data-target="#rejectModal"onClick={() => {setappointID(appoint[0]); 
+                                                                                                                                                    setreceiptId(appoint[12])}}><i className="fa-solid fa-rectangle-xmark"></i></button>
                                 </td>
                             </tr>
                         )

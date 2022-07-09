@@ -39,6 +39,7 @@ import DeclinedAppointment from './screens/declined';
 import DoneAppointment from './screens/done';
 import DeleteAppointmentByAdmin from './screens/admindelete';
 import ReportedUser from './screens/reportedUser';
+import Payment from './screens/payment';
 
 function App() {
   
@@ -198,6 +199,7 @@ function App() {
 				<Route path="/admin/reporteduser" element={<ReportedUser></ReportedUser>}/>
 				<Route path="/map" element={<GMaps></GMaps>} />
 				
+				<Route path="/payment" element={<Payment></Payment>}/>
 			
 				
 			</Routes>
