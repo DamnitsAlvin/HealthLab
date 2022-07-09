@@ -69,7 +69,7 @@ def postAppointment():
         appointment = request.json.get("appointment")
         print(f'{appointment}')
         try:
-            cur.execute("INSERT INTO `appointment_request`(`Appointment_Id`, `Patient_id`, `Doctor_id`, `Appointment_date`,  `Description`, `Mode`) VALUES (%s,%s,%s,%s,%s, %s)", appointment) 
+            cur.execute("INSERT INTO `appointment_request`(`Appointment_Id`, `Patient_id`, `Doctor_id`, `Appointment_date`, `Appointment_time`, `Description`, `Mode`) VALUES (%s,%s,%s,%s,%s,%s,%s)", appointment) 
             cur.connection.commit()
             response = cur.execute("SELECT * FROM appointment_request WHERE Doctor_id=%s and Appointment_date=%s", (appointment[2], appointment[3]))
             if response > 0:
@@ -255,11 +255,12 @@ def CheckAppointmentDate():
     try:
         response = cur.execute("SELECT * FROM `appointment_request` where Doctor_id=%s AND Appointment_date=%s AND Status='Accepted'", (doc_id, date))
         cur.connection.commit()
+        appointments = cur.fetchall()
         print(response)
         if response > 5:
-            return jsonify({"dateFull": True}), 200
+            return jsonify({"dateFull": True, "appointments": appointments}), 200
         else:
-            return jsonify({"dateFull": False}), 200
+            return jsonify({"dateFull": False, "appointments": appointments}), 200
         
     except Exception as e:
         print(e)
@@ -376,3 +377,17 @@ def checkuserdoctorreport():
     except Exception as e:
         print(e)
         return jsonify({'appointment': False}), 404
+
+@api.route("/paymentcheckout", methods=['POST'])
+def setappointmentpaid():
+    cur = mysql.connection.cursor()
+    appoint_id = request.json.get("id")
+    receipt = request.json.get('receipt')
+    try:
+        cur.execute("UPDATE `appointment_request` SET `isPaid`=1, `receipt_id`=%s  WHERE `Appointment_Id`=%s", (receipt, appoint_id ))
+        cur.connection.commit()
+        cur.close()
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False}), 404

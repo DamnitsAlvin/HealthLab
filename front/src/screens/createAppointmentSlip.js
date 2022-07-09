@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react"; 
 import {userBasicAppointment,removeBasicAppointment, addPatient} from "../actions/userActions";
 import {useDispatch, useSelector} from "react-redux"; 
-import AppointmentSteps from "../components/appointmentSteps";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
@@ -32,7 +31,7 @@ export default function CreateAppointmentSlip(props){
                 'user':userInfo.data[0] , 
                 'doctor': doc_id
             })
-            console.log(gg)
+
             if(!gg.data.appointment){
                 navigate("/sorrypage")
             }
@@ -42,10 +41,7 @@ export default function CreateAppointmentSlip(props){
         }
     }, [userInfo])
 
-    console.log("id:", id)
    
-    
-
     const [PatientFirstName, setPatientFirstName] = useState(userInfo && userInfo.data[3]);
     const [PatientLastName, setPatientLastName] = useState(userInfo && userInfo.data[4]); 
     const [Email, setEmail] = useState(userInfo && userInfo.data[1]); 
@@ -58,8 +54,9 @@ export default function CreateAppointmentSlip(props){
     const [description, setDescription] = useState()
     const [dateFull, setdateFull] = useState(false)
     const [Appmode, setMode] = useState(mode==0 ? "Online": mode==1 ? "Face to Face" : "Online")
+    const [apptime, setappTime] = useState([])
+    const [ggtime, setTime] = useState()
     
-    console.log(PatientFirstName)
     const dispatch = useDispatch()
     var date = new Date(); 
     var time = date.getDate()+""+date.getMonth()+1+""+date.getSeconds()+""+ date.getMilliseconds();
@@ -77,13 +74,13 @@ export default function CreateAppointmentSlip(props){
             id = "PATIENT" + time
             dispatch(addPatient([id, userInfo.data[0], PatientFirstName, PatientLastName, Relationship,  Birthday, Gender])) //save patient details to local storage
             setAppointmentRequest((appreq)=>{
-                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate, description, Appmode ]));
+                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate,ggtime, description, Appmode ]));
                 return appreq
             })
             
         }else{
             setAppointmentRequest((appreq)=>{
-                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate, description, Appmode ]));
+                dispatch(userBasicAppointment([appreq,  id , doc_id,  PreferredDate,ggtime,  description, Appmode ]));
                 return appreq
             })
         }
@@ -103,13 +100,21 @@ export default function CreateAppointmentSlip(props){
 
     const dateHandler = async(event) =>{
         const {data} = await axios.get(`http://localhost:5000/api/checkDate?date=${event.target.value}&doc_id=${doc_id}`)
+        var values = []
         if(data){
             setdateFull(data.dateFull)
             setPreferredDate(event.target.value)
+            if(data.appointments){
+                data.appointments.map(val=>{
+                    values.push(val[4])
+                })
+                setappTime(values)
+                values = []
+            }
         }
-        
     }
-
+    console.log("appointment times: ", ggtime)
+ 
 
     return(
 
@@ -194,47 +199,13 @@ export default function CreateAppointmentSlip(props){
                 <label className="control-label" htmlFor="date">Preferred Date</label>
                 <input type="date"  placeholder="Preferred Date" className="form-control input-md" required onChange={e=>dateHandler(e)} />
             </div>
+
             <div class="form-group">
-    <label for="formGroupExampleInput">Preferred Time</label>
-    <button id="spaceSlot" className="btn btn-main" data-toggle="modal" data-target="#timeslotModal">Choose schedule</button>
-  </div>
-  <div class="modal fade" id="timeslotModal" tabindex="-1" role="dialog" aria-labelledby="timeslotModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Available Time Slot</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body" id="longSlot">
-                            <div className='dateSlot'><h5>June 7 2022</h5></div>
-                            <form id="room-form">
-                                <fieldset>
-
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>8:00 AM - 9:00 AM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>9:00 AM - 10:00 AM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>10:00 AM- 11:00 AM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>11:00 AM- 12:00 NN</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>12:00 NN - 1:00 PM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>1:00 PM - 2:00 PM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>2:00 PM - 3:00 PM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>3:00 PM - 4:00 PM</label></legend>
-                                    <legend><input class="timeslot" type="checkbox" name="timeslot-8-5" /><label>4:00 PM - 5:00 PM</label></legend>
-
-
-                                </fieldset>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success">Submit</button>
-                        </div>
-                    </div>
-                </div>
+                <label for="formGroupExampleInput">Preferred Time</label>
+                <div id="spaceSlot" className="btn btn-main" data-toggle="modal" data-target="#timeslotModal">Choose schedule</div>
             </div>
+
+ 
             {/** Here goes the message if date is not available */
                 dateFull && <div className="alert alert-danger">Schedule is already full</div>
             }
@@ -249,6 +220,42 @@ export default function CreateAppointmentSlip(props){
             
 		
     </form>
+
+        <div class="modal fade" id="timeslotModal" tabindex="-1" role="dialog" aria-labelledby="timeslotModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Available Time Slot</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body" id="longSlot">
+                        <div className='dateSlot'><h5>{PreferredDate ? PreferredDate: "2022-01-01" }</h5></div>
+                        <div id="room-form">
+                            <fieldset>
+                                <legend className={apptime.findIndex(x => x === "08:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="08:00") > -1} value='08:00' onChange={e => setTime(e.target.value)}/><label>8:00 AM - 9:00 AM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "09:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="09:00") > -1} value='09:00' onChange={e => setTime(e.target.value)}/><label>9:00 AM - 10:00 AM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "10:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="10:00") > -1} value='10:00' onChange={e => setTime(e.target.value)}/><label>10:00 AM - 11:00 AM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "11:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="11:00") > -1} value='11:00' onChange={e => setTime(e.target.value)}/><label>11:00 AM - 12:00 Noon</label></legend>
+                                <legend className={apptime.findIndex(x => x === "12:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="12:00") > -1} value='12:00' onChange={e => setTime(e.target.value)}/><label>12:00 Noon - 1:00 PM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "13:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="13:00") > -1} value='13:00' onChange={e => setTime(e.target.value)}/><label>1:00 PM - 2:00 PM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "14:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="14:00") > -1} value='14:00' onChange={e => setTime(e.target.value)}/><label>2:00 PM - 3:00 PM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "15:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="15:00") > -1} value='15:00' onChange={e => setTime(e.target.value)}/><label>3:00 PM - 4:00 PM</label></legend>
+                                <legend className={apptime.findIndex(x => x === "16:00") > -1 ? "alert alert-danger": ""}><input class="timeslot" type="radio" name="timeslot-8-5" disabled={apptime.findIndex(x => x=="16:00") > -1} value='16:00' onChange={e => setTime(e.target.value)}/><label>4:00 PM - 5:00 PM</label></legend>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
     );
 }
