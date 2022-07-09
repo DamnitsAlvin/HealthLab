@@ -1,0 +1,56 @@
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('K.JABBAR1123', 'Kareem', 'S', 'Abdul Jabbar', NULL, '2000-03-22', '09265932130', 'kareem@yahoo.com', '2', '0', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('B.DAD23842', 'Ray', 'S', 'Allen', NULL, '2000-03-22', '09265932130', 'ray@yahoo.com', '2', '1', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('C.CORNEL234', 'Giannis', 'S', 'Antetokounmpo', NULL, '2000-03-22', '09265932130', 'giannis@yahoo.com', '2', '0', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('A.JAMES2341', 'Carmelo', 'S', 'Anthony', NULL, '2000-03-22', '09265932130', 'carmelo@yahoo.com', '2', '1', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('V.REG213432', 'Nate', 'S', 'Archibald', NULL, '2000-03-22', '09265932130', 'nate@yahoo.com', '2', '1', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('L.KOBE23432', 'Paul', 'S', 'Arizin', NULL, '2000-03-22', '09265932130', 'paul@yahoo.com', '2', '0', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('T.CENT32452', 'Charles', 'S', 'Barkley', NULL, '2000-03-22', '09265932130', 'charles@yahoo.com', '2', '1', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+INSERT INTO `doctor` (`doctor_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthday`, `contact_number`, `email`, `mode_of_consultation`, `is_verified`, `doctor_image`, `password`, `userType`) VALUES ('O.PONCH2342', 'Rick', 'S', 'Barry', NULL, '2000-03-22', '09265932130', 'rick@yahoo.com', '2', '0', '/uploads/A.LIM50588Image.png', 'alvin', 'doctor');
+
+--education
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('K.JABBAR1123', NULL, 'Medical School', 'De La Salle Medical and Health Sciences Institute', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('K.JABBAR1123', NULL, 'Medical School', 'Xavier University', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('B.DAD23842', NULL, 'Medical School', 'St. Louis University', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('B.DAD23842', NULL, 'Medical School', 'Central Philippine University', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('C.CORNEL234', NULL, 'Medical School', 'Cebu Doctors University', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('C.CORNEL234', NULL, 'Medical School', 'Angeles University Foundation', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('A.JAMES2341', NULL, 'Medical School', 'Davao Medical School Foundation', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('A.JAMES2341', NULL, 'Medical School', 'University of Perpetual Help System DALTA in Las Piñas', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('V.REG213432', NULL, 'Medical School', 'University of the East Ramon Magsaysay', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('L.KOBE23432', NULL, 'Medical School', 'Iloilo Doctors College', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('V.REG213432', NULL, 'Medical School', 'Emilio Aguinaldo College', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('L.KOBE23432', NULL, 'Medical School', 'University of St. La Salle', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('T.CENT32452', NULL, 'Medical School', 'Manila Central University', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('T.CENT32452', NULL, 'Medical School', 'University of the Philippines Manila', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('O.PONCH2342', NULL, 'Medical School', 'Pamantasan ng Lungsod ng Maynila', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+INSERT INTO `doctor_education` (`doctor_id`, `id`, `school_type`, `school_name`, `graduation_date`, `degree`, `course`) VALUES ('O.PONCH2342', NULL, 'Medical School', 'Far Eastern University Nicanor Reyes Medical Foundation', '2022-06-17', 'Bachelor', 'Doctor of Medicine'); 
+
+--specialty
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('K.JABBAR1123', NULL, 'Neurology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('K.JABBAR1123', NULL, 'General Medicine', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('B.DAD23842', NULL, 'Neurology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('B.DAD23842', NULL, 'OB-Gyne', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('C.CORNEL234', NULL, 'Neurology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('C.CORNEL234', NULL, 'Dentistry', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('A.JAMES2341', NULL, 'Neurology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('A.JAMES2341', NULL, 'Optalmology', '');
+
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('V.REG213432', NULL, 'General Medicine', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('V.REG213432', NULL, 'Dermatology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('L.KOBE23432', NULL, 'General Medicine', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('L.KOBE23432', NULL, 'Dentistry', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('T.CENT32452', NULL, 'General Medicine', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('T.CENT32452', NULL, 'Heart and Cardiology', '');
+INSERT INTO `doctor_specialty` (`doctor_id`, `id`, `specialties`, `sub-specialty`) VALUES ('O.PONCH2342', NULL, 'General Medicine', '');
+
+--address
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('K.JABBAR1123', 'K.JABBAR1230ADD', NULL, 'St. Luke’s Medical Center – Global City Rizal Drive cor. 32nd St. and, 5th Ave', 'Taguig', 'Metro Manila', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('B.DAD23842', 'K.JABBAR1230ADD', NULL, 'Makati Medical Center 2 Amorsolo Street', 'Legazpi Village', 'Makati', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('C.CORNEL234', 'K.JABBAR1230ADD', NULL, 'Asian Hospital and Medical Center 2205 Civic Dr', 'Alabang', 'Muntinlupa', 'Manila', '1780', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('A.JAMES2341', 'K.JABBAR1230ADD', NULL, 'The Medical City Ortigas Ave', 'Ortigas', 'Pasig', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('V.REG213432', 'K.JABBAR1230ADD', NULL, 'Cardinal Santos Medical Center 10 Wilson', 'Greenhills West', 'San Juan', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('L.KOBE23432', 'K.JABBAR1230ADD', NULL, 'Manila Doctors Hospital 667 United Nations Ave', 'Ermita', 'Makati', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('T.CENT32452', 'K.JABBAR1230ADD', NULL, 'World Citi Medical Center 960 Aurora Blvd', 'Project 4', 'Quezon City', 'Manila', '0', '');
+INSERT INTO `doctor_clinicaddress` (`doctor_id`, `address_id`, `id`, `address`, `barangay`, `municipality`, `province`, `zip_code`, `image`) VALUES ('O.PONCH2342', 'K.JABBAR1230ADD', NULL, 'UST Hospital España Blvd', 'Sampaloc', 'Manila', 'Manila', '0', '');
