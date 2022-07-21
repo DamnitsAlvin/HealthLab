@@ -8,14 +8,14 @@
 </li>
 <li>
   <h3>Backend</h3>
-  1. Install python 
-  2. Install dependencies of python backend server using <code>python install -r requirements.txt </code>
-  3. Start the server using <code>python run.py</code>
+  1. Install python <br>
+  2. Install dependencies of python backend server using <code>python install -r requirements.txt </code> <br>
+  3. Start the server using <code>python run.py</code> <br>
 </li>
 <li>
   <h3>Frontend</h3>
-  1. Install nodeJS
-  2. Install depedencies of frontend server using <code>npm install --force </code>
-  3. Run the frontend server using <code>npm run dev</code> 
+  1. Install nodeJS <br>
+  2. Install depedencies of frontend server using <code>npm install --force </code> <br>
+  3. Run the frontend server using <code>npm run dev</code> <br>
 </li>
 </ol>
